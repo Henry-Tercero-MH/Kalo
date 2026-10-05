@@ -45,6 +45,24 @@ for (const nombre of readdirSync(carpetaJs).filter((n) => n.endsWith('.js'))) {
   if (js !== original) writeFileSync(ruta, js);
 }
 
+// Versión de esta exportación (cambia con el código). Si el navegador muestra una copia
+// guardada de una versión anterior, version.json (pedido sin caché) la delata y se recarga
+// con ?v=<versión>, una dirección nueva que el navegador no tiene guardada. Sin señal no hace nada.
+const version = readdirSync(carpetaJs)
+  .find((n) => n.startsWith('entry-'))
+  .replace(/^entry-|\.js$/g, '');
+const comprobarVersion = `(function () {
+  var v = new URL('version.json', document.baseURI);
+  v.search = 't=' + Date.now();
+  fetch(v, { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
+    if (!d || d.id === '${version}') return;
+    try { if (sessionStorage.getItem('kalo-v') === d.id) return; sessionStorage.setItem('kalo-v', d.id); } catch (e) {}
+    var u = new URL('./', document.baseURI);
+    u.searchParams.set('v', d.id);
+    location.replace(u.href);
+  }).catch(function () {});
+})();`;
+
 const html = readFileSync(join(salida, 'index.html'), 'utf8')
   .replaceAll(`${MARCA}/_expo/`, 'expo/')
   .replaceAll(`${MARCA}/`, '')
@@ -55,9 +73,11 @@ const html = readFileSync(join(salida, 'index.html'), 'utf8')
       // Solo en http(s): en visores incrustados (about:srcdoc, data:) el enrutador va sin base.
       "globalThis.__KALO_RUTA__ = /^https?:$/.test(location.protocol) ? new URL(globalThis.__KALO_BASE__).pathname.replace(/\\/$/, '') : '';",
       "try { localStorage.setItem('kalo-ruta', globalThis.__KALO_RUTA__); } catch (e) {}",
+      comprobarVersion,
     ].join('\n')}</script>`,
   );
 writeFileSync(join(salida, 'index.html'), html);
+writeFileSync(join(salida, 'version.json'), JSON.stringify({ id: version }) + '\n');
 // Al recargar una pantalla interna (p. ej. /Kalo/login) el hosting entrega 404.html: se vuelve
 // a la entrada de la app. La carpeta se toma de la última visita o del primer tramo de la ruta.
 writeFileSync(
