@@ -1,0 +1,50 @@
+# Publica la versión web de la app móvil (datos DEMO, sin servidor) en GitHub Pages.
+# Requisito único: Settings → Pages → Source: «GitHub Actions».
+name: Demo web en GitHub Pages
+
+on:
+  push:
+    branches: [claude/kalo-campo-demo, main]
+    paths:
+      - 'apps/mobile/**'
+      - 'packages/**'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/demo-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un solo despliegue a la vez; el más reciente gana.
+concurrency:
+  group: demo-pages
+  cancel-in-progress: true
+
+jobs:
+  compilar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Exportar la app para web (sirve en cualquier ruta, p. ej. /Kalo/)
+        run: pnpm --filter @kalo/mobile export:enlace
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/mobile/dist-enlace
+
+  publicar:
+    needs: compilar
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - id: despliegue
+        uses: actions/deploy-pages@v4

@@ -14,6 +14,11 @@ sincronización se simula, así que no hace falta levantar la API. La forma 3 ta
 
 ## 1. Navegador del celular
 
+**Enlace publicado:** https://henry-tercero-mh.github.io/Kalo/ (GitHub Pages; se actualiza solo
+con cada cambio en `apps/mobile` mediante `.github/workflows/demo-pages.yml`).
+
+Para publicarlo usted mismo en otra máquina:
+
 ```bash
 pnpm install
 pnpm --filter @kalo/mobile export:web     # genera apps/mobile/dist-web (incluye 404.html)
