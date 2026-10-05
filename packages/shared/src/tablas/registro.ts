@@ -20,12 +20,14 @@ import {
 } from '../constantes';
 import type { DefColumna, DefTabla } from './tipos';
 
-const texto = (o: Omit<DefColumna, 'tipo'> = {}) => ({ tipo: 'texto', ...o }) as const;
-const numero = (o: Omit<DefColumna, 'tipo'> = {}) => ({ tipo: 'numero', ...o }) as const;
-const booleano = (o: Omit<DefColumna, 'tipo'> = {}) => ({ tipo: 'booleano', ...o }) as const;
-const json = (o: Omit<DefColumna, 'tipo'> = {}) => ({ tipo: 'json', ...o }) as const;
+type Opciones = Omit<DefColumna, 'tipo'>;
+// `const` conserva los literales (p. ej. opcional: true) para tipar las filas.
+const texto = <const O extends Opciones = {}>(o?: O) => ({ tipo: 'texto', ...o }) as { tipo: 'texto' } & O;
+const numero = <const O extends Opciones = {}>(o?: O) => ({ tipo: 'numero', ...o }) as { tipo: 'numero' } & O;
+const booleano = <const O extends Opciones = {}>(o?: O) => ({ tipo: 'booleano', ...o }) as { tipo: 'booleano' } & O;
+const json = <const O extends Opciones = {}>(o?: O) => ({ tipo: 'json', ...o }) as { tipo: 'json' } & O;
 
-const ref = (o: Omit<DefColumna, 'tipo'> = {}) => texto({ indexado: true, ...o });
+const ref = <const O extends Opciones = {}>(o?: O) => texto({ indexado: true, ...o } as { indexado: true } & O);
 
 export const REGISTRO_TABLAS = {
   // ─── Organización ────────────────────────────────────────────────────────

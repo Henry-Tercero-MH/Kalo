@@ -1,0 +1,201 @@
+{
+  "comun": {
+    "guardar": "Guardar",
+    "cancelar": "Cancelar",
+    "siguiente": "Siguiente",
+    "anterior": "Anterior",
+    "aceptar": "Aceptar",
+    "si": "SÍ",
+    "no": "NO",
+    "cargando": "Cargando…",
+    "volver": "Volver",
+    "listo": "Listo",
+    "lote": "Lote",
+    "fecha": "Fecha",
+    "sinLote": "Sin lote detectado",
+    "elegirLote": "Elija el lote",
+    "guardadoLocal": "Guardado en el teléfono. Se enviará al recuperar señal.",
+    "proximamente": "Próximamente",
+    "demo": "DEMO",
+    "paso": "{{actual}} DE {{total}}",
+    "ubicacion": "Ubicación",
+    "precision": "±{{m}} m",
+    "sinUbicacion": "Sin ubicación GPS",
+    "tomarFoto": "Tomar foto",
+    "fotos": "Fotos",
+    "notaVoz": "Nota de voz",
+    "grabar": "Grabar",
+    "detener": "Detener",
+    "notas": "Notas (opcional)"
+  },
+  "configurar": {
+    "titulo": "Configurar dispositivo",
+    "descripcion": "Este paso se hace una sola vez y necesita señal. Después la app funciona sin conexión.",
+    "servidor": "Dirección del servidor",
+    "usuario": "Usuario del supervisor o administrador",
+    "pin": "PIN",
+    "nombre": "Nombre del dispositivo",
+    "boton": "Configurar",
+    "descargando": "Descargando datos de la finca…",
+    "mapa": "Descargando mapa sin conexión… {{p}} %",
+    "error": "No se pudo configurar: {{e}}"
+  },
+  "login": {
+    "titulo": "Iniciar sesión",
+    "usuario": "Usuario",
+    "pin": "PIN de 4 dígitos",
+    "entrar": "Entrar",
+    "gafete": "Escanear gafete",
+    "incorrecto": "Usuario o PIN incorrecto",
+    "bloqueado": "Demasiados intentos. Espere {{min}} minutos.",
+    "sinUsuarios": "No hay usuarios en este dispositivo. Sincronice primero.",
+    "elegirUsuario": "Elija su usuario",
+    "gafeteNoReconocido": "Gafete no reconocido",
+    "gafeteAyuda": "Apunte la cámara al código QR de su gafete."
+  },
+  "consentimiento": {
+    "titulo": "Aviso de rastreo GPS",
+    "texto": "Mientras una tarea o recorrido esté activo, la app registrará su ubicación aproximadamente cada 10 segundos, incluso con la pantalla apagada. Verá una notificación mientras el rastreo esté activo. Nunca se registra su ubicación fuera de una tarea. Los datos se usan para conocer qué partes de cada lote fueron revisadas.",
+    "aceptar": "Acepto",
+    "rechazar": "No acepto"
+  },
+  "tabs": {
+    "inicio": "Inicio",
+    "registrar": "Registrar",
+    "mapa": "Mapa",
+    "sincronizar": "Sincronizar",
+    "perfil": "Perfil"
+  },
+  "inicio": {
+    "hola": "Buenos días, {{nombre}}",
+    "finca": "Finca",
+    "loteActual": "Lote actual",
+    "semana": "Semana {{n}}",
+    "cinta": "Cinta de la semana",
+    "tareas": "Tareas asignadas",
+    "sinTareas": "No tiene tareas asignadas para hoy.",
+    "alertaFusarium": "Alerta de Fusarium",
+    "alertaFusariumAyuda": "Reportar sospecha con foto y GPS"
+  },
+  "registrar": {
+    "titulo": "Registrar",
+    "sinModulos": "Su rol no tiene módulos de registro."
+  },
+  "sync": {
+    "titulo": "Sincronización",
+    "sincronizado": "SINCRONIZADO",
+    "pendiente": "PENDIENTE",
+    "sincronizando": "SINCRONIZANDO",
+    "error": "ERROR",
+    "sinRed": "SIN SEÑAL",
+    "registrosPendientes": "Registros pendientes",
+    "fotosEnCola": "Archivos en cola",
+    "ultimoEnvio": "Último envío",
+    "nunca": "Nunca",
+    "ahora": "Sincronizar ahora",
+    "soloWifi": "Subir archivos solo con WiFi",
+    "respaldo": "Exportar respaldo cifrado",
+    "respaldoAyuda": "Use esta opción solo si el teléfono no logra sincronizar. Entregue el archivo a la oficina.",
+    "rechazados": "{{n}} registros rechazados por el servidor",
+    "conflictos": "{{n}} registros con cambios de otro dispositivo (revisados por el supervisor)",
+    "porTabla": "Pendientes por módulo"
+  },
+  "perfil": {
+    "titulo": "Perfil",
+    "rol": "Rol",
+    "dispositivo": "Dispositivo",
+    "version": "Versión de la app",
+    "cambiarUsuario": "Cambiar de usuario",
+    "ahorro": "Modo ahorro de batería (GPS cada 30 s)",
+    "mapaOffline": "Descargar mapa sin conexión",
+    "reconfigurar": "Reconfigurar dispositivo"
+  },
+  "mapa": {
+    "titulo": "Mapa de la finca",
+    "cobertura": "Cobertura de la semana",
+    "sinCobertura": "Sin recorridos esta semana"
+  },
+  "plagas": {
+    "titulo": "Plagas y enfermedades",
+    "muestreo": "Muestreo de plagas",
+    "preaviso": "Preaviso de sigatoka",
+    "plaga": "¿Qué plaga o enfermedad?",
+    "incidencia": "Incidencia",
+    "hmje": "Hoja más joven enferma",
+    "ee": "Estado de evolución",
+    "severidad": "Severidad (%)",
+    "plantas": "Plantas muestreadas",
+    "formularioVersion": "Formulario versión {{v}}",
+    "sinFormulario": "No hay formulario descargado. Sincronice el dispositivo."
+  },
+  "trampas": {
+    "titulo": "Trampas de picudo",
+    "escanear": "Apunte la cámara al código QR de la trampa",
+    "cantidad": "Picudos capturados",
+    "noEncontrada": "Trampa no encontrada: {{c}}",
+    "manual": "Elegir trampa de la lista"
+  },
+  "fusarium": {
+    "titulo": "Alerta de Fusarium",
+    "sintomas": "Síntomas observados",
+    "aviso": "La alerta queda con estado SOSPECHA hasta que el supervisor la revise. No mueva material vegetal del área.",
+    "enviada": "Alerta guardada con estado SOSPECHA"
+  },
+  "enfunde": {
+    "titulo": "Enfunde",
+    "racimos": "Racimos enfundados",
+    "cintaSemana": "Cinta de la semana {{n}}",
+    "sinCalendario": "No hay calendario de cintas para esta semana. Sincronice el dispositivo."
+  },
+  "cosecha": {
+    "titulo": "Cosecha",
+    "cinta": "Color de cinta cosechado",
+    "cosechados": "Racimos cosechados",
+    "perdidos": "Racimos perdidos",
+    "motivo": "Motivo de la pérdida",
+    "sugerido": "SUGERIDO"
+  },
+  "labores": {
+    "titulo": "Labores y asistencia",
+    "asistencia": "Asistencia",
+    "labor": "Registrar labor",
+    "cuadrilla": "Cuadrilla",
+    "presente": "PRESENTE",
+    "ausente": "AUSENTE",
+    "tipo": "Tipo de labor",
+    "trabajador": "Trabajador",
+    "cantidad": "Cantidad ({{u}})",
+    "guardarAsistencia": "Guardar asistencia"
+  },
+  "rutas": {
+    "titulo": "Rutas GPS",
+    "tarea": "Tarea del recorrido",
+    "iniciar": "Iniciar recorrido",
+    "finalizar": "Finalizar recorrido",
+    "activa": "RECORRIDO ACTIVO",
+    "puntos": "{{n}} puntos",
+    "distancia": "Distancia",
+    "notificacionTitulo": "Kalo Campo — recorrido activo",
+    "notificacionTexto": "Se está grabando la ruta de la tarea.",
+    "permisoFondo": "Para grabar con la pantalla apagada, permita la ubicación «Todo el tiempo»."
+  },
+  "ordenes": {
+    "titulo": "Mis tareas",
+    "iniciar": "Empezar",
+    "completar": "Completar"
+  },
+  "produccion": {
+    "titulo": "Mi producción",
+    "semanaActual": "Esta semana",
+    "sinDatos": "Sin labores registradas."
+  },
+  "estados": {
+    "pendiente": "PENDIENTE",
+    "validado": "VALIDADO",
+    "rechazado": "RECHAZADO",
+    "sospecha": "SOSPECHA",
+    "en_progreso": "EN PROGRESO",
+    "completada": "COMPLETADA",
+    "cancelada": "CANCELADA"
+  }
+}
