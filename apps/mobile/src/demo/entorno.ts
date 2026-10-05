@@ -9,23 +9,14 @@
  * Contrato compartido por la base local, el mapa, el GPS y el modo demo.
  */
 import Constants, { ExecutionEnvironment } from 'expo-constants';
-import { Platform, TurboModuleRegistry } from 'react-native';
+import { Platform } from 'react-native';
 
 export const esWeb = Platform.OS === 'web';
 export const esExpoGo = Constants.executionEnvironment === ExecutionEnvironment.StoreClient;
 
-function moduloNativoDisponible(nombre: string): boolean {
-  if (esWeb) return false;
-  try {
-    return TurboModuleRegistry.get(nombre) != null;
-  } catch {
-    return false;
-  }
-}
-
 /** WatermelonDB con SQLite nativo (si no, se usa LokiJS). */
 export const tieneSqliteNativo = !esWeb && !esExpoGo;
 /** MapLibre nativo (si no, mapa SVG con los polígonos locales). */
-export const tieneMapLibre = !esWeb && !esExpoGo && moduloNativoDisponible('MLRNModule') !== false;
+export const tieneMapLibre = !esWeb && !esExpoGo;
 /** Rastreo GPS con la pantalla apagada (si no, solo con la app abierta). */
 export const tieneGpsSegundoPlano = !esWeb && !esExpoGo;
