@@ -310,6 +310,9 @@ importers:
       '@tanstack/react-table':
         specifier: ^8.21.3
         version: 8.21.3(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      exceljs:
+        specifier: ^4.4.0
+        version: 4.4.0
       lucide-react:
         specifier: ^1.52.0
         version: 1.52.0(@types/react@19.2.18)(react@19.2.3)

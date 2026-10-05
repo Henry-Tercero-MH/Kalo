@@ -3,6 +3,8 @@
  */
 import 'server-only';
 import { cookies } from 'next/headers';
+import { perfilDeCookieMock } from '@/mock/http';
+import { modoMock, tokenMock } from '@/mock/modo';
 
 export const API_INTERNA =
   process.env.API_URL_INTERNA ?? process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
@@ -29,6 +31,7 @@ export interface PerfilUsuario {
   usuario: string;
   rol: string;
   fincaId: string;
+  empresaId?: string;
   permisos: string[];
   plataformas: string[];
   modulosWeb: string[];
@@ -38,6 +41,13 @@ export async function guardarTokens(t: { accessToken: string; refreshToken: stri
   const c = await cookies();
   c.set(COOKIE_ACCESO, t.accessToken, { ...base, maxAge: 60 * 60 });
   c.set(COOKIE_RENOVACION, t.refreshToken, { ...base, maxAge: 60 * 60 * 24 * 30 });
+}
+
+/** Modo demo: guarda en la cookie httpOnly un token `mock:<usuarioId>` (sin refresh). */
+export async function guardarSesionMock(usuarioId: string) {
+  const c = await cookies();
+  c.set(COOKIE_ACCESO, tokenMock(usuarioId), { ...base, maxAge: 60 * 60 * 12 });
+  c.delete(COOKIE_RENOVACION);
 }
 
 export async function borrarTokens() {
@@ -65,6 +75,7 @@ export async function renovar(): Promise<string | null> {
 
 /** Perfil del usuario actual (desde un componente de servidor). */
 export async function perfilActual(): Promise<{ perfil: PerfilUsuario | null; vencido: boolean }> {
+  if (modoMock()) return { perfil: await perfilDeCookieMock(), vencido: false };
   const c = await cookies();
   const at = c.get(COOKIE_ACCESO)?.value;
   const rt = c.get(COOKIE_RENOVACION)?.value;

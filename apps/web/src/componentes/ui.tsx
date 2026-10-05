@@ -181,3 +181,18 @@ export function Logo({ imagen }: { imagen?: boolean }) {
     </span>
   );
 }
+
+/**
+ * Etiqueta visible del modo demo (sin API): los datos son DEMO en memoria del servidor y
+ * vuelven al estado inicial al reiniciarlo.
+ */
+export function IndicadorDemo() {
+  return (
+    <span
+      className="inline-flex border border-estados-alerta bg-neutros-n50 px-1.5 py-0.5"
+      title="Datos de demostración en memoria del servidor, sin API. Los cambios se pierden al reiniciar el servidor. Para usar la API real inicie el panel con KALO_DATOS=api."
+    >
+      <Estado tipo="alerta" texto="Datos demo (sin API)" />
+    </span>
+  );
+}

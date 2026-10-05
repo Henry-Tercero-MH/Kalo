@@ -19,6 +19,24 @@ Documentación: [arquitectura](docs/arquitectura.md) · [sincronización](docs/s
 · [cómo agregar un módulo](docs/modulos.md) · [decisiones y pendientes](docs/decisiones.md).
 El prompt original está en `docs/PROMPT.pdf`.
 
+## Datos mock (sin API) — modo por defecto
+
+La app móvil y el panel web funcionan **sin la API**, con datos ficticios (DEMO):
+
+- **App móvil:** al abrir carga sola los datos DEMO en el teléfono (`apps/mobile/src/demo/datos-demo.json`);
+  la sincronización es simulada y no hace ninguna petición a la API. Perfil → «Reiniciar datos demo».
+  Para usar el servidor real compile con `EXPO_PUBLIC_KALO_DATOS=api`.
+- **Panel web:** usa datos DEMO grabados (`apps/web/src/mock/datos/*.json`) en un almacén en memoria del
+  servidor de Next y muestra la etiqueta «DATOS DEMO (SIN API)». Los cambios (validar, resolver conflictos,
+  órdenes, administración…) se ven en la interfaz y se pierden al reiniciar el servidor. Usuarios:
+  `admin/1111`, `gerente/2222`, `supervisor/3333`. Para la API real: `KALO_DATOS=api pnpm --filter @kalo/web dev`.
+- Regenerar los datos mock (con la API y el seed levantados): `pnpm --filter @kalo/api demo:movil` (app) y
+  `node apps/web/scripts/grabar-mock.mjs` (panel). Detalles en `apps/web/README.md`.
+
+Para ver todo sin servidor: `pnpm install && pnpm --filter @kalo/web dev` (panel en :3000) y la app según
+[docs/DEMO.md](docs/DEMO.md). La API, Docker y el seed solo hacen falta con `KALO_DATOS=api` /
+`EXPO_PUBLIC_KALO_DATOS=api`.
+
 ## Requisitos
 
 - Node.js 22 y pnpm 10 (`corepack enable`)

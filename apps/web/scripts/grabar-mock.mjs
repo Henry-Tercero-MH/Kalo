@@ -51,10 +51,18 @@ async function pedir(ruta, { token, metodo = 'GET', cuerpo, binario = false } = 
 const login = (usuario, pin) =>
   pedir('/v1/auth/login', { metodo: 'POST', cuerpo: { usuario, pin } });
 
-function guardar(nombre, datos) {
+/** Prettier del monorepo (opcional): deja los fixtures con el mismo formato que `pnpm format`. */
+const prettier = await import('prettier').catch(() => null);
+
+async function guardar(nombre, datos) {
   const ruta = join(DESTINO, nombre);
-  writeFileSync(ruta, `${JSON.stringify(datos, null, 1)}\n`);
-  console.log(`  ✓ ${nombre} (${(JSON.stringify(datos).length / 1024).toFixed(1)} KB)`);
+  let texto = `${JSON.stringify(datos, null, 2)}\n`;
+  if (prettier) {
+    const config = await prettier.resolveConfig(ruta).catch(() => null);
+    texto = await prettier.format(texto, { ...(config ?? {}), filepath: ruta });
+  }
+  writeFileSync(ruta, texto);
+  console.info(`  ✓ ${nombre} (${(JSON.stringify(datos).length / 1024).toFixed(1)} KB)`);
 }
 
 /** Semana ISO (misma regla que @kalo/shared). */
@@ -73,7 +81,7 @@ const fechaIso = (f = new Date()) =>
 
 /** Dos celulares, una cosecha nueva y dos ediciones concurrentes → un conflicto en la bandeja. */
 async function generarActividad(supervisor) {
-  console.log('Generando actividad DEMO (2 celulares, 1 cosecha, 1 conflicto)…');
+  console.info('Generando actividad DEMO (2 celulares, 1 cosecha, 1 conflicto)…');
   // La cosecha la registra un caporal (el supervisor no tiene cosecha:crear); el celular
   // lo configura el supervisor y lo comparten varios usuarios, como en campo.
   const caporal = await login('caporal', '5555');
@@ -121,11 +129,16 @@ async function generarActividad(supervisor) {
     created_by: caporal.usuario.id,
     estado_validacion: 'pendiente',
   };
-  const r1 = await push(a, { cosecha: { created: [cosecha], updated: [], deleted: [] } }, pa.timestamp, {
-    versionApp: '0.1.0',
-    registrosPendientes: 0,
-    archivosPendientes: 1,
-  });
+  const r1 = await push(
+    a,
+    { cosecha: { created: [cosecha], updated: [], deleted: [] } },
+    pa.timestamp,
+    {
+      versionApp: '0.1.0',
+      registrosPendientes: 0,
+      archivosPendientes: 1,
+    },
+  );
   if (r1.resultados[0]?.estado !== 'aceptado')
     throw new Error(`La cosecha no fue aceptada: ${JSON.stringify(r1.resultados)}`);
 
@@ -140,22 +153,27 @@ async function generarActividad(supervisor) {
     _status: 'updated',
     _changed: 'racimos_cosechados,updated_at',
   });
-  await push(b, { cosecha: { created: [], updated: [editar(120, 2000)], deleted: [] } }, pb2.timestamp, {
-    versionApp: '0.1.0',
-    registrosPendientes: 3,
-    archivosPendientes: 0,
-  });
+  await push(
+    b,
+    { cosecha: { created: [], updated: [editar(120, 2000)], deleted: [] } },
+    pb2.timestamp,
+    {
+      versionApp: '0.1.0',
+      registrosPendientes: 3,
+      archivosPendientes: 0,
+    },
+  );
   const rA = await push(
     a,
     { cosecha: { created: [], updated: [editar(110, 1000)], deleted: [] } },
     pa2.timestamp,
     { versionApp: '0.1.0', registrosPendientes: 0, archivosPendientes: 1 },
   );
-  console.log(`  resultado de la edición concurrente: ${JSON.stringify(rA.resultados[0])}`);
+  console.info(`  resultado de la edición concurrente: ${JSON.stringify(rA.resultados[0])}`);
 }
 
 async function main() {
-  console.log(`Grabando fixtures DEMO desde ${API} → ${DESTINO}`);
+  console.info(`Grabando fixtures DEMO desde ${API} → ${DESTINO}`);
   mkdirSync(DESTINO, { recursive: true });
   await pedir('/salud');
 
@@ -168,7 +186,7 @@ async function main() {
   if (!SIN_ACTIVIDAD) {
     const conflictos = await pedir('/v1/validacion/conflictos', { token: sup });
     if (FORZAR_ACTIVIDAD || conflictos.length === 0) await generarActividad(sesiones.supervisor);
-    else console.log('Ya hay conflictos pendientes: no se genera actividad nueva.');
+    else console.info('Ya hay conflictos pendientes: no se genera actividad nueva.');
   }
 
   // Perfiles (/v1/auth/yo) de los usuarios del panel.
@@ -195,9 +213,12 @@ async function main() {
   for (const h of [4, 8, 12, 16]) {
     semanal[String(h)] = await pedir(`/v1/pronostico/semanal?horizonte=${h}`, { token: sup });
     for (const l of catalogos.lotes)
-      semanal[`${h}:${l.id}`] = await pedir(`/v1/pronostico/semanal?horizonte=${h}&lote_id=${l.id}`, {
-        token: sup,
-      });
+      semanal[`${h}:${l.id}`] = await pedir(
+        `/v1/pronostico/semanal?horizonte=${h}&lote_id=${l.id}`,
+        {
+          token: sup,
+        },
+      );
   }
   const pronostico = { ecuacion: await pedir('/v1/pronostico/ecuacion', { token: sup }), semanal };
 
@@ -214,14 +235,6 @@ async function main() {
     formularios: await pedir('/v1/admin/formularios', { token: admin }),
     bitacora: await pedir('/v1/admin/bitacora?limite=300', { token: admin }),
   };
-  // Archivos de un registro (para conocer la forma; el modo demo usa una foto de ejemplo).
-  const unaAlerta = registros.alertas_fusarium?.[0];
-  const archivosEjemplo = unaAlerta
-    ? await pedir(
-        `/v1/archivos?registro_tabla=alertas_fusarium&registro_id=${unaAlerta.id}`,
-        { token: sup },
-      )
-    : [];
   const pdf = await pedir('/v1/trampas/qr.pdf', { token: sup, binario: true });
 
   // Comprobaciones: el modo demo deriva estas vistas de los registros grabados.
@@ -236,8 +249,8 @@ async function main() {
   if ((registros.ordenes_trabajo ?? []).length !== ordenes.length)
     avisos.push(`órdenes: API ${ordenes.length}, registros ${registros.ordenes_trabajo?.length}`);
 
-  console.log('Escribiendo fixtures:');
-  guardar('grabacion.json', {
+  console.info('Escribiendo fixtures:');
+  await guardar('grabacion.json', {
     demo: true,
     aviso:
       'Datos de DEMOSTRACIÓN (DEMO) grabados desde la API con el seed de ejemplo. No son datos reales de la finca.',
@@ -245,22 +258,22 @@ async function main() {
     api: API,
     comando: 'node apps/web/scripts/grabar-mock.mjs',
   });
-  guardar('perfiles.json', perfiles);
-  guardar('catalogos.json', catalogos);
-  guardar('registros.json', registros);
-  guardar('mapa.json', mapa);
-  guardar('pronostico.json', pronostico);
-  guardar('validacion.json', validacion);
-  guardar('dispositivos.json', dispositivos);
-  guardar('admin.json', adminDatos);
-  guardar('archivos-ejemplo.json', archivosEjemplo);
-  guardar('trampas-qr.json', {
+  await guardar('perfiles.json', perfiles);
+  await guardar('catalogos.json', catalogos);
+  await guardar('registros.json', registros);
+  await guardar('mapa.json', mapa);
+  await guardar('pronostico.json', pronostico);
+  await guardar('validacion.json', validacion);
+  await guardar('dispositivos.json', dispositivos);
+  await guardar('admin.json', adminDatos);
+  await guardar('trampas-qr.json', {
     contentType: 'application/pdf',
     nombre: 'trampas-qr-DEMO.pdf',
     base64: pdf.toString('base64'),
   });
-  if (avisos.length) console.warn(`AVISO: diferencias entre vistas y registros:\n  ${avisos.join('\n  ')}`);
-  console.log(
+  if (avisos.length)
+    console.warn(`AVISO: diferencias entre vistas y registros:\n  ${avisos.join('\n  ')}`);
+  console.info(
     `Listo: ${Object.values(registros).reduce((s, x) => s + x.length, 0)} registros, ` +
       `${validacion.conflictos.length} conflictos, ${dispositivos.length} dispositivos.`,
   );

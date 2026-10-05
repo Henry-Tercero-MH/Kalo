@@ -4,8 +4,9 @@ import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { Navegacion } from '@/componentes/Navegacion';
-import { Logo } from '@/componentes/ui';
+import { IndicadorDemo, Logo } from '@/componentes/ui';
 import { perfilActual } from '@/lib/servidor';
+import { modoMock } from '@/mock/modo';
 
 const ROLES: Record<string, string> = {
   administrador: 'Administrador',
@@ -23,8 +24,9 @@ export default async function PanelLayout({ children }: { children: ReactNode })
   return (
     <div className="grid min-h-screen grid-cols-[240px_1fr]">
       <aside className="border-r border-neutros-n200">
-        <div className="flex h-16 items-center border-b-2 border-marca-negro px-4">
+        <div className="flex h-16 flex-col items-start justify-center gap-1 border-b-2 border-marca-negro px-4">
           <Logo imagen={conLogo} />
+          {modoMock() ? <IndicadorDemo /> : null}
         </div>
         <Navegacion
           modulos={perfil.modulosWeb}

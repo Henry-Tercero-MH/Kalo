@@ -1,12 +1,18 @@
 /**
  * Proxy del panel hacia la API: agrega el token de la cookie y renueva la sesión si venció.
  * El navegador nunca ve los tokens.
+ *
+ * En modo demo (KALO_DATOS distinto de `api`) no se contacta la API: responde el enrutador
+ * en memoria de `src/mock` con los datos DEMO grabados.
  */
 import { cookies } from 'next/headers';
 import { NextResponse, type NextRequest } from 'next/server';
 import { API_INTERNA, COOKIE_ACCESO, renovar } from '@/lib/servidor';
+import { reenviarMock } from '@/mock/http';
+import { modoMock } from '@/mock/modo';
 
 async function reenviar(req: NextRequest, ruta: string[]) {
+  if (modoMock()) return reenviarMock(req, ruta);
   const url = `${API_INTERNA}/v1/${ruta.map(encodeURIComponent).join('/')}${req.nextUrl.search}`;
   const cuerpo =
     req.method === 'GET' || req.method === 'HEAD' ? undefined : await req.arrayBuffer();
