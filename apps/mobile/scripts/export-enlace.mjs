@@ -4,8 +4,10 @@
 // 1. Exporta con una ruta base marcadora (/__KALO_BASE__).
 // 2. Las rutas de archivos (fuentes, imágenes, fragmentos JS) pasan a resolverse en el
 //    navegador contra la carpeta real donde quedó la página (globalThis.__KALO_BASE__).
-// 3. La ruta base del enrutador queda vacía; las rutas desconocidas vuelven al inicio
-//    (app/+not-found.tsx).
+// 3. La ruta base del enrutador también se calcula en el navegador (globalThis.__KALO_RUTA__,
+//    p. ej. «/Kalo» en GitHub Pages): la dirección conserva la subcarpeta al navegar.
+// 4. 404.html (lo sirve el hosting al recargar una pantalla interna) vuelve a la entrada de
+//    la app, que lleva al inicio de sesión o al inicio del día.
 //
 // Uso: pnpm --filter @kalo/mobile export:enlace   → apps/mobile/dist-enlace/
 //      … export:enlace -- --un-archivo            → además dist-enlace/kalo-campo.html con
@@ -30,6 +32,7 @@ execSync(`npx expo export --platform web --output-dir ${JSON.stringify(salida)}`
 renameSync(join(salida, '_expo'), join(salida, 'expo'));
 
 const base = '(globalThis.__KALO_BASE__||"/")';
+const rutaEnrutador = '(globalThis.__KALO_RUTA__||"")';
 const carpetaJs = join(salida, 'expo', 'static', 'js', 'web');
 for (const nombre of readdirSync(carpetaJs).filter((n) => n.endsWith('.js'))) {
   const ruta = join(carpetaJs, nombre);
@@ -37,6 +40,7 @@ for (const nombre of readdirSync(carpetaJs).filter((n) => n.endsWith('.js'))) {
   const js = original
     .replaceAll(`"${MARCA}/assets/`, `${base}+"assets/`)
     .replaceAll(`"${MARCA}/_expo/`, `${base}+"expo/`)
+    .replaceAll(`"${MARCA}"`, rutaEnrutador)
     .replaceAll(MARCA, '');
   if (js !== original) writeFileSync(ruta, js);
 }
@@ -46,10 +50,28 @@ const html = readFileSync(join(salida, 'index.html'), 'utf8')
   .replaceAll(`${MARCA}/`, '')
   .replace(
     '<head>',
-    `<head>\n    <script>globalThis.__KALO_BASE__ = new URL('./', document.baseURI).href;</script>`,
+    `<head>\n    <script>${[
+      "globalThis.__KALO_BASE__ = new URL('./', document.baseURI).href;",
+      // Solo en http(s): en visores incrustados (about:srcdoc, data:) el enrutador va sin base.
+      "globalThis.__KALO_RUTA__ = /^https?:$/.test(location.protocol) ? new URL(globalThis.__KALO_BASE__).pathname.replace(/\\/$/, '') : '';",
+      "try { localStorage.setItem('kalo-ruta', globalThis.__KALO_RUTA__); } catch (e) {}",
+    ].join('\n')}</script>`,
   );
 writeFileSync(join(salida, 'index.html'), html);
-writeFileSync(join(salida, '404.html'), html);
+// Al recargar una pantalla interna (p. ej. /Kalo/login) el hosting entrega 404.html: se vuelve
+// a la entrada de la app. La carpeta se toma de la última visita o del primer tramo de la ruta.
+writeFileSync(
+  join(salida, '404.html'),
+  `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Kalo Campo</title>
+<script>
+var ruta = '';
+try { ruta = localStorage.getItem('kalo-ruta') || ''; } catch (e) {}
+if (ruta && location.pathname.indexOf(ruta + '/') !== 0) ruta = '';
+if (!ruta && location.hostname.slice(-10) === '.github.io') ruta = '/' + location.pathname.split('/')[1];
+location.replace(location.origin + ruta + '/');
+</script></head><body></body></html>
+`,
+);
 
 const restantes = readdirSync(carpetaJs).some((n) =>
   readFileSync(join(carpetaJs, n), 'utf8').includes(MARCA),
