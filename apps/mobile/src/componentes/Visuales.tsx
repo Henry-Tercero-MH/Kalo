@@ -169,7 +169,7 @@ export function Logo() {
     return (
       <Image
         source={LOGO}
-        style={{ height: 32, width: 120 }}
+        style={{ height: 32, width: 154 }}
         resizeMode="contain"
         accessibilityLabel="Inversiones Kalo"
       />

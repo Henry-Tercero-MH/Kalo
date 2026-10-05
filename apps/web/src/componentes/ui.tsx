@@ -174,7 +174,7 @@ export function Cargando() {
 
 /** Logo arriba a la izquierda; sin archivo de logo se usa el texto en estilo título. */
 export function Logo({ imagen }: { imagen?: boolean }) {
-  if (imagen) return <img src="/kalo-logo.png" alt="Inversiones Kalo" className="h-8 w-auto" />;
+  if (imagen) return <img src="/kalo-logo.png" alt="Inversiones Kalo" className="h-8 w-auto max-w-full" />;
   return (
     <span className="text-lg font-extrabold uppercase tracking-wider text-neutros-n900">
       Inversiones Kalo

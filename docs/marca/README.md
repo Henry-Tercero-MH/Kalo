@@ -1,11 +1,12 @@
 # Marca
 
-Coloque aquí los archivos de la marca (no se adjuntaron al prompt):
+Archivos de la marca:
 
 - `Guia-de-marca-para-informes.pdf` — Guía de marca para informes de Inversiones Kalo.
-- `kalo-logo.png` — logo oficial.
+- `kalo-logo.png` — logo oficial (fondo transparente, recortado a su contenido, 960 × 200 px).
+  Ya está activado en la app móvil (`apps/mobile/assets/`) y en el panel (`apps/web/public/`).
 
-Después de agregar el logo:
+Si se reemplaza el logo:
 
 ```bash
 pnpm --filter @kalo/mobile marca:logo        # lo copia a la app y lo activa

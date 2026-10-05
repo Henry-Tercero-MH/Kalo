@@ -63,7 +63,7 @@ function Formulario() {
 export default function Login() {
   return (
     <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center px-6">
-      <Logo />
+      <Logo imagen />
       <h1 className="mt-8 border-b-2 border-marca-negro pb-2 text-2xl">Panel de campo</h1>
       <p className="my-4 text-sm text-neutros-n500">
         Ingrese con su usuario y PIN. Datos de demostración marcados como DEMO.
