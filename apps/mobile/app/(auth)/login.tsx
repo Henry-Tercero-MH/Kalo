@@ -1,6 +1,6 @@
 /**
- * Inicio de sesión: formulario con usuario y PIN de 4 dígitos, o gafete QR. Funciona sin señal
- * (el PIN se verifica contra el hash guardado en el teléfono).
+ * Inicio de sesión: formulario estándar de usuario y contraseña, o gafete QR. Funciona sin señal
+ * (la contraseña se verifica contra el hash guardado en el teléfono).
  * En modo demo se listan los usuarios de demostración: tocar uno llena el formulario.
  */
 import { useRouter } from 'expo-router';
@@ -95,11 +95,12 @@ export default function Login() {
   const usuarios = useConsulta('usuarios');
   const roles = useConsulta('roles');
   const [usuario, setUsuario] = useState('');
-  const [pin, setPin] = useState('');
-  const [verPin, setVerPin] = useState(false);
+  const [contrasena, setContrasena] = useState('');
+  const [verContrasena, setVerContrasena] = useState(false);
+  const [ayudaOlvido, setAyudaOlvido] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [cargando, setCargando] = useState(false);
-  const campoPin = useRef<TextInput>(null);
+  const campoContrasena = useRef<TextInput>(null);
   const demo = esModoDemo();
 
   const nombreRol = useMemo(() => new Map(roles.map((r) => [r.id, r.nombre])), [roles]);
@@ -113,7 +114,7 @@ export default function Login() {
     [demo, usuarios],
   );
 
-  const listo = usuario.trim().length > 0 && pin.length === 4 && !cargando;
+  const listo = usuario.trim().length > 0 && contrasena.length > 0 && !cargando;
 
   const entrar = async () => {
     if (!listo) return;
@@ -121,14 +122,14 @@ export default function Login() {
     setCargando(true);
     // Deja pintar el indicador antes del cálculo del hash.
     await new Promise((r) => setTimeout(r, 30));
-    const r = await iniciarConPin(usuario, pin);
+    const r = await iniciarConPin(usuario, contrasena);
     setCargando(false);
     if (r.ok) return router.replace('/(tabs)');
-    setPin('');
+    setContrasena('');
     setError(
       r.motivo === 'bloqueado' ? t('login.bloqueado', { min: r.minutos }) : t('login.incorrecto'),
     );
-    campoPin.current?.focus();
+    campoContrasena.current?.focus();
   };
 
   return (
@@ -170,34 +171,41 @@ export default function Login() {
             autoComplete="username"
             textContentType="username"
             returnKeyType="next"
-            onSubmitEditing={() => campoPin.current?.focus()}
+            onSubmitEditing={() => campoContrasena.current?.focus()}
             error={Boolean(error)}
           />
           <CampoLogin
-            entradaRef={campoPin}
-            etiqueta={t('login.pin')}
+            entradaRef={campoContrasena}
+            etiqueta={t('login.contrasena')}
             icono="lock-keyhole"
-            value={pin}
+            value={contrasena}
             onChangeText={(v) => {
-              setPin(v.replace(/\D/g, '').slice(0, 4));
+              setContrasena(v);
               setError(null);
             }}
-            placeholder={t('login.pinEjemplo')}
-            secureTextEntry={!verPin}
-            keyboardType="number-pad"
-            inputMode="numeric"
-            maxLength={4}
+            placeholder={t('login.contrasenaEjemplo')}
+            secureTextEntry={!verContrasena}
+            autoCapitalize="none"
             autoComplete="current-password"
             textContentType="password"
             returnKeyType="go"
             onSubmitEditing={() => void entrar()}
             error={Boolean(error)}
             accion={{
-              icono: verPin ? 'eye-off' : 'eye',
-              etiqueta: verPin ? t('login.ocultarPin') : t('login.mostrarPin'),
-              onPress: () => setVerPin((v) => !v),
+              icono: verContrasena ? 'eye-off' : 'eye',
+              etiqueta: verContrasena ? t('login.ocultarContrasena') : t('login.mostrarContrasena'),
+              onPress: () => setVerContrasena((v) => !v),
             }}
           />
+          <Pressable
+            onPress={() => setAyudaOlvido((v) => !v)}
+            accessibilityRole="button"
+            hitSlop={8}
+            style={estilos.olvido}
+          >
+            <Text style={estilos.olvidoTexto}>{t('login.olvido')}</Text>
+          </Pressable>
+          {ayudaOlvido ? <Aviso texto={t('login.olvidoAyuda')} /> : null}
 
           {error ? <Aviso tipo="peligro" texto={error} /> : null}
 
@@ -240,7 +248,7 @@ export default function Login() {
                   accessibilityLabel={t('login.usarUsuario', { usuario: u.usuario })}
                   onPress={() => {
                     setUsuario(u.usuario);
-                    setPin(PINES_DEMO[u.usuario]!);
+                    setContrasena(PINES_DEMO[u.usuario]!);
                     setError(null);
                   }}
                   style={({ pressed }) => [
@@ -364,6 +372,13 @@ const estilos = StyleSheet.create({
     letterSpacing: 2,
     color: semantico.titulo,
     fontVariant: ['tabular-nums'],
+  },
+  olvido: { alignSelf: 'flex-end', marginTop: -espaciado.sm, marginBottom: espaciado.md },
+  olvidoTexto: {
+    fontFamily: tipografia.familias.cuerpoMedio,
+    fontSize: tipografia.tamanos.pequeno,
+    color: semantico.titulo,
+    textDecorationLine: 'underline',
   },
   pie: { textAlign: 'center', marginTop: espaciado.xl },
 });
