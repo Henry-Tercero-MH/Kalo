@@ -29,3 +29,4 @@ __pycache__/
 apps/api/salidas/
 apps/web/public/maplibre/
 apps/mobile/dist-web/
+apps/mobile/dist-enlace/

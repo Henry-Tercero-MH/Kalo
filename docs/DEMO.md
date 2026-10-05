@@ -23,8 +23,9 @@ npx serve -s apps/mobile/dist-web         # -s: todas las rutas sirven index.htm
 Abra la dirección en el celular (misma red WiFi: `http://<IP-de-la-computadora>:3000`).
 En Chrome puede «Agregar a pantalla principal» para verla como app.
 
-- Para publicarlo en un hosting estático (GitHub Pages, Netlify, S3), suba `dist-web`. Si va en
-  un subdirectorio, exporte con `KALO_WEB_BASE_URL=/subdirectorio`.
+- Para publicarlo en cualquier ruta sin configurar nada (enlace compartible, subcarpeta de
+  GitHub Pages, Netlify o S3): `pnpm --filter @kalo/mobile export:enlace` genera
+  `apps/mobile/dist-enlace`, que funciona en cualquier carpeta.
 - Fuera de `localhost`, el navegador solo entrega la ubicación GPS por **HTTPS**.
 - En el navegador el recorrido GPS se graba solo con la pestaña abierta.
 
