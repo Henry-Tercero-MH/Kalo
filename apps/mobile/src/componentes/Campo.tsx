@@ -10,16 +10,17 @@ import {
   useAudioRecorder,
   useAudioRecorderState,
 } from 'expo-audio';
-import { useEffect, useState } from 'react';
+import { Component, useEffect, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, ScrollView, View } from 'react-native';
+import { esWeb } from '@/demo/entorno';
 import { useLoteActual, useLotes } from '@/gps/lote-actual';
 import type { Ubicacion } from '@/gps/ubicacion';
 import { guardarAudio, tomarFoto, type ArchivoLocal } from '@/utils/archivos';
 import { Boton } from './Boton';
 import { Opciones } from './Controles';
 import { Etiqueta, Texto, TextoSecundario } from './Texto';
-import { Estado } from './Visuales';
+import { Aviso, Estado } from './Visuales';
 import { espaciado, semantico } from './tema';
 
 /** Selector de lote: propone el lote detectado por GPS; el usuario puede cambiarlo. */
@@ -74,6 +75,7 @@ export function CapturaFotos({
 }) {
   const { t } = useTranslation();
   const [cargando, setCargando] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   return (
     <View style={{ marginVertical: espaciado.md }}>
       <Etiqueta>{t('comun.fotos')}</Etiqueta>
@@ -101,19 +103,67 @@ export function CapturaFotos({
         cargando={cargando}
         onPress={async () => {
           setCargando(true);
+          setError(null);
           try {
             const f = await tomarFoto();
             if (f) onCambio([...fotos, f]);
+          } catch (e) {
+            console.warn('No se pudo tomar la foto', e);
+            setError(
+              t('comun.errorFoto', 'No se pudo tomar la foto. Puede guardar el registro sin ella.'),
+            );
           } finally {
             setCargando(false);
           }
         }}
       />
+      {error ? <Aviso tipo="alerta" texto={error} /> : null}
     </View>
   );
 }
 
-export function CapturaVoz({
+/** ¿Se puede grabar audio aquí? En el navegador hace falta MediaRecorder y micrófono. */
+function vozDisponible(): boolean {
+  if (!esWeb) return true;
+  try {
+    return (
+      typeof MediaRecorder !== 'undefined' &&
+      typeof navigator !== 'undefined' &&
+      typeof navigator.mediaDevices?.getUserMedia === 'function'
+    );
+  } catch {
+    return false;
+  }
+}
+
+/** Si la grabadora falla al montarse (p. ej. sin soporte en el navegador), se oculta. */
+class SinFallos extends Component<{ children: ReactNode }, { fallo: boolean }> {
+  state = { fallo: false };
+  static getDerivedStateFromError() {
+    return { fallo: true };
+  }
+  componentDidCatch(e: unknown) {
+    console.warn('Nota de voz no disponible', e);
+  }
+  render() {
+    return this.state.fallo ? null : this.props.children;
+  }
+}
+
+/** Nota de voz. Se oculta si el entorno no permite grabar audio. */
+export function CapturaVoz(props: {
+  nota: ArchivoLocal | null;
+  onCambio: (n: ArchivoLocal | null) => void;
+}) {
+  if (!vozDisponible()) return null;
+  return (
+    <SinFallos>
+      <GrabadoraVoz {...props} />
+    </SinFallos>
+  );
+}
+
+function GrabadoraVoz({
   nota,
   onCambio,
 }: {
@@ -123,6 +173,11 @@ export function CapturaVoz({
   const { t } = useTranslation();
   const grabadora = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
   const estado = useAudioRecorderState(grabadora);
+  const [error, setError] = useState<string | null>(null);
+  const mensajeError = t(
+    'comun.errorVoz',
+    'No se pudo grabar la nota de voz. Puede guardar el registro sin ella.',
+  );
   return (
     <View style={{ marginVertical: espaciado.md }}>
       <Etiqueta>{t('comun.notaVoz')}</Etiqueta>
@@ -135,8 +190,13 @@ export function CapturaVoz({
           icono="square"
           variante="peligro"
           onPress={async () => {
-            await grabadora.stop();
-            if (grabadora.uri) onCambio(guardarAudio(grabadora.uri));
+            try {
+              await grabadora.stop();
+              if (grabadora.uri) onCambio(await guardarAudio(grabadora.uri));
+            } catch (e) {
+              console.warn('No se pudo detener la grabación', e);
+              setError(mensajeError);
+            }
           }}
         />
       ) : (
@@ -145,14 +205,24 @@ export function CapturaVoz({
           icono="mic"
           variante="secundario"
           onPress={async () => {
-            const p = await requestRecordingPermissionsAsync();
-            if (!p.granted) return;
-            await setAudioModeAsync({ allowsRecording: true, playsInSilentMode: true });
-            await grabadora.prepareToRecordAsync();
-            grabadora.record();
+            setError(null);
+            try {
+              const p = await requestRecordingPermissionsAsync();
+              if (!p.granted) {
+                setError(t('comun.sinPermisoMicrofono', 'Sin permiso para usar el micrófono.'));
+                return;
+              }
+              await setAudioModeAsync({ allowsRecording: true, playsInSilentMode: true });
+              await grabadora.prepareToRecordAsync();
+              grabadora.record();
+            } catch (e) {
+              console.warn('No se pudo iniciar la grabación', e);
+              setError(mensajeError);
+            }
           }}
         />
       )}
+      {error ? <Aviso tipo="alerta" texto={error} /> : null}
     </View>
   );
 }

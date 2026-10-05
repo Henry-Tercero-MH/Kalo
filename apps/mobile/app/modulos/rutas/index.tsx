@@ -1,6 +1,7 @@
 /**
  * Rutas GPS: grabar el recorrido mientras la tarea está activa (también con la pantalla
- * apagada) y ver la cobertura del lote. Pide consentimiento la primera vez.
+ * apagada en la app instalada; en Expo Go y web solo con la app abierta) y ver la cobertura
+ * del lote. Pide consentimiento la primera vez.
  */
 import { formatearNumero } from '@kalo/shared';
 import { Q } from '@nozbe/watermelondb';
@@ -17,7 +18,13 @@ import { Etiqueta, Titulo } from '@/componentes/Texto';
 import { Aviso, Dato, Estado, Tarjeta } from '@/componentes/Visuales';
 import { espaciado } from '@/componentes/tema';
 import { useConteo } from '@/db/hooks';
-import { finalizarRuta, iniciarRuta, pedirPermisosRastreo, rutaActiva } from '@/gps/rastreo';
+import {
+  finalizarRuta,
+  iniciarRuta,
+  pedirPermisosRastreo,
+  rastreoSoloPrimerPlano,
+  rutaActiva,
+} from '@/gps/rastreo';
 import { despuesDeGuardar, useRequierePermiso } from '@/modulos/comun';
 import { tieneConsentimiento } from '@/permisos/consentimiento';
 import { useContextoEscritura } from '@/permisos/contexto';
@@ -52,11 +59,19 @@ export default function Rutas() {
       return;
     }
     const permisos = await pedirPermisosRastreo();
-    if (permisos === 'sin_primer_plano') return setAviso(t('rutas.permisoFondo'));
+    if (permisos === 'sin_primer_plano') {
+      return setAviso(
+        t('rutas.sinPermisoUbicacion', 'Sin permiso de ubicación no se puede grabar el recorrido.'),
+      );
+    }
     if (permisos === 'sin_segundo_plano') setAviso(t('rutas.permisoFondo'));
     setCargando(true);
     try {
       setRutaId(await iniciarRuta({ tarea, loteId, ordenTrabajoId: orden ?? null }, ctx));
+    } catch (e) {
+      setAviso(
+        `${t('rutas.errorIniciar', 'No se pudo iniciar el recorrido.')} ${e instanceof Error ? e.message : ''}`,
+      );
     } finally {
       setCargando(false);
     }
@@ -65,6 +80,15 @@ export default function Rutas() {
   return (
     <Pantalla volver>
       <Titulo>{t('rutas.titulo')}</Titulo>
+      {rastreoSoloPrimerPlano ? (
+        <Aviso
+          tipo="alerta"
+          texto={t(
+            'rutas.soloPrimerPlano',
+            'En esta versión de prueba el recorrido se graba solo con la app abierta y la pantalla encendida.',
+          )}
+        />
+      ) : null}
       {rutaId ? (
         <Tarjeta destacada>
           <Estado tipo="info" texto={t('rutas.activa')} />

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="%LANG_ISO_CODE%">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Vista de celular: ancho del dispositivo, sin zoom accidental al tocar campos. -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, shrink-to-fit=no"
+    />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <title>%WEB_TITLE%</title>
+    <!-- Reinicio de estilos recomendado por react-native-web. -->
+    <style id="expo-reset">
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        overflow: hidden;
+        background: #e2ded7;
+      }
+      #root {
+        display: flex;
+        height: 100%;
+        flex: 1;
+        background: #ffffff;
+      }
+      /* En pantallas anchas (computadora) la app se muestra con ancho de celular. */
+      @media (min-width: 500px) {
+        #root {
+          max-width: 430px;
+          margin: 0 auto;
+          box-shadow: 0 0 24px rgba(0, 0, 0, 0.18);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <noscript>Kalo Campo necesita JavaScript para funcionar.</noscript>
+    <div id="root"></div>
+  </body>
+</html>

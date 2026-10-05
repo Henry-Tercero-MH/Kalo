@@ -7,6 +7,7 @@ import * as Location from 'expo-location';
 import { useEffect, useMemo, useState } from 'react';
 import { create } from 'zustand';
 import { useConsulta } from '@/db/hooks';
+import { observarPosicion, type Observador } from './observar';
 import type { Ubicacion } from './ubicacion';
 
 export type LoteConGeometria = Fila<'lotes'> & { geometria: PoligonoGeoJson };
@@ -44,23 +45,32 @@ export function useObservarPosicion() {
   const fijar = usePosicion((s) => s.fijar);
   const [permiso, setPermiso] = useState<boolean | null>(null);
   useEffect(() => {
-    let sub: Location.LocationSubscription | null = null;
+    let sub: Observador | null = null;
     let activo = true;
     (async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (!activo) return;
-      setPermiso(status === 'granted');
-      if (status !== 'granted') return;
-      sub = await Location.watchPositionAsync(
-        { accuracy: Location.Accuracy.Balanced, timeInterval: 10_000, distanceInterval: 10 },
-        (p) =>
-          fijar({
-            lat: p.coords.latitude,
-            lng: p.coords.longitude,
-            precision: p.coords.accuracy ?? 999,
-            hora: p.timestamp,
-          }),
-      );
+      try {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (!activo) return;
+        setPermiso(status === 'granted');
+        if (status !== 'granted') return;
+        const s = await observarPosicion(
+          { accuracy: Location.Accuracy.Balanced, timeInterval: 10_000, distanceInterval: 10 },
+          (p) =>
+            fijar({
+              lat: p.coords.latitude,
+              lng: p.coords.longitude,
+              precision: p.coords.accuracy ?? 999,
+              hora: p.timestamp,
+            }),
+        );
+        // Si la pantalla se cerró mientras se pedía el permiso, se suelta enseguida.
+        if (activo) sub = s;
+        else s.remove();
+      } catch (e) {
+        // Navegador sin geolocalización (p. ej. sin HTTPS): el lote se elige a mano.
+        if (activo) setPermiso(false);
+        console.warn('Ubicación no disponible', e);
+      }
     })();
     return () => {
       activo = false;

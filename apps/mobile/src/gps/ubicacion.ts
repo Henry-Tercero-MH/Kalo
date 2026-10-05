@@ -1,5 +1,6 @@
 /**
  * Ubicación actual con hora del GPS (hora confiable) y precisión.
+ * Funciona en la build nativa, en Expo Go y en el navegador (geolocalización del navegador).
  */
 import * as Location from 'expo-location';
 
@@ -12,8 +13,13 @@ export interface Ubicacion {
 }
 
 export async function pedirPermisoUbicacion(): Promise<boolean> {
-  const { status } = await Location.requestForegroundPermissionsAsync();
-  return status === 'granted';
+  try {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    return status === 'granted';
+  } catch {
+    // Navegador sin geolocalización (o página sin HTTPS): se guarda sin ubicación.
+    return false;
+  }
 }
 
 /** Ubicación actual; si tarda, usa la última conocida. Nunca bloquea el guardado. */
@@ -34,8 +40,12 @@ export async function obtenerUbicacion(tiempoMaximo = 12_000): Promise<Ubicacion
   } catch {
     // continúa con la última conocida
   }
-  const ultima = await Location.getLastKnownPositionAsync({ maxAge: 5 * 60_000 });
-  return ultima ? aUbicacion(ultima) : null;
+  try {
+    const ultima = await Location.getLastKnownPositionAsync({ maxAge: 5 * 60_000 });
+    return ultima ? aUbicacion(ultima) : null;
+  } catch {
+    return null;
+  }
 }
 
 /** Columnas GPS de un registro a partir de la ubicación. */
