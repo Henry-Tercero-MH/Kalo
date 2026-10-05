@@ -15,7 +15,8 @@
     "db:migrate": "tsx --env-file-if-exists=../../.env src/db/migrar.ts",
     "seed": "tsx --env-file-if-exists=../../.env src/db/seed/index.ts",
     "seed:reset": "tsx --env-file-if-exists=../../.env src/db/seed/index.ts --reset",
-    "qr:trampas": "tsx --env-file-if-exists=../../.env scripts/qr-trampas.ts"
+    "qr:trampas": "tsx --env-file-if-exists=../../.env scripts/qr-trampas.ts",
+    "demo:movil": "tsx --env-file-if-exists=../../.env scripts/exportar-demo-movil.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1146.0",
