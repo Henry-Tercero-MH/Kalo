@@ -130,7 +130,13 @@
   "mapa": {
     "titulo": "Mapa de la finca",
     "cobertura": "Cobertura de la semana",
-    "sinCobertura": "Sin recorridos esta semana"
+    "sinCobertura": "Sin recorridos esta semana",
+    "ustedEstaAqui": "Usted está aquí",
+    "sinMapaBase": "Sin mapa base (sin internet): se muestran los lotes y la cobertura.",
+    "base": {
+      "satelite": "Satélite",
+      "calles": "Calles"
+    }
   },
   "plagas": {
     "titulo": "Plagas y enfermedades",
