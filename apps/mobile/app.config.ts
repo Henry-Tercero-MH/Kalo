@@ -96,6 +96,16 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       { cameraPermission: 'Kalo Campo usa la cámara para tomar fotos de campo.' },
     ],
     ['expo-audio', { microphonePermission: 'Kalo Campo usa el micrófono para notas de voz.' }],
+    // Pantalla de carga nativa: logo oficial sobre fondo blanco.
+    [
+      'expo-splash-screen',
+      {
+        image: './assets/kalo-logo.png',
+        imageWidth: 240,
+        resizeMode: 'contain',
+        backgroundColor: '#ffffff',
+      },
+    ],
   ],
   experiments: { typedRoutes: true, ...(baseUrlWeb ? { baseUrl: baseUrlWeb } : {}) },
   extra: {
