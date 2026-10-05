@@ -15,13 +15,18 @@ modo demo o conectarse al servidor (`pnpm dev`).
 ## 1. Navegador del celular
 
 ```bash
-cd apps/mobile
-EXPO_OFFLINE=1 npx expo export --platform web --output-dir dist-web
-npx serve dist-web            # o publique la carpeta en cualquier hosting estático
+pnpm install
+pnpm --filter @kalo/mobile export:web     # genera apps/mobile/dist-web (incluye 404.html)
+npx serve -s apps/mobile/dist-web         # -s: todas las rutas sirven index.html
 ```
 
 Abra la dirección en el celular (misma red WiFi: `http://<IP-de-la-computadora>:3000`).
 En Chrome puede «Agregar a pantalla principal» para verla como app.
+
+- Para publicarlo en un hosting estático (GitHub Pages, Netlify, S3), suba `dist-web`. Si va en
+  un subdirectorio, exporte con `KALO_WEB_BASE_URL=/subdirectorio`.
+- Fuera de `localhost`, el navegador solo entrega la ubicación GPS por **HTTPS**.
+- En el navegador el recorrido GPS se graba solo con la pestaña abierta.
 
 ## 2. Expo Go
 

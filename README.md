@@ -12,6 +12,9 @@ como **DEMO**.
 | API                | Fastify 5 + Zod + Drizzle + PostgreSQL 16/PostGIS + MinIO               | http://localhost:4000 · docs en `/docs` |
 | Visión (preparado) | Python + FastAPI                                                        | http://localhost:8000                   |
 
+**¿Quiere ver la app ya?** Siga [docs/DEMO.md](docs/DEMO.md): modo demo sin servidor en el
+navegador del celular o en Expo Go, con guion de 10 minutos.
+
 Documentación: [arquitectura](docs/arquitectura.md) · [sincronización](docs/sincronizacion.md)
 · [cómo agregar un módulo](docs/modulos.md) · [decisiones y pendientes](docs/decisiones.md).
 El prompt original está en `docs/PROMPT.pdf`.
