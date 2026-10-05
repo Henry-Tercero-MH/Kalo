@@ -1,0 +1,30 @@
+/* ARCHIVO GENERADO por scripts/generar-css.mjs — no editar a mano. */
+@theme {
+  --radius-*: initial;
+  --shadow-*: initial;
+  --font-sans: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --font-portada: 'Anton', 'Archivo', sans-serif;
+  --color-marca-negro: #000000;
+  --color-marca-verde: #a0d33e;
+  --color-marca-verde600: #8bb331;
+  --color-marca-verde700: #719a24;
+  --color-marca-verde100: #eaf6cf;
+  --color-marca-verde50: #f5fbe9;
+  --color-neutros-n0: #ffffff;
+  --color-neutros-n50: #faf9f7;
+  --color-neutros-n200: #e2ded7;
+  --color-neutros-n300: #c9c4ba;
+  --color-neutros-n500: #6f6a62;
+  --color-neutros-n700: #3a3733;
+  --color-neutros-n900: #141311;
+  --color-estados-exito: #4f8f2a;
+  --color-estados-alerta: #d3a047;
+  --color-estados-peligro: #a33323;
+  --color-estados-info: #3d6b8f;
+  --color-graficas-serie1: #141311;
+  --color-graficas-serie2: #a0d33e;
+  --color-graficas-serie3: #9d978c;
+  --color-graficas-serie4: #c9c4ba;
+  --color-graficas-cuadricula: #e2ded7;
+  --color-graficas-ejes: #6f6a62;
+}

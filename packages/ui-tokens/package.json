@@ -1,0 +1,25 @@
+{
+  "name": "@kalo/ui-tokens",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tokens de diseño de la Guía de marca de Inversiones Kalo",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./theme.css": "./theme.css",
+    "./tokens.json": "./src/tokens.json"
+  },
+  "scripts": {
+    "build": "node scripts/generar-css.mjs",
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@kalo/config": "workspace:*",
+    "eslint": "^9.37.0",
+    "vitest": "^3.2.4"
+  }
+}

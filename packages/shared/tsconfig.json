@@ -1,0 +1,4 @@
+{
+  "extends": "@kalo/config/tsconfig/node.json",
+  "include": ["src", "test"]
+}

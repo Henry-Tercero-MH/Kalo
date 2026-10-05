@@ -1,0 +1,38 @@
+{
+  "name": "kalo-campo",
+  "private": true,
+  "description": "Plataforma de recolección de datos de campo — Inversiones Kalo (DEMO)",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "turbo run dev --filter=@kalo/api --filter=@kalo/web",
+    "dev:mobile": "pnpm --filter @kalo/mobile start",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "format": "prettier --write .",
+    "db:generate": "pnpm --filter @kalo/api db:generate",
+    "db:migrate": "pnpm --filter @kalo/api db:migrate",
+    "seed": "pnpm --filter @kalo/api seed",
+    "seed:reset": "pnpm --filter @kalo/api seed:reset",
+    "qr:trampas": "pnpm --filter @kalo/api qr:trampas"
+  },
+  "devDependencies": {
+    "@kalo/config": "workspace:*",
+    "@types/node": "^22.20.5",
+    "prettier": "^3.6.2",
+    "turbo": "^2.5.8",
+    "typescript": "~5.9.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "unrs-resolver"
+    ]
+  },
+  "prettier": "@kalo/config/prettier"
+}
