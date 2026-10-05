@@ -1,52 +1,90 @@
 /**
- * Inicio de sesión rápido: usuario + PIN de 4 dígitos, o gafete QR. Funciona sin señal.
- * Paso 1: el trabajador toca su nombre (celulares compartidos, cambio rápido de usuario).
- * Paso 2: escribe su PIN en un teclado grande; al cuarto dígito entra solo.
+ * Inicio de sesión: formulario con usuario y PIN de 4 dígitos, o gafete QR. Funciona sin señal
+ * (el PIN se verifica contra el hash guardado en el teléfono).
+ * En modo demo se listan los usuarios de demostración: tocar uno llena el formulario.
  */
 import { useRouter } from 'expo-router';
 import { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Boton } from '@/componentes/Boton';
-import { Icono } from '@/componentes/Icono';
-import { Pantalla } from '@/componentes/Pantalla';
-import { Titulo } from '@/componentes/Texto';
+import { Icono, type NombreIcono } from '@/componentes/Icono';
 import { Aviso } from '@/componentes/Visuales';
+import { LOGO } from '@/componentes/logo-fuente';
 import { campo, colores, espaciado, estilosBase, semantico, tipografia } from '@/componentes/tema';
+import { CONFIG } from '@/config';
 import { useConsulta } from '@/db/hooks';
 import { esModoDemo, PINES_DEMO } from '@/demo/modo';
 import { iniciarConPin } from '@/permisos/sesion';
 
-const TECLAS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', 'borrar'] as const;
-const MARCA_DEMO = /\s*\(DEMO\)\s*$/i;
+/** Proporción del archivo del logo (960 × 200). */
+const PROPORCION_LOGO = 960 / 200;
+const ANCHO_LOGO = 200;
 
-/** Nombre sin la marca «(DEMO)»: la marca se muestra aparte como etiqueta. */
-const nombreVisible = (nombre: string) => nombre.replace(MARCA_DEMO, '');
-
-/** Iniciales para el cuadro del usuario: primera letra de las dos primeras palabras. */
-function iniciales(nombre: string) {
-  return nombreVisible(nombre)
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((p) => p[0]!.toUpperCase())
-    .join('');
-}
-
-function Avatar({ nombre, activo }: { nombre: string; activo?: boolean }) {
+/** Campo de texto con ícono, borde que se marca al enfocar y acción opcional a la derecha. */
+function CampoLogin({
+  etiqueta,
+  icono,
+  error,
+  accion,
+  entradaRef,
+  ...props
+}: React.ComponentProps<typeof TextInput> & {
+  etiqueta: string;
+  icono: NombreIcono;
+  error?: boolean;
+  accion?: { icono: NombreIcono; etiqueta: string; onPress: () => void };
+  entradaRef?: React.Ref<TextInput>;
+}) {
+  const [enfocado, setEnfocado] = useState(false);
   return (
-    <View style={[estilos.avatar, activo && estilos.avatarActivo]}>
-      <Text style={[estilos.avatarTexto, activo && { color: semantico.titulo }]}>
-        {iniciales(nombre)}
-      </Text>
-    </View>
-  );
-}
-
-function MarcaDemo() {
-  return (
-    <View style={estilos.marcaDemo}>
-      <Text style={estilos.marcaDemoTexto}>DEMO</Text>
+    <View style={{ marginBottom: espaciado.lg }}>
+      <Text style={estilosBase.etiqueta}>{etiqueta}</Text>
+      <View style={[estilos.campo, enfocado && estilos.campoEnfocado, error && estilos.campoError]}>
+        <Icono
+          nombre={icono}
+          tamano={20}
+          color={enfocado ? semantico.titulo : semantico.textoSecundario}
+        />
+        <TextInput
+          ref={entradaRef}
+          {...props}
+          accessibilityLabel={etiqueta}
+          placeholderTextColor={semantico.textoSecundario}
+          autoCorrect={false}
+          onFocus={(e) => {
+            setEnfocado(true);
+            props.onFocus?.(e);
+          }}
+          onBlur={(e) => {
+            setEnfocado(false);
+            props.onBlur?.(e);
+          }}
+          style={estilos.entrada}
+        />
+        {accion ? (
+          <Pressable
+            onPress={accion.onPress}
+            accessibilityRole="button"
+            accessibilityLabel={accion.etiqueta}
+            hitSlop={10}
+            style={estilos.accionCampo}
+          >
+            <Icono nombre={accion.icono} tamano={22} color={semantico.textoSecundario} />
+          </Pressable>
+        ) : null}
+      </View>
     </View>
   );
 }
@@ -54,251 +92,229 @@ function MarcaDemo() {
 export default function Login() {
   const { t } = useTranslation();
   const router = useRouter();
-  const todos = useConsulta('usuarios');
+  const usuarios = useConsulta('usuarios');
   const roles = useConsulta('roles');
-  const [usuario, setUsuario] = useState<string | null>(null);
+  const [usuario, setUsuario] = useState('');
   const [pin, setPin] = useState('');
+  const [verPin, setVerPin] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [cargando, setCargando] = useState(false);
-  const sacudida = useRef(new Animated.Value(0)).current;
+  const campoPin = useRef<TextInput>(null);
   const demo = esModoDemo();
 
-  const usuarios = useMemo(
-    () => todos.filter((u) => u.activo).sort((a, b) => a.nombre.localeCompare(b.nombre)),
-    [todos],
-  );
   const nombreRol = useMemo(() => new Map(roles.map((r) => [r.id, r.nombre])), [roles]);
-  const elegido = usuarios.find((u) => u.usuario === usuario);
+  const usuariosDemo = useMemo(
+    () =>
+      demo
+        ? usuarios
+            .filter((u) => u.activo && PINES_DEMO[u.usuario])
+            .sort((a, b) => PINES_DEMO[a.usuario]!.localeCompare(PINES_DEMO[b.usuario]!))
+        : [],
+    [demo, usuarios],
+  );
 
-  const sacudir = () => {
-    sacudida.setValue(0);
-    Animated.sequence(
-      [10, -10, 7, -7, 0].map((x) =>
-        Animated.timing(sacudida, { toValue: x, duration: 50, useNativeDriver: true }),
-      ),
-    ).start();
-  };
+  const listo = usuario.trim().length > 0 && pin.length === 4 && !cargando;
 
-  const entrar = async (pinCompleto: string) => {
-    if (!usuario) return;
+  const entrar = async () => {
+    if (!listo) return;
+    setError(null);
     setCargando(true);
     // Deja pintar el indicador antes del cálculo del hash.
     await new Promise((r) => setTimeout(r, 30));
-    const r = await iniciarConPin(usuario, pinCompleto);
+    const r = await iniciarConPin(usuario, pin);
     setCargando(false);
     if (r.ok) return router.replace('/(tabs)');
     setPin('');
-    sacudir();
     setError(
-      r.motivo === 'bloqueado' ? t('login.bloqueado', { min: r.minutos }) : t('login.pinIncorrecto'),
+      r.motivo === 'bloqueado' ? t('login.bloqueado', { min: r.minutos }) : t('login.incorrecto'),
     );
+    campoPin.current?.focus();
   };
 
-  const tecla = (k: (typeof TECLAS)[number]) => {
-    setError(null);
-    if (k === 'borrar') return setPin((p) => p.slice(0, -1));
-    if (!k || pin.length >= 4) return;
-    const nuevo = pin + k;
-    setPin(nuevo);
-    if (nuevo.length === 4) void entrar(nuevo);
-  };
-
-  const cambiarUsuario = () => {
-    setUsuario(null);
-    setPin('');
-    setError(null);
-  };
-
-  // Paso 1: elegir usuario.
-  if (!elegido) {
-    return (
-      <Pantalla>
-        <Titulo>{t('login.titulo')}</Titulo>
-        <Text style={[estilosBase.cuerpo, estilos.ayuda]}>{t('login.toqueSuNombre')}</Text>
-        {usuarios.length === 0 ? <Aviso tipo="alerta" texto={t('login.sinUsuarios')} /> : null}
-        <View style={estilos.lista}>
-          {usuarios.map((u) => (
-            <Pressable
-              key={u.id}
-              accessibilityRole="button"
-              accessibilityLabel={`${nombreVisible(u.nombre)}, ${nombreRol.get(u.rol_id) ?? ''}`}
-              onPress={() => {
-                setUsuario(u.usuario);
-                setPin('');
-                setError(null);
-              }}
-              style={({ pressed }) => [estilos.fila, pressed && estilos.filaPresionada]}
-            >
-              <Avatar nombre={u.nombre} />
-              <View style={{ flex: 1 }}>
-                <View style={estilos.filaNombre}>
-                  <Text style={estilos.nombre} numberOfLines={2}>
-                    {nombreVisible(u.nombre)}
-                  </Text>
-                  {MARCA_DEMO.test(u.nombre) ? <MarcaDemo /> : null}
-                </View>
-                <Text style={estilosBase.secundario} numberOfLines={1}>
-                  {nombreRol.get(u.rol_id) ?? ''}
-                </Text>
-              </View>
-              <Icono nombre="chevron-right" color={semantico.textoSecundario} />
-            </Pressable>
-          ))}
-        </View>
-        <View style={estilos.separador}>
-          <View style={estilos.linea} />
-          <Text style={estilosBase.etiqueta}>{t('login.o')}</Text>
-          <View style={estilos.linea} />
-        </View>
-        <Boton
-          titulo={t('login.gafete')}
-          icono="scan-qr-code"
-          variante="secundario"
-          onPress={() => router.push('/(auth)/gafete')}
-        />
-      </Pantalla>
-    );
-  }
-
-  // Paso 2: PIN.
-  const pinDemo = demo ? PINES_DEMO[elegido.usuario] : undefined;
   return (
-    <Pantalla>
-      <View style={estilos.tarjetaUsuario}>
-        <Avatar nombre={elegido.nombre} activo />
-        <View style={{ flex: 1 }}>
-          <Text style={estilos.nombre} numberOfLines={2}>
-            {nombreVisible(elegido.nombre)}
-          </Text>
-          <Text style={estilosBase.secundario}>{nombreRol.get(elegido.rol_id) ?? ''}</Text>
-        </View>
-        <Pressable
-          onPress={cambiarUsuario}
-          accessibilityRole="button"
-          accessibilityLabel={t('login.cambiarUsuario')}
-          hitSlop={8}
-          style={estilos.cambiar}
-        >
-          <Text style={estilos.cambiarTexto}>{t('login.cambiar')}</Text>
-        </Pressable>
-      </View>
+    <SafeAreaView style={estilos.raiz}>
+      <View style={estilos.franja} />
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        <ScrollView contentContainerStyle={estilos.contenido} keyboardShouldPersistTaps="handled">
+          <View style={estilos.marca}>
+            {LOGO ? (
+              <Image
+                source={LOGO}
+                style={{ width: ANCHO_LOGO, height: ANCHO_LOGO / PROPORCION_LOGO }}
+                resizeMode="contain"
+                accessibilityLabel="Inversiones Kalo"
+              />
+            ) : null}
+            <Text style={[estilosBase.etiqueta, { marginTop: espaciado.md }]}>
+              {t('login.app')}
+            </Text>
+          </View>
 
-      <View style={estilos.zonaPin}>
-        <View style={estilos.filaEtiquetaPin}>
-          <Icono nombre="lock-keyhole" tamano={18} color={semantico.textoSecundario} />
-          <Text style={estilosBase.etiqueta}>{t('login.escribaPin')}</Text>
-        </View>
-        <Animated.View
-          style={[estilos.casillas, { transform: [{ translateX: sacudida }] }]}
-          accessibilityLabel={t('login.digitos', { n: pin.length })}
-        >
-          {[0, 1, 2, 3].map((i) => {
-            const lleno = i < pin.length;
-            const actual = i === pin.length && !cargando;
-            return (
-              <View
-                key={i}
-                style={[
-                  estilos.casilla,
-                  actual && estilos.casillaActual,
-                  error ? estilos.casillaError : null,
-                ]}
-              >
-                {lleno ? <View style={estilos.puntoPin} /> : null}
+          <Text style={estilos.titulo}>{t('login.titulo')}</Text>
+          <View style={[estilosBase.lineaTitulo, { marginVertical: espaciado.sm }]} />
+          <Text style={[estilosBase.cuerpo, estilos.ayuda]}>{t('login.ayuda')}</Text>
+
+          <CampoLogin
+            etiqueta={t('login.usuario')}
+            icono="user-round"
+            value={usuario}
+            onChangeText={(v) => {
+              setUsuario(v);
+              setError(null);
+            }}
+            placeholder={t('login.usuarioEjemplo')}
+            autoCapitalize="none"
+            autoComplete="username"
+            textContentType="username"
+            returnKeyType="next"
+            onSubmitEditing={() => campoPin.current?.focus()}
+            error={Boolean(error)}
+          />
+          <CampoLogin
+            entradaRef={campoPin}
+            etiqueta={t('login.pin')}
+            icono="lock-keyhole"
+            value={pin}
+            onChangeText={(v) => {
+              setPin(v.replace(/\D/g, '').slice(0, 4));
+              setError(null);
+            }}
+            placeholder={t('login.pinEjemplo')}
+            secureTextEntry={!verPin}
+            keyboardType="number-pad"
+            inputMode="numeric"
+            maxLength={4}
+            autoComplete="current-password"
+            textContentType="password"
+            returnKeyType="go"
+            onSubmitEditing={() => void entrar()}
+            error={Boolean(error)}
+            accion={{
+              icono: verPin ? 'eye-off' : 'eye',
+              etiqueta: verPin ? t('login.ocultarPin') : t('login.mostrarPin'),
+              onPress: () => setVerPin((v) => !v),
+            }}
+          />
+
+          {error ? <Aviso tipo="peligro" texto={error} /> : null}
+
+          <View style={{ marginTop: espaciado.sm }}>
+            <Boton
+              titulo={cargando ? t('login.verificando') : t('login.entrar')}
+              onPress={() => void entrar()}
+              deshabilitado={!listo}
+              cargando={cargando}
+            />
+          </View>
+
+          <View style={estilos.separador}>
+            <View style={estilos.linea} />
+            <Text style={estilosBase.etiqueta}>{t('login.o')}</Text>
+            <View style={estilos.linea} />
+          </View>
+          <Boton
+            titulo={t('login.gafete')}
+            icono="scan-qr-code"
+            variante="secundario"
+            onPress={() => router.push('/(auth)/gafete')}
+          />
+
+          {usuariosDemo.length > 0 ? (
+            <View style={estilos.demo}>
+              <View style={estilos.demoEncabezado}>
+                <View style={estilos.marcaDemo}>
+                  <Text style={estilos.marcaDemoTexto}>DEMO</Text>
+                </View>
+                <Text style={estilosBase.etiqueta}>{t('login.usuariosDemo')}</Text>
               </View>
-            );
-          })}
-        </Animated.View>
-        <View style={estilos.mensaje} accessibilityLiveRegion="polite">
-          {cargando ? (
-            <Text style={estilosBase.secundario}>{t('login.verificando')}</Text>
-          ) : error ? (
-            <Text style={estilos.error}>{error}</Text>
-          ) : pinDemo ? (
-            <Text style={estilosBase.secundario}>{t('login.pinDemo', { pin: pinDemo })}</Text>
+              <Text style={[estilosBase.secundario, { marginBottom: espaciado.sm }]}>
+                {t('login.usuariosDemoAyuda')}
+              </Text>
+              {usuariosDemo.map((u) => (
+                <Pressable
+                  key={u.id}
+                  accessibilityRole="button"
+                  accessibilityLabel={t('login.usarUsuario', { usuario: u.usuario })}
+                  onPress={() => {
+                    setUsuario(u.usuario);
+                    setPin(PINES_DEMO[u.usuario]!);
+                    setError(null);
+                  }}
+                  style={({ pressed }) => [
+                    estilos.filaDemo,
+                    usuario === u.usuario && estilos.filaDemoActiva,
+                    pressed && { backgroundColor: semantico.fondoSuave },
+                  ]}
+                >
+                  <View style={{ flex: 1 }}>
+                    <Text style={estilos.usuarioDemo}>{u.usuario}</Text>
+                    <Text style={estilosBase.secundario} numberOfLines={1}>
+                      {nombreRol.get(u.rol_id) ?? ''}
+                    </Text>
+                  </View>
+                  <Text style={estilos.pinDemo}>{PINES_DEMO[u.usuario]}</Text>
+                </Pressable>
+              ))}
+            </View>
           ) : null}
-        </View>
-      </View>
 
-      <View style={estilos.teclado}>
-        {TECLAS.map((k, i) =>
-          k ? (
-            <Pressable
-              key={i}
-              disabled={cargando}
-              onPress={() => tecla(k)}
-              accessibilityRole="button"
-              accessibilityLabel={k === 'borrar' ? t('login.borrar') : k}
-              style={({ pressed }) => [
-                estilos.tecla,
-                k === 'borrar' && estilos.teclaBorrar,
-                pressed && estilos.teclaPresionada,
-              ]}
-            >
-              {k === 'borrar' ? (
-                <Icono nombre="delete" tamano={30} color={semantico.titulo} />
-              ) : (
-                <Text style={estilos.textoTecla}>{k}</Text>
-              )}
-            </Pressable>
-          ) : (
-            <View key={i} style={[estilos.tecla, estilos.teclaVacia]} />
-          ),
-        )}
-      </View>
-    </Pantalla>
+          <Text style={[estilosBase.secundario, estilos.pie]}>
+            {t('login.sinSenal')} · v{CONFIG.versionApp}
+          </Text>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const estilos = StyleSheet.create({
-  ayuda: { marginTop: espaciado.sm, color: semantico.textoSecundario },
-  lista: {
-    marginTop: espaciado.lg,
-    borderTopWidth: 1,
-    borderTopColor: semantico.borde,
+  raiz: { flex: 1, backgroundColor: semantico.fondo },
+  franja: { height: 6, backgroundColor: semantico.acento },
+  contenido: {
+    flexGrow: 1,
+    paddingHorizontal: espaciado.xl,
+    paddingTop: espaciado.xxl,
+    paddingBottom: espaciado.lg,
   },
-  fila: {
-    minHeight: campo.alturaTactil + 16,
+  marca: { alignItems: 'center', marginBottom: espaciado.xxl },
+  titulo: {
+    fontFamily: tipografia.familias.titulo,
+    fontSize: tipografia.tamanos.titulo,
+    color: semantico.titulo,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  ayuda: { color: semantico.textoSecundario, marginBottom: espaciado.lg },
+  campo: {
+    minHeight: campo.alturaTactil,
+    marginTop: espaciado.xs,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: espaciado.md,
-    paddingVertical: espaciado.md,
-    paddingHorizontal: espaciado.xs,
-    borderBottomWidth: 1,
-    borderBottomColor: semantico.borde,
+    gap: espaciado.sm,
+    paddingLeft: espaciado.md,
+    borderWidth: 2,
+    borderColor: semantico.borde,
+    backgroundColor: semantico.fondo,
   },
-  filaPresionada: { backgroundColor: semantico.fondoSuave },
-  filaNombre: { flexDirection: 'row', alignItems: 'center', gap: espaciado.sm },
-  nombre: {
-    fontFamily: tipografia.familias.titulo,
+  campoEnfocado: { borderColor: semantico.bordeFuerte },
+  campoError: { borderColor: semantico.peligro },
+  entrada: {
+    flex: 1,
+    minHeight: campo.alturaTactil - 4,
+    paddingRight: espaciado.md,
+    fontFamily: tipografia.familias.cuerpo,
     fontSize: 18,
     color: semantico.titulo,
-    flexShrink: 1,
+    // En web el navegador dibuja su propio contorno al enfocar; ya lo marca el borde.
+    ...(Platform.OS === 'web' ? ({ outlineStyle: 'none' } as object) : null),
   },
-  avatar: {
-    width: 48,
-    height: 48,
-    backgroundColor: semantico.bordeFuerte,
-    alignItems: 'center',
+  accionCampo: {
+    minHeight: campo.alturaTactil - 4,
+    paddingHorizontal: espaciado.md,
     justifyContent: 'center',
-  },
-  avatarActivo: { backgroundColor: semantico.acento },
-  avatarTexto: {
-    fontFamily: tipografia.familias.titulo,
-    fontSize: 18,
-    color: semantico.fondo,
-    letterSpacing: 1,
-  },
-  marcaDemo: {
-    backgroundColor: colores.estados.alerta,
-    paddingHorizontal: 5,
-    paddingVertical: 1,
-  },
-  marcaDemoTexto: {
-    fontFamily: tipografia.familias.titulo,
-    fontSize: 10,
-    letterSpacing: 1,
-    color: semantico.titulo,
   },
   separador: {
     flexDirection: 'row',
@@ -307,68 +323,47 @@ const estilos = StyleSheet.create({
     marginVertical: espaciado.lg,
   },
   linea: { flex: 1, height: 1, backgroundColor: semantico.borde },
-
-  tarjetaUsuario: {
+  demo: {
+    marginTop: espaciado.xl,
+    padding: espaciado.md,
+    backgroundColor: semantico.fondoSuave,
+    borderLeftWidth: 4,
+    borderLeftColor: colores.estados.alerta,
+  },
+  demoEncabezado: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: espaciado.md,
-    padding: espaciado.md,
-    borderWidth: 1,
-    borderColor: semantico.borde,
-    borderLeftWidth: 4,
-    borderLeftColor: semantico.acento,
+    gap: espaciado.sm,
+    marginBottom: espaciado.xs,
   },
-  cambiar: {
-    minHeight: 40,
-    paddingHorizontal: espaciado.md,
-    justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: semantico.bordeFuerte,
-  },
-  cambiarTexto: {
+  marcaDemo: { backgroundColor: colores.estados.alerta, paddingHorizontal: 5, paddingVertical: 1 },
+  marcaDemoTexto: {
     fontFamily: tipografia.familias.titulo,
-    fontSize: 12,
-    letterSpacing: 0.8,
-    textTransform: 'uppercase',
+    fontSize: 10,
+    letterSpacing: 1,
     color: semantico.titulo,
   },
-  zonaPin: { alignItems: 'center', marginTop: espaciado.xl },
-  filaEtiquetaPin: { flexDirection: 'row', alignItems: 'center', gap: espaciado.xs },
-  casillas: { flexDirection: 'row', gap: espaciado.md, marginTop: espaciado.md },
-  casilla: {
-    width: 56,
-    height: 64,
-    borderWidth: 2,
-    borderColor: semantico.borde,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  casillaActual: { borderColor: semantico.bordeFuerte },
-  casillaError: { borderColor: semantico.peligro },
-  puntoPin: { width: 16, height: 16, backgroundColor: semantico.titulo },
-  mensaje: { minHeight: 40, justifyContent: 'center', marginTop: espaciado.sm },
-  error: {
-    fontFamily: tipografia.familias.cuerpoMedio,
-    fontSize: tipografia.tamanos.pequeno,
-    color: semantico.peligro,
-    textAlign: 'center',
-  },
-  teclado: {
+  filaDemo: {
+    minHeight: 52,
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    rowGap: espaciado.sm,
-    marginTop: espaciado.sm,
-  },
-  tecla: {
-    width: '31.5%',
-    minHeight: campo.alturaTactil + 12,
-    backgroundColor: semantico.fondoSuave,
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: espaciado.sm,
+    paddingVertical: espaciado.xs,
+    borderTopWidth: 1,
+    borderTopColor: semantico.borde,
   },
-  teclaBorrar: { backgroundColor: semantico.fondo },
-  teclaVacia: { backgroundColor: 'transparent' },
-  teclaPresionada: { backgroundColor: semantico.borde },
-  textoTecla: { fontFamily: tipografia.familias.titulo, fontSize: 28, color: semantico.titulo },
+  filaDemoActiva: { backgroundColor: semantico.fondo },
+  usuarioDemo: {
+    fontFamily: tipografia.familias.cuerpoMedio,
+    fontSize: 16,
+    color: semantico.titulo,
+  },
+  pinDemo: {
+    fontFamily: tipografia.familias.titulo,
+    fontSize: 16,
+    letterSpacing: 2,
+    color: semantico.titulo,
+    fontVariant: ['tabular-nums'],
+  },
+  pie: { textAlign: 'center', marginTop: espaciado.xl },
 });
