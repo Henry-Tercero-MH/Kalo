@@ -99,6 +99,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ],
   experiments: { typedRoutes: true, ...(baseUrlWeb ? { baseUrl: baseUrlWeb } : {}) },
   extra: {
+    // 'mock' (por defecto): datos DEMO en el teléfono, sin API. 'api': servidor real.
+    datos: process.env.EXPO_PUBLIC_KALO_DATOS === 'api' ? 'api' : 'mock',
     apiUrl: process.env.EXPO_PUBLIC_API_URL ?? 'http://10.0.2.2:4000',
     mapStyleUrl:
       process.env.EXPO_PUBLIC_MAP_STYLE_URL ?? 'https://tiles.openfreemap.org/styles/liberty',

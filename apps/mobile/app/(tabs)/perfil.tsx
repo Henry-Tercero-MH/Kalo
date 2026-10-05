@@ -8,7 +8,7 @@ import { Pantalla } from '@/componentes/Pantalla';
 import { Texto, Titulo } from '@/componentes/Texto';
 import { Dato, Tarjeta } from '@/componentes/Visuales';
 import { espaciado, semantico } from '@/componentes/tema';
-import { CONFIG } from '@/config';
+import { CONFIG, USA_API } from '@/config';
 import { salirDelDemo } from '@/demo/activacion';
 import { tieneMapLibre } from '@/demo/entorno';
 import { EtiquetaDemo } from '@/demo/EtiquetaDemo';
@@ -32,7 +32,8 @@ export default function Perfil() {
     setSaliendo(true);
     try {
       await salirDelDemo();
-      router.replace('/(auth)/configurar');
+      // Modo mock: la entrada vuelve a cargar los datos DEMO desde cero.
+      router.replace(USA_API ? '/(auth)/configurar' : '/');
     } catch (e) {
       avisar(t('sync.error'), String(e));
     } finally {
@@ -40,7 +41,11 @@ export default function Perfil() {
     }
   };
 
-  const confirmarSalida = () => confirmar(t('perfil.salirDemoTitulo'), t('perfil.salirDemoTexto'), () => void salir());
+  const confirmarSalida = () => confirmar(
+      t(USA_API ? 'perfil.salirDemoTitulo' : 'perfil.reiniciarDemoTitulo'),
+      t(USA_API ? 'perfil.salirDemoTexto' : 'perfil.reiniciarDemoTexto'),
+      () => void salir(),
+    );
 
   useEffect(() => {
     void almacen.preferencias().then((p) => setAhorro(p.ahorroBateria));
@@ -106,7 +111,7 @@ export default function Perfil() {
       ) : null}
       {demo ? (
         <Boton
-          titulo={t('perfil.salirDemo')}
+          titulo={t(USA_API ? 'perfil.salirDemo' : 'perfil.reiniciarDemo')}
           variante="peligro"
           icono="log-out"
           cargando={saliendo}

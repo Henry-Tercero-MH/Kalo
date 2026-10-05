@@ -3,7 +3,7 @@
  * Arriba, «Probar demo sin servidor»: datos DEMO precargados y sincronización simulada.
  */
 import * as Device from 'expo-device';
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Boton } from '@/componentes/Boton';
@@ -12,12 +12,18 @@ import { Pantalla } from '@/componentes/Pantalla';
 import { Subtitulo, Texto, Titulo } from '@/componentes/Texto';
 import { Aviso, Tarjeta } from '@/componentes/Visuales';
 import { espaciado } from '@/componentes/tema';
-import { CONFIG } from '@/config';
+import { CONFIG, USA_API } from '@/config';
 import { configurarDemo, ErrorPendientesSinEnviar } from '@/demo/activacion';
 import { cargarConfiguracion } from '@/permisos/contexto';
 import { configurarDispositivo } from '@/sync/configuracion';
 
 export default function Configurar() {
+  // Modo mock: no hay servidor que configurar; la entrada carga los datos DEMO.
+  if (!USA_API) return <Redirect href="/" />;
+  return <ConfigurarServidor />;
+}
+
+function ConfigurarServidor() {
   const { t } = useTranslation();
   const router = useRouter();
   const [apiUrl, setApiUrl] = useState(CONFIG.apiUrlPorDefecto);

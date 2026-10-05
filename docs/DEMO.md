@@ -9,8 +9,8 @@ Tres formas de mostrar la app, de la más rápida a la más completa.
 | **3. Build de desarrollo / APK** | Android Studio o EAS Build | DEMO o servidor real | Sí | MapLibre con mapa sin conexión |
 
 Las formas 1 y 2 usan el **modo demo**: la app trae los datos ficticios (DEMO) y la
-sincronización se simula, así que no hace falta levantar la API. La forma 3 puede usar el
-modo demo o conectarse al servidor (`pnpm dev`).
+sincronización se simula, así que no hace falta levantar la API. La forma 3 también usa datos mock por defecto; para conectarla al servidor real compile con
+`EXPO_PUBLIC_KALO_DATOS=api` y levante la API (`pnpm dev`).
 
 ## 1. Navegador del celular
 
@@ -44,8 +44,8 @@ Ver README → «App móvil». Es la que tiene GPS en segundo plano, base SQLite
 
 ## Guion (10 minutos, todo en el celular)
 
-1. **Probar demo sin servidor.** En «Configurar dispositivo» toque el botón principal.
-   Se cargan la Finca Demo, 6 lotes, usuarios, catálogos y 3 semanas de registros.
+1. **Abrir la app.** Por defecto usa **datos mock**: al abrir se cargan solos la Finca Demo,
+   6 lotes, usuarios, catálogos y 3 semanas de registros, sin servidor ni internet.
 2. **Inicio de sesión sin señal.** Elija «Tomás Técnico de Sanidad (DEMO)» y escriba el PIN
    **4444** (o «Escanear gafete»). Active el **modo avión** antes o después: la app sigue igual.
 3. **Inicio del día.** Finca, lote actual por GPS (si está fuera de la finca demo dirá
@@ -63,7 +63,7 @@ Ver README → «App móvil». Es la que tiene GPS en segundo plano, base SQLite
    y la asistencia de una cuadrilla.
 9. **Recuperar señal.** Quite el modo avión y toque «Sincronizar ahora»: el indicador pasa
    por **SINCRONIZANDO** a **SINCRONIZADO** y los pendientes quedan en cero.
-10. **Salir del demo.** Perfil → «Salir del demo» borra los datos del teléfono.
+10. **Reiniciar.** Perfil → «Reiniciar datos demo» borra lo registrado y vuelve a los datos originales.
 
 > En modo demo la sincronización es simulada: los registros no viajan a un servidor. Para
 > mostrar que llegan al panel web, use la build de desarrollo conectada a la API (README).

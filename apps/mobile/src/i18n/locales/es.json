@@ -122,7 +122,10 @@
     "salirDemo": "Salir del demo",
     "salirDemoTitulo": "¿Salir del demo?",
     "salirDemoTexto": "Se borrarán los datos DEMO de este dispositivo y volverá a la pantalla de configuración.",
-    "salirDemoConfirmar": "Salir y borrar"
+    "salirDemoConfirmar": "Salir y borrar",
+    "reiniciarDemo": "Reiniciar datos demo",
+    "reiniciarDemoTitulo": "¿Reiniciar los datos demo?",
+    "reiniciarDemoTexto": "Se borrarán los registros que hizo en este teléfono y se volverán a cargar los datos DEMO originales."
   },
   "mapa": {
     "titulo": "Mapa de la finca",

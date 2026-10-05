@@ -2,6 +2,7 @@
  * Cliente HTTP de la API con la sesión del DISPOSITIVO (sirve aunque el usuario haya
  * iniciado sesión sin señal). Renueva el token automáticamente.
  */
+import { USA_API } from '@/config';
 import { almacen } from '@/utils/almacen-seguro';
 
 export class ErrorApi extends Error {
@@ -20,6 +21,8 @@ async function peticion(
   init: RequestInit,
   tiempo = TIEMPO_MAXIMO_MS,
 ): Promise<Response> {
+  // Modo mock: la app no se conecta a ninguna API.
+  if (!USA_API) throw new ErrorApi(0, 'Modo mock: la app no usa la API');
   const control = new AbortController();
   const t = setTimeout(() => control.abort(), tiempo);
   try {

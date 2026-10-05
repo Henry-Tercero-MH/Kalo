@@ -8,6 +8,7 @@
  *  - `DATOS_DEMO` es un pull inicial (formato de /v1/sync/pull) exportado del seed con
  *    `pnpm --filter @kalo/api demo:movil`.
  */
+import { USA_API } from '@/config';
 import datos from './datos-demo.json';
 
 export const DATOS_DEMO = datos as unknown as {
@@ -30,5 +31,6 @@ export function fijarModoDemo(valor: boolean) {
 }
 
 export function esModoDemo(): boolean {
-  return activo;
+  // Sin API (modo mock) la app siempre trabaja con los datos DEMO.
+  return activo || !USA_API;
 }
