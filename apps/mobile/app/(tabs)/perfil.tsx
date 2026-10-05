@@ -1,7 +1,8 @@
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Switch, View } from 'react-native';
+import { Switch, View } from 'react-native';
+import { avisar, confirmar } from '@/componentes/alerta';
 import { Boton } from '@/componentes/Boton';
 import { Pantalla } from '@/componentes/Pantalla';
 import { Texto, Titulo } from '@/componentes/Texto';
@@ -9,7 +10,7 @@ import { Dato, Tarjeta } from '@/componentes/Visuales';
 import { espaciado, semantico } from '@/componentes/tema';
 import { CONFIG } from '@/config';
 import { salirDelDemo } from '@/demo/activacion';
-import { esWeb, tieneMapLibre } from '@/demo/entorno';
+import { tieneMapLibre } from '@/demo/entorno';
 import { EtiquetaDemo } from '@/demo/EtiquetaDemo';
 import { esModoDemo } from '@/demo/modo';
 import { descargarMapaFinca } from '@/gps/mapas-offline';
@@ -33,25 +34,13 @@ export default function Perfil() {
       await salirDelDemo();
       router.replace('/(auth)/configurar');
     } catch (e) {
-      Alert.alert(t('sync.error'), String(e));
+      avisar(t('sync.error'), String(e));
     } finally {
       setSaliendo(false);
     }
   };
 
-  const confirmarSalida = () => {
-    // Alert con botones no existe en react-native-web: se usa window.confirm.
-    if (esWeb) {
-      if (globalThis.confirm?.(`${t('perfil.salirDemoTitulo')}\n${t('perfil.salirDemoTexto')}`)) {
-        void salir();
-      }
-      return;
-    }
-    Alert.alert(t('perfil.salirDemoTitulo'), t('perfil.salirDemoTexto'), [
-      { text: t('comun.cancelar'), style: 'cancel' },
-      { text: t('perfil.salirDemoConfirmar'), style: 'destructive', onPress: () => void salir() },
-    ]);
-  };
+  const confirmarSalida = () => confirmar(t('perfil.salirDemoTitulo'), t('perfil.salirDemoTexto'), () => void salir());
 
   useEffect(() => {
     void almacen.preferencias().then((p) => setAhorro(p.ahorroBateria));
@@ -108,7 +97,7 @@ export default function Perfil() {
             try {
               await descargarMapaFinca(config.bbox, setProgreso);
             } catch (e) {
-              Alert.alert(t('sync.error'), String(e));
+              avisar(t('sync.error'), String(e));
             } finally {
               setProgreso(null);
             }

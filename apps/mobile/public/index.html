@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="%LANG_ISO_CODE%">
   <head>
     <meta charset="utf-8" />
@@ -11,6 +11,8 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <!-- Sin favicon propio: evita la petición 404 a /favicon.ico. -->
+    <link rel="icon" href="data:," />
     <title>%WEB_TITLE%</title>
     <!-- Reinicio de estilos recomendado por react-native-web. -->
     <style id="expo-reset">

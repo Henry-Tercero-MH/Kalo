@@ -14,6 +14,8 @@ import { fechaIso, inicioSemanaIso, semanaIso, sumarSemanas } from '@kalo/shared
 
 export interface PullDemo {
   generado: string;
+  /** Fecha (AAAA-MM-DD) de la finca al exportar; evita depender de la zona horaria del celular. */
+  fechaReferencia?: string;
   timestamp: number;
   changes: Record<
     string,
@@ -98,7 +100,10 @@ function desplazarFila(
  * No modifica el objeto recibido.
  */
 export function ajustarFechasDemo<T extends PullDemo>(datos: T, ahora: Date = new Date()): T {
-  const semanas = semanasDeDesplazamiento(new Date(datos.generado), ahora);
+  const referencia = datos.fechaReferencia
+    ? new Date(`${datos.fechaReferencia}T12:00:00`)
+    : new Date(datos.generado);
+  const semanas = semanasDeDesplazamiento(referencia, ahora);
 
   // Órdenes de trabajo: las del último día con órdenes pasan a ser las de hoy.
   const ordenes = datos.changes.ordenes_trabajo?.created ?? [];

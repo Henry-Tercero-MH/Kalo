@@ -14,7 +14,8 @@
     "lint": "eslint .",
     "test": "jest",
     "doctor": "expo-doctor",
-    "marca:logo": "node scripts/usar-logo.mjs"
+    "marca:logo": "node scripts/usar-logo.mjs",
+    "export:web": "expo export --platform web --output-dir dist-web && cp dist-web/index.html dist-web/404.html"
   },
   "dependencies": {
     "@expo-google-fonts/anton": "^0.4.2",

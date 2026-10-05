@@ -5,7 +5,8 @@
 import { formatearFechaHora, REGISTRO_TABLAS, type NombreTabla } from '@kalo/shared';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Switch, View } from 'react-native';
+import { Switch, View } from 'react-native';
+import { avisar } from '@/componentes/alerta';
 import { Boton } from '@/componentes/Boton';
 import { Pantalla } from '@/componentes/Pantalla';
 import { Etiqueta, Subtitulo, Texto, TextoSecundario, Titulo } from '@/componentes/Texto';
@@ -120,9 +121,9 @@ export default function Sincronizar() {
         onPress={async () => {
           try {
             const nombre = await exportarRespaldo();
-            if (esWeb) Alert.alert(t('sync.respaldo'), t('sync.respaldoDescargado', { nombre }));
+            if (esWeb) avisar(t('sync.respaldo'), t('sync.respaldoDescargado', { nombre }));
           } catch (e) {
-            Alert.alert(t('sync.error'), String(e));
+            avisar(t('sync.error'), String(e));
           }
         }}
       />

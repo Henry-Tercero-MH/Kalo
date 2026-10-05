@@ -5,6 +5,7 @@
  */
 import '../src/lib/zona-horaria';
 import { writeFileSync } from 'node:fs';
+import { fechaIso } from '@kalo/shared';
 import { join } from 'node:path';
 import { crearBaseDatos } from '../src/db/cliente';
 import { fincas } from '../src/db/esquema';
@@ -24,6 +25,8 @@ try {
   // Sin datos que el celular no necesita para el demo; el pull ya filtra por finca.
   const salida = {
     generado: new Date().toISOString(),
+    // Fecha en la zona horaria de la finca (el celular puede estar en otra).
+    fechaReferencia: fechaIso(new Date()),
     finca: { id: finca.id, nombre: finca.nombre, bbox: finca.bbox },
     timestamp: r.timestamp,
     changes: r.changes,
