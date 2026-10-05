@@ -4,7 +4,7 @@
 import { tienePermiso } from '@kalo/shared';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
-import { Alert } from 'react-native';
+import { avisar } from '@/componentes/alerta';
 import i18n from '@/i18n';
 import { useSesion } from '@/permisos/sesion';
 import { sincronizar } from '@/sync/motor';
@@ -12,7 +12,7 @@ import { sincronizar } from '@/sync/motor';
 /** Tras guardar: aviso claro (funciona sin señal) y sincronización en segundo plano. */
 export function despuesDeGuardar(volver: () => void, mensaje = i18n.t('comun.guardadoLocal')) {
   void sincronizar('registro');
-  Alert.alert(i18n.t('comun.listo'), mensaje, [{ text: i18n.t('comun.aceptar'), onPress: volver }]);
+  avisar(i18n.t('comun.listo'), mensaje, volver);
 }
 
 /** Si el usuario no tiene el permiso, vuelve atrás (defensa además del menú). */
