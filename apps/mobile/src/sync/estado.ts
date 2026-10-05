@@ -37,7 +37,9 @@ export const useEstadoSync = create<EstadoSync>((set) => ({
 
 export type ResumenSync = 'sincronizado' | 'pendiente' | 'sincronizando' | 'error' | 'sinRed';
 
-export function resumir(e: Pick<EstadoSync, 'fase' | 'conectado' | 'pendientes' | 'archivosPendientes'>): ResumenSync {
+export function resumir(
+  e: Pick<EstadoSync, 'fase' | 'conectado' | 'pendientes' | 'archivosPendientes'>,
+): ResumenSync {
   if (e.fase === 'sincronizando') return 'sincronizando';
   if (e.fase === 'error') return 'error';
   if (e.pendientes + e.archivosPendientes > 0) return e.conectado ? 'pendiente' : 'sinRed';

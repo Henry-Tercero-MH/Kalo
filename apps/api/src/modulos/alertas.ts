@@ -13,12 +13,20 @@ export default async function rutasAlertas(fastify: FastifyInstance) {
 
   app.get(
     '/',
-    { preHandler: app.requiere('fusarium:ver'), schema: { tags: ['alertas'], summary: 'Bandeja de alertas de Fusarium' } },
+    {
+      preHandler: app.requiere('fusarium:ver'),
+      schema: { tags: ['alertas'], summary: 'Bandeja de alertas de Fusarium' },
+    },
     async (req) => {
       const filas = await app.db
         .select()
         .from(alertas_fusarium)
-        .where(and(eq(alertas_fusarium.finca_id, req.usuario!.fincaId), isNull(alertas_fusarium.deleted_at)))
+        .where(
+          and(
+            eq(alertas_fusarium.finca_id, req.usuario!.fincaId),
+            isNull(alertas_fusarium.deleted_at),
+          ),
+        )
         .orderBy(desc(alertas_fusarium.created_at))
         .limit(500);
       return filas.map(({ geom: _g, ...a }) => a);
@@ -47,7 +55,9 @@ export default async function rutasAlertas(fastify: FastifyInstance) {
             updated_at: ahora,
             server_updated_at: ahora,
           })
-          .where(and(eq(alertas_fusarium.id, req.params.id), eq(alertas_fusarium.finca_id, u.fincaId)))
+          .where(
+            and(eq(alertas_fusarium.id, req.params.id), eq(alertas_fusarium.finca_id, u.fincaId)),
+          )
           .returning({ id: alertas_fusarium.id });
         if (r.length) {
           await registrarBitacora(tx, {

@@ -61,18 +61,18 @@ export const esquemaDefinicionBase = z.object({
 });
 
 export const esquemaDefinicionFormulario = esquemaDefinicionBase.superRefine((d, ctx) => {
-    const ids = new Set<string>();
-    for (const c of d.campos) {
-      if (ids.has(c.id)) ctx.addIssue({ code: 'custom', message: `Campo repetido: ${c.id}` });
-      if (c.visibleSi && !ids.has(c.visibleSi.campo)) {
-        ctx.addIssue({
-          code: 'custom',
-          message: `La condición de ${c.id} debe referirse a un campo anterior`,
-        });
-      }
-      ids.add(c.id);
+  const ids = new Set<string>();
+  for (const c of d.campos) {
+    if (ids.has(c.id)) ctx.addIssue({ code: 'custom', message: `Campo repetido: ${c.id}` });
+    if (c.visibleSi && !ids.has(c.visibleSi.campo)) {
+      ctx.addIssue({
+        code: 'custom',
+        message: `La condición de ${c.id} debe referirse a un campo anterior`,
+      });
     }
-  });
+    ids.add(c.id);
+  }
+});
 
 export type CampoFormulario = z.infer<typeof esquemaCampo>;
 export type DefinicionFormulario = z.infer<typeof esquemaDefinicionFormulario>;

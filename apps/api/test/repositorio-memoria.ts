@@ -62,7 +62,8 @@ export class RepositorioMemoria implements RepositorioSync {
       bitacora: async (e) => {
         this.bitacora.push(e);
       },
-      usuarios: async (ids) => new Map(ids.filter((i) => this.usuarios.has(i)).map((i) => [i, this.usuarios.get(i)!])),
+      usuarios: async (ids) =>
+        new Map(ids.filter((i) => this.usuarios.has(i)).map((i) => [i, this.usuarios.get(i)!])),
       puntoGuardado: async (fn) => fn(),
       actualizarDispositivo: async (id, valores) => {
         this.dispositivos.set(id, { ...this.dispositivos.get(id), ...valores });

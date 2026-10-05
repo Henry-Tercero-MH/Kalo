@@ -84,14 +84,20 @@ class CelularSimulado {
         const local = this.t(tabla as NombreTabla).get(fila.id);
         // Igual que la app: conflictResolver de WatermelonDB con resolverConflictoLocal.
         if (local && local._status !== 'synced') {
-          this.t(tabla as NombreTabla).set(fila.id, resolverConflictoLocal(local, fila as FilaLocal));
+          this.t(tabla as NombreTabla).set(
+            fila.id,
+            resolverConflictoLocal(local, fila as FilaLocal),
+          );
         } else {
           this.t(tabla as NombreTabla).set(fila.id, { ...fila, _status: 'synced', _changed: '' });
         }
       }
     }
     // 2) push
-    const changes: Record<string, { created: FilaCruda[]; updated: FilaCruda[]; deleted: string[] }> = {};
+    const changes: Record<
+      string,
+      { created: FilaCruda[]; updated: FilaCruda[]; deleted: string[] }
+    > = {};
     for (const [tabla, filas] of this.datos) {
       const created = [...filas.values()].filter((f) => f._status === 'created');
       const updated = [...filas.values()].filter((f) => f._status === 'updated');
@@ -101,7 +107,9 @@ class CelularSimulado {
       changes,
       lastPulledAt: pull.timestamp,
     });
-    const rechazados = new Set(push.resultados.filter((r) => r.estado === 'rechazado').map((r) => r.id));
+    const rechazados = new Set(
+      push.resultados.filter((r) => r.estado === 'rechazado').map((r) => r.id),
+    );
     for (const filas of this.datos.values()) {
       for (const f of filas.values()) {
         if (f._status !== 'synced' && !rechazados.has(f.id)) {
@@ -143,7 +151,12 @@ describe('motor de sincronización', () => {
   beforeEach(() => {
     repo = new RepositorioMemoria();
     const permisosCaporal = new Set(['cosecha:crear', 'cosecha:editar', 'labores:crear']);
-    repo.usuarios.set(CAPORAL, { id: CAPORAL, fincaId: FINCA, activo: true, permisos: permisosCaporal });
+    repo.usuarios.set(CAPORAL, {
+      id: CAPORAL,
+      fincaId: FINCA,
+      activo: true,
+      permisos: permisosCaporal,
+    });
     repo.usuarios.set(TECNICO, {
       id: TECNICO,
       fincaId: FINCA,
@@ -158,7 +171,11 @@ describe('motor de sincronización', () => {
   it('dos celulares registran sin conexión y todo llega sin duplicados', async () => {
     await a.sincronizar();
     await b.sincronizar();
-    const ids = [a.crear('cosecha', cosecha()), a.crear('cosecha', cosecha()), b.crear('cosecha', cosecha())];
+    const ids = [
+      a.crear('cosecha', cosecha()),
+      a.crear('cosecha', cosecha()),
+      b.crear('cosecha', cosecha()),
+    ];
 
     await a.sincronizar();
     await b.sincronizar();
@@ -187,7 +204,10 @@ describe('motor de sincronización', () => {
     const pushB = await b.sincronizar();
     expect(pushB.resultados[0]).toMatchObject({ id, estado: 'aceptado' });
     const pushA = await a.sincronizar();
-    expect(pushA.resultados.find((r) => r.id === id)).toMatchObject({ estado: 'fusionado', conflicto: true });
+    expect(pushA.resultados.find((r) => r.id === id)).toMatchObject({
+      estado: 'fusionado',
+      conflicto: true,
+    });
 
     const servidor = repo.tabla('cosecha').get(id)!;
     expect(servidor.racimos_cosechados).toBe(120); // B es más reciente
@@ -195,7 +215,11 @@ describe('motor de sincronización', () => {
 
     const conflictos = repo.bitacora.filter((e) => e.accion === 'conflicto');
     expect(conflictos).toHaveLength(1);
-    expect(conflictos[0]).toMatchObject({ tabla: 'cosecha', registroId: id, requiereRevision: true });
+    expect(conflictos[0]).toMatchObject({
+      tabla: 'cosecha',
+      registroId: id,
+      requiereRevision: true,
+    });
 
     // Tras sincronizar de nuevo, ambos celulares convergen al mismo valor.
     await a.sincronizar();
@@ -231,7 +255,10 @@ describe('motor de sincronización', () => {
   });
 
   it('el celular no puede validar sus propios registros', async () => {
-    const id = a.crear('cosecha', cosecha({ estado_validacion: 'validado', validado_por: CAPORAL }));
+    const id = a.crear(
+      'cosecha',
+      cosecha({ estado_validacion: 'validado', validado_por: CAPORAL }),
+    );
     await a.sincronizar();
     const s = repo.tabla('cosecha').get(id)!;
     expect(s.estado_validacion).toBe('pendiente');
@@ -256,11 +283,19 @@ describe('motor de sincronización', () => {
       lastPulledAt: null,
       changes: { lotes: { created: [{ id: randomUUID() }], updated: [], deleted: [] } },
     });
-    expect(push.resultados[0]).toMatchObject({ estado: 'rechazado', error: 'Tabla de solo lectura' });
+    expect(push.resultados[0]).toMatchObject({
+      estado: 'rechazado',
+      error: 'Tabla de solo lectura',
+    });
   });
 
   it('pide borrar los datos a un dispositivo con borrado remoto', async () => {
-    const pull = await procesarPull(repo, { ...a.dispositivo, estado: 'borrado_solicitado' }, null, 60);
+    const pull = await procesarPull(
+      repo,
+      { ...a.dispositivo, estado: 'borrado_solicitado' },
+      null,
+      60,
+    );
     expect(pull.dispositivo.accion).toBe('borrar');
     expect(Object.keys(pull.changes)).toHaveLength(0);
   });

@@ -8,7 +8,9 @@ import { crearBaseDatos } from '../src/db/cliente';
 import { fincas } from '../src/db/esquema';
 import { generarPdfTrampas } from '../src/modulos/trampas-qr';
 
-const { db, cliente } = crearBaseDatos(process.env.DATABASE_URL ?? 'postgres://kalo:kalo_demo@localhost:5432/kalo_campo');
+const { db, cliente } = crearBaseDatos(
+  process.env.DATABASE_URL ?? 'postgres://kalo:kalo_demo@localhost:5432/kalo_campo',
+);
 try {
   const lista = await db.select({ id: fincas.id, nombre: fincas.nombre }).from(fincas);
   mkdirSync('salidas', { recursive: true });

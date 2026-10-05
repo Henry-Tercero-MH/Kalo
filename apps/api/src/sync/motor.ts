@@ -175,8 +175,9 @@ export async function procesarPush(
       if (u.fincaId && u.fincaId !== dispositivo.fincaId) {
         throw new Rechazo('El usuario no pertenece a la finca del dispositivo');
       }
-      const permisos = (REGISTRO_TABLAS[tabla].meta as { permisos?: { crear: string; editar?: string } })
-        .permisos;
+      const permisos = (
+        REGISTRO_TABLAS[tabla].meta as { permisos?: { crear: string; editar?: string } }
+      ).permisos;
       if (!permisos) throw new Rechazo('Tabla sin permisos de escritura');
       const requerido = nuevo ? permisos.crear : (permisos.editar ?? permisos.crear);
       if (!tienePermiso(u.permisos, requerido)) throw new Rechazo(`Sin permiso ${requerido}`);

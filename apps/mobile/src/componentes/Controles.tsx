@@ -3,7 +3,14 @@
  * botones grandes, campos con etiqueta en mayúsculas pequeñas.
  */
 import { useState, type ReactNode } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View, type KeyboardTypeOptions } from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  type KeyboardTypeOptions,
+} from 'react-native';
 import { Icono } from './Icono';
 import { Etiqueta } from './Texto';
 import { campo, espaciado, semantico, tipografia } from './tema';
@@ -29,7 +36,11 @@ export function Opciones<T extends string | number | boolean>({
   multiple?: boolean;
   columnas?: 1 | 2;
 }) {
-  const seleccionados = Array.isArray(valor) ? valor : valor === null || valor === undefined ? [] : [valor];
+  const seleccionados = Array.isArray(valor)
+    ? valor
+    : valor === null || valor === undefined
+      ? []
+      : [valor];
   return (
     <View style={[estilos.opciones, columnas === 2 && { flexDirection: 'row', flexWrap: 'wrap' }]}>
       {opciones.map((o) => {
@@ -41,12 +52,22 @@ export function Opciones<T extends string | number | boolean>({
             accessibilityState={{ checked: activo }}
             onPress={() => {
               if (!multiple) return onCambio(o.valor);
-              onCambio(activo ? seleccionados.filter((x) => x !== o.valor) : [...seleccionados, o.valor]);
+              onCambio(
+                activo ? seleccionados.filter((x) => x !== o.valor) : [...seleccionados, o.valor],
+              );
             }}
-            style={[estilos.opcion, columnas === 2 && { width: '48.5%' }, activo && estilos.opcionActiva]}
+            style={[
+              estilos.opcion,
+              columnas === 2 && { width: '48.5%' },
+              activo && estilos.opcionActiva,
+            ]}
           >
             {o.prefijo}
-            <Text style={[estilos.textoOpcion, activo && { fontFamily: tipografia.familias.titulo }]}>{o.etiqueta}</Text>
+            <Text
+              style={[estilos.textoOpcion, activo && { fontFamily: tipografia.familias.titulo }]}
+            >
+              {o.etiqueta}
+            </Text>
             {activo && <Icono nombre="check" color={semantico.titulo} />}
           </Pressable>
         );
@@ -75,13 +96,20 @@ export function Contador({
 }) {
   const [texto, setTexto] = useState(valor === null ? '' : String(valor).replace('.', ','));
   const fijar = (v: number) => {
-    const limitado = Math.min(max, Math.max(min, Math.round(v * 10 ** decimales) / 10 ** decimales));
+    const limitado = Math.min(
+      max,
+      Math.max(min, Math.round(v * 10 ** decimales) / 10 ** decimales),
+    );
     setTexto(String(limitado).replace('.', ','));
     onCambio(limitado);
   };
   return (
     <View style={estilos.contador}>
-      <Pressable accessibilityLabel="Restar" style={estilos.botonContador} onPress={() => fijar((valor ?? 0) - paso)}>
+      <Pressable
+        accessibilityLabel="Restar"
+        style={estilos.botonContador}
+        onPress={() => fijar((valor ?? 0) - paso)}
+      >
         <Icono nombre="minus" tamano={28} color={semantico.titulo} />
       </Pressable>
       <View style={estilos.valorContador}>
@@ -100,7 +128,11 @@ export function Contador({
         />
         {unidad ? <Text style={estilos.unidad}>{unidad}</Text> : null}
       </View>
-      <Pressable accessibilityLabel="Sumar" style={estilos.botonContador} onPress={() => fijar((valor ?? 0) + paso)}>
+      <Pressable
+        accessibilityLabel="Sumar"
+        style={estilos.botonContador}
+        onPress={() => fijar((valor ?? 0) + paso)}
+      >
         <Icono nombre="plus" tamano={28} color={semantico.titulo} />
       </Pressable>
     </View>
@@ -143,7 +175,10 @@ export function CampoTexto({
         autoCorrect={false}
         maxLength={maxLength}
         accessibilityLabel={etiqueta}
-        style={[estilos.campo, multilinea && { minHeight: 96, textAlignVertical: 'top', paddingTop: espaciado.md }]}
+        style={[
+          estilos.campo,
+          multilinea && { minHeight: 96, textAlignVertical: 'top', paddingTop: espaciado.md },
+        ]}
       />
     </View>
   );
@@ -192,7 +227,11 @@ const estilos = StyleSheet.create({
     minWidth: 120,
     fontVariant: ['tabular-nums'],
   },
-  unidad: { fontFamily: tipografia.familias.cuerpo, fontSize: tipografia.tamanos.pequeno, color: semantico.textoSecundario },
+  unidad: {
+    fontFamily: tipografia.familias.cuerpo,
+    fontSize: tipografia.tamanos.pequeno,
+    color: semantico.textoSecundario,
+  },
   campo: {
     minHeight: campo.alturaTactil,
     borderWidth: 1,

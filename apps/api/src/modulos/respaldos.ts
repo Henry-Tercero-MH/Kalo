@@ -27,7 +27,11 @@ export function descifrarRespaldo(claveHex: string, ivHex: string, datosB64: str
   const todo = Buffer.from(datosB64, 'base64');
   const tag = todo.subarray(todo.length - 16);
   const cifrado = todo.subarray(0, todo.length - 16);
-  const d = createDecipheriv('aes-256-gcm', Buffer.from(claveHex, 'hex'), Buffer.from(ivHex, 'hex'));
+  const d = createDecipheriv(
+    'aes-256-gcm',
+    Buffer.from(claveHex, 'hex'),
+    Buffer.from(ivHex, 'hex'),
+  );
   d.setAuthTag(tag);
   return Buffer.concat([d.update(cifrado), d.final()]).toString('utf8');
 }
@@ -39,11 +43,20 @@ export default async function rutasRespaldos(fastify: FastifyInstance) {
     {
       preHandler: app.requiere('dispositivos:gestionar'),
       bodyLimit: 50 * 1024 * 1024,
-      schema: { tags: ['dispositivos'], summary: 'Importa un respaldo cifrado de un celular', body: esquemaArchivoRespaldo },
+      schema: {
+        tags: ['dispositivos'],
+        summary: 'Importa un respaldo cifrado de un celular',
+        body: esquemaArchivoRespaldo,
+      },
     },
     async (req) => {
       const [d] = await app.db
-        .select({ id: dispositivos.id, fincaId: dispositivos.finca_id, clave: dispositivos.clave_respaldo, empresaId: fincas.empresa_id })
+        .select({
+          id: dispositivos.id,
+          fincaId: dispositivos.finca_id,
+          clave: dispositivos.clave_respaldo,
+          empresaId: fincas.empresa_id,
+        })
         .from(dispositivos)
         .innerJoin(fincas, eq(fincas.id, dispositivos.finca_id))
         .where(eq(dispositivos.id, req.body.dispositivoId));
@@ -52,7 +65,9 @@ export default async function rutasRespaldos(fastify: FastifyInstance) {
       try {
         contenido = JSON.parse(descifrarRespaldo(d.clave, req.body.iv, req.body.datos));
       } catch {
-        throw solicitudInvalida('No se pudo descifrar el respaldo (archivo dañado o de otro dispositivo)');
+        throw solicitudInvalida(
+          'No se pudo descifrar el respaldo (archivo dañado o de otro dispositivo)',
+        );
       }
       const solicitud = esquemaSolicitudPush.parse(contenido);
       // Se procesa como push de un celular activo (con conflicto si el servidor tiene cambios).

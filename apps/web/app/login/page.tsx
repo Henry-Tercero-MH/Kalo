@@ -19,7 +19,11 @@ function Formulario() {
         e.preventDefault();
         setCargando(true);
         setError(null);
-        const r = await fetch('/api/sesion', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ usuario, pin }) });
+        const r = await fetch('/api/sesion', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ usuario, pin }),
+        });
         setCargando(false);
         if (!r.ok) {
           const d = (await r.json().catch(() => ({}))) as { error?: string };
@@ -30,8 +34,24 @@ function Formulario() {
         router.refresh();
       }}
     >
-      <Campo etiqueta="Usuario" value={usuario} onChange={(e) => setUsuario(e.target.value)} autoComplete="username" required />
-      <Campo etiqueta="PIN" type="password" inputMode="numeric" maxLength={4} pattern="\d{4}" value={pin} onChange={(e) => setPin(e.target.value)} autoComplete="current-password" required />
+      <Campo
+        etiqueta="Usuario"
+        value={usuario}
+        onChange={(e) => setUsuario(e.target.value)}
+        autoComplete="username"
+        required
+      />
+      <Campo
+        etiqueta="PIN"
+        type="password"
+        inputMode="numeric"
+        maxLength={4}
+        pattern="\d{4}"
+        value={pin}
+        onChange={(e) => setPin(e.target.value)}
+        autoComplete="current-password"
+        required
+      />
       {error ? <Aviso tipo="peligro">{error}</Aviso> : null}
       <Boton type="submit" disabled={cargando}>
         {cargando ? 'Entrando…' : 'Entrar'}
@@ -45,7 +65,9 @@ export default function Login() {
     <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center px-6">
       <Logo />
       <h1 className="mt-8 border-b-2 border-marca-negro pb-2 text-2xl">Panel de campo</h1>
-      <p className="my-4 text-sm text-neutros-n500">Ingrese con su usuario y PIN. Datos de demostración marcados como DEMO.</p>
+      <p className="my-4 text-sm text-neutros-n500">
+        Ingrese con su usuario y PIN. Datos de demostración marcados como DEMO.
+      </p>
       <Suspense>
         <Formulario />
       </Suspense>

@@ -39,23 +39,48 @@ export default function Labor() {
       <Titulo>{t('labores.labor')}</Titulo>
       <Etiqueta>{t('labores.tipo')}</Etiqueta>
       <View style={{ marginVertical: espaciado.sm }}>
-        <Opciones columnas={2} opciones={tipos.map((x) => ({ valor: x.id, etiqueta: x.nombre }))} valor={tipoId} onCambio={(v) => setTipoId(v as string)} />
+        <Opciones
+          columnas={2}
+          opciones={tipos.map((x) => ({ valor: x.id, etiqueta: x.nombre }))}
+          valor={tipoId}
+          onCambio={(v) => setTipoId(v as string)}
+        />
       </View>
       <SelectorLote valor={loteId} onCambio={setLoteId} />
       <View style={{ marginTop: espaciado.lg }}>
         <Etiqueta>{t('labores.trabajador')}</Etiqueta>
         <View style={{ marginTop: espaciado.sm }}>
-          <Opciones opciones={trabajadores.map((x) => ({ valor: x.id, etiqueta: `${x.codigo} · ${x.nombre}` }))} valor={trabajadorId} onCambio={(v) => setTrabajadorId(v as string)} />
+          <Opciones
+            opciones={trabajadores.map((x) => ({
+              valor: x.id,
+              etiqueta: `${x.codigo} · ${x.nombre}`,
+            }))}
+            valor={trabajadorId}
+            onCambio={(v) => setTrabajadorId(v as string)}
+          />
         </View>
       </View>
       <View style={{ marginTop: espaciado.lg }}>
         <Etiqueta>{t('labores.cantidad', { u: tipo?.unidad ?? '' })}</Etiqueta>
         <View style={{ marginTop: espaciado.sm }}>
-          <Contador valor={cantidad} onCambio={setCantidad} min={0} max={10000} decimales={tipo?.unidad === 'hectareas' ? 1 : 0} unidad={tipo?.unidad} />
+          <Contador
+            valor={cantidad}
+            onCambio={setCantidad}
+            min={0}
+            max={10000}
+            decimales={tipo?.unidad === 'hectareas' ? 1 : 0}
+            unidad={tipo?.unidad}
+          />
         </View>
       </View>
       <View style={{ marginTop: espaciado.lg }}>
-        <CampoTexto etiqueta={t('comun.notas')} valor={notas} onCambio={setNotas} multilinea autoCapitalize="sentences" />
+        <CampoTexto
+          etiqueta={t('comun.notas')}
+          valor={notas}
+          onCambio={setNotas}
+          multilinea
+          autoCapitalize="sentences"
+        />
       </View>
       <Boton
         titulo={t('comun.guardar')}
@@ -67,7 +92,15 @@ export default function Labor() {
           setGuardando(true);
           try {
             await guardarLabor(
-              { tipoLaborId: tipoId, loteId, trabajadorId, cuadrillaId: trabajador?.cuadrilla_id ?? null, cantidad, notas, ubicacion: await obtenerUbicacion(6000) },
+              {
+                tipoLaborId: tipoId,
+                loteId,
+                trabajadorId,
+                cuadrillaId: trabajador?.cuadrilla_id ?? null,
+                cantidad,
+                notas,
+                ubicacion: await obtenerUbicacion(6000),
+              },
               ctx,
             );
             despuesDeGuardar(() => router.back());

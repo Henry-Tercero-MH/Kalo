@@ -406,21 +406,19 @@ export const MODULOS = [
       ['cumplimiento', 'Cumplimiento', 'badge-check'],
       ['satelital', 'Imágenes satelitales', 'satellite'],
     ] as const
-  ).map(
-    ([codigo, nombre, icono], i): ManifiestoModulo => ({
-      codigo,
-      nombre,
-      descripcion: 'Próximamente',
-      icono,
-      plataformas: ['web'],
-      permisoVer: 'registros:ver',
-      permisos: [],
-      tablas: [],
-      rutaWeb: `/proximamente/${codigo}`,
-      estado: 'proximamente',
-      orden: 100 + i,
-    }),
-  ),
+  ).map(([codigo, nombre, icono], i): ManifiestoModulo => ({
+    codigo,
+    nombre,
+    descripcion: 'Próximamente',
+    icono,
+    plataformas: ['web'],
+    permisoVer: 'registros:ver',
+    permisos: [],
+    tablas: [],
+    rutaWeb: `/proximamente/${codigo}`,
+    estado: 'proximamente',
+    orden: 100 + i,
+  })),
 ] as const satisfies readonly ManifiestoModulo[];
 
 /** Todos los permisos declarados por los módulos (para sembrar la tabla `permisos`). */

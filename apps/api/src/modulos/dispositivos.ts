@@ -27,8 +27,12 @@ export default async function rutasDispositivos(fastify: FastifyInstance) {
     async (req) => {
       const u = req.usuario!;
       const ahora = Date.now();
-      const [existente] = await app.db.select().from(dispositivos).where(eq(dispositivos.id, req.body.id));
-      if (existente && existente.finca_id !== u.fincaId) throw prohibido('El dispositivo pertenece a otra finca');
+      const [existente] = await app.db
+        .select()
+        .from(dispositivos)
+        .where(eq(dispositivos.id, req.body.id));
+      if (existente && existente.finca_id !== u.fincaId)
+        throw prohibido('El dispositivo pertenece a otra finca');
       if (existente?.estado === 'borrado' || existente?.estado === 'borrado_solicitado') {
         throw prohibido('El dispositivo fue dado de baja; pida al administrador que lo reactive');
       }
@@ -73,7 +77,13 @@ export default async function rutasDispositivos(fastify: FastifyInstance) {
 
   app.post(
     '/refresh',
-    { schema: { tags: ['dispositivos'], summary: 'Renueva la sesión del dispositivo', body: esquemaRefresh } },
+    {
+      schema: {
+        tags: ['dispositivos'],
+        summary: 'Renueva la sesión del dispositivo',
+        body: esquemaRefresh,
+      },
+    },
     async (req) => {
       const id = await consumirRefresh(app, req.body.refreshToken, 'dispositivo');
       const [d] = await app.db.select().from(dispositivos).where(eq(dispositivos.id, id));
@@ -84,7 +94,10 @@ export default async function rutasDispositivos(fastify: FastifyInstance) {
 
   app.get(
     '/',
-    { preHandler: app.requiere('dispositivos:ver'), schema: { tags: ['dispositivos'], summary: 'Panel de dispositivos' } },
+    {
+      preHandler: app.requiere('dispositivos:ver'),
+      schema: { tags: ['dispositivos'], summary: 'Panel de dispositivos' },
+    },
     async (req) =>
       app.db
         .select({
@@ -121,7 +134,8 @@ export default async function rutasDispositivos(fastify: FastifyInstance) {
         .set({ estado: req.body.estado, updated_at: Date.now() })
         .where(eq(dispositivos.id, req.params.id))
         .returning();
-      if (!d || d.finca_id !== req.usuario!.fincaId) throw noEncontrado('Dispositivo no encontrado');
+      if (!d || d.finca_id !== req.usuario!.fincaId)
+        throw noEncontrado('Dispositivo no encontrado');
       if (req.body.estado === 'borrado') await revocarTodos(app, 'dispositivo', d.id);
       await registrarBitacora(app.db, {
         fincaId: d.finca_id,

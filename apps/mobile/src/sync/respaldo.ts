@@ -26,7 +26,9 @@ export async function exportarRespaldo(): Promise<string> {
   if (!config) throw new Error('Dispositivo no configurado');
   const changes: Cambios = {};
   for (const tabla of TABLAS_SUBIDA) {
-    const filas = await coleccion(tabla).query(Q.where('_status', Q.oneOf(['created', 'updated']))).fetch();
+    const filas = await coleccion(tabla)
+      .query(Q.where('_status', Q.oneOf(['created', 'updated'])))
+      .fetch();
     if (filas.length === 0) continue;
     changes[tabla] = {
       created: filas.map((f) => ({ ...(f._raw as unknown as FilaCruda) })),
@@ -35,7 +37,9 @@ export async function exportarRespaldo(): Promise<string> {
     };
   }
   const iv = Crypto.getRandomBytes(12);
-  const cifrado = gcm(hexToBytes(config.claveRespaldo), iv).encrypt(utf8ToBytes(JSON.stringify({ changes, lastPulledAt: null })));
+  const cifrado = gcm(hexToBytes(config.claveRespaldo), iv).encrypt(
+    utf8ToBytes(JSON.stringify({ changes, lastPulledAt: null })),
+  );
   const contenido = {
     formato: 'kalo-respaldo',
     version: 1,
@@ -44,10 +48,16 @@ export async function exportarRespaldo(): Promise<string> {
     iv: bytesToHex(iv),
     datos: aBase64(cifrado),
   };
-  const archivo = new File(Paths.cache, `respaldo-${config.dispositivoId.slice(0, 8)}-${Date.now()}.kalo.json`);
+  const archivo = new File(
+    Paths.cache,
+    `respaldo-${config.dispositivoId.slice(0, 8)}-${Date.now()}.kalo.json`,
+  );
   archivo.write(JSON.stringify(contenido));
   if (await Sharing.isAvailableAsync()) {
-    await Sharing.shareAsync(archivo.uri, { mimeType: 'application/json', dialogTitle: 'Respaldo cifrado de Kalo Campo' });
+    await Sharing.shareAsync(archivo.uri, {
+      mimeType: 'application/json',
+      dialogTitle: 'Respaldo cifrado de Kalo Campo',
+    });
   }
   return archivo.uri;
 }

@@ -15,13 +15,22 @@ export class ErrorApi extends Error {
 
 const TIEMPO_MAXIMO_MS = 30_000;
 
-async function peticion(url: string, init: RequestInit, tiempo = TIEMPO_MAXIMO_MS): Promise<Response> {
+async function peticion(
+  url: string,
+  init: RequestInit,
+  tiempo = TIEMPO_MAXIMO_MS,
+): Promise<Response> {
   const control = new AbortController();
   const t = setTimeout(() => control.abort(), tiempo);
   try {
     return await fetch(url, { ...init, signal: control.signal });
   } catch (e) {
-    throw new ErrorApi(0, control.signal.aborted ? 'Tiempo de espera agotado' : `Sin conexión con el servidor (${String(e)})`);
+    throw new ErrorApi(
+      0,
+      control.signal.aborted
+        ? 'Tiempo de espera agotado'
+        : `Sin conexión con el servidor (${String(e)})`,
+    );
   } finally {
     clearTimeout(t);
   }
@@ -47,7 +56,11 @@ async function renovarToken(apiUrl: string): Promise<string> {
     body: JSON.stringify({ refreshToken: tokens.refreshToken }),
   });
   if (!r.ok) throw new ErrorApi(r.status, await leerError(r));
-  const nuevos = (await r.json()) as { accessToken: string; refreshToken: string; expiraEn: number };
+  const nuevos = (await r.json()) as {
+    accessToken: string;
+    refreshToken: string;
+    expiraEn: number;
+  };
   await almacen.guardarTokens(nuevos);
   return nuevos.accessToken;
 }
@@ -61,7 +74,10 @@ async function tokenVigente(apiUrl: string): Promise<string> {
 }
 
 /** Llamada autenticada como dispositivo. */
-export async function apiDispositivo<T>(ruta: string, init: { method?: string; body?: unknown; tiempo?: number } = {}): Promise<T> {
+export async function apiDispositivo<T>(
+  ruta: string,
+  init: { method?: string; body?: unknown; tiempo?: number } = {},
+): Promise<T> {
   const config = await almacen.configuracion();
   if (!config) throw new ErrorApi(401, 'Dispositivo no configurado');
   const hacer = async (token: string) =>
@@ -87,10 +103,18 @@ export async function apiDispositivo<T>(ruta: string, init: { method?: string; b
 }
 
 /** Llamada sin sesión de dispositivo (configuración inicial). */
-export async function apiPublica<T>(apiUrl: string, ruta: string, body: unknown, token?: string): Promise<T> {
+export async function apiPublica<T>(
+  apiUrl: string,
+  ruta: string,
+  body: unknown,
+  token?: string,
+): Promise<T> {
   const r = await peticion(`${apiUrl}${ruta}`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
     body: JSON.stringify(body),
   });
   if (!r.ok) throw new ErrorApi(r.status, await leerError(r));

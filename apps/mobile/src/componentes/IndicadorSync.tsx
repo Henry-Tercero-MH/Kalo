@@ -33,7 +33,14 @@ export function IndicadorSync() {
     >
       <View style={{ width: 10, height: 10, backgroundColor: v.color }} />
       <Icono nombre={v.icono} tamano={20} color={semantico.titulo} />
-      <Text style={{ fontFamily: tipografia.familias.titulo, fontSize: 12, color: semantico.titulo, letterSpacing: 0.8 }}>
+      <Text
+        style={{
+          fontFamily: tipografia.familias.titulo,
+          fontSize: 12,
+          color: semantico.titulo,
+          letterSpacing: 0.8,
+        }}
+      >
         {t(v.clave)}
         {cola ? ` · ${estado.pendientes}/${estado.archivosPendientes}` : ''}
       </Text>

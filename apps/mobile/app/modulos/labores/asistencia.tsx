@@ -26,9 +26,16 @@ export default function Asistencia() {
   const usuario = useSesion((s) => s.usuario);
   const todas = useConsulta('cuadrillas');
   // El caporal ve primero sus cuadrillas.
-  const cuadrillas = useMemo(() => [...todas].sort((a) => (a.caporal_id === usuario?.id ? -1 : 1)), [todas, usuario?.id]);
+  const cuadrillas = useMemo(
+    () => [...todas].sort((a) => (a.caporal_id === usuario?.id ? -1 : 1)),
+    [todas, usuario?.id],
+  );
   const [cuadrillaId, setCuadrillaId] = useState<string | null>(null);
-  const miembros = useConsulta('cuadrilla_miembros', [Q.where('cuadrilla_id', cuadrillaId ?? '')], [cuadrillaId]);
+  const miembros = useConsulta(
+    'cuadrilla_miembros',
+    [Q.where('cuadrilla_id', cuadrillaId ?? '')],
+    [cuadrillaId],
+  );
   const trabajadores = useConsulta('trabajadores', [Q.where('activo', true)]);
   const lista = trabajadores.filter((tr) => miembros.some((m) => m.trabajador_id === tr.id));
   const [presentes, setPresentes] = useState<Record<string, boolean>>({});
@@ -47,21 +54,53 @@ export default function Asistencia() {
       <Titulo>{t('labores.asistencia')}</Titulo>
       <Etiqueta>{t('labores.cuadrilla')}</Etiqueta>
       <View style={{ marginVertical: espaciado.sm }}>
-        <Opciones columnas={2} opciones={cuadrillas.map((c) => ({ valor: c.id, etiqueta: c.nombre }))} valor={cuadrillaId} onCambio={(v) => setCuadrillaId(v as string)} />
+        <Opciones
+          columnas={2}
+          opciones={cuadrillas.map((c) => ({ valor: c.id, etiqueta: c.nombre }))}
+          valor={cuadrillaId}
+          onCambio={(v) => setCuadrillaId(v as string)}
+        />
       </View>
       {lista.map((tr) => {
         const presente = presentes[tr.id] ?? true;
         return (
-          <View key={tr.id} style={{ flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: semantico.borde, paddingVertical: espaciado.sm, gap: espaciado.sm }}>
+          <View
+            key={tr.id}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              borderBottomWidth: 1,
+              borderBottomColor: semantico.borde,
+              paddingVertical: espaciado.sm,
+              gap: espaciado.sm,
+            }}
+          >
             <Texto style={{ flex: 1 }}>{tr.nombre}</Texto>
             <Pressable
               accessibilityRole="switch"
               accessibilityState={{ checked: presente }}
               onPress={() => setPresentes((p) => ({ ...p, [tr.id]: !presente }))}
-              style={{ minHeight: campo.alturaTactil, minWidth: 130, borderWidth: presente ? 3 : 1, borderColor: semantico.bordeFuerte, alignItems: 'center', justifyContent: 'center', flexDirection: 'row', gap: 6 }}
+              style={{
+                minHeight: campo.alturaTactil,
+                minWidth: 130,
+                borderWidth: presente ? 3 : 1,
+                borderColor: semantico.bordeFuerte,
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'row',
+                gap: 6,
+              }}
             >
-              <View style={{ width: 12, height: 12, backgroundColor: presente ? semantico.exito : semantico.peligro }} />
-              <Text style={{ fontFamily: tipografia.familias.titulo, color: semantico.titulo }}>{presente ? t('labores.presente') : t('labores.ausente')}</Text>
+              <View
+                style={{
+                  width: 12,
+                  height: 12,
+                  backgroundColor: presente ? semantico.exito : semantico.peligro,
+                }}
+              />
+              <Text style={{ fontFamily: tipografia.familias.titulo, color: semantico.titulo }}>
+                {presente ? t('labores.presente') : t('labores.ausente')}
+              </Text>
             </Pressable>
           </View>
         );
@@ -76,7 +115,10 @@ export default function Asistencia() {
             if (!ctx || !cuadrillaId) return;
             setGuardando(true);
             try {
-              await guardarAsistencia({ cuadrillaId, presentes, ubicacion: await obtenerUbicacion(6000) }, ctx);
+              await guardarAsistencia(
+                { cuadrillaId, presentes, ubicacion: await obtenerUbicacion(6000) },
+                ctx,
+              );
               despuesDeGuardar(() => router.back());
             } finally {
               setGuardando(false);

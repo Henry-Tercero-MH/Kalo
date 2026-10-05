@@ -17,7 +17,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   updates: {
     // EAS Update: configure EAS_PROJECT_ID para actualizaciones remotas.
     enabled: Boolean(process.env.EAS_PROJECT_ID),
-    url: process.env.EAS_PROJECT_ID ? `https://u.expo.dev/${process.env.EAS_PROJECT_ID}` : undefined,
+    url: process.env.EAS_PROJECT_ID
+      ? `https://u.expo.dev/${process.env.EAS_PROJECT_ID}`
+      : undefined,
     checkAutomatically: 'ON_LOAD',
     fallbackToCacheTimeout: 0,
   },
@@ -65,14 +67,21 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         isAndroidForegroundServiceEnabled: true,
       },
     ],
-    ['expo-camera', { cameraPermission: 'Kalo Campo usa la cámara para fotos de campo y para leer códigos QR.' }],
-    ['expo-image-picker', { cameraPermission: 'Kalo Campo usa la cámara para tomar fotos de campo.' }],
+    [
+      'expo-camera',
+      { cameraPermission: 'Kalo Campo usa la cámara para fotos de campo y para leer códigos QR.' },
+    ],
+    [
+      'expo-image-picker',
+      { cameraPermission: 'Kalo Campo usa la cámara para tomar fotos de campo.' },
+    ],
     ['expo-audio', { microphonePermission: 'Kalo Campo usa el micrófono para notas de voz.' }],
   ],
   experiments: { typedRoutes: true },
   extra: {
     apiUrl: process.env.EXPO_PUBLIC_API_URL ?? 'http://10.0.2.2:4000',
-    mapStyleUrl: process.env.EXPO_PUBLIC_MAP_STYLE_URL ?? 'https://tiles.openfreemap.org/styles/liberty',
+    mapStyleUrl:
+      process.env.EXPO_PUBLIC_MAP_STYLE_URL ?? 'https://tiles.openfreemap.org/styles/liberty',
     sentryDsn: process.env.EXPO_PUBLIC_SENTRY_DSN ?? '',
     eas: process.env.EAS_PROJECT_ID ? { projectId: process.env.EAS_PROJECT_ID } : undefined,
   },

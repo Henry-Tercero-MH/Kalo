@@ -64,10 +64,7 @@ const validacion = () => ({
 });
 
 const idxSync = (nombre: string) => (t: { server_updated_at: unknown; finca_id: unknown }) => [
-  index(`${nombre}_sync_idx`).on(
-    t.finca_id as never,
-    t.server_updated_at as never,
-  ),
+  index(`${nombre}_sync_idx`).on(t.finca_id as never, t.server_updated_at as never),
 ];
 
 // ─── Organización ──────────────────────────────────────────────────────────

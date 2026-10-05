@@ -17,7 +17,10 @@ export async function POST(req: NextRequest) {
   if (!r.ok) return NextResponse.json(datos, { status: r.status });
   const t = datos as RespuestaTokens;
   if (!t.usuario.plataformas.includes('web')) {
-    return NextResponse.json({ error: 'Su rol usa la app móvil, no el panel web.' }, { status: 403 });
+    return NextResponse.json(
+      { error: 'Su rol usa la app móvil, no el panel web.' },
+      { status: 403 },
+    );
   }
   await guardarTokens(t);
   return NextResponse.json({ usuario: t.usuario });

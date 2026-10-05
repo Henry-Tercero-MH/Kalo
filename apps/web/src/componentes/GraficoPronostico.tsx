@@ -22,8 +22,22 @@ export function GraficoPronostico({ datos }: { datos: PuntoGrafico[] }) {
       <ResponsiveContainer>
         <BarChart data={datos} margin={{ top: 16, right: 8, bottom: 0, left: 8 }}>
           <CartesianGrid vertical={false} stroke={colores.graficas.cuadricula} strokeWidth={1} />
-          <XAxis dataKey="semana" tickFormatter={(s) => `S${s}`} stroke={colores.graficas.ejes} tickLine={false} axisLine={{ stroke: colores.graficas.cuadricula }} fontSize={12} />
-          <YAxis stroke={colores.graficas.ejes} tickLine={false} axisLine={false} fontSize={12} tickFormatter={(v) => formatearNumero(Number(v))} width={64} />
+          <XAxis
+            dataKey="semana"
+            tickFormatter={(s) => `S${s}`}
+            stroke={colores.graficas.ejes}
+            tickLine={false}
+            axisLine={{ stroke: colores.graficas.cuadricula }}
+            fontSize={12}
+          />
+          <YAxis
+            stroke={colores.graficas.ejes}
+            tickLine={false}
+            axisLine={false}
+            fontSize={12}
+            tickFormatter={(v) => formatearNumero(Number(v))}
+            width={64}
+          />
           <Tooltip
             cursor={{ fill: colores.neutros.n50 }}
             content={({ active, payload }) => {
@@ -40,7 +54,13 @@ export function GraficoPronostico({ datos }: { datos: PuntoGrafico[] }) {
               );
             }}
           />
-          <Bar dataKey="cajas" fill={colores.graficas.serie1} maxBarSize={24} radius={[4, 4, 0, 0]} isAnimationActive={false} />
+          <Bar
+            dataKey="cajas"
+            fill={colores.graficas.serie1}
+            maxBarSize={24}
+            radius={[4, 4, 0, 0]}
+            isAnimationActive={false}
+          />
         </BarChart>
       </ResponsiveContainer>
     </div>

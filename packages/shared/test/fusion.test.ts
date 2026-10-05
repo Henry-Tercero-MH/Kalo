@@ -34,7 +34,10 @@ describe('fusión de registros (último cambio gana, campo por campo)', () => {
     expect(r.fila.racimos_cosechados).toBe(100); // el servidor es más reciente…
     expect(r.fila.racimos_perdidos).toBe(5);
     expect(r.conflicto).toBe(true);
-    expect(r.camposEnConflicto[0]).toMatchObject({ campo: 'racimos_cosechados', ganador: 'servidor' });
+    expect(r.camposEnConflicto[0]).toMatchObject({
+      campo: 'racimos_cosechados',
+      ganador: 'servidor',
+    });
   });
 
   it('con cambio concurrente gana el celular si su updated_at es mayor', () => {

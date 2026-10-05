@@ -24,7 +24,8 @@ export async function emitirTokens(
     { expiresIn: app.config.JWT_ACCESS_TTL },
   );
   const refreshToken = randomBytes(48).toString('base64url');
-  const dias = tipo === 'dispositivo' ? app.config.JWT_DISPOSITIVO_TTL_DIAS : app.config.JWT_REFRESH_TTL_DIAS;
+  const dias =
+    tipo === 'dispositivo' ? app.config.JWT_DISPOSITIVO_TTL_DIAS : app.config.JWT_REFRESH_TTL_DIAS;
   const ahora = Date.now();
   await app.db.insert(refresh_tokens).values({
     sujeto_tipo: tipo,
@@ -60,7 +61,11 @@ export async function consumirRefresh(
   return fila.sujeto;
 }
 
-export async function revocarTodos(app: FastifyInstance, tipo: 'usuario' | 'dispositivo', sujetoId: string) {
+export async function revocarTodos(
+  app: FastifyInstance,
+  tipo: 'usuario' | 'dispositivo',
+  sujetoId: string,
+) {
   await app.db
     .update(refresh_tokens)
     .set({ revocado_en: Date.now() })

@@ -121,10 +121,7 @@ export function fusionarRegistro(
  * versión base (`server_updated_at` local) para que el servidor detecte el conflicto y aplique
  * "gana el más reciente" con registro en bitácora.
  */
-export function resolverConflictoLocal<T extends Record<string, unknown>>(
-  local: T,
-  remoto: T,
-): T {
+export function resolverConflictoLocal<T extends Record<string, unknown>>(local: T, remoto: T): T {
   const resuelto: Record<string, unknown> = { ...local, ...remoto };
   const cambiados = camposCambiados(local) ?? [];
   for (const c of cambiados) resuelto[c] = local[c];

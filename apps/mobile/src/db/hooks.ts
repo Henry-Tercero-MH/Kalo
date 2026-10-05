@@ -20,15 +20,19 @@ export function useConsulta<T extends NombreTabla>(
   );
   useEffect(() => {
     // observeWithColumns: también reacciona a cambios de valores, no solo altas/bajas.
-    const sub = query.observeWithColumns(['updated_at', 'server_updated_at', 'deleted_at']).subscribe((rs) =>
-      setFilas(rs.map((r) => r.fila as Fila<T>)),
-    );
+    const sub = query
+      .observeWithColumns(['updated_at', 'server_updated_at', 'deleted_at'])
+      .subscribe((rs) => setFilas(rs.map((r) => r.fila as Fila<T>)));
     return () => sub.unsubscribe();
   }, [query]);
   return filas;
 }
 
-export function useConteo(tabla: NombreTabla, condiciones: Clause[] = [], dependencias: unknown[] = []): number {
+export function useConteo(
+  tabla: NombreTabla,
+  condiciones: Clause[] = [],
+  dependencias: unknown[] = [],
+): number {
   const [n, setN] = useState(0);
   useEffect(() => {
     const sub = coleccion(tabla)

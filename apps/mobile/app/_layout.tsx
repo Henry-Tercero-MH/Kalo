@@ -28,7 +28,12 @@ void SplashScreen.preventAutoHideAsync();
 
 function RaizLayout() {
   const router = useRouter();
-  const [fuentesListas] = useFonts({ Archivo_400Regular, Archivo_600SemiBold, Archivo_800ExtraBold, Anton_400Regular });
+  const [fuentesListas] = useFonts({
+    Archivo_400Regular,
+    Archivo_600SemiBold,
+    Archivo_800ExtraBold,
+    Anton_400Regular,
+  });
 
   useEffect(() => {
     if (fuentesListas) void SplashScreen.hideAsync();
@@ -50,7 +55,9 @@ function RaizLayout() {
     <SafeAreaProvider>
       <DatabaseProvider database={database}>
         <StatusBar style="dark" />
-        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#ffffff' } }} />
+        <Stack
+          screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#ffffff' } }}
+        />
       </DatabaseProvider>
     </SafeAreaProvider>
   );

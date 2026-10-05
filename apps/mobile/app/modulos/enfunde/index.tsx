@@ -36,7 +36,9 @@ export default function Enfunde() {
       <Titulo>{t('enfunde.titulo')}</Titulo>
       <Tarjeta destacada>
         <Etiqueta>{t('enfunde.cintaSemana', { n: numero })}</Etiqueta>
-        <View style={{ marginTop: espaciado.sm }}>{color ? <MuestraColor hex={color.hex} nombre={color.nombre} grande /> : null}</View>
+        <View style={{ marginTop: espaciado.sm }}>
+          {color ? <MuestraColor hex={color.hex} nombre={color.nombre} grande /> : null}
+        </View>
       </Tarjeta>
       {!color ? <Aviso tipo="alerta" texto={t('enfunde.sinCalendario')} /> : null}
       <SelectorLote valor={loteId} onCambio={setLoteId} />
@@ -44,14 +46,26 @@ export default function Enfunde() {
         <View style={{ marginTop: espaciado.lg }}>
           <Etiqueta>{t('labores.cuadrilla')}</Etiqueta>
           <View style={{ marginTop: espaciado.sm }}>
-            <Opciones columnas={2} opciones={cuadrillas.map((c) => ({ valor: c.id, etiqueta: c.nombre }))} valor={cuadrillaId} onCambio={(v) => setCuadrillaId(v as string)} />
+            <Opciones
+              columnas={2}
+              opciones={cuadrillas.map((c) => ({ valor: c.id, etiqueta: c.nombre }))}
+              valor={cuadrillaId}
+              onCambio={(v) => setCuadrillaId(v as string)}
+            />
           </View>
         </View>
       ) : null}
       <View style={{ marginTop: espaciado.lg }}>
         <Etiqueta>{t('enfunde.racimos')}</Etiqueta>
         <View style={{ marginTop: espaciado.sm }}>
-          <Contador valor={racimos} onCambio={setRacimos} min={0} max={20000} paso={10} unidad="racimos" />
+          <Contador
+            valor={racimos}
+            onCambio={setRacimos}
+            min={0}
+            max={20000}
+            paso={10}
+            unidad="racimos"
+          />
         </View>
       </View>
       <View style={{ marginTop: espaciado.lg }}>
@@ -65,7 +79,10 @@ export default function Enfunde() {
             setGuardando(true);
             try {
               const ubicacion = await obtenerUbicacion(6000);
-              await guardarEnfunde({ loteId, colorCintaId: color.id, racimos, cuadrillaId, ubicacion }, ctx);
+              await guardarEnfunde(
+                { loteId, colorCintaId: color.id, racimos, cuadrillaId, ubicacion },
+                ctx,
+              );
               despuesDeGuardar(() => router.back());
             } finally {
               setGuardando(false);

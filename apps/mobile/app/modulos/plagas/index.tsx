@@ -12,8 +12,16 @@ export default function Plagas() {
   return (
     <Pantalla volver>
       <Titulo>{t('plagas.titulo')}</Titulo>
-      <FilaMenu icono="bug" titulo={t('plagas.muestreo')} onPress={() => router.push('/modulos/plagas/muestreo')} />
-      <FilaMenu icono="scan-search" titulo={t('plagas.preaviso')} onPress={() => router.push('/modulos/plagas/preaviso')} />
+      <FilaMenu
+        icono="bug"
+        titulo={t('plagas.muestreo')}
+        onPress={() => router.push('/modulos/plagas/muestreo')}
+      />
+      <FilaMenu
+        icono="scan-search"
+        titulo={t('plagas.preaviso')}
+        onPress={() => router.push('/modulos/plagas/preaviso')}
+      />
     </Pantalla>
   );
 }

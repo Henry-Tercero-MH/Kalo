@@ -35,7 +35,9 @@ export default function Login() {
     setCargando(false);
     if (r.ok) return router.replace('/(tabs)');
     setPin('');
-    setError(r.motivo === 'bloqueado' ? t('login.bloqueado', { min: r.minutos }) : t('login.incorrecto'));
+    setError(
+      r.motivo === 'bloqueado' ? t('login.bloqueado', { min: r.minutos }) : t('login.incorrecto'),
+    );
   };
 
   const tecla = (k: string) => {
@@ -56,25 +58,43 @@ export default function Login() {
           <Etiqueta>{t('login.elegirUsuario')}</Etiqueta>
           <View style={{ marginTop: espaciado.sm }}>
             <Opciones
-              opciones={[...usuarios].sort((a, b) => a.nombre.localeCompare(b.nombre)).map((u) => ({ valor: u.usuario, etiqueta: u.nombre }))}
+              opciones={[...usuarios]
+                .sort((a, b) => a.nombre.localeCompare(b.nombre))
+                .map((u) => ({ valor: u.usuario, etiqueta: u.nombre }))}
               valor={usuario}
               onCambio={(v) => setUsuario(v as string)}
             />
           </View>
           <View style={{ marginTop: espaciado.lg }}>
-            <Boton titulo={t('login.gafete')} icono="scan-qr-code" variante="secundario" onPress={() => router.push('/(auth)/gafete')} />
+            <Boton
+              titulo={t('login.gafete')}
+              icono="scan-qr-code"
+              variante="secundario"
+              onPress={() => router.push('/(auth)/gafete')}
+            />
           </View>
         </>
       ) : (
         <>
           <Etiqueta>{t('login.usuario')}</Etiqueta>
-          <Pressable onPress={() => { setUsuario(null); setPin(''); }} accessibilityRole="button">
-            <Text style={estilos.usuario}>{usuarios.find((u) => u.usuario === usuario)?.nombre}</Text>
+          <Pressable
+            onPress={() => {
+              setUsuario(null);
+              setPin('');
+            }}
+            accessibilityRole="button"
+          >
+            <Text style={estilos.usuario}>
+              {usuarios.find((u) => u.usuario === usuario)?.nombre}
+            </Text>
           </Pressable>
           <Etiqueta>{t('login.pin')}</Etiqueta>
           <View style={estilos.puntos} accessibilityLabel={`${pin.length} de 4 dígitos`}>
             {[0, 1, 2, 3].map((i) => (
-              <View key={i} style={[estilos.punto, i < pin.length && { backgroundColor: semantico.titulo }]} />
+              <View
+                key={i}
+                style={[estilos.punto, i < pin.length && { backgroundColor: semantico.titulo }]}
+              />
             ))}
           </View>
           {error ? <Aviso tipo="peligro" texto={error} /> : null}
@@ -86,7 +106,11 @@ export default function Login() {
                 onPress={() => tecla(k)}
                 accessibilityRole="button"
                 accessibilityLabel={k === '⌫' ? 'Borrar' : k}
-                style={({ pressed }) => [estilos.tecla, !k && { borderColor: 'transparent' }, pressed && { backgroundColor: semantico.fondoSuave }]}
+                style={({ pressed }) => [
+                  estilos.tecla,
+                  !k && { borderColor: 'transparent' },
+                  pressed && { backgroundColor: semantico.fondoSuave },
+                ]}
               >
                 <Text style={estilos.textoTecla}>{k}</Text>
               </Pressable>
@@ -100,10 +124,33 @@ export default function Login() {
 }
 
 const estilos = StyleSheet.create({
-  usuario: { fontFamily: tipografia.familias.titulo, fontSize: 22, color: semantico.titulo, marginVertical: espaciado.sm, textDecorationLine: 'underline' },
-  puntos: { flexDirection: 'row', gap: espaciado.lg, marginVertical: espaciado.lg, justifyContent: 'center' },
+  usuario: {
+    fontFamily: tipografia.familias.titulo,
+    fontSize: 22,
+    color: semantico.titulo,
+    marginVertical: espaciado.sm,
+    textDecorationLine: 'underline',
+  },
+  puntos: {
+    flexDirection: 'row',
+    gap: espaciado.lg,
+    marginVertical: espaciado.lg,
+    justifyContent: 'center',
+  },
   punto: { width: 22, height: 22, borderWidth: 2, borderColor: semantico.titulo },
-  teclado: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: espaciado.sm },
-  tecla: { width: '31.5%', minHeight: campo.alturaTactil + 12, borderWidth: 1, borderColor: semantico.borde, alignItems: 'center', justifyContent: 'center' },
+  teclado: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    rowGap: espaciado.sm,
+  },
+  tecla: {
+    width: '31.5%',
+    minHeight: campo.alturaTactil + 12,
+    borderWidth: 1,
+    borderColor: semantico.borde,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   textoTecla: { fontFamily: tipografia.familias.titulo, fontSize: 28, color: semantico.titulo },
 });

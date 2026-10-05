@@ -17,7 +17,12 @@ export async function tieneConsentimiento(usuarioId: string): Promise<boolean> {
 export async function guardarConsentimiento(ctx: ContextoEscritura, aceptado: boolean) {
   await crear(
     'consentimientos',
-    { usuario_id: ctx.usuarioId, tipo: 'rastreo_gps', version_texto: VERSION_TEXTO_CONSENTIMIENTO, aceptado },
+    {
+      usuario_id: ctx.usuarioId,
+      tipo: 'rastreo_gps',
+      version_texto: VERSION_TEXTO_CONSENTIMIENTO,
+      aceptado,
+    },
     ctx,
   );
 }

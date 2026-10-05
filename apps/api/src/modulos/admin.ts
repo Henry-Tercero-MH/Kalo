@@ -47,11 +47,19 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
   const app = fastify.withTypeProvider<ZodTypeProvider>();
 
   /** CRUD genérico para catálogos simples sincronizados. */
-  function catalogo<S extends z.ZodObject>(ruta: string, tabla: NombreTabla, esquema: S, permiso: string) {
+  function catalogo<S extends z.ZodObject>(
+    ruta: string,
+    tabla: NombreTabla,
+    esquema: S,
+    permiso: string,
+  ) {
     const t = TABLAS_DRIZZLE[tabla] as typeof e.plagas;
     app.post(
       `/${ruta}`,
-      { preHandler: app.requiere(permiso), schema: { tags: ['admin'], summary: `Crear en ${tabla}`, body: esquema } },
+      {
+        preHandler: app.requiere(permiso),
+        schema: { tags: ['admin'], summary: `Crear en ${tabla}`, body: esquema },
+      },
       async (req) => {
         const u = req.usuario!;
         return escrituraSincronizada(app.db, u.fincaId, async (tx, ahora) => {
@@ -66,7 +74,13 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
               finca_id: u.fincaId,
             } as never)
             .returning({ id: t.id });
-          await registrarBitacora(tx, { fincaId: u.fincaId, usuarioId: u.id, accion: 'crear', tabla, registroId: fila!.id });
+          await registrarBitacora(tx, {
+            fincaId: u.fincaId,
+            usuarioId: u.id,
+            accion: 'crear',
+            tabla,
+            registroId: fila!.id,
+          });
           return fila;
         });
       },
@@ -75,7 +89,12 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
       `/${ruta}/:id`,
       {
         preHandler: app.requiere(permiso),
-        schema: { tags: ['admin'], summary: `Editar en ${tabla}`, params: idParam, body: esquema.partial() },
+        schema: {
+          tags: ['admin'],
+          summary: `Editar en ${tabla}`,
+          params: idParam,
+          body: esquema.partial(),
+        },
       },
       async (req) => {
         const u = req.usuario!;
@@ -121,7 +140,10 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
   // ─── Usuarios ────────────────────────────────────────────────────────────
   app.get(
     '/usuarios',
-    { preHandler: app.requiere('admin:usuarios'), schema: { tags: ['admin'], summary: 'Usuarios' } },
+    {
+      preHandler: app.requiere('admin:usuarios'),
+      schema: { tags: ['admin'], summary: 'Usuarios' },
+    },
     async (req) =>
       app.db
         .select({
@@ -135,18 +157,26 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
           tiene_gafete: e.usuarios.gafete_hash,
         })
         .from(e.usuarios)
-        .where(and(eq(e.usuarios.empresa_id, req.usuario!.empresaId), isNull(e.usuarios.deleted_at)))
+        .where(
+          and(eq(e.usuarios.empresa_id, req.usuario!.empresaId), isNull(e.usuarios.deleted_at)),
+        )
         .orderBy(asc(e.usuarios.nombre))
         .then((xs) => xs.map((x) => ({ ...x, tiene_gafete: Boolean(x.tiene_gafete) }))),
   );
 
   app.post(
     '/usuarios',
-    { preHandler: app.requiere('admin:usuarios'), schema: { tags: ['admin'], summary: 'Crear usuario', body: esquemaUsuarioNuevo } },
+    {
+      preHandler: app.requiere('admin:usuarios'),
+      schema: { tags: ['admin'], summary: 'Crear usuario', body: esquemaUsuarioNuevo },
+    },
     async (req) => {
       const u = req.usuario!;
       const { pin, ...datos } = req.body;
-      const [existe] = await app.db.select({ id: e.usuarios.id }).from(e.usuarios).where(eq(e.usuarios.usuario, datos.usuario));
+      const [existe] = await app.db
+        .select({ id: e.usuarios.id })
+        .from(e.usuarios)
+        .where(eq(e.usuarios.usuario, datos.usuario));
       if (existe) throw solicitudInvalida('Ese nombre de usuario ya existe');
       return escrituraSincronizada(app.db, datos.finca_id, async (tx, ahora) => {
         const [fila] = await tx
@@ -161,7 +191,13 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
             created_by: u.id,
           })
           .returning({ id: e.usuarios.id });
-        await registrarBitacora(tx, { fincaId: datos.finca_id, usuarioId: u.id, accion: 'crear', tabla: 'usuarios', registroId: fila!.id });
+        await registrarBitacora(tx, {
+          fincaId: datos.finca_id,
+          usuarioId: u.id,
+          accion: 'crear',
+          tabla: 'usuarios',
+          registroId: fila!.id,
+        });
         return fila;
       });
     },
@@ -171,7 +207,12 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
     '/usuarios/:id',
     {
       preHandler: app.requiere('admin:usuarios'),
-      schema: { tags: ['admin'], summary: 'Editar usuario (rol, PIN, activo)', params: idParam, body: esquemaUsuarioEdicion },
+      schema: {
+        tags: ['admin'],
+        summary: 'Editar usuario (rol, PIN, activo)',
+        params: idParam,
+        body: esquemaUsuarioEdicion,
+      },
     },
     async (req) => {
       const u = req.usuario!;
@@ -179,7 +220,12 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
       await escrituraSincronizada(app.db, u.fincaId, async (tx, ahora) => {
         const r = await tx
           .update(e.usuarios)
-          .set({ ...datos, ...(pin ? credencialesUsuario(pin) : {}), updated_at: ahora, server_updated_at: ahora })
+          .set({
+            ...datos,
+            ...(pin ? credencialesUsuario(pin) : {}),
+            updated_at: ahora,
+            server_updated_at: ahora,
+          })
           .where(and(eq(e.usuarios.id, req.params.id), eq(e.usuarios.empresa_id, u.empresaId)))
           .returning({ id: e.usuarios.id });
         if (!r.length) throw noEncontrado('Usuario no encontrado');
@@ -201,7 +247,11 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
     '/usuarios/:id/gafete',
     {
       preHandler: app.requiere('admin:usuarios'),
-      schema: { tags: ['admin'], summary: 'Genera un gafete QR nuevo (devuelve el contenido del QR)', params: idParam },
+      schema: {
+        tags: ['admin'],
+        summary: 'Genera un gafete QR nuevo (devuelve el contenido del QR)',
+        params: idParam,
+      },
     },
     async (req) => {
       const codigo = `KALO-GAFETE:${req.params.id}:${randomBytes(12).toString('hex')}`;
@@ -218,11 +268,18 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
   // ─── Roles y permisos ────────────────────────────────────────────────────
   app.get(
     '/roles',
-    { preHandler: app.requiere('admin:roles'), schema: { tags: ['admin'], summary: 'Roles con sus permisos' } },
+    {
+      preHandler: app.requiere('admin:roles'),
+      schema: { tags: ['admin'], summary: 'Roles con sus permisos' },
+    },
     async () => {
       const [roles, permisos, asignados] = await Promise.all([
         app.db.select().from(e.roles).where(isNull(e.roles.deleted_at)),
-        app.db.select().from(e.permisos).where(isNull(e.permisos.deleted_at)).orderBy(asc(e.permisos.codigo)),
+        app.db
+          .select()
+          .from(e.permisos)
+          .where(isNull(e.permisos.deleted_at))
+          .orderBy(asc(e.permisos.codigo)),
         app.db.select().from(e.rol_permisos).where(isNull(e.rol_permisos.deleted_at)),
       ]);
       const porId = new Map(permisos.map((p) => [p.id, p.codigo]));
@@ -230,7 +287,10 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
         permisos,
         roles: roles.map((r) => ({
           ...r,
-          permisos: asignados.filter((a) => a.rol_id === r.id).map((a) => porId.get(a.permiso_id)).filter(Boolean),
+          permisos: asignados
+            .filter((a) => a.rol_id === r.id)
+            .map((a) => porId.get(a.permiso_id))
+            .filter(Boolean),
         })),
       };
     },
@@ -240,7 +300,12 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
     '/roles/:id/permisos',
     {
       preHandler: app.requiere('admin:roles'),
-      schema: { tags: ['admin'], summary: 'Reemplaza los permisos de un rol', params: idParam, body: esquemaRolPermisos },
+      schema: {
+        tags: ['admin'],
+        summary: 'Reemplaza los permisos de un rol',
+        params: idParam,
+        body: esquemaRolPermisos,
+      },
     },
     async (req) => {
       const u = req.usuario!;
@@ -249,13 +314,22 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
           ? await tx.select().from(e.permisos).where(inArray(e.permisos.codigo, req.body.permisos))
           : [];
         const deseados = new Set(permisos.map((p) => p.id));
-        const actuales = await tx.select().from(e.rol_permisos).where(eq(e.rol_permisos.rol_id, req.params.id));
+        const actuales = await tx
+          .select()
+          .from(e.rol_permisos)
+          .where(eq(e.rol_permisos.rol_id, req.params.id));
         for (const a of actuales) {
           const debe = deseados.has(a.permiso_id);
           if (debe && a.deleted_at) {
-            await tx.update(e.rol_permisos).set({ deleted_at: null, updated_at: ahora, server_updated_at: ahora }).where(eq(e.rol_permisos.id, a.id));
+            await tx
+              .update(e.rol_permisos)
+              .set({ deleted_at: null, updated_at: ahora, server_updated_at: ahora })
+              .where(eq(e.rol_permisos.id, a.id));
           } else if (!debe && !a.deleted_at) {
-            await tx.update(e.rol_permisos).set({ deleted_at: ahora, updated_at: ahora, server_updated_at: ahora }).where(eq(e.rol_permisos.id, a.id));
+            await tx
+              .update(e.rol_permisos)
+              .set({ deleted_at: ahora, updated_at: ahora, server_updated_at: ahora })
+              .where(eq(e.rol_permisos.id, a.id));
           }
           deseados.delete(a.permiso_id);
         }
@@ -288,13 +362,28 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
     '/semanas/:id',
     {
       preHandler: app.requiere('admin:catalogos'),
-      schema: { tags: ['admin'], summary: 'Editar color de cinta o factor de una semana', params: idParam, body: esquemaSemanaEdicion },
+      schema: {
+        tags: ['admin'],
+        summary: 'Editar color de cinta o factor de una semana',
+        params: idParam,
+        body: esquemaSemanaEdicion,
+      },
     },
     async (req) => {
       const u = req.usuario!;
       await escrituraSincronizada(app.db, u.fincaId, async (tx, ahora) => {
-        await tx.update(e.semanas).set({ ...req.body, updated_at: ahora, server_updated_at: ahora }).where(eq(e.semanas.id, req.params.id));
-        await registrarBitacora(tx, { fincaId: u.fincaId, usuarioId: u.id, accion: 'editar', tabla: 'semanas', registroId: req.params.id, datos: req.body });
+        await tx
+          .update(e.semanas)
+          .set({ ...req.body, updated_at: ahora, server_updated_at: ahora })
+          .where(eq(e.semanas.id, req.params.id));
+        await registrarBitacora(tx, {
+          fincaId: u.fincaId,
+          usuarioId: u.id,
+          accion: 'editar',
+          tabla: 'semanas',
+          registroId: req.params.id,
+          datos: req.body,
+        });
       });
       return { ok: true };
     },
@@ -305,7 +394,12 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
     '/parametros/:id',
     {
       preHandler: app.requiere('admin:parametros'),
-      schema: { tags: ['admin'], summary: 'Editar un parámetro', params: idParam, body: esquemaParametroEdicion },
+      schema: {
+        tags: ['admin'],
+        summary: 'Editar un parámetro',
+        params: idParam,
+        body: esquemaParametroEdicion,
+      },
     },
     async (req) => {
       const u = req.usuario!;
@@ -314,7 +408,14 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
           .update(e.parametros)
           .set({ valor: req.body.valor as object, updated_at: ahora, server_updated_at: ahora })
           .where(eq(e.parametros.id, req.params.id));
-        await registrarBitacora(tx, { fincaId: u.fincaId, usuarioId: u.id, accion: 'editar', tabla: 'parametros', registroId: req.params.id, datos: req.body });
+        await registrarBitacora(tx, {
+          fincaId: u.fincaId,
+          usuarioId: u.id,
+          accion: 'editar',
+          tabla: 'parametros',
+          registroId: req.params.id,
+          datos: req.body,
+        });
       });
       return { ok: true };
     },
@@ -324,7 +425,11 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
     '/feature-flags',
     {
       preHandler: app.requiere('admin:parametros'),
-      schema: { tags: ['admin'], summary: 'Activa o desactiva un módulo (por rol opcional)', body: esquemaFeatureFlag },
+      schema: {
+        tags: ['admin'],
+        summary: 'Activa o desactiva un módulo (por rol opcional)',
+        body: esquemaFeatureFlag,
+      },
     },
     async (req) => {
       const u = req.usuario!;
@@ -343,7 +448,12 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
         if (existente) {
           await tx
             .update(e.feature_flags)
-            .set({ activo: req.body.activo, deleted_at: null, updated_at: ahora, server_updated_at: ahora })
+            .set({
+              activo: req.body.activo,
+              deleted_at: null,
+              updated_at: ahora,
+              server_updated_at: ahora,
+            })
             .where(eq(e.feature_flags.id, existente.id));
         } else {
           await tx.insert(e.feature_flags).values({
@@ -357,7 +467,13 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
             created_by: u.id,
           });
         }
-        await registrarBitacora(tx, { fincaId: u.fincaId, usuarioId: u.id, accion: 'editar', tabla: 'feature_flags', datos: req.body });
+        await registrarBitacora(tx, {
+          fincaId: u.fincaId,
+          usuarioId: u.id,
+          accion: 'editar',
+          tabla: 'feature_flags',
+          datos: req.body,
+        });
       });
       return { ok: true };
     },
@@ -366,7 +482,10 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
   // ─── Formularios dinámicos ───────────────────────────────────────────────
   app.get(
     '/formularios',
-    { preHandler: app.requiere('admin:formularios'), schema: { tags: ['admin'], summary: 'Definiciones de formulario' } },
+    {
+      preHandler: app.requiere('admin:formularios'),
+      schema: { tags: ['admin'], summary: 'Definiciones de formulario' },
+    },
     async () =>
       app.db
         .select()
@@ -381,7 +500,8 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
       preHandler: app.requiere('admin:formularios'),
       schema: {
         tags: ['admin'],
-        summary: 'Publica una versión nueva de un formulario (llega a los celulares al sincronizar)',
+        summary:
+          'Publica una versión nueva de un formulario (llega a los celulares al sincronizar)',
         body: esquemaDefinicionBase.omit({ version: true }),
       },
     },

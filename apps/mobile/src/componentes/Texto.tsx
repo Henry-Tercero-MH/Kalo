@@ -14,7 +14,9 @@ export const TextoSecundario = ({ children, style }: Props) => (
   <Text style={[estilosBase.secundario, style]}>{children}</Text>
 );
 
-export const Etiqueta = ({ children, style }: Props) => <Text style={[estilosBase.etiqueta, style]}>{children}</Text>;
+export const Etiqueta = ({ children, style }: Props) => (
+  <Text style={[estilosBase.etiqueta, style]}>{children}</Text>
+);
 
 /** Título en Archivo 800 MAYÚSCULAS con línea negra de 2 pt debajo. */
 export function Titulo({ children, style, sinLinea }: Props & { sinLinea?: boolean }) {
@@ -39,4 +41,6 @@ export function Subtitulo({ children, style }: Props) {
   );
 }
 
-export const Division = () => <View style={[estilosBase.division, { marginVertical: espaciado.md }]} />;
+export const Division = () => (
+  <View style={[estilosBase.division, { marginVertical: espaciado.md }]} />
+);

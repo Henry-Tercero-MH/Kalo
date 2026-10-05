@@ -38,7 +38,9 @@ export const esquemaValidarRegistro = z.object({
 
 export const esquemaResolverConflicto = z.object({
   /** Valores finales elegidos por el supervisor (campos del registro). */
-  valores: z.record(z.string(), z.union([z.string(), z.number(), z.boolean(), z.null()])).default({}),
+  valores: z
+    .record(z.string(), z.union([z.string(), z.number(), z.boolean(), z.null()]))
+    .default({}),
   nota: z.string().trim().max(500).optional(),
 });
 

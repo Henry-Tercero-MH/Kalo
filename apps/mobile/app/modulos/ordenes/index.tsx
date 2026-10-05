@@ -20,7 +20,11 @@ export default function Ordenes() {
   const router = useRouter();
   useRequierePermiso('ordenes:ver');
   const { usuario, permisos } = useSesion();
-  const ordenes = useConsulta('ordenes_trabajo', [Q.where('asignado_a', usuario?.id ?? ''), Q.sortBy('fecha', Q.desc)], [usuario?.id]);
+  const ordenes = useConsulta(
+    'ordenes_trabajo',
+    [Q.where('asignado_a', usuario?.id ?? ''), Q.sortBy('fecha', Q.desc)],
+    [usuario?.id],
+  );
   const lotes = useConsulta('lotes');
   const puedeActualizar = tienePermiso(permisos, 'ordenes:actualizar');
 
@@ -32,7 +36,18 @@ export default function Ordenes() {
         const modulo = (MODULOS as readonly ManifiestoModulo[]).find((m) => m.codigo === o.modulo);
         return (
           <Tarjeta key={o.id}>
-            <Estado tipo={o.estado === 'completada' ? 'exito' : o.estado === 'en_progreso' ? 'info' : o.estado === 'cancelada' ? 'neutro' : 'alerta'} texto={t(`estados.${o.estado}`)} />
+            <Estado
+              tipo={
+                o.estado === 'completada'
+                  ? 'exito'
+                  : o.estado === 'en_progreso'
+                    ? 'info'
+                    : o.estado === 'cancelada'
+                      ? 'neutro'
+                      : 'alerta'
+              }
+              texto={t(`estados.${o.estado}`)}
+            />
             <Texto style={{ marginTop: 8, fontWeight: '700' }}>{o.titulo}</Texto>
             <TextoSecundario>
               {formatearFecha(o.fecha)} · {lotes.find((l) => l.id === o.lote_id)?.nombre ?? '—'}
@@ -40,23 +55,41 @@ export default function Ordenes() {
             {o.descripcion ? <Texto>{o.descripcion}</Texto> : null}
             {puedeActualizar && o.estado === 'pendiente' ? (
               <View>
-                <Boton titulo={t('ordenes.iniciar')} icono="play" onPress={() => void cambiarEstadoOrden(o.id, 'en_progreso')} />
+                <Boton
+                  titulo={t('ordenes.iniciar')}
+                  icono="play"
+                  onPress={() => void cambiarEstadoOrden(o.id, 'en_progreso')}
+                />
               </View>
             ) : null}
             {puedeActualizar && o.estado === 'en_progreso' ? (
               <View>
                 {modulo?.rutaMovil ? (
-                  <Boton titulo={modulo.nombre} icono={modulo.icono} variante="secundario" onPress={() => router.push(modulo.rutaMovil as never)} />
+                  <Boton
+                    titulo={modulo.nombre}
+                    icono={modulo.icono}
+                    variante="secundario"
+                    onPress={() => router.push(modulo.rutaMovil as never)}
+                  />
                 ) : null}
                 {tienePermiso(permisos, 'rutas:crear') ? (
                   <Boton
                     titulo={t('rutas.iniciar')}
                     icono="route"
                     variante="secundario"
-                    onPress={() => router.push({ pathname: '/modulos/rutas', params: { orden: o.id, tarea: o.titulo } })}
+                    onPress={() =>
+                      router.push({
+                        pathname: '/modulos/rutas',
+                        params: { orden: o.id, tarea: o.titulo },
+                      })
+                    }
                   />
                 ) : null}
-                <Boton titulo={t('ordenes.completar')} icono="check" onPress={() => void cambiarEstadoOrden(o.id, 'completada')} />
+                <Boton
+                  titulo={t('ordenes.completar')}
+                  icono="check"
+                  onPress={() => void cambiarEstadoOrden(o.id, 'completada')}
+                />
               </View>
             ) : null}
           </Tarjeta>

@@ -15,7 +15,15 @@ export interface ContextoEscritura {
 }
 
 /** Columnas comunes que se completan automáticamente al crear. */
-type Automaticas = 'id' | 'created_at' | 'updated_at' | 'server_updated_at' | 'deleted_at' | 'device_id' | 'created_by' | 'finca_id';
+type Automaticas =
+  | 'id'
+  | 'created_at'
+  | 'updated_at'
+  | 'server_updated_at'
+  | 'deleted_at'
+  | 'device_id'
+  | 'created_by'
+  | 'finca_id';
 export type DatosNuevos<T extends NombreTabla> = Omit<Fila<T>, Automaticas> & { id?: string };
 
 export const coleccion = <T extends NombreTabla>(tabla: T) => database.get<ModeloBase<T>>(tabla);
@@ -23,7 +31,8 @@ export const coleccion = <T extends NombreTabla>(tabla: T) => database.get<Model
 function validarColumnas(tabla: NombreTabla, datos: Record<string, unknown>) {
   const columnas = columnasDe(tabla);
   for (const k of Object.keys(datos)) {
-    if (k !== 'id' && !(k in columnas)) throw new Error(`La columna ${tabla}.${k} no existe en el registro`);
+    if (k !== 'id' && !(k in columnas))
+      throw new Error(`La columna ${tabla}.${k} no existe en el registro`);
   }
 }
 
@@ -76,8 +85,13 @@ export function borrarLogico(tabla: NombreTabla, id: string) {
 /** Condición base: solo registros vivos. */
 export const vivos = (): Clause => Q.where('deleted_at', null);
 
-export async function consultar<T extends NombreTabla>(tabla: T, ...condiciones: Clause[]): Promise<Fila<T>[]> {
-  const filas = await coleccion(tabla).query(vivos(), ...condiciones).fetch();
+export async function consultar<T extends NombreTabla>(
+  tabla: T,
+  ...condiciones: Clause[]
+): Promise<Fila<T>[]> {
+  const filas = await coleccion(tabla)
+    .query(vivos(), ...condiciones)
+    .fetch();
   return filas.map((f) => f.fila as Fila<T>);
 }
 

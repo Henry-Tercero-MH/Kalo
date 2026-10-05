@@ -22,7 +22,10 @@ export function ArchivosRegistro({ tabla, id }: { tabla: string; id: string }) {
   });
   if (!abierto) {
     return (
-      <button className="text-xs font-semibold uppercase underline" onClick={() => setAbierto(true)}>
+      <button
+        className="text-xs font-semibold uppercase underline"
+        onClick={() => setAbierto(true)}
+      >
         Ver archivos
       </button>
     );
@@ -38,7 +41,11 @@ export function ArchivosRegistro({ tabla, id }: { tabla: string; id: string }) {
           </span>
         ) : a.tipo === 'foto' ? (
           <a key={a.id} href={a.url} target="_blank" rel="noreferrer">
-            <img src={a.url} alt="Foto de campo" className="h-16 w-16 border border-neutros-n200 object-cover" />
+            <img
+              src={a.url}
+              alt="Foto de campo"
+              className="h-16 w-16 border border-neutros-n200 object-cover"
+            />
           </a>
         ) : (
           <audio key={a.id} controls src={a.url} className="h-8" />

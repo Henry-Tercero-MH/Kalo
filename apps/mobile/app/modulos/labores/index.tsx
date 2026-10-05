@@ -12,8 +12,16 @@ export default function Labores() {
   return (
     <Pantalla volver>
       <Titulo>{t('labores.titulo')}</Titulo>
-      <FilaMenu icono="users" titulo={t('labores.asistencia')} onPress={() => router.push('/modulos/labores/asistencia')} />
-      <FilaMenu icono="clipboard-list" titulo={t('labores.labor')} onPress={() => router.push('/modulos/labores/labor')} />
+      <FilaMenu
+        icono="users"
+        titulo={t('labores.asistencia')}
+        onPress={() => router.push('/modulos/labores/asistencia')}
+      />
+      <FilaMenu
+        icono="clipboard-list"
+        titulo={t('labores.labor')}
+        onPress={() => router.push('/modulos/labores/labor')}
+      />
     </Pantalla>
   );
 }

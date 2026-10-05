@@ -28,7 +28,11 @@ export interface ArchivoLocal {
 export async function tomarFoto(): Promise<ArchivoLocal | null> {
   const permiso = await ImagePicker.requestCameraPermissionsAsync();
   if (!permiso.granted) return null;
-  const r = await ImagePicker.launchCameraAsync({ mediaTypes: ['images'], quality: 1, exif: false });
+  const r = await ImagePicker.launchCameraAsync({
+    mediaTypes: ['images'],
+    quality: 1,
+    exif: false,
+  });
   if (r.canceled || !r.assets[0]) return null;
   const original = r.assets[0];
   const params = await consultar('parametros');
@@ -43,7 +47,14 @@ export async function tomarFoto(): Promise<ArchivoLocal | null> {
   const resultado = await imagen.saveAsync({ compress: calidad, format: SaveFormat.JPEG });
   const destino = new File(carpeta(), `${nuevoId()}.jpg`);
   new File(resultado.uri).move(destino);
-  return { uri: destino.uri, tipo: 'foto', mime: 'image/jpeg', tamano: destino.size ?? 0, ancho: resultado.width, alto: resultado.height };
+  return {
+    uri: destino.uri,
+    tipo: 'foto',
+    mime: 'image/jpeg',
+    tamano: destino.size ?? 0,
+    ancho: resultado.width,
+    alto: resultado.height,
+  };
 }
 
 /** Mueve una grabación de audio a la carpeta de archivos de la app. */

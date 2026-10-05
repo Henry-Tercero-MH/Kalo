@@ -15,7 +15,11 @@ export default function MapaPestana() {
   const { t } = useTranslation();
   const lotes = useLotes();
   const s = useMemo(() => semanaIso(new Date()), []);
-  const cobertura = useConsulta('cobertura_lote', [Q.where('anio', s.anio), Q.where('semana', s.numero)], [s.anio]);
+  const cobertura = useConsulta(
+    'cobertura_lote',
+    [Q.where('anio', s.anio), Q.where('semana', s.numero)],
+    [s.anio],
+  );
   return (
     <Pantalla>
       <Titulo>{t('mapa.titulo')}</Titulo>
@@ -26,9 +30,19 @@ export default function MapaPestana() {
         const c = cobertura.find((x) => x.lote_id === l.id);
         if (!c) return null;
         return (
-          <View key={l.id} style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: espaciado.sm }}>
+          <View
+            key={l.id}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              paddingVertical: espaciado.sm,
+            }}
+          >
             <Texto>{l.nombre}</Texto>
-            <Estado tipo={c.porcentaje >= 60 ? 'exito' : 'alerta'} texto={`${formatearNumero(c.porcentaje, 1)} % cubierto`} />
+            <Estado
+              tipo={c.porcentaje >= 60 ? 'exito' : 'alerta'}
+              texto={`${formatearNumero(c.porcentaje, 1)} % cubierto`}
+            />
           </View>
         );
       })}

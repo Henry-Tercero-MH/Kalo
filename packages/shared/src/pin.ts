@@ -14,7 +14,9 @@ export const PIN_ITERACIONES = 4_000;
 export const esPinValido = (pin: string) => /^\d{4}$/.test(pin);
 
 export function hashPinOffline(pin: string, salHex: string, iteraciones = PIN_ITERACIONES): string {
-  return bytesToHex(pbkdf2(sha256, utf8ToBytes(pin), utf8ToBytes(salHex), { c: iteraciones, dkLen: 32 }));
+  return bytesToHex(
+    pbkdf2(sha256, utf8ToBytes(pin), utf8ToBytes(salHex), { c: iteraciones, dkLen: 32 }),
+  );
 }
 
 export function verificarPinOffline(pin: string, salHex: string, hashEsperado: string): boolean {

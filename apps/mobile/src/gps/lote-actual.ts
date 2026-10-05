@@ -16,7 +16,10 @@ interface EstadoPosicion {
   fijar: (u: Ubicacion) => void;
 }
 
-export const usePosicion = create<EstadoPosicion>((set) => ({ ubicacion: null, fijar: (ubicacion) => set({ ubicacion }) }));
+export const usePosicion = create<EstadoPosicion>((set) => ({
+  ubicacion: null,
+  fijar: (ubicacion) => set({ ubicacion }),
+}));
 
 export function useLotes(): LoteConGeometria[] {
   const lotes = useConsulta('lotes');
@@ -50,7 +53,13 @@ export function useObservarPosicion() {
       if (status !== 'granted') return;
       sub = await Location.watchPositionAsync(
         { accuracy: Location.Accuracy.Balanced, timeInterval: 10_000, distanceInterval: 10 },
-        (p) => fijar({ lat: p.coords.latitude, lng: p.coords.longitude, precision: p.coords.accuracy ?? 999, hora: p.timestamp }),
+        (p) =>
+          fijar({
+            lat: p.coords.latitude,
+            lng: p.coords.longitude,
+            precision: p.coords.accuracy ?? 999,
+            hora: p.timestamp,
+          }),
       );
     })();
     return () => {

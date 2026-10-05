@@ -15,7 +15,8 @@ const rango = z.object({
 
 function fechas(q: { desde?: string; hasta?: string }, diasPorDefecto: number) {
   const hasta = q.hasta ?? new Date().toISOString().slice(0, 10);
-  const desde = q.desde ?? new Date(Date.now() - diasPorDefecto * 86_400_000).toISOString().slice(0, 10);
+  const desde =
+    q.desde ?? new Date(Date.now() - diasPorDefecto * 86_400_000).toISOString().slice(0, 10);
   return { desde, hasta };
 }
 
@@ -116,7 +117,11 @@ export default async function rutasMapa(fastify: FastifyInstance) {
     '/registros',
     {
       preHandler: app.requiere('mapa:ver'),
-      schema: { tags: ['mapa'], summary: 'Registros recientes con ubicación (puntos)', querystring: rango },
+      schema: {
+        tags: ['mapa'],
+        summary: 'Registros recientes con ubicación (puntos)',
+        querystring: rango,
+      },
     },
     async (req) => {
       const { desde, hasta } = fechas(req.query, 7);
@@ -165,7 +170,12 @@ export default async function rutasMapa(fastify: FastifyInstance) {
         FROM cobertura_lote c JOIN lotes l ON l.id = c.lote_id
         WHERE c.finca_id = ${req.usuario!.fincaId} AND c.anio = ${anio} AND c.semana = ${semana}
       `);
-      return { anio, semana, type: 'FeatureCollection', features: [...filas].map((x) => x.feature) };
+      return {
+        anio,
+        semana,
+        type: 'FeatureCollection',
+        features: [...filas].map((x) => x.feature),
+      };
     },
   );
 }

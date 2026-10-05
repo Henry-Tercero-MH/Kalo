@@ -26,7 +26,9 @@ export async function procesarColaArchivos(): Promise<void> {
   if (prefs.archivosSoloWifi && red.type !== 'wifi') return;
 
   // Solo archivos cuyo registro ya está sincronizado (el servidor los conoce).
-  const pendientes = (await consultaPendientes().fetch()).filter((a) => a._raw._status === 'synced');
+  const pendientes = (await consultaPendientes().fetch()).filter(
+    (a) => a._raw._status === 'synced',
+  );
   const estado = useEstadoSync.getState();
   let actual = 0;
   for (const archivo of pendientes) {
@@ -34,7 +36,10 @@ export async function procesarColaArchivos(): Promise<void> {
     estado.fijar({ progresoArchivos: { actual, total: pendientes.length } });
     const f = archivo.fila as unknown as { id: string; uri_local: string; mime: string };
     try {
-      const { url, clave } = await apiDispositivo<{ url: string; clave: string }>(`/v1/archivos/${f.id}/subida`, { method: 'POST', body: {} });
+      const { url, clave } = await apiDispositivo<{ url: string; clave: string }>(
+        `/v1/archivos/${f.id}/subida`,
+        { method: 'POST', body: {} },
+      );
       const r = await uploadAsync(url, f.uri_local, {
         httpMethod: 'PUT',
         uploadType: FileSystemUploadType.BINARY_CONTENT,

@@ -8,10 +8,28 @@ import { LOGO } from './logo-fuente';
 import { Etiqueta, Texto } from './Texto';
 import { campo, espaciado, semantico, tipografia } from './tema';
 
-export function Tarjeta({ children, onPress, destacada }: { children: ReactNode; onPress?: () => void; destacada?: boolean }) {
-  const contenido = <View style={[estilos.tarjeta, destacada && { borderColor: semantico.bordeFuerte, borderWidth: 2 }]}>{children}</View>;
+export function Tarjeta({
+  children,
+  onPress,
+  destacada,
+}: {
+  children: ReactNode;
+  onPress?: () => void;
+  destacada?: boolean;
+}) {
+  const contenido = (
+    <View
+      style={[estilos.tarjeta, destacada && { borderColor: semantico.bordeFuerte, borderWidth: 2 }]}
+    >
+      {children}
+    </View>
+  );
   return onPress ? (
-    <Pressable accessibilityRole="button" onPress={onPress} style={({ pressed }) => pressed && { opacity: 0.8 }}>
+    <Pressable
+      accessibilityRole="button"
+      onPress={onPress}
+      style={({ pressed }) => pressed && { opacity: 0.8 }}
+    >
       {contenido}
     </Pressable>
   ) : (
@@ -34,11 +52,17 @@ export function FilaMenu({
   derecha?: ReactNode;
 }) {
   return (
-    <Pressable accessibilityRole="button" onPress={onPress} style={({ pressed }) => [estilos.filaMenu, pressed && { opacity: 0.75 }]}>
+    <Pressable
+      accessibilityRole="button"
+      onPress={onPress}
+      style={({ pressed }) => [estilos.filaMenu, pressed && { opacity: 0.75 }]}
+    >
       <Icono nombre={icono} tamano={28} color={semantico.titulo} />
       <View style={{ flex: 1 }}>
         <Text style={estilos.tituloFila}>{titulo}</Text>
-        {descripcion ? <Texto style={{ fontSize: 14, color: semantico.textoSecundario }}>{descripcion}</Texto> : null}
+        {descripcion ? (
+          <Texto style={{ fontSize: 14, color: semantico.textoSecundario }}>{descripcion}</Texto>
+        ) : null}
       </View>
       {derecha ?? <Icono nombre="chevron-right" color={semantico.textoSecundario} />}
     </Pressable>
@@ -46,15 +70,33 @@ export function FilaMenu({
 }
 
 /** Los colores de cinta son datos: muestra + nombre escrito al lado. */
-export function MuestraColor({ hex, nombre, grande }: { hex: string; nombre?: string; grande?: boolean }) {
+export function MuestraColor({
+  hex,
+  nombre,
+  grande,
+}: {
+  hex: string;
+  nombre?: string;
+  grande?: boolean;
+}) {
   const lado = grande ? 40 : 24;
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: espaciado.sm }}>
       <View
         accessibilityLabel={nombre ? `Cinta ${nombre}` : undefined}
-        style={{ width: lado, height: lado, backgroundColor: hex, borderWidth: 1, borderColor: semantico.bordeFuerte }}
+        style={{
+          width: lado,
+          height: lado,
+          backgroundColor: hex,
+          borderWidth: 1,
+          borderColor: semantico.bordeFuerte,
+        }}
       />
-      {nombre ? <Text style={[estilos.nombreColor, grande && { fontSize: 22 }]}>{nombre.toUpperCase()}</Text> : null}
+      {nombre ? (
+        <Text style={[estilos.nombreColor, grande && { fontSize: 22 }]}>
+          {nombre.toUpperCase()}
+        </Text>
+      ) : null}
     </View>
   );
 }
@@ -73,14 +115,27 @@ export function Estado({ tipo, texto }: { tipo: TipoEstado; texto: string }) {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
       <View style={{ width: 12, height: 12, backgroundColor: COLOR_ESTADO[tipo] }} />
-      <Text style={[estilos.textoEstado, { color: tipo === 'neutro' ? semantico.textoSecundario : semantico.titulo }]}>
+      <Text
+        style={[
+          estilos.textoEstado,
+          { color: tipo === 'neutro' ? semantico.textoSecundario : semantico.titulo },
+        ]}
+      >
         {texto.toUpperCase()}
       </Text>
     </View>
   );
 }
 
-export function Dato({ etiqueta, valor, unidad }: { etiqueta: string; valor: ReactNode; unidad?: string }) {
+export function Dato({
+  etiqueta,
+  valor,
+  unidad,
+}: {
+  etiqueta: string;
+  valor: ReactNode;
+  unidad?: string;
+}) {
   return (
     <View style={{ marginBottom: espaciado.md }}>
       <Etiqueta>{etiqueta}</Etiqueta>
@@ -95,7 +150,10 @@ export function Dato({ etiqueta, valor, unidad }: { etiqueta: string; valor: Rea
 export function Aviso({ texto, tipo = 'info' }: { texto: string; tipo?: TipoEstado }) {
   return (
     <View style={[estilos.aviso, { borderLeftColor: COLOR_ESTADO[tipo] }]}>
-      <Icono nombre={tipo === 'peligro' || tipo === 'alerta' ? 'triangle-alert' : 'info'} color={semantico.titulo} />
+      <Icono
+        nombre={tipo === 'peligro' || tipo === 'alerta' ? 'triangle-alert' : 'info'}
+        color={semantico.titulo}
+      />
       <Texto style={{ flex: 1 }}>{texto}</Texto>
     </View>
   );
@@ -107,12 +165,26 @@ export function Aviso({ texto, tipo = 'info' }: { texto: string; tipo?: TipoEsta
  * Para usar el logo: `pnpm --filter @kalo/mobile marca:logo` (nunca redibujarlo ni recolorearlo).
  */
 export function Logo() {
-  if (LOGO) return <Image source={LOGO} style={{ height: 32, width: 120 }} resizeMode="contain" accessibilityLabel="Inversiones Kalo" />;
+  if (LOGO)
+    return (
+      <Image
+        source={LOGO}
+        style={{ height: 32, width: 120 }}
+        resizeMode="contain"
+        accessibilityLabel="Inversiones Kalo"
+      />
+    );
   return <Text style={estilos.logoTexto}>INVERSIONES KALO</Text>;
 }
 
 const estilos = StyleSheet.create({
-  tarjeta: { borderWidth: 1, borderColor: semantico.borde, padding: espaciado.lg, marginBottom: espaciado.md, backgroundColor: semantico.fondo },
+  tarjeta: {
+    borderWidth: 1,
+    borderColor: semantico.borde,
+    padding: espaciado.lg,
+    marginBottom: espaciado.md,
+    backgroundColor: semantico.fondo,
+  },
   filaMenu: {
     minHeight: campo.alturaTactil + 16,
     flexDirection: 'row',
@@ -122,11 +194,45 @@ const estilos = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: semantico.borde,
   },
-  tituloFila: { fontFamily: tipografia.familias.titulo, fontSize: tipografia.tamanos.cuerpo, color: semantico.titulo, textTransform: 'uppercase' },
-  nombreColor: { fontFamily: tipografia.familias.titulo, fontSize: tipografia.tamanos.cuerpo, color: semantico.titulo },
-  textoEstado: { fontFamily: tipografia.familias.titulo, fontSize: tipografia.tamanos.etiqueta, letterSpacing: 1 },
-  valorDato: { fontFamily: tipografia.familias.titulo, fontSize: 26, color: semantico.titulo, fontVariant: ['tabular-nums'] },
-  unidad: { fontFamily: tipografia.familias.cuerpo, fontSize: tipografia.tamanos.pequeno, color: semantico.textoSecundario },
-  aviso: { flexDirection: 'row', gap: espaciado.md, borderLeftWidth: 4, backgroundColor: semantico.fondoSuave, padding: espaciado.md, marginVertical: espaciado.sm },
-  logoTexto: { fontFamily: tipografia.familias.titulo, fontSize: 18, letterSpacing: 1, color: semantico.titulo },
+  tituloFila: {
+    fontFamily: tipografia.familias.titulo,
+    fontSize: tipografia.tamanos.cuerpo,
+    color: semantico.titulo,
+    textTransform: 'uppercase',
+  },
+  nombreColor: {
+    fontFamily: tipografia.familias.titulo,
+    fontSize: tipografia.tamanos.cuerpo,
+    color: semantico.titulo,
+  },
+  textoEstado: {
+    fontFamily: tipografia.familias.titulo,
+    fontSize: tipografia.tamanos.etiqueta,
+    letterSpacing: 1,
+  },
+  valorDato: {
+    fontFamily: tipografia.familias.titulo,
+    fontSize: 26,
+    color: semantico.titulo,
+    fontVariant: ['tabular-nums'],
+  },
+  unidad: {
+    fontFamily: tipografia.familias.cuerpo,
+    fontSize: tipografia.tamanos.pequeno,
+    color: semantico.textoSecundario,
+  },
+  aviso: {
+    flexDirection: 'row',
+    gap: espaciado.md,
+    borderLeftWidth: 4,
+    backgroundColor: semantico.fondoSuave,
+    padding: espaciado.md,
+    marginVertical: espaciado.sm,
+  },
+  logoTexto: {
+    fontFamily: tipografia.familias.titulo,
+    fontSize: 18,
+    letterSpacing: 1,
+    color: semantico.titulo,
+  },
 });

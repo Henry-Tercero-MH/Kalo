@@ -22,7 +22,12 @@ import { despuesDeGuardar, useRequierePermiso } from '@/modulos/comun';
 import { tieneConsentimiento } from '@/permisos/consentimiento';
 import { useContextoEscritura } from '@/permisos/contexto';
 
-const TAREAS = ['Muestreo de plagas', 'Lectura de trampas', 'Recorrido de supervisión', 'Labor de campo'];
+const TAREAS = [
+  'Muestreo de plagas',
+  'Lectura de trampas',
+  'Recorrido de supervisión',
+  'Labor de campo',
+];
 
 export default function Rutas() {
   const { t } = useTranslation();
@@ -77,7 +82,12 @@ export default function Rutas() {
               try {
                 const r = await finalizarRuta();
                 setRutaId(null);
-                despuesDeGuardar(() => undefined, r ? `${t('rutas.puntos', { n: r.puntos })} · ${formatearNumero(r.distancia)} m` : undefined);
+                despuesDeGuardar(
+                  () => undefined,
+                  r
+                    ? `${t('rutas.puntos', { n: r.puntos })} · ${formatearNumero(r.distancia)} m`
+                    : undefined,
+                );
               } finally {
                 setCargando(false);
               }
@@ -88,7 +98,11 @@ export default function Rutas() {
         <>
           <Etiqueta>{t('rutas.tarea')}</Etiqueta>
           <View style={{ marginVertical: espaciado.sm }}>
-            <Opciones opciones={TAREAS.map((x) => ({ valor: x, etiqueta: x }))} valor={tarea} onCambio={(v) => setTarea(v as string)} />
+            <Opciones
+              opciones={TAREAS.map((x) => ({ valor: x, etiqueta: x }))}
+              valor={tarea}
+              onCambio={(v) => setTarea(v as string)}
+            />
           </View>
           <SelectorLote valor={loteId} onCambio={setLoteId} />
           <View style={{ marginTop: espaciado.lg }}>

@@ -19,7 +19,13 @@ export async function descargarMapaFinca(
   }
   await new Promise<void>((resolver, rechazar) => {
     OfflineManager.createPack(
-      { mapStyle: CONFIG.mapStyleUrl, bounds: bbox, minZoom: 12, maxZoom: 17, metadata: { nombre: NOMBRE_PAQUETE } },
+      {
+        mapStyle: CONFIG.mapStyleUrl,
+        bounds: bbox,
+        minZoom: 12,
+        maxZoom: 17,
+        metadata: { nombre: NOMBRE_PAQUETE },
+      },
       (_pack, estado) => {
         progreso?.(Math.round(estado.percentage));
         if (estado.state === 'complete' || estado.percentage >= 100) resolver();

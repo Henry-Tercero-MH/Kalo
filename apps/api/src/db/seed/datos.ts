@@ -12,9 +12,19 @@ export const USUARIOS_DEMO: { usuario: string; nombre: string; rol: CodigoRol; p
   { usuario: 'admin', nombre: 'Ana Administradora (DEMO)', rol: ROLES.administrador, pin: '1111' },
   { usuario: 'gerente', nombre: 'Gerardo Gerente (DEMO)', rol: ROLES.gerente, pin: '2222' },
   { usuario: 'supervisor', nombre: 'Sofía Supervisora (DEMO)', rol: ROLES.supervisor, pin: '3333' },
-  { usuario: 'tecnico', nombre: 'Tomás Técnico de Sanidad (DEMO)', rol: ROLES.tecnico_sanidad, pin: '4444' },
+  {
+    usuario: 'tecnico',
+    nombre: 'Tomás Técnico de Sanidad (DEMO)',
+    rol: ROLES.tecnico_sanidad,
+    pin: '4444',
+  },
   { usuario: 'caporal', nombre: 'Carlos Caporal (DEMO)', rol: ROLES.caporal, pin: '5555' },
-  { usuario: 'trabajador', nombre: 'Teresa Trabajadora (DEMO)', rol: ROLES.trabajador, pin: '6666' },
+  {
+    usuario: 'trabajador',
+    nombre: 'Teresa Trabajadora (DEMO)',
+    rol: ROLES.trabajador,
+    pin: '6666',
+  },
 ];
 
 export const ROLES_DEMO: { codigo: CodigoRol; nombre: string; plataformas: string[] }[] = [
@@ -126,12 +136,48 @@ export const COLORES_CINTA_EJEMPLO = [
 
 /** Catálogo de plagas con umbrales de EJEMPLO (incidencia %), editables en el panel. */
 export const PLAGAS_DEMO = [
-  { codigo: 'sigatoka_negra', nombre: 'Sigatoka negra', nombre_cientifico: 'Pseudocercospora fijiensis', tipo: 'enfermedad', umbral_alerta: 15 },
-  { codigo: 'picudo_negro', nombre: 'Picudo negro', nombre_cientifico: 'Cosmopolites sordidus', tipo: 'plaga', umbral_alerta: 10 },
-  { codigo: 'nematodos', nombre: 'Nematodos', nombre_cientifico: 'Radopholus similis', tipo: 'plaga', umbral_alerta: 20 },
-  { codigo: 'cochinilla', nombre: 'Cochinilla', nombre_cientifico: 'Dysmicoccus spp.', tipo: 'plaga', umbral_alerta: 8 },
-  { codigo: 'trips', nombre: 'Trips', nombre_cientifico: 'Chaetanaphothrips spp.', tipo: 'plaga', umbral_alerta: 12 },
-  { codigo: 'fusarium_r4t', nombre: 'Fusarium R4T', nombre_cientifico: 'Fusarium oxysporum f. sp. cubense R4T', tipo: 'enfermedad', umbral_alerta: 0.1 },
+  {
+    codigo: 'sigatoka_negra',
+    nombre: 'Sigatoka negra',
+    nombre_cientifico: 'Pseudocercospora fijiensis',
+    tipo: 'enfermedad',
+    umbral_alerta: 15,
+  },
+  {
+    codigo: 'picudo_negro',
+    nombre: 'Picudo negro',
+    nombre_cientifico: 'Cosmopolites sordidus',
+    tipo: 'plaga',
+    umbral_alerta: 10,
+  },
+  {
+    codigo: 'nematodos',
+    nombre: 'Nematodos',
+    nombre_cientifico: 'Radopholus similis',
+    tipo: 'plaga',
+    umbral_alerta: 20,
+  },
+  {
+    codigo: 'cochinilla',
+    nombre: 'Cochinilla',
+    nombre_cientifico: 'Dysmicoccus spp.',
+    tipo: 'plaga',
+    umbral_alerta: 8,
+  },
+  {
+    codigo: 'trips',
+    nombre: 'Trips',
+    nombre_cientifico: 'Chaetanaphothrips spp.',
+    tipo: 'plaga',
+    umbral_alerta: 12,
+  },
+  {
+    codigo: 'fusarium_r4t',
+    nombre: 'Fusarium R4T',
+    nombre_cientifico: 'Fusarium oxysporum f. sp. cubense R4T',
+    tipo: 'enfermedad',
+    umbral_alerta: 0.1,
+  },
 ] as const;
 
 /** Catálogo de labores. Tarifas pendientes de definir (null). */

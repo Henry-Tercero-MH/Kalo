@@ -81,7 +81,13 @@ function poligonoLote(fila: number, columna: number): PoligonoGeoJson {
   return {
     type: 'Polygon',
     coordinates: [
-      [p1, [x0 + ancho + j(), y0 + j()], [x0 + ancho + j(), y0 - alto + j()], [x0 + j(), y0 - alto + j()], p1],
+      [
+        p1,
+        [x0 + ancho + j(), y0 + j()],
+        [x0 + ancho + j(), y0 - alto + j()],
+        [x0 + j(), y0 - alto + j()],
+        p1,
+      ],
     ],
   };
 }
@@ -112,7 +118,14 @@ export async function sembrar(db: BaseDatos) {
 
   // ─── Organización ────────────────────────────────────────────────────────
   const empresaId = randomUUID();
-  await db.insert(e.empresas).values({ ...comunes(null, null, ahora), id: empresaId, nombre: 'Inversiones Kalo', codigo: 'KALO-DEMO' });
+  await db
+    .insert(e.empresas)
+    .values({
+      ...comunes(null, null, ahora),
+      id: empresaId,
+      nombre: 'Inversiones Kalo',
+      codigo: 'KALO-DEMO',
+    });
 
   const poligonos = Array.from({ length: 6 }, (_, i) => poligonoLote(Math.floor(i / 3), i % 3));
   const fincaId = randomUUID();
@@ -192,9 +205,15 @@ export async function sembrar(db: BaseDatos) {
   await db.insert(e.trabajadores).values(trabajadores);
   await db.insert(e.usuarios).values(usuarios);
   await db.insert(e.cuadrillas).values(cuadrillas);
-  await db.insert(e.cuadrilla_miembros).values(
-    trabajadores.map((t) => ({ ...comunes(fincaId, null, ahora), cuadrilla_id: t.cuadrilla_id!, trabajador_id: t.id })),
-  );
+  await db
+    .insert(e.cuadrilla_miembros)
+    .values(
+      trabajadores.map((t) => ({
+        ...comunes(fincaId, null, ahora),
+        cuadrilla_id: t.cuadrilla_id!,
+        trabajador_id: t.id,
+      })),
+    );
 
   // ─── Calendario: colores de cinta y semanas ──────────────────────────────
   const colores = COLORES_CINTA_EJEMPLO.map((c, i) => ({
@@ -233,7 +252,12 @@ export async function sembrar(db: BaseDatos) {
   // ─── Catálogos ───────────────────────────────────────────────────────────
   const plagas = PLAGAS_DEMO.map((p) => ({ ...comunes(fincaId, null, ahora), ...p, activo: true }));
   await db.insert(e.plagas).values(plagas);
-  const tiposLabor = LABORES_DEMO.map((l) => ({ ...comunes(fincaId, null, ahora), ...l, tarifa: null, activo: true }));
+  const tiposLabor = LABORES_DEMO.map((l) => ({
+    ...comunes(fincaId, null, ahora),
+    ...l,
+    tarifa: null,
+    activo: true,
+  }));
   await db.insert(e.tipos_labor).values(tiposLabor);
   const trampas = Array.from({ length: 10 }, (_, i) => {
     const lote = lotes[i % lotes.length]!;
@@ -272,9 +296,17 @@ export async function sembrar(db: BaseDatos) {
       pendiente: true,
     },
   ]);
-  await db.insert(e.modulos).values(
-    MODULOS.map((m) => ({ ...comunes(null, null, ahora), codigo: m.codigo, nombre: m.nombre, activo: m.estado === 'activo', orden: m.orden })),
-  );
+  await db
+    .insert(e.modulos)
+    .values(
+      MODULOS.map((m) => ({
+        ...comunes(null, null, ahora),
+        codigo: m.codigo,
+        nombre: m.nombre,
+        activo: m.estado === 'activo',
+        orden: m.orden,
+      })),
+    );
   const formularioId = randomUUID();
   await db.insert(e.definiciones_formulario).values({
     ...comunes(null, null, ahora),
@@ -330,11 +362,15 @@ export async function sembrar(db: BaseDatos) {
     const tendencia = (SEMANAS_REGISTROS - w) / SEMANAS_REGISTROS;
     lotes.forEach((lote, li) => {
       // Muestreos: 3 plagas por lote y semana; el lote 04 empeora con sigatoka (para el mapa).
-      for (const plaga of plagas.filter((x) => x.codigo !== 'fusarium_r4t').slice(0, 3 + (li % 2))) {
+      for (const plaga of plagas
+        .filter((x) => x.codigo !== 'fusarium_r4t')
+        .slice(0, 3 + (li % 2))) {
         const ms = momento(s, 2, 8 + li);
         const base = plaga.umbral_alerta * entre(0.15, 0.7);
         const incidencia =
-          plaga.id === sigatoka.id && li === 3 ? plaga.umbral_alerta * (0.8 + tendencia * 0.6) : base;
+          plaga.id === sigatoka.id && li === 3
+            ? plaga.umbral_alerta * (0.8 + tendencia * 0.6)
+            : base;
         const revisadas = 50;
         const afectadas = Math.min(revisadas, Math.round((incidencia / 100) * revisadas));
         muestreos.push({
@@ -346,7 +382,12 @@ export async function sembrar(db: BaseDatos) {
           plaga_id: plaga.id,
           fecha: fechaDe(ms),
           incidencia: Math.round(incidencia * 10) / 10,
-          severidad: incidencia >= plaga.umbral_alerta ? 'alta' : incidencia >= plaga.umbral_alerta / 2 ? 'media' : 'baja',
+          severidad:
+            incidencia >= plaga.umbral_alerta
+              ? 'alta'
+              : incidencia >= plaga.umbral_alerta / 2
+                ? 'media'
+                : 'baja',
           respuestas: {
             plantas_revisadas: revisadas,
             plantas_afectadas: afectadas,
@@ -377,7 +418,9 @@ export async function sembrar(db: BaseDatos) {
 
       // Cosecha de la cohorte enfundada 12 semanas antes.
       const cohorte = sumarSemanas(s, -12);
-      const enfunde = enfundes.find((x) => x.lote_id === lote.id && x.anio === cohorte.anio && x.semana === cohorte.numero);
+      const enfunde = enfundes.find(
+        (x) => x.lote_id === lote.id && x.anio === cohorte.anio && x.semana === cohorte.numero,
+      );
       if (enfunde) {
         const msc = momento(s, 4, 7);
         const perdidos = entero(0, Math.round(enfunde.racimos * 0.03));
@@ -450,7 +493,8 @@ export async function sembrar(db: BaseDatos) {
           trabajador_id: t.id,
           cuadrilla_id: t.cuadrilla_id,
           fecha: fechaDe(msl),
-          cantidad: tipo.unidad === 'hectareas' ? Math.round(entre(0.5, 2) * 10) / 10 : entero(60, 180),
+          cantidad:
+            tipo.unidad === 'hectareas' ? Math.round(entre(0.5, 2) * 10) / 10 : entero(60, 180),
           notas: null,
           estado_validacion: w > 2 ? 'validado' : 'pendiente',
           validado_por: w > 2 ? usuario('supervisor').id : null,
@@ -461,7 +505,11 @@ export async function sembrar(db: BaseDatos) {
     }
 
     // Recorrido GPS del técnico por dos lotes (zigzag dentro del lote).
-    agregarRecorridos(s, [lotes[(SEMANAS_REGISTROS - w) % 6]!, lotes[(SEMANAS_REGISTROS - w + 3) % 6]!], 2);
+    agregarRecorridos(
+      s,
+      [lotes[(SEMANAS_REGISTROS - w) % 6]!, lotes[(SEMANAS_REGISTROS - w + 3) % 6]!],
+      2,
+    );
   }
 
   // Recorridos de la semana actual (lunes) para que el mapa muestre cobertura vigente.
@@ -479,7 +527,10 @@ export async function sembrar(db: BaseDatos) {
         const ida = k % 2 === 0;
         for (let q = 0; q <= 12; q++) {
           const f = 0.08 + (0.84 * q) / 12;
-          pts.push({ lat: lat + entre(-0.00004, 0.00004), lng: ida ? minX + (maxX - minX) * f : maxX - (maxX - minX) * f });
+          pts.push({
+            lat: lat + entre(-0.00004, 0.00004),
+            lng: ida ? minX + (maxX - minX) * f : maxX - (maxX - minX) * f,
+          });
         }
       }
       pts.forEach((p, k) =>
@@ -588,7 +639,15 @@ export async function sembrar(db: BaseDatos) {
     },
   ]);
 
-  return { fincaId, lotes: lotes.length, muestreos: muestreos.length, enfundes: enfundes.length, cosechas: cosechas.length, puntos: puntos.length, puntosIds: puntos.map((p) => p.id!) };
+  return {
+    fincaId,
+    lotes: lotes.length,
+    muestreos: muestreos.length,
+    enfundes: enfundes.length,
+    cosechas: cosechas.length,
+    puntos: puntos.length,
+    puntosIds: puntos.map((p) => p.id!),
+  };
 }
 
 export async function vaciar(db: BaseDatos) {
@@ -605,7 +664,9 @@ async function principal() {
   await migrar(url);
   const { db, cliente } = crearBaseDatos(url);
   try {
-    const [{ n }] = (await db.execute<{ n: number }>(sql`SELECT count(*)::int AS n FROM empresas`)) as unknown as [{ n: number }];
+    const [{ n }] = (await db.execute<{ n: number }>(
+      sql`SELECT count(*)::int AS n FROM empresas`,
+    )) as unknown as [{ n: number }];
     if (Number(n) > 0 && !reset) {
       console.info('La base ya tiene datos. Use «pnpm seed:reset» para borrar y volver a sembrar.');
       return;

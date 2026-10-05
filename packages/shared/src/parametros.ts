@@ -79,7 +79,9 @@ export function leerParametro<K extends ClaveParametro>(
   const fila = filas.find((f) => f.clave === clave);
   if (!fila) return PARAMETROS[clave].valor;
   try {
-    return (typeof fila.valor === 'string' ? JSON.parse(fila.valor) : fila.valor) as ValorParametro<K>;
+    return (
+      typeof fila.valor === 'string' ? JSON.parse(fila.valor) : fila.valor
+    ) as ValorParametro<K>;
   } catch {
     return PARAMETROS[clave].valor;
   }

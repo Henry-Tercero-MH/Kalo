@@ -5,7 +5,13 @@ import { adjuntarArchivos, type ArchivoLocal } from '@/utils/archivos';
 
 /** La alerta queda con estado «Sospecha» y pendiente de validación del supervisor. */
 export async function guardarAlertaFusarium(
-  d: { loteId: string | null; sintomas: string[]; notas: string; ubicacion: Ubicacion | null; fotos: ArchivoLocal[] },
+  d: {
+    loteId: string | null;
+    sintomas: string[];
+    notas: string;
+    ubicacion: Ubicacion | null;
+    fotos: ArchivoLocal[];
+  },
   ctx: ContextoEscritura,
 ) {
   const r = await crear(

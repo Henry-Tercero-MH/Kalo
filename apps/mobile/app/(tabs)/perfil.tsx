@@ -34,14 +34,24 @@ export default function Perfil() {
         <Dato etiqueta={t('perfil.dispositivo')} valor={config?.dispositivoId.slice(0, 8) ?? '—'} />
         <Dato etiqueta={t('perfil.version')} valor={CONFIG.versionApp} />
       </Tarjeta>
-      <View style={{ flexDirection: 'row', alignItems: 'center', minHeight: 56, marginBottom: espaciado.md }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          minHeight: 56,
+          marginBottom: espaciado.md,
+        }}
+      >
         <Texto style={{ flex: 1 }}>{t('perfil.ahorro')}</Texto>
         <Switch
           value={ahorro}
           trackColor={{ true: semantico.acentoOscuro, false: semantico.borde }}
           onValueChange={async (v) => {
             setAhorro(v);
-            await almacen.guardarPreferencias({ ...(await almacen.preferencias()), ahorroBateria: v });
+            await almacen.guardarPreferencias({
+              ...(await almacen.preferencias()),
+              ahorroBateria: v,
+            });
           }}
         />
       </View>
@@ -70,7 +80,12 @@ export default function Perfil() {
           }
         }}
       />
-      <Boton titulo={t('perfil.reconfigurar')} variante="secundario" icono="settings" onPress={() => router.push('/(auth)/configurar')} />
+      <Boton
+        titulo={t('perfil.reconfigurar')}
+        variante="secundario"
+        icono="settings"
+        onPress={() => router.push('/(auth)/configurar')}
+      />
     </Pantalla>
   );
 }

@@ -22,7 +22,10 @@ describe('tokens de marca', () => {
   });
 
   it('theme.css está sincronizado con tokens.json', () => {
-    const actual = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '..', 'theme.css'), 'utf8');
+    const actual = readFileSync(
+      join(dirname(fileURLToPath(import.meta.url)), '..', 'theme.css'),
+      'utf8',
+    );
     expect(actual).toBe(generarCss(colores));
   });
 });

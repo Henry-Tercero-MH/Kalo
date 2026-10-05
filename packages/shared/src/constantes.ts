@@ -21,7 +21,12 @@ export type EstadoSubida = (typeof ESTADOS_SUBIDA)[number];
 export const TIPOS_ARCHIVO = ['foto', 'audio', 'documento'] as const;
 export type TipoArchivo = (typeof TIPOS_ARCHIVO)[number];
 
-export const ESTADOS_DISPOSITIVO = ['activo', 'bloqueado', 'borrado_solicitado', 'borrado'] as const;
+export const ESTADOS_DISPOSITIVO = [
+  'activo',
+  'bloqueado',
+  'borrado_solicitado',
+  'borrado',
+] as const;
 export type EstadoDispositivo = (typeof ESTADOS_DISPOSITIVO)[number];
 
 export const UNIDADES_AREA = ['ha', 'mz'] as const;

@@ -7,7 +7,9 @@ export default async function Proximamente({ params }: { params: Promise<{ codig
   return (
     <>
       <Titulo>{m?.nombre ?? 'Próximamente'}</Titulo>
-      <Aviso>Próximamente. Este módulo tiene su estructura y ruta preparadas (ver docs/modulos.md).</Aviso>
+      <Aviso>
+        Próximamente. Este módulo tiene su estructura y ruta preparadas (ver docs/modulos.md).
+      </Aviso>
     </>
   );
 }

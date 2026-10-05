@@ -45,7 +45,9 @@ async function calcularPermisos(rolId: string) {
     consultar('permisos'),
     consultar('feature_flags'),
   ]);
-  const inactivos = new Set(flags.filter((f) => !f.activo && (!f.rol_id || f.rol_id === rolId)).map((f) => f.codigo));
+  const inactivos = new Set(
+    flags.filter((f) => !f.activo && (!f.rol_id || f.rol_id === rolId)).map((f) => f.codigo),
+  );
   return { permisos: permisosDeRol(rolId, rolPermisos, permisos), inactivos };
 }
 
@@ -88,7 +90,8 @@ export function useModulosMovil(): ManifiestoModulo[] {
   return modulosPara('movil', permisos, flagsInactivos);
 }
 
-export type ResultadoLogin = { ok: true } | { ok: false; motivo: 'incorrecto' | 'bloqueado'; minutos?: number };
+export type ResultadoLogin =
+  { ok: true } | { ok: false; motivo: 'incorrecto' | 'bloqueado'; minutos?: number };
 
 async function registrarFallo(): Promise<ResultadoLogin> {
   const params = await consultar('parametros');
@@ -106,7 +109,11 @@ async function registrarFallo(): Promise<ResultadoLogin> {
 async function verificarBloqueo(): Promise<ResultadoLogin | null> {
   const { bloqueadoHasta } = await almacen.intentos();
   if (bloqueadoHasta > Date.now()) {
-    return { ok: false, motivo: 'bloqueado', minutos: Math.ceil((bloqueadoHasta - Date.now()) / 60_000) };
+    return {
+      ok: false,
+      motivo: 'bloqueado',
+      minutos: Math.ceil((bloqueadoHasta - Date.now()) / 60_000),
+    };
   }
   return null;
 }
@@ -115,7 +122,11 @@ async function verificarBloqueo(): Promise<ResultadoLogin | null> {
 export async function iniciarConPin(usuario: string, pin: string): Promise<ResultadoLogin> {
   const bloqueo = await verificarBloqueo();
   if (bloqueo) return bloqueo;
-  const [u] = await consultar('usuarios', Q.where('usuario', usuario.trim().toLowerCase()), Q.where('activo', true));
+  const [u] = await consultar(
+    'usuarios',
+    Q.where('usuario', usuario.trim().toLowerCase()),
+    Q.where('activo', true),
+  );
   // Se ejecuta el hash aunque no exista el usuario (tiempo constante).
   const ok = verificarPinOffline(pin, u?.pin_offline_sal ?? '00', u?.pin_offline_hash ?? '');
   if (!u || !ok) return registrarFallo();
@@ -127,7 +138,11 @@ export async function iniciarConPin(usuario: string, pin: string): Promise<Resul
 export async function iniciarConGafete(codigo: string): Promise<ResultadoLogin> {
   const bloqueo = await verificarBloqueo();
   if (bloqueo) return bloqueo;
-  const [u] = await consultar('usuarios', Q.where('gafete_hash', hashGafete(codigo)), Q.where('activo', true));
+  const [u] = await consultar(
+    'usuarios',
+    Q.where('gafete_hash', hashGafete(codigo)),
+    Q.where('activo', true),
+  );
   if (!u) return registrarFallo();
   await useSesion.getState().iniciar(u);
   return { ok: true };

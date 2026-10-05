@@ -30,7 +30,9 @@ export default async function rutasSync(fastify: FastifyInstance) {
       },
     },
     async (req) => {
-      const filas = await app.db.select({ clave: parametros.clave, valor: parametros.valor }).from(parametros);
+      const filas = await app.db
+        .select({ clave: parametros.clave, valor: parametros.valor })
+        .from(parametros);
       const dias = Number(leerParametro(filas, 'sync_dias_historial'));
       return procesarPull(repo, req.dispositivo!, req.query.last_pulled_at, dias);
     },
@@ -53,7 +55,9 @@ export default async function rutasSync(fastify: FastifyInstance) {
         // La cobertura se recalcula después de responder para no demorar al celular.
         const ids = afectados.puntos_ruta;
         setImmediate(() => {
-          recalcularPorPuntos(app.db, ids).catch((e) => app.log.error(e, 'Error al recalcular cobertura'));
+          recalcularPorPuntos(app.db, ids).catch((e) =>
+            app.log.error(e, 'Error al recalcular cobertura'),
+          );
         });
       }
       return respuesta;

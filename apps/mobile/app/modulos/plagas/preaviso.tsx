@@ -43,12 +43,38 @@ export default function Preaviso() {
       <View style={{ marginTop: espaciado.md }}>
         <SelectorLote valor={loteId} onCambio={setLoteId} />
       </View>
-      {campo(t('plagas.plantas'), <Contador valor={plantas} onCambio={setPlantas} min={1} max={100} />)}
-      {campo(t('plagas.hmje'), <Contador valor={hmje} onCambio={setHmje} min={0} max={20} paso={0.5} decimales={1} />)}
-      {campo(t('plagas.ee'), <Contador valor={ee} onCambio={setEe} min={0} max={10000} paso={50} />)}
-      {campo(t('plagas.severidad'), <Contador valor={severidad} onCambio={setSeveridad} min={0} max={100} paso={1} decimales={1} unidad="%" />)}
+      {campo(
+        t('plagas.plantas'),
+        <Contador valor={plantas} onCambio={setPlantas} min={1} max={100} />,
+      )}
+      {campo(
+        t('plagas.hmje'),
+        <Contador valor={hmje} onCambio={setHmje} min={0} max={20} paso={0.5} decimales={1} />,
+      )}
+      {campo(
+        t('plagas.ee'),
+        <Contador valor={ee} onCambio={setEe} min={0} max={10000} paso={50} />,
+      )}
+      {campo(
+        t('plagas.severidad'),
+        <Contador
+          valor={severidad}
+          onCambio={setSeveridad}
+          min={0}
+          max={100}
+          paso={1}
+          decimales={1}
+          unidad="%"
+        />,
+      )}
       <View style={{ marginTop: espaciado.lg }}>
-        <CampoTexto etiqueta={t('comun.notas')} valor={notas} onCambio={setNotas} multilinea autoCapitalize="sentences" />
+        <CampoTexto
+          etiqueta={t('comun.notas')}
+          valor={notas}
+          onCambio={setNotas}
+          multilinea
+          autoCapitalize="sentences"
+        />
       </View>
       <Boton
         titulo={t('comun.guardar')}
@@ -59,7 +85,18 @@ export default function Preaviso() {
           if (!ctx || !completo) return;
           setGuardando(true);
           try {
-            await guardarPreaviso({ loteId: loteId!, plantas: plantas!, hmje: hmje!, ee: ee!, severidad: severidad!, notas, ubicacion }, ctx);
+            await guardarPreaviso(
+              {
+                loteId: loteId!,
+                plantas: plantas!,
+                hmje: hmje!,
+                ee: ee!,
+                severidad: severidad!,
+                notas,
+                ubicacion,
+              },
+              ctx,
+            );
             despuesDeGuardar(() => router.back());
           } finally {
             setGuardando(false);

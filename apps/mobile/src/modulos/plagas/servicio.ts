@@ -1,4 +1,10 @@
-import { columnasDesdeRespuestas, fechaIso, semanaIso, type DefinicionFormulario, type Respuestas } from '@kalo/shared';
+import {
+  columnasDesdeRespuestas,
+  fechaIso,
+  semanaIso,
+  type DefinicionFormulario,
+  type Respuestas,
+} from '@kalo/shared';
 import { crear, type ContextoEscritura } from '@/db/repositorio';
 import { columnasGps, type Ubicacion } from '@/gps/ubicacion';
 import { adjuntarArchivos, type ArchivoLocal } from '@/utils/archivos';
@@ -26,14 +32,19 @@ export async function guardarMuestreo(
   ctx: ContextoEscritura,
 ) {
   const columnas = columnasDesdeRespuestas(d.definicion, d.respuestas);
-  const severidad = ['baja', 'media', 'alta'].includes(String(columnas.severidad)) ? (columnas.severidad as 'baja' | 'media' | 'alta') : 'baja';
+  const severidad = ['baja', 'media', 'alta'].includes(String(columnas.severidad))
+    ? (columnas.severidad as 'baja' | 'media' | 'alta')
+    : 'baja';
   const registro = await crear(
     'muestreos',
     {
       lote_id: d.loteId,
       plaga_id: d.plagaId,
       fecha: fechaIso(),
-      incidencia: typeof columnas.incidencia === 'number' ? columnas.incidencia : calcularIncidencia(d.respuestas),
+      incidencia:
+        typeof columnas.incidencia === 'number'
+          ? columnas.incidencia
+          : calcularIncidencia(d.respuestas),
       severidad,
       respuestas: JSON.stringify(d.respuestas),
       formulario_id: d.formularioId,
@@ -44,7 +55,11 @@ export async function guardarMuestreo(
     },
     ctx,
   );
-  await adjuntarArchivos([...d.fotos, ...(d.notaVoz ? [d.notaVoz] : [])], { tabla: 'muestreos', id: registro.id }, ctx);
+  await adjuntarArchivos(
+    [...d.fotos, ...(d.notaVoz ? [d.notaVoz] : [])],
+    { tabla: 'muestreos', id: registro.id },
+    ctx,
+  );
   return registro;
 }
 

@@ -8,12 +8,15 @@ import { API_INTERNA, COOKIE_ACCESO, renovar } from '@/lib/servidor';
 
 async function reenviar(req: NextRequest, ruta: string[]) {
   const url = `${API_INTERNA}/v1/${ruta.map(encodeURIComponent).join('/')}${req.nextUrl.search}`;
-  const cuerpo = req.method === 'GET' || req.method === 'HEAD' ? undefined : await req.arrayBuffer();
+  const cuerpo =
+    req.method === 'GET' || req.method === 'HEAD' ? undefined : await req.arrayBuffer();
   const hacer = (token?: string) =>
     fetch(url, {
       method: req.method,
       headers: {
-        ...(req.headers.get('content-type') ? { 'Content-Type': req.headers.get('content-type')! } : {}),
+        ...(req.headers.get('content-type')
+          ? { 'Content-Type': req.headers.get('content-type')! }
+          : {}),
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
       body: cuerpo,

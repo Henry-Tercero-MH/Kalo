@@ -24,7 +24,8 @@ export const COLOR_ESTADO_LOTE: Record<string, string> = {
   'SIN DATOS': colores.neutros.n300,
 };
 
-const ESTILO = process.env.NEXT_PUBLIC_MAP_STYLE_URL ?? 'https://tiles.openfreemap.org/styles/liberty';
+const ESTILO =
+  process.env.NEXT_PUBLIC_MAP_STYLE_URL ?? 'https://tiles.openfreemap.org/styles/liberty';
 
 // Worker copiado a public/ por scripts/copiar-maplibre.mjs.
 setWorkerUrl('/maplibre/maplibre-gl-worker.mjs');
@@ -76,39 +77,81 @@ export function MapaFinca({
     let respaldo = false;
     m.on('error', (e) => {
       // Si el estilo base no carga (sin internet), se usa el estilo de respaldo.
-      if (!respaldo && !listo.current && String(e.error?.message ?? '').includes('Failed to fetch')) {
+      if (
+        !respaldo &&
+        !listo.current &&
+        String(e.error?.message ?? '').includes('Failed to fetch')
+      ) {
         respaldo = true;
         m.setStyle(ESTILO_RESPALDO);
       }
     });
     m.on('style.load', () => {
-      for (const id of ['lotes', 'rutas', 'cobertura', 'registros']) m.addSource(id, { type: 'geojson', data: vacio });
-      m.addLayer({ id: 'cobertura', type: 'fill', source: 'cobertura', paint: { 'fill-color': colores.marca.verde, 'fill-opacity': 0.5 } });
+      for (const id of ['lotes', 'rutas', 'cobertura', 'registros'])
+        m.addSource(id, { type: 'geojson', data: vacio });
+      m.addLayer({
+        id: 'cobertura',
+        type: 'fill',
+        source: 'cobertura',
+        paint: { 'fill-color': colores.marca.verde, 'fill-opacity': 0.5 },
+      });
       m.addLayer({
         id: 'lotes-relleno',
         type: 'fill',
         source: 'lotes',
         paint: {
-          'fill-color': ['match', ['get', 'estado'], ...Object.entries(COLOR_ESTADO_LOTE).flat(), colores.neutros.n300] as never,
+          'fill-color': [
+            'match',
+            ['get', 'estado'],
+            ...Object.entries(COLOR_ESTADO_LOTE).flat(),
+            colores.neutros.n300,
+          ] as never,
           'fill-opacity': 0.35,
         },
       });
-      m.addLayer({ id: 'lotes-borde', type: 'line', source: 'lotes', paint: { 'line-color': colores.marca.negro, 'line-width': 2 } });
+      m.addLayer({
+        id: 'lotes-borde',
+        type: 'line',
+        source: 'lotes',
+        paint: { 'line-color': colores.marca.negro, 'line-width': 2 },
+      });
       m.addLayer({
         id: 'lotes-etiqueta',
         type: 'symbol',
         source: 'lotes',
-        layout: { 'text-field': ['concat', ['get', 'codigo'], '\n', ['get', 'estado']], 'text-size': 13, 'text-font': ['Noto Sans Bold'] },
-        paint: { 'text-color': colores.neutros.n900, 'text-halo-color': '#ffffff', 'text-halo-width': 2 },
+        layout: {
+          'text-field': ['concat', ['get', 'codigo'], '\n', ['get', 'estado']],
+          'text-size': 13,
+          'text-font': ['Noto Sans Bold'],
+        },
+        paint: {
+          'text-color': colores.neutros.n900,
+          'text-halo-color': '#ffffff',
+          'text-halo-width': 2,
+        },
       });
-      m.addLayer({ id: 'rutas', type: 'line', source: 'rutas', paint: { 'line-color': colores.estados.info, 'line-width': 2 }, layout: { 'line-cap': 'round', 'line-join': 'round' } });
+      m.addLayer({
+        id: 'rutas',
+        type: 'line',
+        source: 'rutas',
+        paint: { 'line-color': colores.estados.info, 'line-width': 2 },
+        layout: { 'line-cap': 'round', 'line-join': 'round' },
+      });
       m.addLayer({
         id: 'registros',
         type: 'circle',
         source: 'registros',
         paint: {
           'circle-radius': 5,
-          'circle-color': ['match', ['get', 'tipo'], 'fusarium', colores.estados.peligro, 'trampa', colores.neutros.n900, colores.estados.info] as never,
+          'circle-color': [
+            'match',
+            ['get', 'tipo'],
+            'fusarium',
+            colores.estados.peligro,
+            'trampa',
+            colores.neutros.n900,
+            colores.estados.info,
+          ] as never,
           'circle-stroke-color': '#ffffff',
           'circle-stroke-width': 2,
         },
@@ -128,7 +171,10 @@ export function MapaFinca({
     m.on('mousemove', 'registros', (e: MapLayerMouseEvent) => {
       const f = e.features?.[0];
       if (!f) return;
-      popup.setLngLat(e.lngLat).setText(`${String(f.properties.tipo).toUpperCase()} · ${f.properties.detalle ?? ''}`).addTo(m);
+      popup
+        .setLngLat(e.lngLat)
+        .setText(`${String(f.properties.tipo).toUpperCase()} · ${f.properties.detalle ?? ''}`)
+        .addTo(m);
     });
     m.on('mouseleave', 'registros', () => popup.remove());
     mapa.current = m;
@@ -144,7 +190,8 @@ export function MapaFinca({
     const m = mapa.current;
     if (!m) return;
     const aplicar = () => {
-      for (const [id, datos] of Object.entries(capas)) (m.getSource(id) as GeoJSONSource | undefined)?.setData(datos ?? vacio);
+      for (const [id, datos] of Object.entries(capas))
+        (m.getSource(id) as GeoJSONSource | undefined)?.setData(datos ?? vacio);
       m.setLayoutProperty('rutas', 'visibility', visibles.rutas ? 'visible' : 'none');
       m.setLayoutProperty('cobertura', 'visibility', visibles.cobertura ? 'visible' : 'none');
       m.setLayoutProperty('registros', 'visibility', visibles.registros ? 'visible' : 'none');
@@ -157,5 +204,12 @@ export function MapaFinca({
     if (bbox && mapa.current) mapa.current.fitBounds(bbox, { padding: 40, duration: 0 });
   }, [bbox]);
 
-  return <div ref={contenedor} className="h-[620px] w-full border border-neutros-n200" role="region" aria-label="Mapa de la finca" />;
+  return (
+    <div
+      ref={contenedor}
+      className="h-[620px] w-full border border-neutros-n200"
+      role="region"
+      aria-label="Mapa de la finca"
+    />
+  );
 }

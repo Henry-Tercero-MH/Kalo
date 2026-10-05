@@ -11,12 +11,20 @@ export default async function rutasOrdenes(fastify: FastifyInstance) {
 
   app.get(
     '/',
-    { preHandler: app.requiere('ordenes:ver'), schema: { tags: ['ordenes'], summary: 'Órdenes de trabajo' } },
+    {
+      preHandler: app.requiere('ordenes:ver'),
+      schema: { tags: ['ordenes'], summary: 'Órdenes de trabajo' },
+    },
     async (req) =>
       app.db
         .select()
         .from(ordenes_trabajo)
-        .where(and(eq(ordenes_trabajo.finca_id, req.usuario!.fincaId), isNull(ordenes_trabajo.deleted_at)))
+        .where(
+          and(
+            eq(ordenes_trabajo.finca_id, req.usuario!.fincaId),
+            isNull(ordenes_trabajo.deleted_at),
+          ),
+        )
         .orderBy(desc(ordenes_trabajo.fecha))
         .limit(500),
   );
@@ -25,7 +33,11 @@ export default async function rutasOrdenes(fastify: FastifyInstance) {
     '/',
     {
       preHandler: app.requiere('ordenes:crear'),
-      schema: { tags: ['ordenes'], summary: 'Asigna una orden de trabajo', body: esquemaOrdenTrabajo },
+      schema: {
+        tags: ['ordenes'],
+        summary: 'Asigna una orden de trabajo',
+        body: esquemaOrdenTrabajo,
+      },
     },
     async (req) => {
       const u = req.usuario!;

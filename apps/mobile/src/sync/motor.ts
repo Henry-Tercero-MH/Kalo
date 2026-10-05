@@ -7,11 +7,7 @@
  *  3. Cola de archivos: fotos y notas de voz suben DESPUÉS de los datos.
  * Reintentos con espera exponencial. Ver docs/sincronizacion.md.
  */
-import {
-  TABLAS_SUBIDA,
-  type RespuestaPull,
-  type RespuestaPush,
-} from '@kalo/shared';
+import { TABLAS_SUBIDA, type RespuestaPull, type RespuestaPush } from '@kalo/shared';
 import { Q } from '@nozbe/watermelondb';
 import { synchronize } from '@nozbe/watermelondb/sync';
 import NetInfo from '@react-native-community/netinfo';
@@ -35,11 +31,16 @@ export function alBorrarDispositivo(fn: Oyente) {
   return () => oyentesBorrado.delete(fn);
 }
 
-export async function contarPendientes(): Promise<{ total: number; porTabla: Record<string, number> }> {
+export async function contarPendientes(): Promise<{
+  total: number;
+  porTabla: Record<string, number>;
+}> {
   const porTabla: Record<string, number> = {};
   let total = 0;
   for (const tabla of TABLAS_SUBIDA) {
-    const n = await coleccion(tabla).query(Q.where('_status', Q.oneOf(['created', 'updated']))).fetchCount();
+    const n = await coleccion(tabla)
+      .query(Q.where('_status', Q.oneOf(['created', 'updated'])))
+      .fetchCount();
     if (n > 0) porTabla[tabla] = n;
     total += n;
   }
@@ -47,8 +48,13 @@ export async function contarPendientes(): Promise<{ total: number; porTabla: Rec
 }
 
 export async function refrescarContadores() {
-  const [{ total, porTabla }, archivos] = await Promise.all([contarPendientes(), contarArchivosPendientes()]);
-  useEstadoSync.getState().fijar({ pendientes: total, pendientesPorTabla: porTabla, archivosPendientes: archivos });
+  const [{ total, porTabla }, archivos] = await Promise.all([
+    contarPendientes(),
+    contarArchivosPendientes(),
+  ]);
+  useEstadoSync
+    .getState()
+    .fijar({ pendientes: total, pendientesPorTabla: porTabla, archivosPendientes: archivos });
 }
 
 /** Borra todos los datos locales (borrado remoto ordenado desde el panel). */
@@ -73,7 +79,10 @@ async function ciclo(): Promise<{ escribio: boolean; borrar: boolean }> {
     database,
     migrationsEnabledAtVersion: 1,
     pullChanges: async ({ lastPulledAt }) => {
-      const r = await apiDispositivo<RespuestaPull>(`/v1/sync/pull?last_pulled_at=${lastPulledAt ?? 'null'}`, { tiempo: 120_000 });
+      const r = await apiDispositivo<RespuestaPull>(
+        `/v1/sync/pull?last_pulled_at=${lastPulledAt ?? 'null'}`,
+        { tiempo: 120_000 },
+      );
       if (r.dispositivo.accion === 'borrar') borrar = true;
       return { changes: r.changes, timestamp: r.timestamp };
     },
@@ -117,7 +126,8 @@ function programarReintento() {
   reintento = setTimeout(() => void sincronizar('reintento'), espera);
 }
 
-export type MotivoSync = 'inicio' | 'red' | 'intervalo' | 'manual' | 'reintento' | 'fondo' | 'registro';
+export type MotivoSync =
+  'inicio' | 'red' | 'intervalo' | 'manual' | 'reintento' | 'fondo' | 'registro';
 
 /** Sincroniza si hay red. Varias llamadas simultáneas comparten la misma ejecución. */
 export function sincronizar(motivo: MotivoSync = 'manual'): Promise<void> {

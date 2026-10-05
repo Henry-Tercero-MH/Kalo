@@ -25,7 +25,11 @@ export default function Registrar() {
           titulo={m.nombre}
           descripcion={m.descripcion}
           onPress={() => router.push(m.rutaMovil as never)}
-          derecha={m.estado === 'proximamente' ? <Estado tipo="neutro" texto={t('comun.proximamente')} /> : undefined}
+          derecha={
+            m.estado === 'proximamente' ? (
+              <Estado tipo="neutro" texto={t('comun.proximamente')} />
+            ) : undefined
+          }
         />
       ))}
     </Pantalla>

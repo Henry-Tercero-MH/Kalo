@@ -4,7 +4,14 @@
  */
 import { useRouter } from 'expo-router';
 import type { ReactNode } from 'react';
-import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSesion } from '@/permisos/sesion';
 import { Icono } from './Icono';
@@ -30,7 +37,13 @@ export function Pantalla({
     <SafeAreaView style={estilos.raiz} edges={['top', 'left', 'right']} onTouchStart={tocar}>
       <View style={estilos.encabezado}>
         {volver ? (
-          <Pressable accessibilityRole="button" accessibilityLabel="Volver" onPress={() => router.back()} style={estilos.volver} hitSlop={12}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Volver"
+            onPress={() => router.back()}
+            style={estilos.volver}
+            hitSlop={12}
+          >
             <Icono nombre="chevron-left" tamano={28} color={semantico.titulo} />
           </Pressable>
         ) : null}
@@ -40,7 +53,10 @@ export function Pantalla({
         <IndicadorSync />
       </View>
       <View style={estilosBase.lineaTitulo} />
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
         {sinDesplazamiento ? (
           <View style={estilos.contenido}>{children}</View>
         ) : (
@@ -56,8 +72,21 @@ export function Pantalla({
 
 const estilos = StyleSheet.create({
   raiz: { flex: 1, backgroundColor: semantico.fondo },
-  encabezado: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: espaciado.lg, paddingVertical: espaciado.md, gap: espaciado.md, minHeight: 60 },
+  encabezado: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: espaciado.lg,
+    paddingVertical: espaciado.md,
+    gap: espaciado.md,
+    minHeight: 60,
+  },
   volver: { minWidth: 44, minHeight: 44, justifyContent: 'center' },
   contenido: { padding: espaciado.lg, paddingBottom: espaciado.xxl * 2, flexGrow: 1 },
-  pie: { padding: espaciado.lg, borderTopWidth: 1, borderTopColor: semantico.borde, backgroundColor: semantico.fondo, gap: espaciado.sm },
+  pie: {
+    padding: espaciado.lg,
+    borderTopWidth: 1,
+    borderTopColor: semantico.borde,
+    backgroundColor: semantico.fondo,
+    gap: espaciado.sm,
+  },
 });

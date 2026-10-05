@@ -129,7 +129,12 @@ export default async function rutasValidacion(fastify: FastifyInstance) {
         eq(bitacora.requiere_revision, true),
       ];
       if (!req.query.incluir_resueltos) cond.push(isNull(bitacora.resuelto_en));
-      return app.db.select().from(bitacora).where(and(...cond)).orderBy(desc(bitacora.created_at)).limit(200);
+      return app.db
+        .select()
+        .from(bitacora)
+        .where(and(...cond))
+        .orderBy(desc(bitacora.created_at))
+        .limit(200);
     },
   );
 
@@ -150,7 +155,8 @@ export default async function rutasValidacion(fastify: FastifyInstance) {
         .select()
         .from(bitacora)
         .where(and(eq(bitacora.id, req.params.id), eq(bitacora.finca_id, u.fincaId)));
-      if (!c || c.accion !== 'conflicto' || !c.tabla || !c.registro_id) throw noEncontrado('Conflicto no encontrado');
+      if (!c || c.accion !== 'conflicto' || !c.tabla || !c.registro_id)
+        throw noEncontrado('Conflicto no encontrado');
       if (c.resuelto_en) throw solicitudInvalida('El conflicto ya fue resuelto');
       if (!esTablaSincronizable(c.tabla)) throw solicitudInvalida('Tabla desconocida');
       const tabla = c.tabla;

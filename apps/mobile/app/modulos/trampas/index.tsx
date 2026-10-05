@@ -54,7 +54,10 @@ export default function Trampas() {
             setGuardando(true);
             try {
               const ubicacion = await obtenerUbicacion(6000);
-              await guardarLectura({ trampaId: trampa.id, loteId: trampa.lote_id, cantidad, ubicacion }, ctx);
+              await guardarLectura(
+                { trampaId: trampa.id, loteId: trampa.lote_id, cantidad, ubicacion },
+                ctx,
+              );
               despuesDeGuardar(() => {
                 setTrampa(null);
                 setCantidad(0);
@@ -65,7 +68,14 @@ export default function Trampas() {
             }
           }}
         />
-        <Boton titulo={t('comun.cancelar')} variante="secundario" onPress={() => { setTrampa(null); leyendo.current = false; }} />
+        <Boton
+          titulo={t('comun.cancelar')}
+          variante="secundario"
+          onPress={() => {
+            setTrampa(null);
+            leyendo.current = false;
+          }}
+        />
       </Pantalla>
     );
   }
@@ -75,7 +85,10 @@ export default function Trampas() {
       <Titulo>{t('trampas.titulo')}</Titulo>
       {manual ? (
         <Opciones
-          opciones={todas.map((x) => ({ valor: x.id, etiqueta: `${x.codigo_qr.replace('KALO-TRAMPA:', '')} · ${x.nombre}` }))}
+          opciones={todas.map((x) => ({
+            valor: x.id,
+            etiqueta: `${x.codigo_qr.replace('KALO-TRAMPA:', '')} · ${x.nombre}`,
+          }))}
           valor={null}
           onCambio={(id) => setTrampa(todas.find((x) => x.id === id) ?? null)}
         />
@@ -106,7 +119,12 @@ export default function Trampas() {
       )}
       {error ? <Aviso tipo="peligro" texto={error} /> : null}
       <View style={{ marginTop: espaciado.md }}>
-        <Boton titulo={manual ? t('trampas.escanear') : t('trampas.manual')} variante="secundario" icono={manual ? 'scan-qr-code' : 'clipboard-list'} onPress={() => setManual((m) => !m)} />
+        <Boton
+          titulo={manual ? t('trampas.escanear') : t('trampas.manual')}
+          variante="secundario"
+          icono={manual ? 'scan-qr-code' : 'clipboard-list'}
+          onPress={() => setManual((m) => !m)}
+        />
       </View>
     </Pantalla>
   );

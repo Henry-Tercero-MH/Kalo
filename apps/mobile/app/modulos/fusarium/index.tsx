@@ -44,9 +44,20 @@ export default function Fusarium() {
       <CapturaFotos fotos={fotos} onCambio={setFotos} />
       <Etiqueta>{t('fusarium.sintomas')}</Etiqueta>
       <View style={{ marginVertical: espaciado.sm }}>
-        <Opciones multiple opciones={SINTOMAS_FUSARIUM.map((s) => ({ valor: s.codigo, etiqueta: s.etiqueta }))} valor={sintomas} onCambio={(v) => setSintomas(v as string[])} />
+        <Opciones
+          multiple
+          opciones={SINTOMAS_FUSARIUM.map((s) => ({ valor: s.codigo, etiqueta: s.etiqueta }))}
+          valor={sintomas}
+          onCambio={(v) => setSintomas(v as string[])}
+        />
       </View>
-      <CampoTexto etiqueta={t('comun.notas')} valor={notas} onCambio={setNotas} multilinea autoCapitalize="sentences" />
+      <CampoTexto
+        etiqueta={t('comun.notas')}
+        valor={notas}
+        onCambio={setNotas}
+        multilinea
+        autoCapitalize="sentences"
+      />
       <Boton
         titulo={t('comun.guardar')}
         icono="triangle-alert"
@@ -56,7 +67,10 @@ export default function Fusarium() {
           if (!ctx) return;
           setGuardando(true);
           try {
-            await guardarAlertaFusarium({ loteId: lote?.id ?? null, sintomas, notas, ubicacion, fotos }, ctx);
+            await guardarAlertaFusarium(
+              { loteId: lote?.id ?? null, sintomas, notas, ubicacion, fotos },
+              ctx,
+            );
             despuesDeGuardar(() => router.back(), t('fusarium.enviada'));
           } finally {
             setGuardando(false);

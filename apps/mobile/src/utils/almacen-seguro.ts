@@ -42,17 +42,26 @@ async function leer<T>(clave: string): Promise<T | null> {
     return null;
   }
 }
-const escribir = (clave: string, valor: unknown) => SecureStore.setItemAsync(clave, JSON.stringify(valor));
+const escribir = (clave: string, valor: unknown) =>
+  SecureStore.setItemAsync(clave, JSON.stringify(valor));
 
 export const almacen = {
   configuracion: () => leer<ConfiguracionDispositivo>(CLAVES.configuracion),
   guardarConfiguracion: (c: ConfiguracionDispositivo) => escribir(CLAVES.configuracion, c),
   tokens: () => leer<TokensDispositivo>(CLAVES.tokens),
   guardarTokens: (t: TokensDispositivo) => escribir(CLAVES.tokens, t),
-  intentos: async () => (await leer<{ fallidos: number; bloqueadoHasta: number }>(CLAVES.intentos)) ?? { fallidos: 0, bloqueadoHasta: 0 },
-  guardarIntentos: (v: { fallidos: number; bloqueadoHasta: number }) => escribir(CLAVES.intentos, v),
+  intentos: async () =>
+    (await leer<{ fallidos: number; bloqueadoHasta: number }>(CLAVES.intentos)) ?? {
+      fallidos: 0,
+      bloqueadoHasta: 0,
+    },
+  guardarIntentos: (v: { fallidos: number; bloqueadoHasta: number }) =>
+    escribir(CLAVES.intentos, v),
   preferencias: async (): Promise<Preferencias> =>
-    (await leer<Preferencias>(CLAVES.preferencias)) ?? { archivosSoloWifi: false, ahorroBateria: false },
+    (await leer<Preferencias>(CLAVES.preferencias)) ?? {
+      archivosSoloWifi: false,
+      ahorroBateria: false,
+    },
   guardarPreferencias: (p: Preferencias) => escribir(CLAVES.preferencias, p),
   /** Borra todo (borrado remoto o reconfiguración). */
   async borrarTodo() {

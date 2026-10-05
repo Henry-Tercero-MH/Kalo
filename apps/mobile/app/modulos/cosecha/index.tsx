@@ -28,13 +28,24 @@ export default function Cosecha() {
   useRequierePermiso('cosecha:crear');
   const ctx = useContextoEscritura();
   const { anio, numero, colores } = useSemanaActual();
-  const anteriores = useMemo(() => EDADES_COSECHA.map((e) => sumarSemanas({ anio, numero }, -e)), [anio, numero]);
-  const semanas = useConsulta('semanas', [Q.where('anio', Q.oneOf([...new Set(anteriores.map((s) => s.anio))]))], [anio]);
+  const anteriores = useMemo(
+    () => EDADES_COSECHA.map((e) => sumarSemanas({ anio, numero }, -e)),
+    [anio, numero],
+  );
+  const semanas = useConsulta(
+    'semanas',
+    [Q.where('anio', Q.oneOf([...new Set(anteriores.map((s) => s.anio))]))],
+    [anio],
+  );
   const cuadrillas = useConsulta('cuadrillas');
   const sugeridos = new Set(
-    semanas.filter((s) => anteriores.some((a) => a.anio === s.anio && a.numero === s.numero)).map((s) => s.color_cinta_id),
+    semanas
+      .filter((s) => anteriores.some((a) => a.anio === s.anio && a.numero === s.numero))
+      .map((s) => s.color_cinta_id),
   );
-  const ordenados = [...colores].sort((a, b) => Number(sugeridos.has(b.id)) - Number(sugeridos.has(a.id)));
+  const ordenados = [...colores].sort(
+    (a, b) => Number(sugeridos.has(b.id)) - Number(sugeridos.has(a.id)),
+  );
 
   const [loteId, setLoteId] = useState<string | null>(null);
   const [colorId, setColorId] = useState<string | null>(null);
@@ -67,14 +78,26 @@ export default function Cosecha() {
         <View style={{ marginTop: espaciado.lg }}>
           <Etiqueta>{t('labores.cuadrilla')}</Etiqueta>
           <View style={{ marginTop: espaciado.sm }}>
-            <Opciones columnas={2} opciones={cuadrillas.map((c) => ({ valor: c.id, etiqueta: c.nombre }))} valor={cuadrillaId} onCambio={(v) => setCuadrillaId(v as string)} />
+            <Opciones
+              columnas={2}
+              opciones={cuadrillas.map((c) => ({ valor: c.id, etiqueta: c.nombre }))}
+              valor={cuadrillaId}
+              onCambio={(v) => setCuadrillaId(v as string)}
+            />
           </View>
         </View>
       ) : null}
       <View style={{ marginTop: espaciado.lg }}>
         <Etiqueta>{t('cosecha.cosechados')}</Etiqueta>
         <View style={{ marginTop: espaciado.sm }}>
-          <Contador valor={cosechados} onCambio={setCosechados} min={0} max={20000} paso={10} unidad="racimos" />
+          <Contador
+            valor={cosechados}
+            onCambio={setCosechados}
+            min={0}
+            max={20000}
+            paso={10}
+            unidad="racimos"
+          />
         </View>
       </View>
       <View style={{ marginTop: espaciado.lg }}>
@@ -85,7 +108,12 @@ export default function Cosecha() {
       </View>
       {perdidos ? (
         <View style={{ marginTop: espaciado.lg }}>
-          <CampoTexto etiqueta={t('cosecha.motivo')} valor={motivo} onCambio={setMotivo} autoCapitalize="sentences" />
+          <CampoTexto
+            etiqueta={t('cosecha.motivo')}
+            valor={motivo}
+            onCambio={setMotivo}
+            autoCapitalize="sentences"
+          />
         </View>
       ) : null}
       <View style={{ marginTop: espaciado.lg }}>
@@ -99,7 +127,18 @@ export default function Cosecha() {
             setGuardando(true);
             try {
               const ubicacion = await obtenerUbicacion(6000);
-              await guardarCosecha({ loteId, colorCintaId: colorId, cosechados, perdidos: perdidos ?? 0, motivo: motivo.trim() || null, cuadrillaId, ubicacion }, ctx);
+              await guardarCosecha(
+                {
+                  loteId,
+                  colorCintaId: colorId,
+                  cosechados,
+                  perdidos: perdidos ?? 0,
+                  motivo: motivo.trim() || null,
+                  cuadrillaId,
+                  ubicacion,
+                },
+                ctx,
+              );
               despuesDeGuardar(() => router.back());
             } finally {
               setGuardando(false);

@@ -43,7 +43,9 @@ describe('geo', () => {
   });
 
   it('descarta puntos con precisión peor a 30 m', () => {
-    expect(filtrarPorPrecision([{ precision: 5 }, { precision: 31 }, { precision: 30 }])).toHaveLength(2);
+    expect(
+      filtrarPorPrecision([{ precision: 5 }, { precision: 31 }, { precision: 30 }]),
+    ).toHaveLength(2);
   });
 
   it('simplifica rutas rectas a sus extremos', () => {

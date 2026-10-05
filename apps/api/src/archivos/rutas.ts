@@ -66,7 +66,12 @@ export default async function rutasArchivos(fastify: FastifyInstance) {
       await escrituraSincronizada(app.db, a.finca_id!, (tx, ahora) =>
         tx
           .update(archivos)
-          .set({ estado_subida: 'subido', clave_s3: req.body.clave, updated_at: ahora, server_updated_at: ahora })
+          .set({
+            estado_subida: 'subido',
+            clave_s3: req.body.clave,
+            updated_at: ahora,
+            server_updated_at: ahora,
+          })
           .where(eq(archivos.id, a.id)),
       );
       return { ok: true, tamano };
@@ -102,7 +107,10 @@ export default async function rutasArchivos(fastify: FastifyInstance) {
           mime: a.mime,
           estado_subida: a.estado_subida,
           created_at: a.created_at,
-          url: a.clave_s3 && a.estado_subida === 'subido' ? await urlDescarga(app.s3, a.clave_s3) : null,
+          url:
+            a.clave_s3 && a.estado_subida === 'subido'
+              ? await urlDescarga(app.s3, a.clave_s3)
+              : null,
         })),
       );
     },

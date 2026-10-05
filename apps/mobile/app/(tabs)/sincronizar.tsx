@@ -16,7 +16,13 @@ import { refrescarContadores, sincronizar } from '@/sync/motor';
 import { exportarRespaldo } from '@/sync/respaldo';
 import { almacen } from '@/utils/almacen-seguro';
 
-const TIPO = { sincronizado: 'exito', pendiente: 'alerta', sincronizando: 'info', error: 'peligro', sinRed: 'alerta' } as const;
+const TIPO = {
+  sincronizado: 'exito',
+  pendiente: 'alerta',
+  sincronizando: 'info',
+  error: 'peligro',
+  sinRed: 'alerta',
+} as const;
 
 export default function Sincronizar() {
   const { t } = useTranslation();
@@ -38,25 +44,48 @@ export default function Sincronizar() {
           <Dato etiqueta={t('sync.registrosPendientes')} valor={estado.pendientes} />
           <Dato etiqueta={t('sync.fotosEnCola')} valor={estado.archivosPendientes} />
         </View>
-        <Dato etiqueta={t('sync.ultimoEnvio')} valor={estado.ultimoEnvio ? formatearFechaHora(estado.ultimoEnvio) : t('sync.nunca')} />
+        <Dato
+          etiqueta={t('sync.ultimoEnvio')}
+          valor={estado.ultimoEnvio ? formatearFechaHora(estado.ultimoEnvio) : t('sync.nunca')}
+        />
         {estado.progresoArchivos ? (
           <TextoSecundario>{`${estado.progresoArchivos.actual} / ${estado.progresoArchivos.total}`}</TextoSecundario>
         ) : null}
       </Tarjeta>
       {estado.ultimoError ? <Aviso tipo="peligro" texto={estado.ultimoError} /> : null}
-      {estado.rechazados > 0 ? <Aviso tipo="alerta" texto={t('sync.rechazados', { n: estado.rechazados })} /> : null}
-      {estado.conflictos > 0 ? <Aviso texto={t('sync.conflictos', { n: estado.conflictos })} /> : null}
+      {estado.rechazados > 0 ? (
+        <Aviso tipo="alerta" texto={t('sync.rechazados', { n: estado.rechazados })} />
+      ) : null}
+      {estado.conflictos > 0 ? (
+        <Aviso texto={t('sync.conflictos', { n: estado.conflictos })} />
+      ) : null}
 
-      <Boton titulo={t('sync.ahora')} icono="refresh-cw" cargando={estado.fase === 'sincronizando'} onPress={() => void sincronizar('manual')} />
+      <Boton
+        titulo={t('sync.ahora')}
+        icono="refresh-cw"
+        cargando={estado.fase === 'sincronizando'}
+        onPress={() => void sincronizar('manual')}
+      />
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', minHeight: 56, marginTop: espaciado.md }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          minHeight: 56,
+          marginTop: espaciado.md,
+        }}
+      >
         <Texto style={{ flex: 1 }}>{t('sync.soloWifi')}</Texto>
         <Switch
           value={soloWifi}
           trackColor={{ true: semantico.acentoOscuro, false: semantico.borde }}
           onValueChange={async (v) => {
             setSoloWifi(v);
-            await almacen.guardarPreferencias({ ...(await almacen.preferencias()), archivosSoloWifi: v });
+            await almacen.guardarPreferencias({
+              ...(await almacen.preferencias()),
+              archivosSoloWifi: v,
+            });
           }}
           accessibilityLabel={t('sync.soloWifi')}
         />
@@ -66,7 +95,10 @@ export default function Sincronizar() {
         <>
           <Subtitulo>{t('sync.porTabla')}</Subtitulo>
           {Object.entries(estado.pendientesPorTabla).map(([tabla, n]) => (
-            <View key={tabla} style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 6 }}>
+            <View
+              key={tabla}
+              style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 6 }}
+            >
               <Texto>{REGISTRO_TABLAS[tabla as NombreTabla]?.meta.etiqueta ?? tabla}</Texto>
               <Etiqueta>{String(n)}</Etiqueta>
             </View>

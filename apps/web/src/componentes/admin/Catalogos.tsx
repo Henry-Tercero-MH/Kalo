@@ -11,13 +11,15 @@ import { useCatalogos } from '@/lib/catalogos';
 function useGuardar() {
   const cliente = useQueryClient();
   return useMutation({
-    mutationFn: (v: { ruta: string; method?: string; body: unknown }) => api(v.ruta, { method: v.method ?? 'PATCH', body: v.body }),
+    mutationFn: (v: { ruta: string; method?: string; body: unknown }) =>
+      api(v.ruta, { method: v.method ?? 'PATCH', body: v.body }),
     onSuccess: () => cliente.invalidateQueries({ queryKey: ['catalogos'] }),
   });
 }
 
 const celdaNum = 'w-24 border border-neutros-n300 px-2 py-1 text-right tabular';
-const th = 'px-2 py-2 text-left text-[11px] font-semibold uppercase tracking-[0.14em] text-neutros-n500';
+const th =
+  'px-2 py-2 text-left text-[11px] font-semibold uppercase tracking-[0.14em] text-neutros-n500';
 
 export function Lotes() {
   const { data } = useCatalogos();
@@ -36,18 +38,46 @@ export function Lotes() {
         <tbody>
           {data?.lotes.map((l) => (
             <tr key={l.id} className="border-b border-neutros-n200">
-              <td className="px-2 py-1 font-semibold">{l.codigo} · {l.nombre}</td>
-              <td className="px-2 py-1">
-                <input className={celdaNum} type="number" step="0.01" defaultValue={l.hectareas} onBlur={(e) => guardar.mutate({ ruta: `/admin/lotes/${l.id}`, body: { hectareas: Number(e.target.value) } })} aria-label={`Hectáreas de ${l.nombre}`} />
+              <td className="px-2 py-1 font-semibold">
+                {l.codigo} · {l.nombre}
               </td>
               <td className="px-2 py-1">
-                <input className={celdaNum} type="number" defaultValue={l.poblacion} onBlur={(e) => guardar.mutate({ ruta: `/admin/lotes/${l.id}`, body: { poblacion: Number(e.target.value) } })} aria-label={`Población de ${l.nombre}`} />
+                <input
+                  className={celdaNum}
+                  type="number"
+                  step="0.01"
+                  defaultValue={l.hectareas}
+                  onBlur={(e) =>
+                    guardar.mutate({
+                      ruta: `/admin/lotes/${l.id}`,
+                      body: { hectareas: Number(e.target.value) },
+                    })
+                  }
+                  aria-label={`Hectáreas de ${l.nombre}`}
+                />
+              </td>
+              <td className="px-2 py-1">
+                <input
+                  className={celdaNum}
+                  type="number"
+                  defaultValue={l.poblacion}
+                  onBlur={(e) =>
+                    guardar.mutate({
+                      ruta: `/admin/lotes/${l.id}`,
+                      body: { poblacion: Number(e.target.value) },
+                    })
+                  }
+                  aria-label={`Población de ${l.nombre}`}
+                />
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <p className="mt-2 text-xs text-neutros-n500">Los polígonos de los lotes son ficticios (DEMO). Los reales están pendientes; se cargan como GeoJSON por la API (POST /v1/admin/lotes).</p>
+      <p className="mt-2 text-xs text-neutros-n500">
+        Los polígonos de los lotes son ficticios (DEMO). Los reales están pendientes; se cargan como
+        GeoJSON por la API (POST /v1/admin/lotes).
+      </p>
     </>
   );
 }
@@ -72,15 +102,35 @@ export function Plagas() {
           {data?.plagas.map((p) => (
             <tr key={p.id} className="border-b border-neutros-n200">
               <td className="px-2 py-1">
-                <span className="font-semibold">{p.nombre}</span> <i className="text-neutros-n500">{p.nombre_cientifico}</i>
+                <span className="font-semibold">{p.nombre}</span>{' '}
+                <i className="text-neutros-n500">{p.nombre_cientifico}</i>
               </td>
               <td className="px-2 py-1">{p.tipo}</td>
               <td className="px-2 py-1">
-                <input className={celdaNum} type="number" step="0.1" defaultValue={p.umbral_alerta} onBlur={(e) => guardar.mutate({ ruta: `/admin/plagas/${p.id}`, body: { umbral_alerta: Number(e.target.value) } })} aria-label={`Umbral de ${p.nombre}`} />
+                <input
+                  className={celdaNum}
+                  type="number"
+                  step="0.1"
+                  defaultValue={p.umbral_alerta}
+                  onBlur={(e) =>
+                    guardar.mutate({
+                      ruta: `/admin/plagas/${p.id}`,
+                      body: { umbral_alerta: Number(e.target.value) },
+                    })
+                  }
+                  aria-label={`Umbral de ${p.nombre}`}
+                />
               </td>
               <td className="px-2 py-1">
-                <button onClick={() => guardar.mutate({ ruta: `/admin/plagas/${p.id}`, body: { activo: !p.activo } })}>
-                  <Estado tipo={p.activo ? 'exito' : 'neutro'} texto={p.activo ? 'Activa' : 'Inactiva'} />
+                <button
+                  onClick={() =>
+                    guardar.mutate({ ruta: `/admin/plagas/${p.id}`, body: { activo: !p.activo } })
+                  }
+                >
+                  <Estado
+                    tipo={p.activo ? 'exito' : 'neutro'}
+                    texto={p.activo ? 'Activa' : 'Inactiva'}
+                  />
                 </button>
               </td>
             </tr>
@@ -89,16 +139,39 @@ export function Plagas() {
       </table>
       <p className="mt-2 text-xs text-neutros-n500">Umbrales de ejemplo, editables.</p>
       <div className="mt-3 flex flex-wrap items-end gap-3">
-        <Campo etiqueta="Código" value={nueva.codigo} onChange={(e) => setNueva({ ...nueva, codigo: e.target.value })} />
-        <Campo etiqueta="Nombre" value={nueva.nombre} onChange={(e) => setNueva({ ...nueva, nombre: e.target.value })} />
-        <Selector etiqueta="Tipo" value={nueva.tipo} onChange={(e) => setNueva({ ...nueva, tipo: e.target.value })}>
+        <Campo
+          etiqueta="Código"
+          value={nueva.codigo}
+          onChange={(e) => setNueva({ ...nueva, codigo: e.target.value })}
+        />
+        <Campo
+          etiqueta="Nombre"
+          value={nueva.nombre}
+          onChange={(e) => setNueva({ ...nueva, nombre: e.target.value })}
+        />
+        <Selector
+          etiqueta="Tipo"
+          value={nueva.tipo}
+          onChange={(e) => setNueva({ ...nueva, tipo: e.target.value })}
+        >
           <option value="plaga">Plaga</option>
           <option value="enfermedad">Enfermedad</option>
         </Selector>
-        <Campo etiqueta="Umbral (%)" type="number" value={nueva.umbral_alerta} onChange={(e) => setNueva({ ...nueva, umbral_alerta: e.target.value })} />
+        <Campo
+          etiqueta="Umbral (%)"
+          type="number"
+          value={nueva.umbral_alerta}
+          onChange={(e) => setNueva({ ...nueva, umbral_alerta: e.target.value })}
+        />
         <Boton
           disabled={!nueva.codigo || !nueva.nombre || !nueva.umbral_alerta}
-          onClick={() => guardar.mutate({ ruta: '/admin/plagas', method: 'POST', body: { ...nueva, umbral_alerta: Number(nueva.umbral_alerta), activo: true } })}
+          onClick={() =>
+            guardar.mutate({
+              ruta: '/admin/plagas',
+              method: 'POST',
+              body: { ...nueva, umbral_alerta: Number(nueva.umbral_alerta), activo: true },
+            })
+          }
         >
           Agregar
         </Boton>
@@ -133,7 +206,12 @@ export function TiposLabor() {
                   step="0.01"
                   placeholder="Pendiente"
                   defaultValue={t.tarifa ?? ''}
-                  onBlur={(e) => guardar.mutate({ ruta: `/admin/tipos-labor/${t.id}`, body: { tarifa: e.target.value === '' ? null : Number(e.target.value) } })}
+                  onBlur={(e) =>
+                    guardar.mutate({
+                      ruta: `/admin/tipos-labor/${t.id}`,
+                      body: { tarifa: e.target.value === '' ? null : Number(e.target.value) },
+                    })
+                  }
                   aria-label={`Tarifa de ${t.nombre}`}
                 />
               </td>
@@ -141,7 +219,9 @@ export function TiposLabor() {
           ))}
         </tbody>
       </table>
-      <p className="mt-2 text-xs text-neutros-n500">Las tarifas de destajo están PENDIENTES de definir por la finca.</p>
+      <p className="mt-2 text-xs text-neutros-n500">
+        Las tarifas de destajo están PENDIENTES de definir por la finca.
+      </p>
     </>
   );
 }
@@ -155,9 +235,16 @@ export function Calendario() {
   return (
     <>
       <Subtitulo>Calendario de semanas y colores de cinta</Subtitulo>
-      <Aviso tipo="alerta">Los colores de cinta son de EJEMPLO: los reales están pendientes de confirmar por la finca. El factor se interpoló desde los puntos conocidos y es editable.</Aviso>
+      <Aviso tipo="alerta">
+        Los colores de cinta son de EJEMPLO: los reales están pendientes de confirmar por la finca.
+        El factor se interpoló desde los puntos conocidos y es editable.
+      </Aviso>
       <div className="mb-3 flex flex-wrap items-center gap-4">
-        <Selector etiqueta="Año" value={verAnio} onChange={(e) => setVerAnio(Number(e.target.value))}>
+        <Selector
+          etiqueta="Año"
+          value={verAnio}
+          onChange={(e) => setVerAnio(Number(e.target.value))}
+        >
           {[anio - 1, anio, anio + 1].map((a) => (
             <option key={a} value={a}>
               {a}
@@ -172,13 +259,21 @@ export function Calendario() {
       </div>
       <div className="grid grid-cols-1 gap-x-8 md:grid-cols-2 xl:grid-cols-3">
         {semanas.map((s) => (
-          <div key={s.id} className="flex items-center gap-2 border-b border-neutros-n200 py-1 text-sm">
+          <div
+            key={s.id}
+            className="flex items-center gap-2 border-b border-neutros-n200 py-1 text-sm"
+          >
             <span className="w-10 font-extrabold tabular">S{s.numero}</span>
             <span className="w-24 text-xs text-neutros-n500">{formatearFecha(s.fecha_inicio)}</span>
             <select
               className="border border-neutros-n300 px-1 py-0.5"
               value={s.color_cinta_id}
-              onChange={(e) => guardar.mutate({ ruta: `/admin/semanas/${s.id}`, body: { color_cinta_id: e.target.value } })}
+              onChange={(e) =>
+                guardar.mutate({
+                  ruta: `/admin/semanas/${s.id}`,
+                  body: { color_cinta_id: e.target.value },
+                })
+              }
               aria-label={`Color de la semana ${s.numero}`}
             >
               {data?.colores.map((c) => (
@@ -187,13 +282,22 @@ export function Calendario() {
                 </option>
               ))}
             </select>
-            <span aria-hidden className="inline-block h-3 w-3 border border-marca-negro" style={{ background: data?.colores.find((c) => c.id === s.color_cinta_id)?.hex }} />
+            <span
+              aria-hidden
+              className="inline-block h-3 w-3 border border-marca-negro"
+              style={{ background: data?.colores.find((c) => c.id === s.color_cinta_id)?.hex }}
+            />
             <input
               className="w-16 border border-neutros-n300 px-1 py-0.5 text-right tabular"
               type="number"
               step="0.01"
               defaultValue={s.factor}
-              onBlur={(e) => guardar.mutate({ ruta: `/admin/semanas/${s.id}`, body: { factor: Number(e.target.value) } })}
+              onBlur={(e) =>
+                guardar.mutate({
+                  ruta: `/admin/semanas/${s.id}`,
+                  body: { factor: Number(e.target.value) },
+                })
+              }
               aria-label={`Factor de la semana ${s.numero}`}
               title={`Factor ${formatearNumero(s.factor, 4)}`}
             />

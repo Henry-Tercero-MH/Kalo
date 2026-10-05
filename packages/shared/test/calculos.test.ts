@@ -26,8 +26,12 @@ describe('ecuación productiva', () => {
   });
 
   it('rechaza valores inválidos', () => {
-    expect(() => ecuacionProductiva({ poblacion: -1, retorno: 1, recobro: 0.9, factor: 1 })).toThrow();
-    expect(() => ecuacionProductiva({ poblacion: 1, retorno: 1, recobro: 1.2, factor: 1 })).toThrow();
+    expect(() =>
+      ecuacionProductiva({ poblacion: -1, retorno: 1, recobro: 0.9, factor: 1 }),
+    ).toThrow();
+    expect(() =>
+      ecuacionProductiva({ poblacion: 1, retorno: 1, recobro: 1.2, factor: 1 }),
+    ).toThrow();
   });
 
   it('recobro observado = cosechados / (cosechados + perdidos)', () => {
@@ -57,7 +61,12 @@ describe('factor por semana', () => {
   });
 
   it('acepta puntos editados', () => {
-    expect(interpolarFactor(5, [{ semana: 1, factor: 1 }, { semana: 9, factor: 2 }])).toBe(1.5);
+    expect(
+      interpolarFactor(5, [
+        { semana: 1, factor: 1 },
+        { semana: 9, factor: 2 },
+      ]),
+    ).toBe(1.5);
   });
 
   it('genera 52 semanas', () => {

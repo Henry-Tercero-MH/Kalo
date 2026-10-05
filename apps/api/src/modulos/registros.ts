@@ -38,7 +38,10 @@ function columna(tabla: NombreTabla, nombre: string): PgColumn | undefined {
 export function verificarAcceso(usuario: UsuarioSesion, tabla: string): NombreTabla {
   if (!(tabla in TABLAS_REGISTROS)) throw noEncontrado('Módulo sin tabla de registros');
   const permiso = TABLAS_REGISTROS[tabla as NombreTabla];
-  if (!tienePermiso(usuario.permisos, 'registros:ver') || (permiso && !tienePermiso(usuario.permisos, permiso))) {
+  if (
+    !tienePermiso(usuario.permisos, 'registros:ver') ||
+    (permiso && !tienePermiso(usuario.permisos, permiso))
+  ) {
     throw prohibido();
   }
   return tabla as NombreTabla;
@@ -51,12 +54,16 @@ export async function consultarRegistros(
   f: FiltrosRegistros,
 ) {
   const t = TABLAS_DRIZZLE[tabla];
-  const cond: SQL[] = [eq(columna(tabla, 'finca_id')!, fincaId), isNull(columna(tabla, 'deleted_at')!)];
+  const cond: SQL[] = [
+    eq(columna(tabla, 'finca_id')!, fincaId),
+    isNull(columna(tabla, 'deleted_at')!),
+  ];
   const fecha = columna(tabla, 'fecha');
   if (fecha && f.desde) cond.push(gte(fecha, f.desde));
   if (fecha && f.hasta) cond.push(lte(fecha, f.hasta));
   if (!fecha && f.desde) cond.push(gte(columna(tabla, 'created_at')!, new Date(f.desde).getTime()));
-  if (!fecha && f.hasta) cond.push(lte(columna(tabla, 'created_at')!, new Date(f.hasta).getTime() + 86_399_999));
+  if (!fecha && f.hasta)
+    cond.push(lte(columna(tabla, 'created_at')!, new Date(f.hasta).getTime() + 86_399_999));
   const lote = columna(tabla, 'lote_id');
   if (lote && f.lote_id) cond.push(eq(lote, f.lote_id));
   if (f.usuario_id) cond.push(eq(columna(tabla, 'created_by')!, f.usuario_id));
@@ -117,7 +124,13 @@ function resolver(c: Catalogos) {
   return (col: string, v: unknown) => {
     if (v === null || v === undefined) return '';
     if (nombres[col]) return nombres[col]!.get(String(v)) ?? String(v);
-    if (col === 'created_at' || col === 'hora_gps' || col === 'validado_en' || col === 'inicio' || col === 'fin') {
+    if (
+      col === 'created_at' ||
+      col === 'hora_gps' ||
+      col === 'validado_en' ||
+      col === 'inicio' ||
+      col === 'fin'
+    ) {
       return formatearFechaHora(Number(v));
     }
     if (typeof v === 'object') return JSON.stringify(v);
@@ -125,7 +138,14 @@ function resolver(c: Catalogos) {
   };
 }
 
-const OMITIR = new Set(['id', 'updated_at', 'server_updated_at', 'deleted_at', 'finca_id', 'uri_local']);
+const OMITIR = new Set([
+  'id',
+  'updated_at',
+  'server_updated_at',
+  'deleted_at',
+  'finca_id',
+  'uri_local',
+]);
 
 export default async function rutasRegistros(fastify: FastifyInstance) {
   const app = fastify.withTypeProvider<ZodTypeProvider>();
@@ -133,18 +153,29 @@ export default async function rutasRegistros(fastify: FastifyInstance) {
 
   app.get(
     '/',
-    { preHandler: app.autenticarUsuario, schema: { tags: ['registros'], summary: 'Tablas disponibles' } },
+    {
+      preHandler: app.autenticarUsuario,
+      schema: { tags: ['registros'], summary: 'Tablas disponibles' },
+    },
     async (req) =>
       Object.entries(TABLAS_REGISTROS)
         .filter(([, p]) => !p || tienePermiso(req.usuario!.permisos, p))
-        .map(([tabla]) => ({ tabla, etiqueta: REGISTRO_TABLAS[tabla as NombreTabla].meta.etiqueta })),
+        .map(([tabla]) => ({
+          tabla,
+          etiqueta: REGISTRO_TABLAS[tabla as NombreTabla].meta.etiqueta,
+        })),
   );
 
   app.get(
     '/:tabla',
     {
       preHandler: app.autenticarUsuario,
-      schema: { tags: ['registros'], summary: 'Registros con filtros', params, querystring: esquemaFiltrosRegistros },
+      schema: {
+        tags: ['registros'],
+        summary: 'Registros con filtros',
+        params,
+        querystring: esquemaFiltrosRegistros,
+      },
     },
     async (req) => {
       const tabla = verificarAcceso(req.usuario!, req.params.tabla);
@@ -160,7 +191,9 @@ export default async function rutasRegistros(fastify: FastifyInstance) {
         tags: ['registros'],
         summary: 'Exporta a Excel (xlsx) o CSV',
         params,
-        querystring: esquemaFiltrosRegistros.extend({ formato: z.enum(['xlsx', 'csv']).default('xlsx') }),
+        querystring: esquemaFiltrosRegistros.extend({
+          formato: z.enum(['xlsx', 'csv']).default('xlsx'),
+        }),
       },
     },
     async (req, reply) => {
@@ -186,7 +219,9 @@ export default async function rutasRegistros(fastify: FastifyInstance) {
         'created_at',
         'device_id',
       ];
-      const columnas = orden.filter((c) => (presentes.size === 0 || presentes.has(c)) && !OMITIR.has(c));
+      const columnas = orden.filter(
+        (c) => (presentes.size === 0 || presentes.has(c)) && !OMITIR.has(c),
+      );
       const encabezados = columnas.map((c) => ETIQUETAS[c] ?? c.replace(/_/g, ' '));
       const nombre = `${tabla}_${new Date().toISOString().slice(0, 10)}_DEMO`;
 

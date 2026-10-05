@@ -21,7 +21,10 @@ type LoteSemana = {
 };
 
 /** (lote, semana ISO) tocados por un conjunto de puntos GPS. */
-export async function lotesSemanasDePuntos(db: BaseDatos, idsPuntos: string[]): Promise<LoteSemana[]> {
+export async function lotesSemanasDePuntos(
+  db: BaseDatos,
+  idsPuntos: string[],
+): Promise<LoteSemana[]> {
   const resultado = new Map<string, LoteSemana>();
   // En bloques para no exceder el límite de parámetros de PostgreSQL.
   for (let i = 0; i < idsPuntos.length; i += 5000) {

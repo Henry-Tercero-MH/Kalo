@@ -30,49 +30,54 @@ async function leerRutaActiva(): Promise<RutaActiva | null> {
   return v ? (JSON.parse(v) as RutaActiva) : null;
 }
 const guardarRutaActiva = (r: RutaActiva | null) =>
-  r ? SecureStore.setItemAsync(CLAVE_RUTA_ACTIVA, JSON.stringify(r)) : SecureStore.deleteItemAsync(CLAVE_RUTA_ACTIVA);
+  r
+    ? SecureStore.setItemAsync(CLAVE_RUTA_ACTIVA, JSON.stringify(r))
+    : SecureStore.deleteItemAsync(CLAVE_RUTA_ACTIVA);
 
 // La tarea se define al cargar el módulo (requisito de expo-task-manager).
-TaskManager.defineTask<{ locations: Location.LocationObject[] }>(TAREA_RASTREO, async ({ data, error }) => {
-  if (error || !data) return;
-  const ruta = await leerRutaActiva();
-  if (!ruta) return;
-  const puntos = filtrarPorPrecision(
-    data.locations.map((l) => ({
-      lat: l.coords.latitude,
-      lng: l.coords.longitude,
-      precision: l.coords.accuracy ?? 999,
-      hora: l.timestamp,
-    })),
-    ruta.precisionMax,
-  );
-  if (puntos.length === 0) return;
-  let secuencia = ruta.secuencia;
-  await database.write(async () => {
-    const lote = puntos.map((p) =>
-      coleccion('puntos_ruta').prepareCreate((r) => {
-        const valores = {
-          ruta_id: ruta.rutaId,
-          lat: p.lat,
-          lng: p.lng,
-          precision_gps: Math.round(p.precision * 10) / 10,
-          hora_gps: p.hora,
-          secuencia: secuencia++,
-          created_at: Date.now(),
-          updated_at: Date.now(),
-          server_updated_at: null,
-          deleted_at: null,
-          device_id: ruta.dispositivoId,
-          created_by: ruta.usuarioId,
-          finca_id: ruta.fincaId,
-        };
-        for (const [k, v] of Object.entries(valores)) r._setRaw(k, v as never);
-      }),
+TaskManager.defineTask<{ locations: Location.LocationObject[] }>(
+  TAREA_RASTREO,
+  async ({ data, error }) => {
+    if (error || !data) return;
+    const ruta = await leerRutaActiva();
+    if (!ruta) return;
+    const puntos = filtrarPorPrecision(
+      data.locations.map((l) => ({
+        lat: l.coords.latitude,
+        lng: l.coords.longitude,
+        precision: l.coords.accuracy ?? 999,
+        hora: l.timestamp,
+      })),
+      ruta.precisionMax,
     );
-    await database.batch(lote);
-  });
-  await guardarRutaActiva({ ...ruta, secuencia });
-});
+    if (puntos.length === 0) return;
+    let secuencia = ruta.secuencia;
+    await database.write(async () => {
+      const lote = puntos.map((p) =>
+        coleccion('puntos_ruta').prepareCreate((r) => {
+          const valores = {
+            ruta_id: ruta.rutaId,
+            lat: p.lat,
+            lng: p.lng,
+            precision_gps: Math.round(p.precision * 10) / 10,
+            hora_gps: p.hora,
+            secuencia: secuencia++,
+            created_at: Date.now(),
+            updated_at: Date.now(),
+            server_updated_at: null,
+            deleted_at: null,
+            device_id: ruta.dispositivoId,
+            created_by: ruta.usuarioId,
+            finca_id: ruta.fincaId,
+          };
+          for (const [k, v] of Object.entries(valores)) r._setRaw(k, v as never);
+        }),
+      );
+      await database.batch(lote);
+    });
+    await guardarRutaActiva({ ...ruta, secuencia });
+  },
+);
 
 export async function rutaActiva(): Promise<RutaActiva | null> {
   const r = await leerRutaActiva();
@@ -87,7 +92,10 @@ async function arrancarActualizaciones() {
   const params = await consultar('parametros');
   const prefs = await almacen.preferencias();
   const intervalo = Number(
-    leerParametro(params, prefs.ahorroBateria ? 'gps_ahorro_bateria_intervalo_s' : 'gps_intervalo_s'),
+    leerParametro(
+      params,
+      prefs.ahorroBateria ? 'gps_ahorro_bateria_intervalo_s' : 'gps_intervalo_s',
+    ),
   );
   await Location.startLocationUpdatesAsync(TAREA_RASTREO, {
     accuracy: prefs.ahorroBateria ? Location.Accuracy.Balanced : Location.Accuracy.High,
@@ -155,15 +163,31 @@ export async function finalizarRuta(): Promise<{ puntos: number; distancia: numb
 
   const params = await consultar('parametros');
   const registros = await coleccion('puntos_ruta')
-    .query(Q.where('ruta_id', ruta.rutaId), Q.where('deleted_at', null), Q.sortBy('secuencia', Q.asc))
+    .query(
+      Q.where('ruta_id', ruta.rutaId),
+      Q.where('deleted_at', null),
+      Q.sortBy('secuencia', Q.asc),
+    )
     .fetch();
-  const puntos = registros.map((r) => ({ id: r.id, lat: r.fila.lat, lng: r.fila.lng, registro: r }));
-  const conservados = simplificarRuta(puntos, Number(leerParametro(params, 'gps_tolerancia_simplificacion_m')));
+  const puntos = registros.map((r) => ({
+    id: r.id,
+    lat: r.fila.lat,
+    lng: r.fila.lng,
+    registro: r,
+  }));
+  const conservados = simplificarRuta(
+    puntos,
+    Number(leerParametro(params, 'gps_tolerancia_simplificacion_m')),
+  );
   const conservar = new Set(conservados.map((p) => p.id));
   // Los puntos descartados nunca se enviaron: son muestras crudas del sensor, no registros.
-  const descartar = puntos.filter((p) => !conservar.has(p.id) && p.registro._raw._status === 'created');
+  const descartar = puntos.filter(
+    (p) => !conservar.has(p.id) && p.registro._raw._status === 'created',
+  );
   if (descartar.length) {
-    await database.write(() => database.batch(descartar.map((p) => p.registro.prepareDestroyPermanently())));
+    await database.write(() =>
+      database.batch(descartar.map((p) => p.registro.prepareDestroyPermanently())),
+    );
   }
   const distancia = Math.round(longitudRuta(conservados));
   await actualizar('rutas', ruta.rutaId, {

@@ -30,7 +30,9 @@ export function cargarConfig(env: NodeJS.ProcessEnv = process.env): Config {
   const r = esquema.safeParse(env);
   if (!r.success) {
     const detalle = r.error.issues.map((i) => `  - ${i.path.join('.')}: ${i.message}`).join('\n');
-    throw new Error(`Configuración inválida:\n${detalle}\nRevise el archivo .env (vea .env.example).`);
+    throw new Error(
+      `Configuración inválida:\n${detalle}\nRevise el archivo .env (vea .env.example).`,
+    );
   }
   return r.data;
 }

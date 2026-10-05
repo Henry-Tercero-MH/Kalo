@@ -18,7 +18,10 @@ export function invalidarCacheSesiones() {
   cache.clear();
 }
 
-export async function cargarUsuario(app: FastifyInstance, id: string): Promise<UsuarioSesion | null> {
+export async function cargarUsuario(
+  app: FastifyInstance,
+  id: string,
+): Promise<UsuarioSesion | null> {
   const enCache = cache.get(id);
   if (enCache && enCache.hasta > Date.now()) return enCache.sesion;
   const [u] = await app.db

@@ -27,7 +27,10 @@ export default function Inicio() {
   const { numero, color } = useSemanaActual();
   const tareas = useConsulta(
     'ordenes_trabajo',
-    [Q.where('asignado_a', usuario?.id ?? ''), Q.where('estado', Q.oneOf(['pendiente', 'en_progreso']))],
+    [
+      Q.where('asignado_a', usuario?.id ?? ''),
+      Q.where('estado', Q.oneOf(['pendiente', 'en_progreso'])),
+    ],
     [usuario?.id],
   );
   const primerNombre = usuario?.nombre.split(' ')[0] ?? '';
@@ -38,14 +41,22 @@ export default function Inicio() {
 
       {tienePermiso(permisos, 'fusarium:crear') ? (
         <View style={{ marginBottom: espaciado.lg }}>
-          <Boton titulo={t('inicio.alertaFusarium')} icono="triangle-alert" variante="peligro" onPress={() => router.push('/modulos/fusarium')} accessibilityHint={t('inicio.alertaFusariumAyuda')} />
+          <Boton
+            titulo={t('inicio.alertaFusarium')}
+            icono="triangle-alert"
+            variante="peligro"
+            onPress={() => router.push('/modulos/fusarium')}
+            accessibilityHint={t('inicio.alertaFusariumAyuda')}
+          />
         </View>
       ) : null}
 
       <Tarjeta>
         <Dato etiqueta={t('inicio.finca')} valor={config?.fincaNombre ?? '—'} />
         <Dato etiqueta={t('inicio.loteActual')} valor={lote ? lote.nombre : t('comun.sinLote')} />
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <View
+          style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+        >
           <Dato etiqueta={t('inicio.cinta')} valor={t('inicio.semana', { n: numero })} />
           {color ? <MuestraColor hex={color.hex} nombre={color.nombre} grande /> : null}
         </View>
@@ -60,7 +71,12 @@ export default function Inicio() {
           titulo={o.titulo}
           descripcion={formatearFecha(o.fecha)}
           onPress={() => router.push('/modulos/ordenes')}
-          derecha={<Estado tipo={o.estado === 'en_progreso' ? 'info' : 'alerta'} texto={t(`estados.${o.estado}`)} />}
+          derecha={
+            <Estado
+              tipo={o.estado === 'en_progreso' ? 'info' : 'alerta'}
+              texto={t(`estados.${o.estado}`)}
+            />
+          }
         />
       ))}
     </Pantalla>

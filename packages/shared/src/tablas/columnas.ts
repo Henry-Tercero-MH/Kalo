@@ -1,12 +1,6 @@
 import { ESTADOS_VALIDACION } from '../constantes';
 import { REGISTRO_TABLAS, type NombreTabla } from './registro';
-import type {
-  ColumnasComunes,
-  ColumnasGps,
-  ColumnasValidacion,
-  DefColumna,
-  FilaDe,
-} from './tipos';
+import type { ColumnasComunes, ColumnasGps, ColumnasValidacion, DefColumna, FilaDe } from './tipos';
 
 /** Columnas que llevan todas las tablas sincronizables. */
 export const COLUMNAS_COMUNES: Record<keyof Omit<ColumnasComunes, 'id'>, DefColumna> = {

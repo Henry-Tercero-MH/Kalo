@@ -40,7 +40,8 @@ export default function TabsLayout() {
       if (e !== 'active') return;
       const params = await consultar('parametros');
       const minutos = Number(leerParametro(params, 'sesion_inactividad_min')) || 30;
-      if (Date.now() - useSesion.getState().ultimaActividad > minutos * 60_000) useSesion.getState().cerrar();
+      if (Date.now() - useSesion.getState().ultimaActividad > minutos * 60_000)
+        useSesion.getState().cerrar();
       else useSesion.getState().tocar();
     });
     return () => sub.remove();
@@ -59,15 +60,33 @@ export default function TabsLayout() {
         headerShown: false,
         tabBarActiveTintColor: semantico.titulo,
         tabBarInactiveTintColor: semantico.textoSecundario,
-        tabBarStyle: { height: 72, paddingTop: 6, borderTopWidth: 2, borderTopColor: semantico.bordeFuerte },
-        tabBarLabelStyle: { fontFamily: tipografia.familias.cuerpoMedio, fontSize: 12, textTransform: 'uppercase' },
+        tabBarStyle: {
+          height: 72,
+          paddingTop: 6,
+          borderTopWidth: 2,
+          borderTopColor: semantico.bordeFuerte,
+        },
+        tabBarLabelStyle: {
+          fontFamily: tipografia.familias.cuerpoMedio,
+          fontSize: 12,
+          textTransform: 'uppercase',
+        },
       }}
     >
       <Tabs.Screen name="index" options={{ title: t('tabs.inicio'), tabBarIcon: icono('house') }} />
-      <Tabs.Screen name="registrar" options={{ title: t('tabs.registrar'), tabBarIcon: icono('square-plus') }} />
+      <Tabs.Screen
+        name="registrar"
+        options={{ title: t('tabs.registrar'), tabBarIcon: icono('square-plus') }}
+      />
       <Tabs.Screen name="mapa" options={{ title: t('tabs.mapa'), tabBarIcon: icono('map') }} />
-      <Tabs.Screen name="sincronizar" options={{ title: t('tabs.sincronizar'), tabBarIcon: icono('refresh-cw') }} />
-      <Tabs.Screen name="perfil" options={{ title: t('tabs.perfil'), tabBarIcon: icono('user-round') }} />
+      <Tabs.Screen
+        name="sincronizar"
+        options={{ title: t('tabs.sincronizar'), tabBarIcon: icono('refresh-cw') }}
+      />
+      <Tabs.Screen
+        name="perfil"
+        options={{ title: t('tabs.perfil'), tabBarIcon: icono('user-round') }}
+      />
     </Tabs>
   );
 }

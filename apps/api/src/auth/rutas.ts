@@ -28,7 +28,9 @@ export function perfilPublico(u: UsuarioSesion) {
     permisos: [...u.permisos].sort(),
     plataformas: u.plataformas,
     // Los roles de campo (sin plataforma web) no ven módulos del panel.
-    modulosWeb: u.plataformas.includes('web') ? modulosPara('web', u.permisos).map((m) => m.codigo) : [],
+    modulosWeb: u.plataformas.includes('web')
+      ? modulosPara('web', u.permisos).map((m) => m.codigo)
+      : [],
   };
 }
 
@@ -51,7 +53,9 @@ export default async function rutasAuth(fastify: FastifyInstance) {
       const [u] = await app.db
         .select({ id: usuarios.id, pin: usuarios.pin_hash, finca: usuarios.finca_id })
         .from(usuarios)
-        .where(and(eq(usuarios.usuario, req.body.usuario.toLowerCase()), isNull(usuarios.deleted_at)));
+        .where(
+          and(eq(usuarios.usuario, req.body.usuario.toLowerCase()), isNull(usuarios.deleted_at)),
+        );
       const ok = await bcrypt.compare(req.body.pin, u?.pin ?? HASH_FALSO);
       if (!u || !ok) throw noAutorizado('Usuario o PIN incorrecto');
       const sesion = await cargarUsuario(app, u.id);
@@ -65,13 +69,19 @@ export default async function rutasAuth(fastify: FastifyInstance) {
     '/gafete',
     {
       config: limite,
-      schema: { tags: ['auth'], summary: 'Inicio de sesión con gafete QR', body: esquemaLoginGafete },
+      schema: {
+        tags: ['auth'],
+        summary: 'Inicio de sesión con gafete QR',
+        body: esquemaLoginGafete,
+      },
     },
     async (req) => {
       const [u] = await app.db
         .select({ id: usuarios.id })
         .from(usuarios)
-        .where(and(eq(usuarios.gafete_hash, hashGafete(req.body.codigo)), isNull(usuarios.deleted_at)));
+        .where(
+          and(eq(usuarios.gafete_hash, hashGafete(req.body.codigo)), isNull(usuarios.deleted_at)),
+        );
       const sesion = u ? await cargarUsuario(app, u.id) : null;
       if (!sesion) throw noAutorizado('Gafete no reconocido');
       return { ...(await emitirTokens(app, 'usuario', sesion.id)), usuario: perfilPublico(sesion) };
@@ -80,7 +90,13 @@ export default async function rutasAuth(fastify: FastifyInstance) {
 
   app.post(
     '/refresh',
-    { schema: { tags: ['auth'], summary: 'Renueva la sesión (rota el refresh token)', body: esquemaRefresh } },
+    {
+      schema: {
+        tags: ['auth'],
+        summary: 'Renueva la sesión (rota el refresh token)',
+        body: esquemaRefresh,
+      },
+    },
     async (req) => {
       const id = await consumirRefresh(app, req.body.refreshToken, 'usuario');
       const sesion = await cargarUsuario(app, id);
@@ -91,7 +107,10 @@ export default async function rutasAuth(fastify: FastifyInstance) {
 
   app.post(
     '/logout',
-    { preHandler: app.autenticarUsuario, schema: { tags: ['auth'], response: { 200: z.object({ ok: z.boolean() }) } } },
+    {
+      preHandler: app.autenticarUsuario,
+      schema: { tags: ['auth'], response: { 200: z.object({ ok: z.boolean() }) } },
+    },
     async (req) => {
       await revocarTodos(app, 'usuario', req.usuario!.id);
       return { ok: true };

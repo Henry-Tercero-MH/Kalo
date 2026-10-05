@@ -33,7 +33,11 @@ export default function Gafete() {
               const r = await iniciarConGafete(data);
               if (r.ok) router.replace('/(tabs)');
               else {
-                setError(r.motivo === 'bloqueado' ? t('login.bloqueado', { min: r.minutos }) : t('login.gafeteNoReconocido'));
+                setError(
+                  r.motivo === 'bloqueado'
+                    ? t('login.bloqueado', { min: r.minutos })
+                    : t('login.gafeteNoReconocido'),
+                );
                 setTimeout(() => (procesando.current = false), 1500);
               }
             }}

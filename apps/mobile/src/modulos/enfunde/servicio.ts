@@ -4,7 +4,13 @@ import { columnasGps, type Ubicacion } from '@/gps/ubicacion';
 
 /** El color de cinta lo fija la semana actual del calendario (no se elige a mano). */
 export function guardarEnfunde(
-  d: { loteId: string; colorCintaId: string; racimos: number; cuadrillaId: string | null; ubicacion: Ubicacion | null },
+  d: {
+    loteId: string;
+    colorCintaId: string;
+    racimos: number;
+    cuadrillaId: string | null;
+    ubicacion: Ubicacion | null;
+  },
   ctx: ContextoEscritura,
 ) {
   const s = semanaIso(new Date());

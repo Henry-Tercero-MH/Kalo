@@ -3,7 +3,13 @@
  * fotos, nota de voz y ubicación.
  */
 import { formatearNumero, type Fila } from '@kalo/shared';
-import { RecordingPresets, requestRecordingPermissionsAsync, setAudioModeAsync, useAudioRecorder, useAudioRecorderState } from 'expo-audio';
+import {
+  RecordingPresets,
+  requestRecordingPermissionsAsync,
+  setAudioModeAsync,
+  useAudioRecorder,
+  useAudioRecorderState,
+} from 'expo-audio';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, ScrollView, View } from 'react-native';
@@ -17,7 +23,13 @@ import { Estado } from './Visuales';
 import { espaciado, semantico } from './tema';
 
 /** Selector de lote: propone el lote detectado por GPS; el usuario puede cambiarlo. */
-export function SelectorLote({ valor, onCambio }: { valor: string | null; onCambio: (id: string) => void }) {
+export function SelectorLote({
+  valor,
+  onCambio,
+}: {
+  valor: string | null;
+  onCambio: (id: string) => void;
+}) {
   const { t } = useTranslation();
   const lotes = useLotes();
   const actual = useLoteActual();
@@ -38,7 +50,10 @@ export function SelectorLote({ valor, onCambio }: { valor: string | null; onCamb
       )}
       <Opciones
         columnas={2}
-        opciones={lotes.map((l) => ({ valor: l.id, etiqueta: `${l.codigo} · ${formatearNumero(l.hectareas, 1)} ha` }))}
+        opciones={lotes.map((l) => ({
+          valor: l.id,
+          etiqueta: `${l.codigo} · ${formatearNumero(l.hectareas, 1)} ha`,
+        }))}
         valor={valor}
         onCambio={(v) => onCambio(v as string)}
       />
@@ -50,7 +65,13 @@ export function nombreLote(lotes: Fila<'lotes'>[], id: string | null) {
   return lotes.find((l) => l.id === id)?.nombre ?? '—';
 }
 
-export function CapturaFotos({ fotos, onCambio }: { fotos: ArchivoLocal[]; onCambio: (f: ArchivoLocal[]) => void }) {
+export function CapturaFotos({
+  fotos,
+  onCambio,
+}: {
+  fotos: ArchivoLocal[];
+  onCambio: (f: ArchivoLocal[]) => void;
+}) {
   const { t } = useTranslation();
   const [cargando, setCargando] = useState(false);
   return (
@@ -59,7 +80,17 @@ export function CapturaFotos({ fotos, onCambio }: { fotos: ArchivoLocal[]; onCam
       {fotos.length > 0 && (
         <ScrollView horizontal style={{ marginVertical: espaciado.sm }}>
           {fotos.map((f) => (
-            <Image key={f.uri} source={{ uri: f.uri }} style={{ width: 96, height: 96, marginRight: espaciado.sm, borderWidth: 1, borderColor: semantico.borde }} />
+            <Image
+              key={f.uri}
+              source={{ uri: f.uri }}
+              style={{
+                width: 96,
+                height: 96,
+                marginRight: espaciado.sm,
+                borderWidth: 1,
+                borderColor: semantico.borde,
+              }}
+            />
           ))}
         </ScrollView>
       )}
@@ -82,14 +113,22 @@ export function CapturaFotos({ fotos, onCambio }: { fotos: ArchivoLocal[]; onCam
   );
 }
 
-export function CapturaVoz({ nota, onCambio }: { nota: ArchivoLocal | null; onCambio: (n: ArchivoLocal | null) => void }) {
+export function CapturaVoz({
+  nota,
+  onCambio,
+}: {
+  nota: ArchivoLocal | null;
+  onCambio: (n: ArchivoLocal | null) => void;
+}) {
   const { t } = useTranslation();
   const grabadora = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
   const estado = useAudioRecorderState(grabadora);
   return (
     <View style={{ marginVertical: espaciado.md }}>
       <Etiqueta>{t('comun.notaVoz')}</Etiqueta>
-      {nota && !estado.isRecording ? <TextoSecundario>{`${formatearNumero(nota.tamano / 1024, 0)} KB`}</TextoSecundario> : null}
+      {nota && !estado.isRecording ? (
+        <TextoSecundario>{`${formatearNumero(nota.tamano / 1024, 0)} KB`}</TextoSecundario>
+      ) : null}
       {estado.isRecording ? (
         <Boton
           titulo={`${t('comun.detener')} · ${Math.round(estado.durationMillis / 1000)} s`}
@@ -125,7 +164,8 @@ export function InfoUbicacion({ ubicacion }: { ubicacion: Ubicacion | null }) {
     <View>
       <Etiqueta>{t('comun.ubicacion')}</Etiqueta>
       <Texto>
-        {formatearNumero(ubicacion.lat, 5)}, {formatearNumero(ubicacion.lng, 5)} · {t('comun.precision', { m: Math.round(ubicacion.precision) })}
+        {formatearNumero(ubicacion.lat, 5)}, {formatearNumero(ubicacion.lng, 5)} ·{' '}
+        {t('comun.precision', { m: Math.round(ubicacion.precision) })}
       </Texto>
     </View>
   );

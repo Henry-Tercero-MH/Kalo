@@ -29,7 +29,10 @@ export default function Muestreo() {
   useRequierePermiso('plagas:crear');
   const ctx = useContextoEscritura();
   const plagas = useConsulta('plagas', [Q.where('activo', true)]);
-  const formularios = useConsulta('definiciones_formulario', [Q.where('codigo', 'muestreo_plagas'), Q.where('activo', true)]);
+  const formularios = useConsulta('definiciones_formulario', [
+    Q.where('codigo', 'muestreo_plagas'),
+    Q.where('activo', true),
+  ]);
   const [loteId, setLoteId] = useState<string | null>(null);
   const [plagaId, setPlagaId] = useState<string | null>(null);
   const [inicio, setInicio] = useState(true);
@@ -73,14 +76,21 @@ export default function Muestreo() {
           <Etiqueta>{t('plagas.plaga')}</Etiqueta>
           <View style={{ marginTop: espaciado.sm }}>
             <Opciones
-              opciones={plagas.filter((p) => p.codigo !== 'fusarium_r4t').map((p) => ({ valor: p.id, etiqueta: p.nombre }))}
+              opciones={plagas
+                .filter((p) => p.codigo !== 'fusarium_r4t')
+                .map((p) => ({ valor: p.id, etiqueta: p.nombre }))}
               valor={plagaId}
               onCambio={(v) => setPlagaId(v as string)}
             />
           </View>
         </View>
         <View style={{ marginTop: espaciado.xl }}>
-          <Boton titulo={t('comun.siguiente')} icono="chevron-right" deshabilitado={!loteId || !plagaId} onPress={() => setInicio(false)} />
+          <Boton
+            titulo={t('comun.siguiente')}
+            icono="chevron-right"
+            deshabilitado={!loteId || !plagaId}
+            onPress={() => setInicio(false)}
+          />
         </View>
       </Pantalla>
     );
@@ -98,7 +108,13 @@ export default function Muestreo() {
               <View>
                 <CapturaFotos fotos={fotos} onCambio={setFotos} />
                 <CapturaVoz nota={notaVoz} onCambio={setNotaVoz} />
-                <CampoTexto etiqueta={t('comun.notas')} valor={notas} onCambio={setNotas} multilinea autoCapitalize="sentences" />
+                <CampoTexto
+                  etiqueta={t('comun.notas')}
+                  valor={notas}
+                  onCambio={setNotas}
+                  multilinea
+                  autoCapitalize="sentences"
+                />
               </View>
             ),
           },
@@ -108,7 +124,17 @@ export default function Muestreo() {
           setGuardando(true);
           try {
             await guardarMuestreo(
-              { loteId, plagaId, definicion: formulario.definicion, formularioId: formulario.id, respuestas, ubicacion, fotos, notaVoz, notas },
+              {
+                loteId,
+                plagaId,
+                definicion: formulario.definicion,
+                formularioId: formulario.id,
+                respuestas,
+                ubicacion,
+                fotos,
+                notaVoz,
+                notas,
+              },
               ctx,
             );
             despuesDeGuardar(() => router.back());

@@ -26,7 +26,11 @@ export default async function PanelLayout({ children }: { children: ReactNode })
         <div className="flex h-16 items-center border-b-2 border-marca-negro px-4">
           <Logo imagen={conLogo} />
         </div>
-        <Navegacion modulos={perfil.modulosWeb} nombre={perfil.nombre} rol={ROLES[perfil.rol] ?? perfil.rol} />
+        <Navegacion
+          modulos={perfil.modulosWeb}
+          nombre={perfil.nombre}
+          rol={ROLES[perfil.rol] ?? perfil.rol}
+        />
       </aside>
       <main className="min-w-0 px-8 py-6">{children}</main>
     </div>

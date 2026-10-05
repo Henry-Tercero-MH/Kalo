@@ -13,7 +13,8 @@ describe('esquema local de WatermelonDB', () => {
       for (const [nombre, def] of Object.entries(columnasDe(tabla))) {
         const c = local[nombre];
         expect(c).toBeDefined();
-        const tipo = def.tipo === 'numero' ? 'number' : def.tipo === 'booleano' ? 'boolean' : 'string';
+        const tipo =
+          def.tipo === 'numero' ? 'number' : def.tipo === 'booleano' ? 'boolean' : 'string';
         expect(c!.type).toBe(tipo);
         expect(Boolean(c!.isOptional)).toBe(Boolean(def.opcional));
       }
@@ -23,8 +24,20 @@ describe('esquema local de WatermelonDB', () => {
 
 describe('resolución de conflictos en el celular', () => {
   it('conserva los campos editados localmente y la versión base', () => {
-    const local = { id: 'x', racimos_cosechados: 110, racimos_perdidos: 1, server_updated_at: 100, _status: 'updated', _changed: 'racimos_cosechados' };
-    const remoto = { id: 'x', racimos_cosechados: 120, racimos_perdidos: 4, server_updated_at: 200 };
+    const local = {
+      id: 'x',
+      racimos_cosechados: 110,
+      racimos_perdidos: 1,
+      server_updated_at: 100,
+      _status: 'updated',
+      _changed: 'racimos_cosechados',
+    };
+    const remoto = {
+      id: 'x',
+      racimos_cosechados: 120,
+      racimos_perdidos: 4,
+      server_updated_at: 200,
+    };
     const r = resolverConflictoLocal(local, remoto as typeof local);
     expect(r.racimos_cosechados).toBe(110);
     expect(r.racimos_perdidos).toBe(4);

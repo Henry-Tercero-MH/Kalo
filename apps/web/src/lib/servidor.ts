@@ -4,7 +4,8 @@
 import 'server-only';
 import { cookies } from 'next/headers';
 
-export const API_INTERNA = process.env.API_URL_INTERNA ?? process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
+export const API_INTERNA =
+  process.env.API_URL_INTERNA ?? process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
 export const COOKIE_ACCESO = 'kalo_at';
 export const COOKIE_RENOVACION = 'kalo_rt';
 
@@ -69,7 +70,10 @@ export async function perfilActual(): Promise<{ perfil: PerfilUsuario | null; ve
   const rt = c.get(COOKIE_RENOVACION)?.value;
   if (!at && !rt) return { perfil: null, vencido: false };
   if (at) {
-    const r = await fetch(`${API_INTERNA}/v1/auth/yo`, { headers: { Authorization: `Bearer ${at}` }, cache: 'no-store' });
+    const r = await fetch(`${API_INTERNA}/v1/auth/yo`, {
+      headers: { Authorization: `Bearer ${at}` },
+      cache: 'no-store',
+    });
     if (r.ok) return { perfil: (await r.json()) as PerfilUsuario, vencido: false };
   }
   return { perfil: null, vencido: Boolean(rt) };

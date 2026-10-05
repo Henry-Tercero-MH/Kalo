@@ -41,9 +41,22 @@ function EntradaCampo({
   const opciones = campo.catalogo ? (catalogos[campo.catalogo] ?? []) : (campo.opciones ?? []);
   switch (campo.tipo) {
     case 'opcion':
-      return <Opciones opciones={opciones} valor={(valor as string) ?? null} onCambio={(v) => onCambio(v as string)} />;
+      return (
+        <Opciones
+          opciones={opciones}
+          valor={(valor as string) ?? null}
+          onCambio={(v) => onCambio(v as string)}
+        />
+      );
     case 'multiopcion':
-      return <Opciones multiple opciones={opciones} valor={(valor as string[]) ?? []} onCambio={(v) => onCambio(v as string[])} />;
+      return (
+        <Opciones
+          multiple
+          opciones={opciones}
+          valor={(valor as string[]) ?? []}
+          onCambio={(v) => onCambio(v as string[])}
+        />
+      );
     case 'booleano':
       return (
         <Opciones
@@ -57,7 +70,10 @@ function EntradaCampo({
         />
       );
     case 'escala': {
-      const pasos = Array.from({ length: (campo.max ?? 5) - (campo.min ?? 0) + 1 }, (_, i) => (campo.min ?? 0) + i);
+      const pasos = Array.from(
+        { length: (campo.max ?? 5) - (campo.min ?? 0) + 1 },
+        (_, i) => (campo.min ?? 0) + i,
+      );
       return (
         <Opciones
           columnas={2}
@@ -80,7 +96,15 @@ function EntradaCampo({
         />
       );
     default:
-      return <CampoTexto etiqueta={campo.etiqueta} valor={(valor as string) ?? ''} onCambio={onCambio} multilinea autoCapitalize="sentences" />;
+      return (
+        <CampoTexto
+          etiqueta={campo.etiqueta}
+          valor={(valor as string) ?? ''}
+          onCambio={onCambio}
+          multilinea
+          autoCapitalize="sentences"
+        />
+      );
   }
 }
 
@@ -146,8 +170,19 @@ export function FormularioDinamico({
       )}
       {error ? <Aviso tipo="peligro" texto={error} /> : null}
       <View style={{ marginTop: espaciado.xl, gap: espaciado.sm }}>
-        <Boton titulo={esUltimo ? t('comun.guardar') : t('comun.siguiente')} icono={esUltimo ? 'check' : 'chevron-right'} onPress={avanzar} cargando={guardando} />
-        {indice > 0 ? <Boton titulo={t('comun.anterior')} variante="secundario" onPress={() => setIndice((i) => i - 1)} /> : null}
+        <Boton
+          titulo={esUltimo ? t('comun.guardar') : t('comun.siguiente')}
+          icono={esUltimo ? 'check' : 'chevron-right'}
+          onPress={avanzar}
+          cargando={guardando}
+        />
+        {indice > 0 ? (
+          <Boton
+            titulo={t('comun.anterior')}
+            variante="secundario"
+            onPress={() => setIndice((i) => i - 1)}
+          />
+        ) : null}
       </View>
     </View>
   );

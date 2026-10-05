@@ -17,7 +17,17 @@ import { useState } from 'react';
 
 export type Columna<T> = ColumnDef<T, unknown> & { meta?: { numero?: boolean } };
 
-export function Tabla<T>({ datos, columnas, vacio = 'Sin registros.', porPagina = 50 }: { datos: T[]; columnas: Columna<T>[]; vacio?: string; porPagina?: number }) {
+export function Tabla<T>({
+  datos,
+  columnas,
+  vacio = 'Sin registros.',
+  porPagina = 50,
+}: {
+  datos: T[];
+  columnas: Columna<T>[];
+  vacio?: string;
+  porPagina?: number;
+}) {
   const [orden, setOrden] = useState<SortingState>([]);
   const tabla = useReactTable({
     data: datos,
@@ -36,7 +46,8 @@ export function Tabla<T>({ datos, columnas, vacio = 'Sin registros.', porPagina 
           {tabla.getHeaderGroups().map((g) => (
             <tr key={g.id} className="border-b-2 border-marca-negro">
               {g.headers.map((h) => {
-                const numero = (h.column.columnDef.meta as { numero?: boolean } | undefined)?.numero;
+                const numero = (h.column.columnDef.meta as { numero?: boolean } | undefined)
+                  ?.numero;
                 const dir = h.column.getIsSorted();
                 return (
                   <th
@@ -65,9 +76,13 @@ export function Tabla<T>({ datos, columnas, vacio = 'Sin registros.', porPagina 
             tabla.getRowModel().rows.map((f) => (
               <tr key={f.id} className="border-b border-neutros-n200 hover:bg-neutros-n50">
                 {f.getVisibleCells().map((c) => {
-                  const numero = (c.column.columnDef.meta as { numero?: boolean } | undefined)?.numero;
+                  const numero = (c.column.columnDef.meta as { numero?: boolean } | undefined)
+                    ?.numero;
                   return (
-                    <td key={c.id} className={`px-3 py-2 align-top text-neutros-n700 ${numero ? 'tabular text-right' : ''}`}>
+                    <td
+                      key={c.id}
+                      className={`px-3 py-2 align-top text-neutros-n700 ${numero ? 'tabular text-right' : ''}`}
+                    >
                       {flexRender(c.column.columnDef.cell, c.getContext())}
                     </td>
                   );
@@ -79,13 +94,22 @@ export function Tabla<T>({ datos, columnas, vacio = 'Sin registros.', porPagina 
       </table>
       {tabla.getPageCount() > 1 ? (
         <div className="mt-3 flex items-center gap-3 text-sm">
-          <button className="border border-marca-negro px-3 py-1 disabled:opacity-40" disabled={!tabla.getCanPreviousPage()} onClick={() => tabla.previousPage()}>
+          <button
+            className="border border-marca-negro px-3 py-1 disabled:opacity-40"
+            disabled={!tabla.getCanPreviousPage()}
+            onClick={() => tabla.previousPage()}
+          >
             Anterior
           </button>
           <span className="tabular">
-            Página {tabla.getState().pagination.pageIndex + 1} de {tabla.getPageCount()} · {datos.length} registros
+            Página {tabla.getState().pagination.pageIndex + 1} de {tabla.getPageCount()} ·{' '}
+            {datos.length} registros
           </span>
-          <button className="border border-marca-negro px-3 py-1 disabled:opacity-40" disabled={!tabla.getCanNextPage()} onClick={() => tabla.nextPage()}>
+          <button
+            className="border border-marca-negro px-3 py-1 disabled:opacity-40"
+            disabled={!tabla.getCanNextPage()}
+            onClick={() => tabla.nextPage()}
+          >
             Siguiente
           </button>
         </div>

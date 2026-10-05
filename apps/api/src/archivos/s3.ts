@@ -1,4 +1,9 @@
-import { HeadObjectCommand, GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import {
+  HeadObjectCommand,
+  GetObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import type { Config } from '../config';
 
@@ -19,13 +24,19 @@ export function crearClientesS3(config: Config) {
 type Clientes = ReturnType<typeof crearClientesS3>;
 
 export function urlSubida(s3: Clientes, clave: string, mime: string) {
-  return getSignedUrl(s3.publico, new PutObjectCommand({ Bucket: s3.bucket, Key: clave, ContentType: mime }), {
-    expiresIn: 900,
-  });
+  return getSignedUrl(
+    s3.publico,
+    new PutObjectCommand({ Bucket: s3.bucket, Key: clave, ContentType: mime }),
+    {
+      expiresIn: 900,
+    },
+  );
 }
 
 export function urlDescarga(s3: Clientes, clave: string) {
-  return getSignedUrl(s3.publico, new GetObjectCommand({ Bucket: s3.bucket, Key: clave }), { expiresIn: 900 });
+  return getSignedUrl(s3.publico, new GetObjectCommand({ Bucket: s3.bucket, Key: clave }), {
+    expiresIn: 900,
+  });
 }
 
 export async function existeObjeto(s3: Clientes, clave: string): Promise<number | null> {

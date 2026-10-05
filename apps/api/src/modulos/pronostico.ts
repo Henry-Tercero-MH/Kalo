@@ -32,8 +32,11 @@ async function contexto(db: Ejecutor, fincaId: string) {
     .from(semanas)
     .where(and(eq(semanas.finca_id, fincaId), isNull(semanas.deleted_at)));
   const puntos = leerParametro(params, 'factor_puntos_conocidos') as PuntoFactor[];
-  const factores = new Map(cal.map((s) => [claveSemana({ anio: s.anio, numero: s.numero }), s.factor]));
-  const factorDeSemana = (s: SemanaAnio) => factores.get(claveSemana(s)) ?? interpolarFactor(s.numero, puntos);
+  const factores = new Map(
+    cal.map((s) => [claveSemana({ anio: s.anio, numero: s.numero }), s.factor]),
+  );
+  const factorDeSemana = (s: SemanaAnio) =>
+    factores.get(claveSemana(s)) ?? interpolarFactor(s.numero, puntos);
   return { params, cal, factorDeSemana };
 }
 
@@ -199,16 +202,25 @@ export default async function rutasPronostico(fastify: FastifyInstance) {
     '/semanal',
     {
       preHandler: app.requiere('pronostico:ver'),
-      schema: { tags: ['pronostico'], summary: 'Pronóstico semanal de cajas', querystring: esquemaSemanal },
+      schema: {
+        tags: ['pronostico'],
+        summary: 'Pronóstico semanal de cajas',
+        querystring: esquemaSemanal,
+      },
     },
-    async (req) => calcularPronostico(app.db, req.usuario!.fincaId, req.query.horizonte, req.query.lote_id),
+    async (req) =>
+      calcularPronostico(app.db, req.usuario!.fincaId, req.query.horizonte, req.query.lote_id),
   );
 
   app.post(
     '/guardar',
     {
       preHandler: app.requiere('pronostico:ver'),
-      schema: { tags: ['pronostico'], summary: 'Guarda una instantánea del pronóstico', body: esquemaSemanal },
+      schema: {
+        tags: ['pronostico'],
+        summary: 'Guarda una instantánea del pronóstico',
+        body: esquemaSemanal,
+      },
     },
     async (req) => {
       const u = req.usuario!;
@@ -235,12 +247,20 @@ export default async function rutasPronostico(fastify: FastifyInstance) {
 
   app.get(
     '/historial',
-    { preHandler: app.requiere('pronostico:ver'), schema: { tags: ['pronostico'], summary: 'Instantáneas guardadas' } },
+    {
+      preHandler: app.requiere('pronostico:ver'),
+      schema: { tags: ['pronostico'], summary: 'Instantáneas guardadas' },
+    },
     async (req) =>
       app.db
         .select()
         .from(pronosticos)
-        .where(and(eq(pronosticos.finca_id, req.usuario!.fincaId), gte(pronosticos.generado_en, Date.now() - 90 * 86_400_000)))
+        .where(
+          and(
+            eq(pronosticos.finca_id, req.usuario!.fincaId),
+            gte(pronosticos.generado_en, Date.now() - 90 * 86_400_000),
+          ),
+        )
         .orderBy(pronosticos.generado_en)
         .limit(500),
   );

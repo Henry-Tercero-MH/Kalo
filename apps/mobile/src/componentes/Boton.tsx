@@ -26,7 +26,12 @@ export function Boton({
   accessibilityHint?: string;
 }) {
   const inactivo = deshabilitado || cargando;
-  const colorTexto = variante === 'principal' ? semantico.textoSobreAcento : variante === 'peligro' ? semantico.peligro : semantico.titulo;
+  const colorTexto =
+    variante === 'principal'
+      ? semantico.textoSobreAcento
+      : variante === 'peligro'
+        ? semantico.peligro
+        : semantico.titulo;
   return (
     <Pressable
       accessibilityRole="button"
@@ -43,7 +48,11 @@ export function Boton({
       ]}
     >
       <View style={estilos.contenido}>
-        {cargando ? <ActivityIndicator color={colorTexto} /> : icono ? <Icono nombre={icono} color={colorTexto} /> : null}
+        {cargando ? (
+          <ActivityIndicator color={colorTexto} />
+        ) : icono ? (
+          <Icono nombre={icono} color={colorTexto} />
+        ) : null}
         <Text style={[estilos.texto, { color: colorTexto }]}>{titulo}</Text>
       </View>
     </Pressable>
@@ -59,10 +68,19 @@ const estilos = StyleSheet.create({
     marginVertical: espaciado.xs,
   },
   principal: { backgroundColor: semantico.acento },
-  secundario: { backgroundColor: semantico.fondo, borderWidth: 2, borderColor: semantico.bordeFuerte },
+  secundario: {
+    backgroundColor: semantico.fondo,
+    borderWidth: 2,
+    borderColor: semantico.bordeFuerte,
+  },
   inactivo: { opacity: 0.45 },
   presionado: { opacity: 0.8 },
-  contenido: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: espaciado.sm },
+  contenido: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: espaciado.sm,
+  },
   texto: {
     fontFamily: tipografia.familias.titulo,
     fontSize: tipografia.tamanos.cuerpo,
