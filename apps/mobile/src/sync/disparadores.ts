@@ -3,7 +3,7 @@
  * en segundo plano (expo-background-task) y con el botón «Sincronizar ahora».
  */
 import { leerParametro } from '@kalo/shared';
-import NetInfo from '@react-native-community/netinfo';
+import { escucharRed } from './red';
 import * as BackgroundTask from 'expo-background-task';
 import * as TaskManager from 'expo-task-manager';
 import { AppState } from 'react-native';
@@ -26,18 +26,10 @@ if (!esWeb) {
   });
 }
 
-function escucharRed(fn: (conectado: boolean, wifi: boolean) => void): () => void {
-  try {
-    return NetInfo.addEventListener((s) => fn(Boolean(s.isConnected), s.type === 'wifi'));
-  } catch (e) {
-    console.warn('No se pudo escuchar el estado de la red', e);
-    return () => {};
-  }
-}
 
 export async function iniciarDisparadores(): Promise<() => void> {
   let conectadoAntes = false;
-  const quitarRed = escucharRed((conectado, wifi) => {
+  const quitarRed = escucharRed(({ conectado, wifi }) => {
     useEstadoSync.getState().fijar({ conectado, wifi });
     if (conectado && !conectadoAntes) void sincronizar('red');
     conectadoAntes = conectado;

@@ -174,7 +174,7 @@ export function Logo() {
         accessibilityLabel="Inversiones Kalo"
       />
     );
-  return <Text style={estilos.logoTexto}>INVERSIONES KALO</Text>;
+  return <Text style={estilos.logoTexto}>{'INVERSIONES\nKALO'}</Text>;
 }
 
 const estilos = StyleSheet.create({
@@ -231,7 +231,8 @@ const estilos = StyleSheet.create({
   },
   logoTexto: {
     fontFamily: tipografia.familias.titulo,
-    fontSize: 18,
+    fontSize: 15,
+    lineHeight: 17,
     letterSpacing: 1,
     color: semantico.titulo,
   },

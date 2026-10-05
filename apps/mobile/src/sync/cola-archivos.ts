@@ -3,7 +3,7 @@
  * prefirmada cuando el registro ya llegó al servidor. Reintenta en cada sincronización.
  */
 import { Q } from '@nozbe/watermelondb';
-import NetInfo from '@react-native-community/netinfo';
+import { leerRed } from './red';
 import { FileSystemUploadType, uploadAsync } from 'expo-file-system/legacy';
 import { database } from '@/db/database';
 import { coleccion } from '@/db/repositorio';
@@ -37,19 +37,11 @@ export async function marcarArchivosSubidosDemo(): Promise<void> {
   );
 }
 
-async function leerRed() {
-  try {
-    return await NetInfo.fetch();
-  } catch {
-    return null;
-  }
-}
-
 export async function procesarColaArchivos(): Promise<void> {
   const prefs = await almacen.preferencias();
   const red = await leerRed();
-  if (!red?.isConnected) return;
-  if (prefs.archivosSoloWifi && red.type !== 'wifi') return;
+  if (!red.conectado) return;
+  if (prefs.archivosSoloWifi && !red.wifi) return;
 
   // Solo archivos cuyo registro ya está sincronizado (el servidor los conoce).
   const pendientes = (await consultaPendientes().fetch()).filter(

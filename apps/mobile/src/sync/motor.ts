@@ -13,7 +13,6 @@
 import { TABLAS_SUBIDA, type RespuestaPull, type RespuestaPush } from '@kalo/shared';
 import { Q } from '@nozbe/watermelondb';
 import { synchronize } from '@nozbe/watermelondb/sync';
-import NetInfo from '@react-native-community/netinfo';
 import { CONFIG } from '@/config';
 import { database } from '@/db/database';
 import { coleccion } from '@/db/repositorio';
@@ -27,6 +26,7 @@ import {
   procesarColaArchivos,
 } from './cola-archivos';
 import { useEstadoSync } from './estado';
+import { leerRed } from './red';
 
 let enCurso: Promise<void> | null = null;
 let reintento: ReturnType<typeof setTimeout> | null = null;
@@ -136,16 +136,6 @@ async function cicloDemo() {
   // Primero los archivos (quedan «subido»), luego todo pasa a sincronizado en un solo paso.
   await marcarArchivosSubidosDemo();
   await marcarTodoSincronizado(database);
-}
-
-/** Estado de la red; si NetInfo falla (p. ej. en algunos navegadores) se asume conectado. */
-async function leerRed(): Promise<{ conectado: boolean; wifi: boolean }> {
-  try {
-    const red = await NetInfo.fetch();
-    return { conectado: Boolean(red.isConnected), wifi: red.type === 'wifi' };
-  } catch {
-    return { conectado: true, wifi: false };
-  }
 }
 
 function programarReintento() {
