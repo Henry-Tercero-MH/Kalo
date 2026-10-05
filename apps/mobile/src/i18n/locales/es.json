@@ -222,12 +222,7 @@
     "cancelada": "CANCELADA"
   },
   "bienvenida": {
-    "titulo": "App de campo",
-    "subtitulo": "Registro de campo de la finca bananera, con o sin señal.",
-    "preparando": "Preparando datos…",
-    "entrar": "Entrar",
-    "continuar": "Continuar como {{nombre}}",
-    "sinSenal": "Funciona sin señal",
+    "cargando": "Cargando…",
     "demo": "Datos demo"
   }
 }
