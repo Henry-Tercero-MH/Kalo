@@ -3,7 +3,10 @@
  *
  * Regla: gana el cambio más reciente según `updated_at`, campo por campo.
  *  - WatermelonDB envía en `_changed` la lista de columnas que el celular modificó.
- *  - Si el servidor no cambió el registro desde la última descarga del celular, se aplican
+ *  - La versión base es el `server_updated_at` que el celular tenía cuando editó: la app
+ *    lo conserva al resolver conflictos en el pull (ver `resolverConflictoLocal`). Si no viene,
+ *    se usa la última descarga del celular.
+ *  - Si el servidor no cambió el registro desde esa versión base, se aplican
  *    los campos del celular sin conflicto.
  *  - Si sí cambió (otro celular o el panel), solo se comparan los campos que el celular tocó:
  *    para cada uno gana el lado con `updated_at` mayor. Los demás campos quedan como en el
@@ -78,7 +81,11 @@ export function fusionarRegistro(
   ).filter((c) => !IGNORADAS.has(c) && c in cliente);
 
   const servidorUpdated = Number(servidor.server_updated_at ?? 0);
-  const concurrente = ultimaDescarga === null || servidorUpdated > ultimaDescarga;
+  const base =
+    typeof cliente.server_updated_at === 'number' && cliente.server_updated_at > 0
+      ? cliente.server_updated_at
+      : ultimaDescarga;
+  const concurrente = base === null || servidorUpdated > base;
   const clienteMasReciente = Number(cliente.updated_at ?? 0) > Number(servidor.updated_at ?? 0);
 
   const fila: FilaCruda = { ...servidor };
@@ -106,4 +113,24 @@ export function fusionarRegistro(
   }
 
   return { fila, cambiados, conflicto: camposEnConflicto.length > 0, camposEnConflicto };
+}
+
+/**
+ * Resolución en el celular durante el pull (equivalente al `conflictResolver` de WatermelonDB).
+ * Toma la versión remota, conserva los campos que el usuario cambió localmente y conserva la
+ * versión base (`server_updated_at` local) para que el servidor detecte el conflicto y aplique
+ * "gana el más reciente" con registro en bitácora.
+ */
+export function resolverConflictoLocal<T extends Record<string, unknown>>(
+  local: T,
+  remoto: T,
+): T {
+  const resuelto: Record<string, unknown> = { ...local, ...remoto };
+  const cambiados = camposCambiados(local) ?? [];
+  for (const c of cambiados) resuelto[c] = local[c];
+  resuelto.id = local.id;
+  resuelto._status = local._status;
+  resuelto._changed = local._changed;
+  resuelto.server_updated_at = local.server_updated_at;
+  return resuelto as T;
 }

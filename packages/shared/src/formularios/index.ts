@@ -53,14 +53,14 @@ export const esquemaCampo = z
     }
   });
 
-export const esquemaDefinicionFormulario = z
-  .object({
-    codigo: z.string().min(1),
-    version: z.number().int().positive(),
-    titulo: z.string().min(1),
-    campos: z.array(esquemaCampo).min(1),
-  })
-  .superRefine((d, ctx) => {
+export const esquemaDefinicionBase = z.object({
+  codigo: z.string().min(1),
+  version: z.number().int().positive(),
+  titulo: z.string().min(1),
+  campos: z.array(esquemaCampo).min(1),
+});
+
+export const esquemaDefinicionFormulario = esquemaDefinicionBase.superRefine((d, ctx) => {
     const ids = new Set<string>();
     for (const c of d.campos) {
       if (ids.has(c.id)) ctx.addIssue({ code: 'custom', message: `Campo repetido: ${c.id}` });
