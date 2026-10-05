@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import type { ContextoEscritura } from '@/db/repositorio';
+import { fijarModoDemo } from '@/demo/modo';
 import { almacen, type ConfiguracionDispositivo } from '@/utils/almacen-seguro';
 import { useSesion } from './sesion';
 
 let configuracionEnMemoria: ConfiguracionDispositivo | null = null;
 
 export async function cargarConfiguracion() {
-  configuracionEnMemoria = await almacen.configuracion();
+  const [config, demo] = await Promise.all([almacen.configuracion(), almacen.modoDemo()]);
+  configuracionEnMemoria = config;
+  fijarModoDemo(Boolean(config) && demo);
   return configuracionEnMemoria;
 }
 

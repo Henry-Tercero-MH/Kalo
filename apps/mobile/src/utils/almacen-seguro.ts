@@ -1,7 +1,9 @@
 /**
  * Datos sensibles del dispositivo en el almacén seguro del sistema (Keystore en Android).
+ * En el navegador (web) no hay almacén seguro: se usa localStorage (solo modo demo).
  */
 import * as SecureStore from 'expo-secure-store';
+import { esWeb } from '@/demo/entorno';
 
 const CLAVES = {
   configuracion: 'kalo.configuracion',
@@ -9,6 +11,7 @@ const CLAVES = {
   intentos: 'kalo.intentos_pin',
   preferencias: 'kalo.preferencias',
   ultimaSesion: 'kalo.ultima_sesion',
+  modoDemo: 'kalo.modo_demo',
 } as const;
 
 export interface ConfiguracionDispositivo {
@@ -33,8 +36,36 @@ export interface Preferencias {
   ahorroBateria: boolean;
 }
 
+/** Acceso de bajo nivel: SecureStore en el celular, localStorage en el navegador. */
+const almacenamiento = {
+  async obtener(clave: string): Promise<string | null> {
+    if (!esWeb) return SecureStore.getItemAsync(clave);
+    try {
+      return globalThis.localStorage?.getItem(clave) ?? null;
+    } catch {
+      return null;
+    }
+  },
+  async guardar(clave: string, valor: string): Promise<void> {
+    if (!esWeb) return SecureStore.setItemAsync(clave, valor);
+    try {
+      globalThis.localStorage?.setItem(clave, valor);
+    } catch {
+      // Navegación privada o cuota llena: se pierde al recargar, la app sigue funcionando.
+    }
+  },
+  async borrar(clave: string): Promise<void> {
+    if (!esWeb) return SecureStore.deleteItemAsync(clave);
+    try {
+      globalThis.localStorage?.removeItem(clave);
+    } catch {
+      // Sin acceso a localStorage: no hay nada que borrar.
+    }
+  },
+};
+
 async function leer<T>(clave: string): Promise<T | null> {
-  const v = await SecureStore.getItemAsync(clave);
+  const v = await almacenamiento.obtener(clave);
   if (!v) return null;
   try {
     return JSON.parse(v) as T;
@@ -43,7 +74,7 @@ async function leer<T>(clave: string): Promise<T | null> {
   }
 }
 const escribir = (clave: string, valor: unknown) =>
-  SecureStore.setItemAsync(clave, JSON.stringify(valor));
+  almacenamiento.guardar(clave, JSON.stringify(valor));
 
 export const almacen = {
   configuracion: () => leer<ConfiguracionDispositivo>(CLAVES.configuracion),
@@ -63,8 +94,11 @@ export const almacen = {
       ahorroBateria: false,
     },
   guardarPreferencias: (p: Preferencias) => escribir(CLAVES.preferencias, p),
+  /** Dispositivo configurado con «Probar demo» (datos DEMO, sincronización simulada). */
+  modoDemo: async () => (await leer<boolean>(CLAVES.modoDemo)) === true,
+  guardarModoDemo: (v: boolean) => escribir(CLAVES.modoDemo, v),
   /** Borra todo (borrado remoto o reconfiguración). */
   async borrarTodo() {
-    await Promise.all(Object.values(CLAVES).map((c) => SecureStore.deleteItemAsync(c)));
+    await Promise.all(Object.values(CLAVES).map((c) => almacenamiento.borrar(c)));
   },
 };

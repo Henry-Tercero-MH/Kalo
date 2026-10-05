@@ -26,7 +26,8 @@
     "notaVoz": "Nota de voz",
     "grabar": "Grabar",
     "detener": "Detener",
-    "notas": "Notas (opcional)"
+    "notas": "Notas (opcional)",
+    "modoDemo": "Modo demo: datos ficticios, sin servidor."
   },
   "configurar": {
     "titulo": "Configurar dispositivo",
@@ -38,7 +39,14 @@
     "boton": "Configurar",
     "descargando": "Descargando datos de la finca…",
     "mapa": "Descargando mapa sin conexión… {{p}} %",
-    "error": "No se pudo configurar: {{e}}"
+    "error": "No se pudo configurar: {{e}}",
+    "demoTitulo": "¿Solo quiere conocer la app?",
+    "demoBoton": "PROBAR DEMO SIN SERVIDOR",
+    "demoAyuda": "Carga una finca de ejemplo con datos ficticios (DEMO): lotes, usuarios y tres semanas de registros. Funciona sin internet y sin servidor; la sincronización se simula.",
+    "demoCargando": "Cargando datos DEMO…",
+    "demoError": "No se pudo cargar el demo: {{e}}",
+    "demoPendientes": "Este dispositivo tiene {{n}} registros sin enviar al servidor. Sincronice antes de probar el demo.",
+    "servidorTitulo": "Conectar a un servidor"
   },
   "login": {
     "titulo": "Iniciar sesión",
@@ -98,7 +106,9 @@
     "respaldoAyuda": "Use esta opción solo si el teléfono no logra sincronizar. Entregue el archivo a la oficina.",
     "rechazados": "{{n}} registros rechazados por el servidor",
     "conflictos": "{{n}} registros con cambios de otro dispositivo (revisados por el supervisor)",
-    "porTabla": "Pendientes por módulo"
+    "porTabla": "Pendientes por módulo",
+    "demoAviso": "Modo demo: la sincronización se simula. No se envía nada a ningún servidor.",
+    "respaldoDescargado": "Respaldo descargado: {{nombre}}"
   },
   "perfil": {
     "titulo": "Perfil",
@@ -108,7 +118,11 @@
     "cambiarUsuario": "Cambiar de usuario",
     "ahorro": "Modo ahorro de batería (GPS cada 30 s)",
     "mapaOffline": "Descargar mapa sin conexión",
-    "reconfigurar": "Reconfigurar dispositivo"
+    "reconfigurar": "Reconfigurar dispositivo",
+    "salirDemo": "Salir del demo",
+    "salirDemoTitulo": "¿Salir del demo?",
+    "salirDemoTexto": "Se borrarán los datos DEMO de este dispositivo y volverá a la pantalla de configuración.",
+    "salirDemoConfirmar": "Salir y borrar"
   },
   "mapa": {
     "titulo": "Mapa de la finca",

@@ -1,5 +1,6 @@
 /**
  * Configuración inicial del dispositivo (requiere señal una sola vez).
+ * Arriba, «Probar demo sin servidor»: datos DEMO precargados y sincronización simulada.
  */
 import * as Device from 'expo-device';
 import { useRouter } from 'expo-router';
@@ -8,9 +9,11 @@ import { useTranslation } from 'react-i18next';
 import { Boton } from '@/componentes/Boton';
 import { CampoTexto } from '@/componentes/Controles';
 import { Pantalla } from '@/componentes/Pantalla';
-import { Texto, Titulo } from '@/componentes/Texto';
-import { Aviso } from '@/componentes/Visuales';
+import { Subtitulo, Texto, Titulo } from '@/componentes/Texto';
+import { Aviso, Tarjeta } from '@/componentes/Visuales';
+import { espaciado } from '@/componentes/tema';
 import { CONFIG } from '@/config';
+import { configurarDemo, ErrorPendientesSinEnviar } from '@/demo/activacion';
 import { cargarConfiguracion } from '@/permisos/contexto';
 import { configurarDispositivo } from '@/sync/configuracion';
 
@@ -24,6 +27,25 @@ export default function Configurar() {
   const [estado, setEstado] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [cargando, setCargando] = useState(false);
+  const [cargandoDemo, setCargandoDemo] = useState(false);
+  const [errorDemo, setErrorDemo] = useState<string | null>(null);
+
+  const probarDemo = async () => {
+    setCargandoDemo(true);
+    setErrorDemo(null);
+    try {
+      await configurarDemo();
+      router.replace('/(auth)/login');
+    } catch (e) {
+      setErrorDemo(
+        e instanceof ErrorPendientesSinEnviar
+          ? t('configurar.demoPendientes', { n: e.pendientes })
+          : t('configurar.demoError', { e: e instanceof Error ? e.message : String(e) }),
+      );
+    } finally {
+      setCargandoDemo(false);
+    }
+  };
 
   const configurar = async () => {
     setCargando(true);
@@ -46,6 +68,21 @@ export default function Configurar() {
   return (
     <Pantalla>
       <Titulo>{t('configurar.titulo')}</Titulo>
+      <Tarjeta destacada>
+        <Subtitulo>{t('configurar.demoTitulo')}</Subtitulo>
+        <Texto style={{ marginBottom: espaciado.md }}>{t('configurar.demoAyuda')}</Texto>
+        <Boton
+          titulo={t('configurar.demoBoton')}
+          icono="play"
+          onPress={probarDemo}
+          cargando={cargandoDemo}
+          deshabilitado={cargando}
+        />
+        {cargandoDemo ? <Aviso texto={t('configurar.demoCargando')} /> : null}
+        {errorDemo ? <Aviso tipo="peligro" texto={errorDemo} /> : null}
+      </Tarjeta>
+
+      <Subtitulo>{t('configurar.servidorTitulo')}</Subtitulo>
       <Texto style={{ marginBottom: 16 }}>{t('configurar.descripcion')}</Texto>
       <CampoTexto
         etiqueta={t('configurar.servidor')}
@@ -73,9 +110,10 @@ export default function Configurar() {
       <Boton
         titulo={t('configurar.boton')}
         icono="download"
+        variante="secundario"
         onPress={configurar}
         cargando={cargando}
-        deshabilitado={!usuario || pin.length !== 4}
+        deshabilitado={!usuario || pin.length !== 4 || cargandoDemo}
       />
     </Pantalla>
   );

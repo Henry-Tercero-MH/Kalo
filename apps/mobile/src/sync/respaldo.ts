@@ -11,6 +11,7 @@ import * as Crypto from 'expo-crypto';
 import { File, Paths } from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import { coleccion } from '@/db/repositorio';
+import { esWeb } from '@/demo/entorno';
 import { almacen } from '@/utils/almacen-seguro';
 
 function aBase64(bytes: Uint8Array): string {
@@ -19,6 +20,19 @@ function aBase64(bytes: Uint8Array): string {
     binario += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
   }
   return globalThis.btoa(binario);
+}
+
+/** En el navegador no hay sistema de archivos ni «Compartir»: se descarga el JSON. */
+function descargarEnNavegador(nombre: string, texto: string): string {
+  const url = URL.createObjectURL(new Blob([texto], { type: 'application/json' }));
+  const enlace = document.createElement('a');
+  enlace.href = url;
+  enlace.download = nombre;
+  document.body.appendChild(enlace);
+  enlace.click();
+  enlace.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 10_000);
+  return nombre;
 }
 
 export async function exportarRespaldo(): Promise<string> {
@@ -48,10 +62,9 @@ export async function exportarRespaldo(): Promise<string> {
     iv: bytesToHex(iv),
     datos: aBase64(cifrado),
   };
-  const archivo = new File(
-    Paths.cache,
-    `respaldo-${config.dispositivoId.slice(0, 8)}-${Date.now()}.kalo.json`,
-  );
+  const nombre = `respaldo-${config.dispositivoId.slice(0, 8)}-${Date.now()}.kalo.json`;
+  if (esWeb) return descargarEnNavegador(nombre, JSON.stringify(contenido));
+  const archivo = new File(Paths.cache, nombre);
   archivo.write(JSON.stringify(contenido));
   if (await Sharing.isAvailableAsync()) {
     await Sharing.shareAsync(archivo.uri, {

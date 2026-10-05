@@ -6,6 +6,9 @@
  *     (así cada registro conoce su versión base para detectar conflictos).
  *  3. Cola de archivos: fotos y notas de voz suben DESPUÉS de los datos.
  * Reintentos con espera exponencial. Ver docs/sincronizacion.md.
+ *
+ * Modo demo: no hay servidor. Con red, se muestra «sincronizando» un momento y los registros
+ * locales pendientes se marcan como sincronizados; sin red se comporta igual que siempre.
  */
 import { TABLAS_SUBIDA, type RespuestaPull, type RespuestaPush } from '@kalo/shared';
 import { Q } from '@nozbe/watermelondb';
@@ -14,9 +17,15 @@ import NetInfo from '@react-native-community/netinfo';
 import { CONFIG } from '@/config';
 import { database } from '@/db/database';
 import { coleccion } from '@/db/repositorio';
+import { marcarTodoSincronizado } from '@/demo/carga';
+import { esModoDemo } from '@/demo/modo';
 import { almacen } from '@/utils/almacen-seguro';
 import { apiDispositivo, ErrorApi } from './api';
-import { procesarColaArchivos, contarArchivosPendientes } from './cola-archivos';
+import {
+  contarArchivosPendientes,
+  marcarArchivosSubidosDemo,
+  procesarColaArchivos,
+} from './cola-archivos';
 import { useEstadoSync } from './estado';
 
 let enCurso: Promise<void> | null = null;
@@ -59,7 +68,7 @@ export async function refrescarContadores() {
 
 /** Borra todos los datos locales (borrado remoto ordenado desde el panel). */
 export async function borrarDatosLocales(confirmarAlServidor: boolean) {
-  if (confirmarAlServidor) {
+  if (confirmarAlServidor && !esModoDemo()) {
     try {
       await apiDispositivo('/v1/sync/borrado-confirmado', { method: 'POST', body: {} });
     } catch {
@@ -119,6 +128,26 @@ async function ciclo(): Promise<{ escribio: boolean; borrar: boolean }> {
   return { escribio, borrar };
 }
 
+const ESPERA_DEMO_MS = 1500;
+
+/** Sincronización simulada del modo demo (no hay servidor). */
+async function cicloDemo() {
+  await new Promise((r) => setTimeout(r, ESPERA_DEMO_MS));
+  // Primero los archivos (quedan «subido»), luego todo pasa a sincronizado en un solo paso.
+  await marcarArchivosSubidosDemo();
+  await marcarTodoSincronizado(database);
+}
+
+/** Estado de la red; si NetInfo falla (p. ej. en algunos navegadores) se asume conectado. */
+async function leerRed(): Promise<{ conectado: boolean; wifi: boolean }> {
+  try {
+    const red = await NetInfo.fetch();
+    return { conectado: Boolean(red.isConnected), wifi: red.type === 'wifi' };
+  } catch {
+    return { conectado: true, wifi: false };
+  }
+}
+
 function programarReintento() {
   if (reintento) clearTimeout(reintento);
   // 30 s, 60 s, 2 min, 4 min… hasta 15 min.
@@ -135,14 +164,20 @@ export function sincronizar(motivo: MotivoSync = 'manual'): Promise<void> {
     const estado = useEstadoSync.getState();
     const config = await almacen.configuracion();
     if (!config) return;
-    const red = await NetInfo.fetch();
-    estado.fijar({ conectado: Boolean(red.isConnected), wifi: red.type === 'wifi' });
-    if (!red.isConnected) {
+    const red = await leerRed();
+    estado.fijar(red);
+    if (!red.conectado) {
       await refrescarContadores();
       return;
     }
     estado.fijar({ fase: 'sincronizando', ultimoError: null });
     try {
+      if (esModoDemo()) {
+        await cicloDemo();
+        fallosSeguidos = 0;
+        estado.fijar({ fase: 'inactivo', ultimoEnvio: Date.now(), rechazados: 0, conflictos: 0 });
+        return;
+      }
       let r = await ciclo();
       if (r.borrar) return borrarDatosLocales(true);
       if (r.escribio) {

@@ -8,25 +8,37 @@ import * as BackgroundTask from 'expo-background-task';
 import * as TaskManager from 'expo-task-manager';
 import { AppState } from 'react-native';
 import { consultar } from '@/db/repositorio';
+import { esWeb } from '@/demo/entorno';
 import { useEstadoSync } from './estado';
 import { refrescarContadores, sincronizar } from './motor';
 
 export const TAREA_SYNC_FONDO = 'kalo-sync-fondo';
 
-TaskManager.defineTask(TAREA_SYNC_FONDO, async () => {
+// En el navegador no hay tareas en segundo plano.
+if (!esWeb) {
+  TaskManager.defineTask(TAREA_SYNC_FONDO, async () => {
+    try {
+      await sincronizar('fondo');
+      return BackgroundTask.BackgroundTaskResult.Success;
+    } catch {
+      return BackgroundTask.BackgroundTaskResult.Failed;
+    }
+  });
+}
+
+function escucharRed(fn: (conectado: boolean, wifi: boolean) => void): () => void {
   try {
-    await sincronizar('fondo');
-    return BackgroundTask.BackgroundTaskResult.Success;
-  } catch {
-    return BackgroundTask.BackgroundTaskResult.Failed;
+    return NetInfo.addEventListener((s) => fn(Boolean(s.isConnected), s.type === 'wifi'));
+  } catch (e) {
+    console.warn('No se pudo escuchar el estado de la red', e);
+    return () => {};
   }
-});
+}
 
 export async function iniciarDisparadores(): Promise<() => void> {
   let conectadoAntes = false;
-  const quitarRed = NetInfo.addEventListener((s) => {
-    const conectado = Boolean(s.isConnected);
-    useEstadoSync.getState().fijar({ conectado, wifi: s.type === 'wifi' });
+  const quitarRed = escucharRed((conectado, wifi) => {
+    useEstadoSync.getState().fijar({ conectado, wifi });
     if (conectado && !conectadoAntes) void sincronizar('red');
     conectadoAntes = conectado;
   });
@@ -38,10 +50,12 @@ export async function iniciarDisparadores(): Promise<() => void> {
   const minutos = Number(leerParametro(params, 'sync_intervalo_min')) || 15;
   const intervalo = setInterval(() => void sincronizar('intervalo'), minutos * 60_000);
 
-  try {
-    await BackgroundTask.registerTaskAsync(TAREA_SYNC_FONDO, { minimumInterval: minutos });
-  } catch (e) {
-    console.warn('No se pudo registrar la sincronización en segundo plano', e);
+  if (!esWeb) {
+    try {
+      await BackgroundTask.registerTaskAsync(TAREA_SYNC_FONDO, { minimumInterval: minutos });
+    } catch (e) {
+      console.warn('No se pudo registrar la sincronización en segundo plano', e);
+    }
   }
 
   await refrescarContadores();

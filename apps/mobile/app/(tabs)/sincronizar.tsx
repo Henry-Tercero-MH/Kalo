@@ -11,6 +11,9 @@ import { Pantalla } from '@/componentes/Pantalla';
 import { Etiqueta, Subtitulo, Texto, TextoSecundario, Titulo } from '@/componentes/Texto';
 import { Aviso, Dato, Estado, Tarjeta } from '@/componentes/Visuales';
 import { espaciado, semantico } from '@/componentes/tema';
+import { esWeb } from '@/demo/entorno';
+import { EtiquetaDemo } from '@/demo/EtiquetaDemo';
+import { esModoDemo } from '@/demo/modo';
 import { resumir, useEstadoSync } from '@/sync/estado';
 import { refrescarContadores, sincronizar } from '@/sync/motor';
 import { exportarRespaldo } from '@/sync/respaldo';
@@ -38,6 +41,8 @@ export default function Sincronizar() {
   return (
     <Pantalla>
       <Titulo>{t('sync.titulo')}</Titulo>
+      <EtiquetaDemo />
+      {esModoDemo() ? <Aviso texto={t('sync.demoAviso')} /> : null}
       <Tarjeta destacada>
         <Estado tipo={TIPO[resumen]} texto={t(`sync.${resumen}`)} />
         <View style={{ flexDirection: 'row', gap: espaciado.xl, marginTop: espaciado.md }}>
@@ -114,7 +119,8 @@ export default function Sincronizar() {
         variante="secundario"
         onPress={async () => {
           try {
-            await exportarRespaldo();
+            const nombre = await exportarRespaldo();
+            if (esWeb) Alert.alert(t('sync.respaldo'), t('sync.respaldoDescargado', { nombre }));
           } catch (e) {
             Alert.alert(t('sync.error'), String(e));
           }

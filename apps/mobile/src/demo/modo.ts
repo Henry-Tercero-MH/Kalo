@@ -14,7 +14,10 @@ export const DATOS_DEMO = datos as unknown as {
   generado: string;
   finca: { id: string; nombre: string; bbox: [number, number, number, number] };
   timestamp: number;
-  changes: Record<string, { created: Record<string, unknown>[]; updated: unknown[]; deleted: string[] }>;
+  changes: Record<
+    string,
+    { created: Record<string, unknown>[]; updated: unknown[]; deleted: string[] }
+  >;
 };
 
 export const DISPOSITIVO_DEMO_ID = '00000000-0000-4000-8000-00000000d3e0';

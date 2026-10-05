@@ -5,6 +5,7 @@
 import { Q } from '@nozbe/watermelondb';
 import NetInfo from '@react-native-community/netinfo';
 import { FileSystemUploadType, uploadAsync } from 'expo-file-system/legacy';
+import { database } from '@/db/database';
 import { coleccion } from '@/db/repositorio';
 import { almacen } from '@/utils/almacen-seguro';
 import { apiDispositivo } from './api';
@@ -19,10 +20,35 @@ const consultaPendientes = () =>
 
 export const contarArchivosPendientes = () => consultaPendientes().fetchCount();
 
+/** Modo demo: los archivos se dan por subidos (no hay servidor). */
+export async function marcarArchivosSubidosDemo(): Promise<void> {
+  const pendientes = await consultaPendientes().fetch();
+  if (pendientes.length === 0) return;
+  const ahora = Date.now();
+  await database.write(() =>
+    database.batch(
+      pendientes.map((archivo) =>
+        archivo.prepareUpdate((m) => {
+          m._setRaw('estado_subida', 'subido');
+          m._setRaw('updated_at', ahora);
+        }),
+      ),
+    ),
+  );
+}
+
+async function leerRed() {
+  try {
+    return await NetInfo.fetch();
+  } catch {
+    return null;
+  }
+}
+
 export async function procesarColaArchivos(): Promise<void> {
   const prefs = await almacen.preferencias();
-  const red = await NetInfo.fetch();
-  if (!red.isConnected) return;
+  const red = await leerRed();
+  if (!red?.isConnected) return;
   if (prefs.archivosSoloWifi && red.type !== 'wifi') return;
 
   // Solo archivos cuyo registro ya está sincronizado (el servidor los conoce).

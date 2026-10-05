@@ -52,13 +52,16 @@
     "expo-task-manager": "~57.0.21",
     "expo-updates": "~57.0.24",
     "i18next": "^26.4.2",
+    "lokijs": "npm:@nozbe/lokijs@1.5.12-wmelon6",
     "lucide-react-native": "^1.52.0",
     "react": "19.2.3",
+    "react-dom": "19.2.3",
     "react-i18next": "^17.0.15",
     "react-native": "0.86.3",
     "react-native-safe-area-context": "~5.7.0",
     "react-native-screens": "~4.26.0",
     "react-native-svg": "15.15.4",
+    "react-native-web": "~0.21.0",
     "zustand": "^5.0.15"
   },
   "devDependencies": {

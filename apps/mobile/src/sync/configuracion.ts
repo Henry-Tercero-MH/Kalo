@@ -7,6 +7,8 @@ import * as Crypto from 'expo-crypto';
 import * as Device from 'expo-device';
 import { Platform } from 'react-native';
 import { CONFIG } from '@/config';
+import { database } from '@/db/database';
+import { fijarModoDemo } from '@/demo/modo';
 import { descargarMapaFinca } from '@/gps/mapas-offline';
 import { almacen } from '@/utils/almacen-seguro';
 import { nuevoId } from '@/utils/ids';
@@ -34,7 +36,9 @@ export async function configurarDispositivo(
     usuario: datos.usuario.trim().toLowerCase(),
     pin: datos.pin,
   });
-  const existente = await almacen.configuracion();
+  // Si venía del modo demo, se descartan los datos DEMO y su identidad de dispositivo.
+  const veniaDeDemo = await almacen.modoDemo();
+  const existente = veniaDeDemo ? null : await almacen.configuracion();
   const dispositivoId = existente?.dispositivoId ?? nuevoId();
   const claveRespaldo = existente?.claveRespaldo ?? bytesToHex(Crypto.getRandomBytes(32));
   const registro = await apiPublica<RespuestaRegistro>(
@@ -51,6 +55,11 @@ export async function configurarDispositivo(
     login.accessToken,
   );
   if (!registro.finca) throw new Error('El usuario no tiene finca asignada');
+  if (veniaDeDemo) {
+    await database.write(() => database.unsafeResetDatabase());
+    await almacen.borrarTodo();
+  }
+  fijarModoDemo(false);
   await almacen.guardarTokens({
     accessToken: registro.accessToken,
     refreshToken: registro.refreshToken,
