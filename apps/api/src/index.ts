@@ -1,6 +1,7 @@
 /**
  * Punto de entrada de la API.
  */
+import './lib/zona-horaria';
 import * as Sentry from '@sentry/node';
 import { cargarConfig } from './config';
 import { crearBaseDatos } from './db/cliente';

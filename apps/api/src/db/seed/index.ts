@@ -3,6 +3,7 @@
  *   pnpm seed         → siembra si la base está vacía
  *   pnpm seed:reset   → borra todo y vuelve a sembrar
  */
+import '../../lib/zona-horaria';
 import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import {
@@ -460,8 +461,15 @@ export async function sembrar(db: BaseDatos) {
     }
 
     // Recorrido GPS del técnico por dos lotes (zigzag dentro del lote).
-    for (const lote of [lotes[(SEMANAS_REGISTROS - w) % 6]!, lotes[(SEMANAS_REGISTROS - w + 3) % 6]!]) {
-      const inicio = momento(s, 2, 7);
+    agregarRecorridos(s, [lotes[(SEMANAS_REGISTROS - w) % 6]!, lotes[(SEMANAS_REGISTROS - w + 3) % 6]!], 2);
+  }
+
+  // Recorridos de la semana actual (lunes) para que el mapa muestre cobertura vigente.
+  agregarRecorridos(semanaActual, [lotes[0]!, lotes[3]!], 0);
+
+  function agregarRecorridos(s: SemanaAnio, lotesRuta: typeof lotes, dia: number) {
+    for (const lote of lotesRuta) {
+      const inicio = Math.min(momento(s, dia, 7), Date.now() - 3_600_000);
       const rutaId = randomUUID();
       const [minX, minY, maxX, maxY] = recuadro([lote.poligono]);
       const pasadas = 6;

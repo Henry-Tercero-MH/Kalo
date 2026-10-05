@@ -1,0 +1,33 @@
+@import 'tailwindcss';
+@import '@kalo/ui-tokens/theme.css';
+@import 'maplibre-gl/dist/maplibre-gl.css';
+
+/* Guía de marca Kalo: fondo blanco, títulos #141311, texto #3a3733, secundario #6f6a62.
+   Esquinas rectas, sin sombras ni degradados. */
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: var(--color-neutros-n700);
+    background: var(--color-neutros-n0);
+  }
+  body {
+    font-size: 15px;
+    background: var(--color-neutros-n0);
+  }
+  h1,
+  h2,
+  h3 {
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--color-neutros-n900);
+    letter-spacing: 0.02em;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-marca-negro);
+    outline-offset: 2px;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}

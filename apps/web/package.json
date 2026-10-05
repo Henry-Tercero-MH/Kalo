@@ -1,0 +1,42 @@
+{
+  "name": "@kalo/web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Panel web de oficina de Kalo Campo (Next.js)",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "predev": "node scripts/copiar-maplibre.mjs",
+    "prebuild": "node scripts/copiar-maplibre.mjs"
+  },
+  "dependencies": {
+    "@fontsource/anton": "^5.2.6",
+    "@fontsource/archivo": "^5.2.6",
+    "@kalo/shared": "workspace:*",
+    "@kalo/ui-tokens": "workspace:*",
+    "@tanstack/react-query": "^5.104.1",
+    "@tanstack/react-table": "^8.21.3",
+    "lucide-react": "^1.52.0",
+    "maplibre-gl": "^6.12.0",
+    "next": "^16.3.8",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "recharts": "^3.10.1",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@kalo/config": "workspace:*",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/geojson": "^7946.0.16",
+    "@types/react": "~19.2.0",
+    "@types/react-dom": "~19.2.0",
+    "eslint": "^9.37.0",
+    "eslint-plugin-react-hooks": "^7.0.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~5.9.3"
+  }
+}

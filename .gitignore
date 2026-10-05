@@ -27,3 +27,4 @@ __pycache__/
 
 # Generados
 apps/api/salidas/
+apps/web/public/maplibre/

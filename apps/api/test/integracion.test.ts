@@ -5,6 +5,7 @@
  *
  * Recorre los criterios de aceptación del demo que dependen del servidor.
  */
+import '../src/lib/zona-horaria';
 import { randomBytes, randomUUID } from 'node:crypto';
 import { semanaIso, fechaIso, type RespuestaPull } from '@kalo/shared';
 import type { FastifyInstance } from 'fastify';

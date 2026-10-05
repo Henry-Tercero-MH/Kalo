@@ -172,7 +172,7 @@ export const MODULOS = [
     ],
     tablas: ['ordenes_trabajo'],
     rutaMovil: '/modulos/ordenes',
-    rutaWeb: '/registros/ordenes_trabajo',
+    rutaWeb: '/ordenes',
     estado: 'activo',
     orden: 80,
   },

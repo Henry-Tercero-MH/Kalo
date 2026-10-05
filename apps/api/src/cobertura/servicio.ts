@@ -10,7 +10,8 @@ import type { BaseDatos } from '../db/cliente';
 import { parametros } from '../db/esquema';
 import { escrituraSincronizada } from '../sync/repositorio-drizzle';
 
-export const ZONA_HORARIA = 'America/Guatemala';
+export { ZONA_HORARIA } from '../lib/zona-horaria';
+import { ZONA_HORARIA } from '../lib/zona-horaria';
 
 type LoteSemana = {
   lote_id: string;
