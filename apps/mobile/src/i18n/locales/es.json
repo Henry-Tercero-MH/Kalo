@@ -59,7 +59,17 @@
     "sinUsuarios": "No hay usuarios en este dispositivo. Sincronice primero.",
     "elegirUsuario": "Elija su usuario",
     "gafeteNoReconocido": "Gafete no reconocido",
-    "gafeteAyuda": "Apunte la cámara al código QR de su gafete."
+    "gafeteAyuda": "Apunte la cámara al código QR de su gafete.",
+    "toqueSuNombre": "Toque su nombre para entrar.",
+    "o": "o",
+    "cambiar": "Cambiar",
+    "cambiarUsuario": "Cambiar de usuario",
+    "escribaPin": "Escriba su PIN",
+    "digitos": "{{n}} de 4 dígitos",
+    "verificando": "Verificando…",
+    "pinDemo": "PIN de demostración: {{pin}}",
+    "borrar": "Borrar",
+    "pinIncorrecto": "PIN incorrecto. Intente de nuevo."
   },
   "consentimiento": {
     "titulo": "Aviso de rastreo GPS",

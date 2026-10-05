@@ -34,3 +34,16 @@ export function esModoDemo(): boolean {
   // Sin API (modo mock) la app siempre trabaja con los datos DEMO.
   return activo || !USA_API;
 }
+
+/**
+ * PIN de cada usuario DEMO (los mismos del seed y del README). Solo se muestran en modo demo
+ * para que quien prueba la app pueda entrar sin buscarlos.
+ */
+export const PINES_DEMO: Readonly<Record<string, string>> = {
+  admin: '1111',
+  gerente: '2222',
+  supervisor: '3333',
+  tecnico: '4444',
+  caporal: '5555',
+  trabajador: '6666',
+};
