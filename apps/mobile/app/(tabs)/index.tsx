@@ -2,7 +2,7 @@
  * Inicio del día: finca, lote actual detectado por GPS, semana y cinta, tareas asignadas,
  * estado de sincronización y botón visible de Alerta de Fusarium.
  */
-import { formatearFecha, tienePermiso } from '@kalo/shared';
+import { formatearFecha, ROLES, tienePermiso } from '@kalo/shared';
 import { Q } from '@nozbe/watermelondb';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
@@ -14,11 +14,17 @@ import { Dato, Estado, FilaMenu, MuestraColor, Tarjeta } from '@/componentes/Vis
 import { espaciado } from '@/componentes/tema';
 import { useConsulta } from '@/db/hooks';
 import { useLoteActual } from '@/gps/lote-actual';
+import { InicioCaporal } from '@/modulos/caporal/InicioCaporal';
 import { useConfiguracion } from '@/permisos/contexto';
 import { useSesion } from '@/permisos/sesion';
 import { useSemanaActual } from '@/utils/semana';
 
 export default function Inicio() {
+  const rol = useSesion((s) => s.usuario?.rolCodigo);
+  return rol === ROLES.caporal ? <InicioCaporal /> : <InicioGeneral />;
+}
+
+function InicioGeneral() {
   const { t } = useTranslation();
   const router = useRouter();
   const { usuario, permisos } = useSesion();

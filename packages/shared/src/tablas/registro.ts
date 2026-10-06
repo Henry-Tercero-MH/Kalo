@@ -9,6 +9,7 @@
  */
 import {
   ESTADOS_FUSARIUM,
+  ESTADOS_ASIGNACION,
   ESTADOS_ORDEN,
   ESTADOS_RUTA,
   ESTADOS_SUBIDA,
@@ -359,6 +360,27 @@ export const REGISTRO_TABLAS = {
       cuadrilla_id: ref({ opcional: true }),
       fecha: texto({ indexado: true }),
       cantidad: numero({ min: 0 }),
+      notas: texto({ opcional: true }),
+    },
+  },
+  asignaciones_labor: {
+    meta: {
+      direccion: 'ambas',
+      porFinca: true,
+      etiqueta: 'Asignaciones de labor',
+      permisos: { crear: 'labores:crear', editar: 'labores:crear' },
+    },
+    columnas: {
+      tipo_labor_id: ref(),
+      lote_id: ref(),
+      trabajador_id: ref(),
+      cuadrilla_id: ref({ opcional: true }),
+      fecha: texto({ indexado: true }),
+      /** Cantidad esperada en la unidad del tipo de labor (opcional). */
+      meta: numero({ opcional: true, min: 0 }),
+      estado: texto({ valores: ESTADOS_ASIGNACION }),
+      /** Registro de `labores` creado al reportar. */
+      labor_id: ref({ opcional: true }),
       notas: texto({ opcional: true }),
     },
   },

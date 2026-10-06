@@ -13,6 +13,10 @@ export type EstadoFusarium = (typeof ESTADOS_FUSARIUM)[number];
 export const ESTADOS_ORDEN = ['pendiente', 'en_progreso', 'completada', 'cancelada'] as const;
 export type EstadoOrden = (typeof ESTADOS_ORDEN)[number];
 
+/** Labor que el caporal asigna a un trabajador; pasa a «reportada» al registrar lo hecho. */
+export const ESTADOS_ASIGNACION = ['asignada', 'reportada', 'cancelada'] as const;
+export type EstadoAsignacion = (typeof ESTADOS_ASIGNACION)[number];
+
 export const ESTADOS_RUTA = ['activa', 'finalizada'] as const;
 
 export const ESTADOS_SUBIDA = ['pendiente', 'subiendo', 'subido', 'error'] as const;

@@ -8,6 +8,7 @@ import {
   leerParametro,
   modulosPara,
   permisosDeRol,
+  ROLES,
   verificarPinOffline,
   type Fila,
   type ManifiestoModulo,
@@ -15,6 +16,7 @@ import {
 import { Q } from '@nozbe/watermelondb';
 import { create } from 'zustand';
 import { consultar } from '@/db/repositorio';
+import { fijarEnvioManual } from '@/sync/envio-manual';
 import { almacen } from '@/utils/almacen-seguro';
 
 export interface UsuarioActivo {
@@ -59,6 +61,8 @@ export const useSesion = create<EstadoSesion>((set, get) => ({
   async iniciar(u) {
     const [rol] = await consultar('roles', Q.where('id', u.rol_id));
     const { permisos, inactivos } = await calcularPermisos(u.rol_id);
+    // El caporal envía lo tomado sin señal con «Enviar datos» (ver sync/envio-manual.ts).
+    fijarEnvioManual(rol?.codigo === ROLES.caporal);
     set({
       usuario: {
         id: u.id,
@@ -81,7 +85,10 @@ export const useSesion = create<EstadoSesion>((set, get) => ({
     const { permisos, inactivos } = await calcularPermisos(u.rolId);
     set({ permisos, flagsInactivos: inactivos });
   },
-  cerrar: () => set({ usuario: null, permisos: new Set(), flagsInactivos: new Set() }),
+  cerrar: () => {
+    fijarEnvioManual(false);
+    set({ usuario: null, permisos: new Set(), flagsInactivos: new Set() });
+  },
   tocar: () => set({ ultimaActividad: Date.now() }),
 }));
 

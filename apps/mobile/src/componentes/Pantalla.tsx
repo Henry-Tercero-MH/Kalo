@@ -47,7 +47,7 @@ export function Pantalla({
             <Icono nombre="chevron-left" tamano={28} color={semantico.titulo} />
           </Pressable>
         ) : null}
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, minWidth: 0, marginRight: espaciado.sm }}>
           <Logo />
         </View>
         <IndicadorSync />

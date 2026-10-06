@@ -540,6 +540,27 @@ export const labores = pgTable(
   idxSync('labores'),
 );
 
+export const asignaciones_labor = pgTable(
+  'asignaciones_labor',
+  {
+    ...comunes(),
+    tipo_labor_id: uuid('tipo_labor_id')
+      .notNull()
+      .references(() => tipos_labor.id),
+    lote_id: uuid('lote_id')
+      .notNull()
+      .references(() => lotes.id),
+    trabajador_id: uuid('trabajador_id').notNull(),
+    cuadrilla_id: uuid('cuadrilla_id'),
+    fecha: date('fecha', { mode: 'string' }).notNull(),
+    meta: doublePrecision('meta'),
+    estado: text('estado').notNull().default('asignada'),
+    labor_id: uuid('labor_id'),
+    notas: text('notas'),
+  },
+  idxSync('asignaciones_labor'),
+);
+
 // ─── GPS ──────────────────────────────────────────────────────────────────
 export const rutas = pgTable(
   'rutas',

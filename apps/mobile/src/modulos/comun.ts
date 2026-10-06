@@ -7,10 +7,15 @@ import { useEffect } from 'react';
 import { avisar } from '@/componentes/alerta';
 import i18n from '@/i18n';
 import { useSesion } from '@/permisos/sesion';
+import { esEnvioManual } from '@/sync/envio-manual';
 import { sincronizar } from '@/sync/motor';
 
 /** Tras guardar: aviso claro (funciona sin señal) y sincronización en segundo plano. */
-export function despuesDeGuardar(volver: () => void, mensaje = i18n.t('comun.guardadoLocal')) {
+export function despuesDeGuardar(
+  volver: () => void,
+  // Con envío manual (caporal) no se envía solo: se avisa que use «Enviar datos».
+  mensaje = i18n.t(esEnvioManual() ? 'caporal.guardadoSinEnviar' : 'comun.guardadoLocal'),
+) {
   void sincronizar('registro');
   avisar(i18n.t('comun.listo'), mensaje, volver);
 }

@@ -16,6 +16,8 @@ interface EstadoSync {
   ultimoError: string | null;
   rechazados: number;
   conflictos: number;
+  /** Registros repetidos que no se enviaron en el último envío. */
+  duplicadosDescartados: number;
   progresoArchivos: { actual: number; total: number } | null;
   fijar: (parcial: Partial<Omit<EstadoSync, 'fijar'>>) => void;
 }
@@ -31,6 +33,7 @@ export const useEstadoSync = create<EstadoSync>((set) => ({
   ultimoError: null,
   rechazados: 0,
   conflictos: 0,
+  duplicadosDescartados: 0,
   progresoArchivos: null,
   fijar: (parcial) => set(parcial),
 }));

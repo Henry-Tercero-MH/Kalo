@@ -38,6 +38,7 @@ export const TABLAS_DRIZZLE: Record<NombreTabla, PgTable> = {
   tipos_labor: e.tipos_labor,
   asistencia: e.asistencia,
   labores: e.labores,
+  asignaciones_labor: e.asignaciones_labor,
   rutas: e.rutas,
   puntos_ruta: e.puntos_ruta,
   cobertura_lote: e.cobertura_lote,

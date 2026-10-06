@@ -25,6 +25,8 @@ import {
   marcarArchivosSubidosDemo,
   procesarColaArchivos,
 } from './cola-archivos';
+import { buscarDuplicados, descartarDuplicados } from './duplicados';
+import { esEnvioManual } from './envio-manual';
 import { useEstadoSync } from './estado';
 import { leerRed } from './red';
 
@@ -156,12 +158,14 @@ export function sincronizar(motivo: MotivoSync = 'manual'): Promise<void> {
     if (!config) return;
     const red = await leerRed();
     estado.fijar(red);
-    if (!red.conectado) {
+    if (!red.conectado || (esEnvioManual() && motivo !== 'manual')) {
       await refrescarContadores();
       return;
     }
     estado.fijar({ fase: 'sincronizando', ultimoError: null });
     try {
+      // Un registro repetido no se envía (ver duplicados.ts).
+      estado.fijar({ duplicadosDescartados: await descartarDuplicados(await buscarDuplicados()) });
       if (esModoDemo()) {
         await cicloDemo();
         fallosSeguidos = 0;

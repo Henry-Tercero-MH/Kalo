@@ -95,6 +95,26 @@ sincronización. Opción «Subir archivos solo con WiFi» en la pantalla Sincron
 
 Varias llamadas simultáneas comparten la misma ejecución (single-flight).
 
+**Envío manual (caporal).** Con la sesión de un caporal, los disparadores automáticos no envían
+nada (`sync/envio-manual.ts`): lo tomado sin señal sale solo con «Enviar datos», donde el caporal
+ve qué se enviará y qué repetidos se quitarán.
+
+## Registros repetidos
+
+Antes de cada envío (cualquier perfil) se buscan registros nuevos que repiten a otro del mismo
+día y no se envían (`sync/duplicados.ts`). Un registro repite a otro si coinciden:
+
+| Tabla | Columnas |
+|---|---|
+| `asistencia` | trabajador, fecha |
+| `asignaciones_labor` | trabajador, tipo de labor, lote, fecha |
+| `labores` | trabajador, cuadrilla, tipo de labor, lote, fecha, cantidad |
+
+Se conserva el ya enviado o, si ninguno se envió, el primero que se guardó. Solo se quitan
+registros que nunca llegaron al servidor (`_status = 'created'`); los editados siempre se envían.
+Además, volver a tomar la asistencia del día actualiza los registros existentes en lugar de
+crear otros.
+
 ## Visibilidad
 
 Indicador permanente en el encabezado: **SINCRONIZADO / PENDIENTE / SINCRONIZANDO / ERROR /

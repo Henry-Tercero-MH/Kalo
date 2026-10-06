@@ -1,6 +1,7 @@
 /**
  * Asistencia por cuadrilla: el caporal marca PRESENTE / AUSENTE con botones grandes.
  */
+import { fechaIso } from '@kalo/shared';
 import { Q } from '@nozbe/watermelondb';
 import { useRouter } from 'expo-router';
 import { useEffect, useMemo, useState } from 'react';
@@ -10,6 +11,7 @@ import { Boton } from '@/componentes/Boton';
 import { Opciones } from '@/componentes/Controles';
 import { Pantalla } from '@/componentes/Pantalla';
 import { Etiqueta, Texto, Titulo } from '@/componentes/Texto';
+import { Aviso } from '@/componentes/Visuales';
 import { campo, espaciado, semantico, tipografia } from '@/componentes/tema';
 import { useConsulta } from '@/db/hooks';
 import { obtenerUbicacion } from '@/gps/ubicacion';
@@ -27,7 +29,12 @@ export default function Asistencia() {
   const todas = useConsulta('cuadrillas');
   // El caporal ve primero sus cuadrillas.
   const cuadrillas = useMemo(
-    () => [...todas].sort((a) => (a.caporal_id === usuario?.id ? -1 : 1)),
+    () =>
+      [...todas].sort(
+        (a, b) =>
+          Number(b.caporal_id === usuario?.id) - Number(a.caporal_id === usuario?.id) ||
+          a.nombre.localeCompare(b.nombre),
+      ),
     [todas, usuario?.id],
   );
   const [cuadrillaId, setCuadrillaId] = useState<string | null>(null);
@@ -44,14 +51,20 @@ export default function Asistencia() {
   useEffect(() => {
     if (!cuadrillaId && cuadrillas[0]) setCuadrillaId(cuadrillas[0].id);
   }, [cuadrillas, cuadrillaId]);
+  // Si ya se tomó hoy, se muestra lo guardado (volver a guardar corrige, no duplica).
+  const hoy = fechaIso();
+  const tomadaHoy = useConsulta('asistencia', [Q.where('fecha', hoy)], [hoy]);
+  const previa = new Map(tomadaHoy.map((a) => [a.trabajador_id, a.presente]));
+  const yaTomada = lista.some((tr) => previa.has(tr.id));
   useEffect(() => {
-    setPresentes(Object.fromEntries(lista.map((tr) => [tr.id, true])));
+    setPresentes(Object.fromEntries(lista.map((tr) => [tr.id, previa.get(tr.id) ?? true])));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cuadrillaId, lista.length]);
+  }, [cuadrillaId, lista.length, tomadaHoy.length]);
 
   return (
     <Pantalla volver>
       <Titulo>{t('labores.asistencia')}</Titulo>
+      {yaTomada ? <Aviso texto={t('labores.asistenciaYaTomada')} /> : null}
       <Etiqueta>{t('labores.cuadrilla')}</Etiqueta>
       <View style={{ marginVertical: espaciado.sm }}>
         <Opciones
