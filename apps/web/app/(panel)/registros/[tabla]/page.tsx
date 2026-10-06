@@ -9,6 +9,7 @@ import {
   formatearFecha,
   formatearFechaHora,
   formatearNumero,
+  MOTIVOS_AUSENCIA,
   REGISTRO_TABLAS,
   SINTOMAS_FUSARIUM,
   type NombreTabla,
@@ -42,6 +43,9 @@ const ETIQUETAS: Record<string, string> = {
   color_cinta_id: 'Cinta',
   tipo_labor_id: 'Labor',
   trabajador_id: 'Trabajador',
+  centro_costo: 'Centro de costo',
+  motivo_ausencia: 'Motivo de ausencia',
+  nota_ausencia: 'Nota de ausencia',
   cuadrilla_id: 'Cuadrilla',
   usuario_id: 'Usuario',
   asignado_a: 'Asignado a',
@@ -123,6 +127,8 @@ export default function TablaRegistros() {
             const color = nombres.colores.get(String(v));
             return <MuestraColor hex={color?.hex} nombre={color?.nombre} />;
           }
+          if (c === 'motivo_ausencia')
+            return MOTIVOS_AUSENCIA[String(v) as keyof typeof MOTIVOS_AUSENCIA] ?? String(v);
           if (c === 'estado_validacion') return <Estado {...estadoValidacion(String(v))} />;
           if (c === 'sintomas') {
             const lista = (Array.isArray(v) ? v : []) as string[];

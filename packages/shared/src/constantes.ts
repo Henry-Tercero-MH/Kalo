@@ -13,6 +13,23 @@ export type EstadoFusarium = (typeof ESTADOS_FUSARIUM)[number];
 export const ESTADOS_ORDEN = ['pendiente', 'en_progreso', 'completada', 'cancelada'] as const;
 export type EstadoOrden = (typeof ESTADOS_ORDEN)[number];
 
+/**
+ * Motivos para justificar que un trabajador no llegó (asistencia). La lista definitiva la
+ * confirma la finca; «otro» pide una nota.
+ */
+export const MOTIVOS_AUSENCIA = {
+  suspendido_igss: 'Suspendido por IGSS',
+  permiso: 'Permiso',
+  vacaciones: 'Vacaciones',
+  enfermedad: 'Enfermedad (sin IGSS)',
+  dia_libre: 'Día libre',
+  suspension: 'Suspensión disciplinaria',
+  falta: 'Falta sin justificar',
+  otro: 'Otro',
+} as const;
+export type MotivoAusencia = keyof typeof MOTIVOS_AUSENCIA;
+export const CODIGOS_MOTIVO_AUSENCIA = Object.keys(MOTIVOS_AUSENCIA) as MotivoAusencia[];
+
 /** Labor que el caporal asigna a un trabajador; pasa a «reportada» al registrar lo hecho. */
 export const ESTADOS_ASIGNACION = ['asignada', 'reportada', 'cancelada'] as const;
 export type EstadoAsignacion = (typeof ESTADOS_ASIGNACION)[number];

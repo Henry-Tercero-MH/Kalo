@@ -291,5 +291,15 @@
     "nunca": "Nunca",
     "envioManual": "Como caporal, sus datos se envían solo cuando toca «Enviar datos».",
     "nadaQueEnviar": "Nada por enviar"
+  },
+  "asistencia": {
+    "presentes": "Presentes",
+    "ausentes": "Ausentes",
+    "porJustificar": "Sin motivo",
+    "todosPresentes": "Marcar todos presentes",
+    "sinCentroCosto": "Sin centro de costo",
+    "porQue": "¿Por qué no llegó?",
+    "notaOtro": "Escriba el motivo",
+    "faltaJustificar": "Ausencias sin justificar: {{n}}. Elija el motivo de cada una para guardar."
   }
 }

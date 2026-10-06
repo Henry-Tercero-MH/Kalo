@@ -30,9 +30,11 @@ import * as e from '../esquema';
 import { migrar } from '../migrar';
 import {
   CENTRO_FINCA,
+  CENTROS_COSTO_DEMO,
   COLORES_CINTA_EJEMPLO,
   FORMULARIO_MUESTREO,
   LABORES_DEMO,
+  MOTIVOS_DEMO,
   PERMISOS_POR_ROL,
   PLAGAS_DEMO,
   ROLES_DEMO,
@@ -177,6 +179,8 @@ export async function sembrar(db: BaseDatos) {
     nombre: `Trabajador DEMO ${String(i + 1).padStart(2, '0')}`,
     // DPI de prueba (no reales): prefijo 0000.
     dpi: `0000 ${String(10001 + i).padStart(5, '0')} 0101`,
+    // Centros de costo de prueba: la lista real la define la finca.
+    centro_costo: CENTROS_COSTO_DEMO[i < 7 ? 0 : i < 14 ? 1 : 2]!,
     cuadrilla_id: null as string | null,
     activo: true,
   }));
@@ -478,6 +482,9 @@ export async function sembrar(db: BaseDatos) {
           fecha: fechaDe(ms),
           presente,
           hora_entrada: presente ? ms : null,
+          centro_costo: t.centro_costo,
+          motivo_ausencia: presente ? null : MOTIVOS_DEMO[entero(0, MOTIVOS_DEMO.length - 1)]!,
+          nota_ausencia: null,
         });
         if (!presente || dia % 2 === 1) continue;
         const tipo = tiposLabor[entero(1, 4)]!;

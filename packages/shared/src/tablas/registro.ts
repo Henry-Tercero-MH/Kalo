@@ -9,6 +9,7 @@
  */
 import {
   ESTADOS_FUSARIUM,
+  CODIGOS_MOTIVO_AUSENCIA,
   ESTADOS_ASIGNACION,
   ESTADOS_ORDEN,
   ESTADOS_RUTA,
@@ -313,6 +314,8 @@ export const REGISTRO_TABLAS = {
       nombre: texto(),
       /** DPI único. En el demo son DPI de prueba. */
       dpi: texto(),
+      /** Centro de costo al que se carga su jornada (lista pendiente de la finca). */
+      centro_costo: texto({ opcional: true }),
       cuadrilla_id: ref({ opcional: true }),
       activo: booleano(),
     },
@@ -342,6 +345,11 @@ export const REGISTRO_TABLAS = {
       fecha: texto({ indexado: true }),
       presente: booleano(),
       hora_entrada: numero({ opcional: true }),
+      /** Centro de costo del trabajador ese día (copia, por si después cambia). */
+      centro_costo: texto({ opcional: true }),
+      /** Obligatorio si no llegó. */
+      motivo_ausencia: texto({ opcional: true, valores: CODIGOS_MOTIVO_AUSENCIA }),
+      nota_ausencia: texto({ opcional: true }),
     },
   },
   labores: {

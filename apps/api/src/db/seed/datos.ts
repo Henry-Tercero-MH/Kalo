@@ -246,3 +246,13 @@ export const FORMULARIO_MUESTREO = {
     },
   ],
 };
+
+/** Centros de costo de prueba (la lista real la define la finca). */
+export const CENTROS_COSTO_DEMO = [
+  'CC-110 Producción A (DEMO)',
+  'CC-120 Producción B (DEMO)',
+  'CC-200 Mantenimiento (DEMO)',
+];
+
+/** Motivos con que se justifican las ausencias del demo. */
+export const MOTIVOS_DEMO = ['suspendido_igss', 'permiso', 'enfermedad', 'falta'] as const;

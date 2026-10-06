@@ -3072,7 +3072,8 @@
       "nombre": "Teresa Trabajadora (DEMO)",
       "dpi": "0000 10001 0101",
       "cuadrilla_id": "d57cbdb7-feed-4531-9924-d87aea4c0744",
-      "activo": true
+      "activo": true,
+      "centro_costo": "CC-110 Producción A (DEMO)"
     },
     {
       "id": "9fa6a12c-c030-4e58-8524-f61f4c8070e0",
@@ -3087,7 +3088,8 @@
       "nombre": "Trabajador DEMO 02",
       "dpi": "0000 10002 0101",
       "cuadrilla_id": "d57cbdb7-feed-4531-9924-d87aea4c0744",
-      "activo": true
+      "activo": true,
+      "centro_costo": "CC-110 Producción A (DEMO)"
     },
     {
       "id": "9d6563f6-6e56-4df5-93fa-675a6d3e9450",
@@ -3102,7 +3104,8 @@
       "nombre": "Trabajador DEMO 03",
       "dpi": "0000 10003 0101",
       "cuadrilla_id": "d57cbdb7-feed-4531-9924-d87aea4c0744",
-      "activo": true
+      "activo": true,
+      "centro_costo": "CC-110 Producción A (DEMO)"
     },
     {
       "id": "523f1da4-735d-4c92-bd96-7a51bf247ba9",
@@ -3117,7 +3120,8 @@
       "nombre": "Trabajador DEMO 04",
       "dpi": "0000 10004 0101",
       "cuadrilla_id": "d57cbdb7-feed-4531-9924-d87aea4c0744",
-      "activo": true
+      "activo": true,
+      "centro_costo": "CC-110 Producción A (DEMO)"
     },
     {
       "id": "fd0b49e2-dfe3-4a94-b74b-2cf6c2d8c9d6",
@@ -3132,7 +3136,8 @@
       "nombre": "Trabajador DEMO 05",
       "dpi": "0000 10005 0101",
       "cuadrilla_id": "d57cbdb7-feed-4531-9924-d87aea4c0744",
-      "activo": true
+      "activo": true,
+      "centro_costo": "CC-110 Producción A (DEMO)"
     },
     {
       "id": "ade83cb2-a84a-4c2f-b6b1-d51d50362ce1",
@@ -3147,7 +3152,8 @@
       "nombre": "Trabajador DEMO 06",
       "dpi": "0000 10006 0101",
       "cuadrilla_id": "d57cbdb7-feed-4531-9924-d87aea4c0744",
-      "activo": true
+      "activo": true,
+      "centro_costo": "CC-110 Producción A (DEMO)"
     },
     {
       "id": "4e89498c-6fc7-4a15-81f6-386b8ccac956",
@@ -3162,7 +3168,8 @@
       "nombre": "Trabajador DEMO 07",
       "dpi": "0000 10007 0101",
       "cuadrilla_id": "d57cbdb7-feed-4531-9924-d87aea4c0744",
-      "activo": true
+      "activo": true,
+      "centro_costo": "CC-110 Producción A (DEMO)"
     },
     {
       "id": "3495d5ac-9745-4303-83d8-22ca1d88a984",
@@ -3177,7 +3184,8 @@
       "nombre": "Trabajador DEMO 08",
       "dpi": "0000 10008 0101",
       "cuadrilla_id": "d57cbdb7-feed-4531-9924-d87aea4c0744",
-      "activo": true
+      "activo": true,
+      "centro_costo": "CC-120 Producción B (DEMO)"
     },
     {
       "id": "f14cd53e-8f27-470a-999e-eb501672cbd1",
@@ -3192,7 +3200,8 @@
       "nombre": "Trabajador DEMO 09",
       "dpi": "0000 10009 0101",
       "cuadrilla_id": "212a448e-18da-4f57-92c5-699578efbcaf",
-      "activo": true
+      "activo": true,
+      "centro_costo": "CC-120 Producción B (DEMO)"
     },
     {
       "id": "823eced7-9a28-410b-92d9-b6a1f07ea4dd",
@@ -3207,7 +3216,8 @@
       "nombre": "Trabajador DEMO 10",
       "dpi": "0000 10010 0101",
       "cuadrilla_id": "212a448e-18da-4f57-92c5-699578efbcaf",
-      "activo": true
+      "activo": true,
+      "centro_costo": "CC-120 Producción B (DEMO)"
     },
     {
       "id": "6790df47-065f-4cc9-8144-27c05b781d58",
@@ -3222,7 +3232,8 @@
       "nombre": "Trabajador DEMO 11",
       "dpi": "0000 10011 0101",
       "cuadrilla_id": "212a448e-18da-4f57-92c5-699578efbcaf",
-      "activo": true
+      "activo": true,
+      "centro_costo": "CC-120 Producción B (DEMO)"
     },
     {
       "id": "e06fe1f2-51a6-40c3-afd0-bf62f223ba2c",
@@ -3237,7 +3248,8 @@
       "nombre": "Trabajador DEMO 12",
       "dpi": "0000 10012 0101",
       "cuadrilla_id": "212a448e-18da-4f57-92c5-699578efbcaf",
-      "activo": true
+      "activo": true,
+      "centro_costo": "CC-120 Producción B (DEMO)"
     },
     {
       "id": "44d48887-37a4-4755-9851-93c391d13204",
@@ -3252,7 +3264,8 @@
       "nombre": "Trabajador DEMO 13",
       "dpi": "0000 10013 0101",
       "cuadrilla_id": "212a448e-18da-4f57-92c5-699578efbcaf",
-      "activo": true
+      "activo": true,
+      "centro_costo": "CC-120 Producción B (DEMO)"
     },
     {
       "id": "2a1ea75b-d6ca-4c2a-a0ff-5a289b5ab06d",
@@ -3267,7 +3280,8 @@
       "nombre": "Trabajador DEMO 14",
       "dpi": "0000 10014 0101",
       "cuadrilla_id": "212a448e-18da-4f57-92c5-699578efbcaf",
-      "activo": true
+      "activo": true,
+      "centro_costo": "CC-120 Producción B (DEMO)"
     },
     {
       "id": "821af9f7-1d88-416d-ae4d-6262990d7c0b",
@@ -3282,7 +3296,8 @@
       "nombre": "Trabajador DEMO 15",
       "dpi": "0000 10015 0101",
       "cuadrilla_id": "212a448e-18da-4f57-92c5-699578efbcaf",
-      "activo": true
+      "activo": true,
+      "centro_costo": "CC-200 Mantenimiento (DEMO)"
     },
     {
       "id": "92d26711-ba93-4dba-a65e-62034529fdf9",
@@ -3297,7 +3312,8 @@
       "nombre": "Trabajador DEMO 16",
       "dpi": "0000 10016 0101",
       "cuadrilla_id": "212a448e-18da-4f57-92c5-699578efbcaf",
-      "activo": true
+      "activo": true,
+      "centro_costo": "CC-200 Mantenimiento (DEMO)"
     }
   ],
   "cuadrillas": [

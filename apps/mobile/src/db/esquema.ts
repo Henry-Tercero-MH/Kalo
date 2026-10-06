@@ -6,7 +6,7 @@ import { columnasDe, NOMBRES_TABLAS, type NombreTabla } from '@kalo/shared';
 import { appSchema, tableSchema, type ColumnSchema } from '@nozbe/watermelondb';
 
 /** Súbala cuando cambie el registro y agregue el paso en migraciones.ts. */
-export const VERSION_ESQUEMA = 2;
+export const VERSION_ESQUEMA = 3;
 
 export function columnasWatermelon(tabla: NombreTabla): ColumnSchema[] {
   return Object.entries(columnasDe(tabla)).map(([name, c]) => ({

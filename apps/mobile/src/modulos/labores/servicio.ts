@@ -1,4 +1,4 @@
-import { fechaIso, type Fila } from '@kalo/shared';
+import { fechaIso, type Fila, type MotivoAusencia } from '@kalo/shared';
 import { Q } from '@nozbe/watermelondb';
 import { database } from '@/db/database';
 import {
@@ -11,33 +11,58 @@ import {
 } from '@/db/repositorio';
 import { columnasGps, type Ubicacion } from '@/gps/ubicacion';
 
+/** Lo que el caporal marca de cada trabajador al tomar asistencia. */
+export interface MarcaAsistencia {
+  presente: boolean;
+  /** Obligatorio si no llegó (ver MOTIVOS_AUSENCIA). */
+  motivo: MotivoAusencia | null;
+  nota: string;
+  centroCosto: string | null;
+}
+
+/** Falta el motivo de algún ausente, o la nota cuando el motivo es «otro». */
+export function faltaJustificar(m: MarcaAsistencia) {
+  return !m.presente && (!m.motivo || (m.motivo === 'otro' && !m.nota.trim()));
+}
+
 /**
  * Asistencia del día por cuadrilla. Si ya se tomó hoy, actualiza los registros existentes
  * en lugar de crear otros (volver a tomarla corrige, no duplica).
  */
 export async function guardarAsistencia(
-  d: { cuadrillaId: string; presentes: Record<string, boolean>; ubicacion: Ubicacion | null },
+  d: {
+    cuadrillaId: string;
+    marcas: Record<string, MarcaAsistencia>;
+    ubicacion: Ubicacion | null;
+  },
   ctx: ContextoEscritura,
 ) {
   const ahora = Date.now();
   const hoy = fechaIso();
   const existentes = await coleccion('asistencia')
-    .query(
-      vivos(),
-      Q.where('fecha', hoy),
-      Q.where('trabajador_id', Q.oneOf(Object.keys(d.presentes))),
-    )
+    .query(vivos(), Q.where('fecha', hoy), Q.where('trabajador_id', Q.oneOf(Object.keys(d.marcas))))
     .fetch();
   const porTrabajador = new Map(existentes.map((r) => [r.fila.trabajador_id, r]));
+  const valoresDe = (m: MarcaAsistencia, horaPrevia: number | null) => ({
+    presente: m.presente,
+    hora_entrada: m.presente ? (horaPrevia ?? ahora) : null,
+    centro_costo: m.centroCosto,
+    motivo_ausencia: m.presente ? null : m.motivo,
+    nota_ausencia: m.presente ? null : m.nota.trim() || null,
+  });
   // Una sola transacción para toda la cuadrilla.
   await database.write(async () => {
-    for (const [trabajadorId, presente] of Object.entries(d.presentes)) {
+    for (const [trabajadorId, marca] of Object.entries(d.marcas)) {
       const previo = porTrabajador.get(trabajadorId);
       if (previo) {
-        if (Boolean(previo.fila.presente) === presente) continue;
+        const antes = previo.fila;
+        const valores = valoresDe(marca, antes.hora_entrada);
+        const cambio = (Object.keys(valores) as (keyof typeof valores)[]).some(
+          (k) => (antes[k] ?? null) !== valores[k],
+        );
+        if (!cambio) continue;
         await previo.update((r) => {
-          r._setRaw('presente', presente);
-          r._setRaw('hora_entrada', presente ? ahora : null);
+          for (const [k, v] of Object.entries(valores)) r._setRaw(k, v as never);
           r._setRaw('updated_at', ahora);
         });
         continue;
@@ -47,8 +72,7 @@ export async function guardarAsistencia(
           trabajador_id: trabajadorId,
           cuadrilla_id: d.cuadrillaId,
           fecha: hoy,
-          presente,
-          hora_entrada: presente ? ahora : null,
+          ...valoresDe(marca, null),
           ...columnasGps(d.ubicacion),
           created_at: ahora,
           updated_at: ahora,

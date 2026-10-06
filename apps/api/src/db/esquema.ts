@@ -172,6 +172,7 @@ export const trabajadores = pgTable(
     codigo: text('codigo').notNull(),
     nombre: text('nombre').notNull(),
     dpi: text('dpi').notNull().unique(),
+    centro_costo: text('centro_costo'),
     cuadrilla_id: uuid('cuadrilla_id'),
     activo: boolean('activo').notNull().default(true),
   },
@@ -515,6 +516,9 @@ export const asistencia = pgTable(
     fecha: date('fecha', { mode: 'string' }).notNull(),
     presente: boolean('presente').notNull(),
     hora_entrada: ms('hora_entrada'),
+    centro_costo: text('centro_costo'),
+    motivo_ausencia: text('motivo_ausencia'),
+    nota_ausencia: text('nota_ausencia'),
   },
   idxSync('asistencia'),
 );
