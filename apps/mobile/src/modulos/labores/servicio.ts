@@ -141,7 +141,7 @@ export async function asignarLabor(
     Q.where('fecha', hoy),
     Q.where('tipo_labor_id', d.tipoLaborId),
     Q.where('lote_id', d.loteId),
-    Q.where('estado', 'asignada'),
+    Q.where('estado', Q.oneOf(['asignada', 'reportada'])),
   );
   const yaAsignados = new Set(previas.map((a) => a.trabajador_id));
   let creadas = 0;
@@ -190,4 +190,18 @@ export async function reportarAsignacion(
     labor_id: labor.id,
   });
   return labor;
+}
+
+/**
+ * Quita una asignación que aún no se reportó (el trabajador vuelve a quedar sin tarea).
+ * Si nunca se envió, se borra del teléfono; si ya se envió, queda como «cancelada».
+ */
+export async function quitarAsignacion(id: string) {
+  const registro = await coleccion('asignaciones_labor').find(id);
+  if (registro.fila.estado !== 'asignada') return;
+  if (registro._raw._status === 'created') {
+    await database.write(() => registro.destroyPermanently());
+    return;
+  }
+  await actualizar('asignaciones_labor', id, { estado: 'cancelada' });
 }

@@ -70,7 +70,11 @@ export function InicioCaporal() {
     [todas, usuario?.id],
   );
   const asistencia = useConsulta('asistencia', [Q.where('fecha', hoy)], [hoy]);
-  const asignaciones = useConsulta('asignaciones_labor', [Q.where('fecha', hoy)], [hoy]);
+  const asignaciones = useConsulta(
+    'asignaciones_labor',
+    [Q.where('fecha', hoy), Q.where('estado', Q.notEq('cancelada'))],
+    [hoy],
+  );
 
   useEffect(() => {
     void refrescarContadores();

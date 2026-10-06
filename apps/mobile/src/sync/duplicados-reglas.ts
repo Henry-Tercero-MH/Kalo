@@ -35,6 +35,8 @@ export function marcarDuplicados(
 ): Duplicado[] {
   const grupos = new Map<string, Crudo[]>();
   for (const f of filas) {
+    // Un registro anulado (p. ej. una asignación quitada) no cuenta como original.
+    if (f.estado === 'cancelada') continue;
     const k = clave(f, columnas);
     grupos.set(k, [...(grupos.get(k) ?? []), f]);
   }

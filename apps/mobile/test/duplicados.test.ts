@@ -68,3 +68,24 @@ describe('marcarDuplicados', () => {
     expect(d.map((x) => x.id)).toEqual(['x']);
   });
 });
+
+describe('asignaciones quitadas', () => {
+  it('reasignar después de quitar no cuenta como repetido', () => {
+    const a = (id: string, estado: string, created_at: number): Crudo => ({
+      id,
+      _status: id === 'nueva' ? 'created' : 'synced',
+      created_at,
+      estado,
+      trabajador_id: 't1',
+      tipo_labor_id: 'deshoje',
+      lote_id: 'L2',
+      fecha: '2026-10-06',
+    });
+    const d = marcarDuplicados(
+      'asignaciones_labor',
+      [a('vieja', 'cancelada', 1), a('nueva', 'asignada', 2)],
+      REGLAS_DUPLICADOS.asignaciones_labor!,
+    );
+    expect(d).toEqual([]);
+  });
+});
