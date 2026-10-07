@@ -22,6 +22,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   version: '0.1.0',
   orientation: 'portrait',
   userInterfaceStyle: 'light',
+  // Ícono: logo oficial sobre fondo blanco (scripts/generar-iconos.mjs).
+  icon: './assets/icono.png',
   backgroundColor: '#ffffff',
   runtimeVersion: { policy: 'appVersion' },
   updates: {
@@ -35,6 +37,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   android: {
     package: 'com.inversioneskalo.campo',
+    adaptiveIcon: { foregroundImage: './assets/icono-adaptativo.png', backgroundColor: '#ffffff' },
     versionCode: 1,
     permissions: [
       'ACCESS_FINE_LOCATION',

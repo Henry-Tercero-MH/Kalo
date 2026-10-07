@@ -11,8 +11,12 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <!-- Sin favicon propio: evita la petición 404 a /favicon.ico. -->
-    <link rel="icon" href="data:," />
+    <!-- Ícono y datos para instalar la app desde el navegador (PWA). Rutas relativas: la
+         página funciona en cualquier carpeta (p. ej. GitHub Pages /Kalo/). -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="apple-mobile-web-app-title" content="Kalo Campo" />
     <title>%WEB_TITLE%</title>
     <!-- Reinicio de estilos recomendado por react-native-web. -->
     <style id="expo-reset">
