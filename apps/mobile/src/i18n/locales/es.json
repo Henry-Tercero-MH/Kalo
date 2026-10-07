@@ -123,7 +123,19 @@
     "conflictos": "{{n}} registros con cambios de otro dispositivo (revisados por el supervisor)",
     "porTabla": "Pendientes por módulo",
     "demoAviso": "Modo demo: la sincronización se simula. No se envía nada a ningún servidor.",
-    "respaldoDescargado": "Respaldo descargado: {{nombre}}"
+    "respaldoDescargado": "Respaldo descargado: {{nombre}}",
+    "enviarBoton": "ENVIAR",
+    "tocarParaEnviar": "Toque para enviar los datos",
+    "confirmarTitulo": "¿Seguro que quiere enviar los datos?",
+    "confirmarTexto": "Se enviarán {{registros}} registros y {{fotos}} fotos guardados en este teléfono.",
+    "confirmarNada": "No hay datos pendientes de enviar. Se revisará si hay información nueva de la oficina.",
+    "confirmarNota": "Los registros repetidos no se envían.",
+    "siEnviar": "Sí, enviar",
+    "enviando": "Enviando…",
+    "enviadoTitulo": "Datos enviados",
+    "enviadoTexto": "Se enviaron {{n}} registros.",
+    "sinSenalTitulo": "Sin señal",
+    "errorTitulo": "No se pudo enviar"
   },
   "perfil": {
     "titulo": "Perfil",
