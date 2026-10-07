@@ -74,4 +74,4 @@ Ver README → «App móvil». Es la que tiene GPS en segundo plano, base SQLite
 > En modo demo la sincronización es simulada: los registros no viajan a un servidor. Para
 > mostrar que llegan al panel web, use la build de desarrollo conectada a la API (README).
 
-Usuarios: `tecnico` 4444 · `caporal` 5555 · `trabajador` 6666 · `supervisor` 3333.
+Usuarios: `tecnico` 4444 · `caporal` 5555 · `supervisor` 3333.

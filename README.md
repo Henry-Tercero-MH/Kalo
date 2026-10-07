@@ -101,12 +101,11 @@ Todas están en `.env.example` (la API y Docker Compose leen el `.env` de la ra�
 
 | Usuario      | PIN  | Rol                | Usa                                   |
 | ------------ | ---- | ------------------ | ------------------------------------- |
-| `admin`      | 1111 | Administrador      | Panel                                 |
-| `gerente`    | 2222 | Gerente            | Panel                                 |
+| `admin`      | 1111 | Administrador      | Panel y app                           |
+| `gerente`    | 2222 | Gerente            | Panel y app (indicadores y gráficas)  |
 | `supervisor` | 3333 | Supervisor         | Panel y app (configura los celulares) |
 | `tecnico`    | 4444 | Técnico de sanidad | App                                   |
 | `caporal`    | 5555 | Caporal            | App                                   |
-| `trabajador` | 6666 | Trabajador         | App                                   |
 
 Gafete QR de cada usuario (contenido del código): `KALO-GAFETE:DEMO-<usuario>`, por ejemplo
 `KALO-GAFETE:DEMO-tecnico`. QR imprimibles de las 10 trampas: `pnpm qr:trampas` (genera

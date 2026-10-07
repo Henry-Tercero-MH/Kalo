@@ -176,19 +176,6 @@ export const MODULOS = [
     estado: 'activo',
     orden: 80,
   },
-  {
-    codigo: 'produccion',
-    nombre: 'Mi producción',
-    descripcion: 'Producción propia registrada',
-    icono: 'chart-column',
-    plataformas: ['movil'],
-    permisoVer: 'produccion:ver_propia',
-    permisos: [p('produccion:ver_propia', 'Ver su propia producción')],
-    tablas: ['labores'],
-    rutaMovil: '/modulos/produccion',
-    estado: 'activo',
-    orden: 90,
-  },
   // ─── Preparados (estructura y pantalla «Próximamente») ──────────────────
   {
     codigo: 'conteo_cintas',

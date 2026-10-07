@@ -1,11 +1,11 @@
 {
   "admin": {
-    "id": "5054d388-40ea-4d2a-b1c5-259854468b5c",
+    "id": "367e55c5-3afe-4a96-8779-f9965ac00936",
     "nombre": "Ana Administradora (DEMO)",
     "usuario": "admin",
     "rol": "administrador",
-    "fincaId": "7e43f9ab-4587-4027-8d56-8ea1dab7666f",
-    "empresaId": "5dccff10-954f-41c4-bad0-2282b4626df7",
+    "fincaId": "8716d3d2-149a-4704-bffe-061a03bf55f8",
+    "empresaId": "ada54c0f-d6fc-4dda-a1cc-ed53aa440741",
     "permisos": [
       "admin:catalogos",
       "admin:formularios",
@@ -40,7 +40,6 @@
       "plagas:crear",
       "plagas:editar",
       "plagas:ver",
-      "produccion:ver_propia",
       "pronostico:ver",
       "registros:exportar",
       "registros:ver",
@@ -52,7 +51,7 @@
       "trampas:ver",
       "validacion:ver"
     ],
-    "plataformas": ["web"],
+    "plataformas": ["web", "movil"],
     "modulosWeb": [
       "mapa",
       "registros",
@@ -75,12 +74,12 @@
     ]
   },
   "gerente": {
-    "id": "5001bd95-6989-4165-907a-21293fab4950",
+    "id": "ec7e60b1-1286-4c1b-8dd9-3041946e6dd3",
     "nombre": "Gerardo Gerente (DEMO)",
     "usuario": "gerente",
     "rol": "gerente",
-    "fincaId": "7e43f9ab-4587-4027-8d56-8ea1dab7666f",
-    "empresaId": "5dccff10-954f-41c4-bad0-2282b4626df7",
+    "fincaId": "8716d3d2-149a-4704-bffe-061a03bf55f8",
+    "empresaId": "ada54c0f-d6fc-4dda-a1cc-ed53aa440741",
     "permisos": [
       "cosecha:ver",
       "dispositivos:ver",
@@ -89,15 +88,17 @@
       "labores:ver",
       "mapa:ver",
       "ordenes:ver",
+      "perfil:usar",
       "plagas:ver",
       "pronostico:ver",
       "registros:exportar",
       "registros:ver",
       "rutas:ver",
+      "sincronizacion:usar",
       "trampas:ver",
       "validacion:ver"
     ],
-    "plataformas": ["web"],
+    "plataformas": ["web", "movil"],
     "modulosWeb": [
       "mapa",
       "registros",
@@ -117,12 +118,12 @@
     ]
   },
   "supervisor": {
-    "id": "31ca2320-8542-4bc1-b36f-079be058dd8d",
+    "id": "31f9897a-ee89-4a77-b4b6-cb53aa6c4871",
     "nombre": "Sofía Supervisora (DEMO)",
     "usuario": "supervisor",
     "rol": "supervisor",
-    "fincaId": "7e43f9ab-4587-4027-8d56-8ea1dab7666f",
-    "empresaId": "5dccff10-954f-41c4-bad0-2282b4626df7",
+    "fincaId": "8716d3d2-149a-4704-bffe-061a03bf55f8",
+    "empresaId": "ada54c0f-d6fc-4dda-a1cc-ed53aa440741",
     "permisos": [
       "archivos:crear",
       "conflictos:resolver",

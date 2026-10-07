@@ -1,26 +1,26 @@
 [
   {
-    "id": "76ebed0b-cb42-494b-9d45-98a12eef809c",
+    "id": "50fdcfca-cc6e-4bf0-8853-51d6f5cdff17",
     "nombre": "Celular cuadrilla 1 (DEMO)",
     "modelo": "Samsung Galaxy A15",
     "sistema": "Android 14",
     "version_app": "0.1.0",
     "estado": "activo",
-    "ultimo_sync": 1791195065863,
+    "ultimo_sync": 1791333855986,
     "registros_pendientes": 0,
     "archivos_pendientes": 1,
-    "created_at": 1791195065454
+    "created_at": 1791333855589
   },
   {
-    "id": "62471428-4929-4e97-b6c3-e78dd350fcd0",
+    "id": "db059b2d-cee6-49ef-a2ea-cc6659af7da2",
     "nombre": "Celular cuadrilla 2 (DEMO)",
     "modelo": "Motorola Moto G24",
     "sistema": "Android 14",
     "version_app": "0.1.0",
     "estado": "activo",
-    "ultimo_sync": 1791195065851,
+    "ultimo_sync": 1791333855975,
     "registros_pendientes": 3,
     "archivos_pendientes": 0,
-    "created_at": 1791195065467
+    "created_at": 1791333855606
   }
 ]

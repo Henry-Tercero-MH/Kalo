@@ -19,21 +19,14 @@ export const USUARIOS_DEMO: { usuario: string; nombre: string; rol: CodigoRol; p
     pin: '4444',
   },
   { usuario: 'caporal', nombre: 'Carlos Caporal (DEMO)', rol: ROLES.caporal, pin: '5555' },
-  {
-    usuario: 'trabajador',
-    nombre: 'Teresa Trabajadora (DEMO)',
-    rol: ROLES.trabajador,
-    pin: '6666',
-  },
 ];
 
 export const ROLES_DEMO: { codigo: CodigoRol; nombre: string; plataformas: string[] }[] = [
-  { codigo: ROLES.administrador, nombre: 'Administrador', plataformas: ['web'] },
-  { codigo: ROLES.gerente, nombre: 'Gerente', plataformas: ['web'] },
+  { codigo: ROLES.administrador, nombre: 'Administrador', plataformas: ['web', 'movil'] },
+  { codigo: ROLES.gerente, nombre: 'Gerente', plataformas: ['web', 'movil'] },
   { codigo: ROLES.supervisor, nombre: 'Supervisor', plataformas: ['web', 'movil'] },
   { codigo: ROLES.tecnico_sanidad, nombre: 'Técnico de sanidad', plataformas: ['movil'] },
   { codigo: ROLES.caporal, nombre: 'Caporal', plataformas: ['movil'] },
-  { codigo: ROLES.trabajador, nombre: 'Trabajador', plataformas: ['movil'] },
 ];
 
 const VER_TODO = [
@@ -56,7 +49,14 @@ const VER_TODO = [
  */
 export const PERMISOS_POR_ROL: Record<CodigoRol, string[] | '*'> = {
   administrador: '*',
-  gerente: [...VER_TODO, 'registros:exportar', 'dispositivos:ver', 'validacion:ver'],
+  gerente: [
+    ...VER_TODO,
+    'registros:exportar',
+    'dispositivos:ver',
+    'validacion:ver',
+    'perfil:usar',
+    'sincronizacion:usar',
+  ],
   supervisor: [
     ...VER_TODO,
     'registros:exportar',
@@ -105,15 +105,6 @@ export const PERMISOS_POR_ROL: Record<CodigoRol, string[] | '*'> = {
     'rutas:crear',
     'ordenes:ver',
     'ordenes:actualizar',
-    'perfil:usar',
-    'sincronizacion:usar',
-    'archivos:crear',
-  ],
-  trabajador: [
-    'ordenes:ver',
-    'ordenes:actualizar',
-    'produccion:ver_propia',
-    'fusarium:crear',
     'perfil:usar',
     'sincronizacion:usar',
     'archivos:crear',

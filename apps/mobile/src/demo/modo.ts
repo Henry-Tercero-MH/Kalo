@@ -45,5 +45,4 @@ export const PINES_DEMO: Readonly<Record<string, string>> = {
   supervisor: '3333',
   tecnico: '4444',
   caporal: '5555',
-  trabajador: '6666',
 };

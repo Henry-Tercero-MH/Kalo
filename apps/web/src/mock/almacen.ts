@@ -118,7 +118,6 @@ export const PINES_DEMO: Record<string, string> = {
   supervisor: '3333',
   tecnico: '4444',
   caporal: '5555',
-  trabajador: '6666',
 };
 
 const SEMANA_MS = 7 * 86_400_000;

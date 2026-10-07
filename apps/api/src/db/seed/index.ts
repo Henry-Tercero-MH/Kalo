@@ -196,9 +196,7 @@ export async function sembrar(db: BaseDatos) {
     activo: true,
   }));
   const usuario = (codigo: string) => usuarios.find((u) => u.usuario === codigo)!;
-  // La trabajadora del demo es también la primera trabajadora del listado.
   trabajadores[0]!.nombre = 'Teresa Trabajadora (DEMO)';
-  usuario('trabajador').trabajador_id = trabajadores[0]!.id;
 
   const cuadrillas = ['Cuadrilla A DEMO', 'Cuadrilla B DEMO'].map((nombre) => ({
     ...comunes(fincaId, null, ahora),
@@ -585,7 +583,7 @@ export async function sembrar(db: BaseDatos) {
   // Alertas de Fusarium en estado «Sospecha».
   const msf = momento(sumarSemanas(semanaActual, -1), 3, 11);
   await db.insert(e.alertas_fusarium).values({
-    ...comunes(fincaId, usuario('trabajador').id, msf),
+    ...comunes(fincaId, caporal, msf),
     ...puntoDentro(lotes[4]!.poligono),
     precision_gps: 6,
     hora_gps: msf,
@@ -639,7 +637,7 @@ export async function sembrar(db: BaseDatos) {
       descripcion: null,
       modulo: 'labores',
       lote_id: lotes[0]!.id,
-      asignado_a: usuario('trabajador').id,
+      asignado_a: caporal,
       asignado_por: usuario('supervisor').id,
       fecha: hoy,
       estado: 'pendiente',

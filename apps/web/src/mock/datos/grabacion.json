@@ -1,7 +1,7 @@
 {
   "demo": true,
   "aviso": "Datos de DEMOSTRACIÓN (DEMO) grabados desde la API con el seed de ejemplo. No son datos reales de la finca.",
-  "grabadoEn": 1791195477892,
+  "grabadoEn": 1791333856626,
   "api": "http://localhost:4000",
   "comando": "node apps/web/scripts/grabar-mock.mjs"
 }

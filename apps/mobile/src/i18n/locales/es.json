@@ -223,11 +223,6 @@
     "iniciar": "Empezar",
     "completar": "Completar"
   },
-  "produccion": {
-    "titulo": "Mi producción",
-    "semanaActual": "Esta semana",
-    "sinDatos": "Sin labores registradas."
-  },
   "estados": {
     "pendiente": "PENDIENTE",
     "validado": "VALIDADO",

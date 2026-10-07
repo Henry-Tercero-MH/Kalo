@@ -23,7 +23,7 @@ En modo demo el panel muestra la etiqueta **«DATOS DEMO (SIN API)»** junto al 
 | `admin`                            | `1111`                 | Administrador                                          |
 | `gerente`                          | `2222`                 | Gerente                                                |
 | `supervisor`                       | `3333`                 | Supervisor                                             |
-| `tecnico`, `caporal`, `trabajador` | `4444`, `5555`, `6666` | Roles de campo: usan la app móvil y no entran al panel |
+| `tecnico`, `caporal` | `4444`, `5555` | Roles de campo: usan la app móvil y no entran al panel |
 
 ## Cómo funciona el modo demo
 

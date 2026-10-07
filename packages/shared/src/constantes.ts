@@ -92,7 +92,6 @@ export const ROLES = {
   supervisor: 'supervisor',
   tecnico_sanidad: 'tecnico_sanidad',
   caporal: 'caporal',
-  trabajador: 'trabajador',
 } as const;
 export type CodigoRol = (typeof ROLES)[keyof typeof ROLES];
 
