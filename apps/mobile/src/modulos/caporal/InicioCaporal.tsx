@@ -7,54 +7,18 @@ import { Q } from '@nozbe/watermelondb';
 import { useRouter } from 'expo-router';
 import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Boton } from '@/componentes/Boton';
-import { Icono, type NombreIcono } from '@/componentes/Icono';
 import { Pantalla } from '@/componentes/Pantalla';
+import { ListaAcciones, TarjetaAccion } from '@/componentes/TarjetaAccion';
 import { Titulo } from '@/componentes/Texto';
 import { MuestraColor } from '@/componentes/Visuales';
-import { campo, espaciado, estilosBase, semantico, tipografia } from '@/componentes/tema';
+import { espaciado, estilosBase, semantico, tipografia } from '@/componentes/tema';
 import { useConsulta } from '@/db/hooks';
 import { useSesion } from '@/permisos/sesion';
 import { useEstadoSync } from '@/sync/estado';
 import { refrescarContadores } from '@/sync/motor';
 import { useSemanaActual } from '@/utils/semana';
-
-function Opcion({
-  icono,
-  titulo,
-  estado,
-  destacada,
-  onPress,
-}: {
-  icono: NombreIcono;
-  titulo: string;
-  estado: string;
-  destacada?: boolean;
-  onPress: () => void;
-}) {
-  return (
-    <Pressable
-      onPress={onPress}
-      accessibilityRole="button"
-      accessibilityLabel={`${titulo}. ${estado}`}
-      style={({ pressed }) => [
-        estilos.opcion,
-        destacada && estilos.opcionDestacada,
-        pressed && { backgroundColor: semantico.fondoSuave },
-      ]}
-    >
-      <View style={[estilos.icono, destacada && { backgroundColor: semantico.acento }]}>
-        <Icono nombre={icono} tamano={28} color={destacada ? semantico.titulo : semantico.fondo} />
-      </View>
-      <View style={{ flex: 1 }}>
-        <Text style={estilos.tituloOpcion}>{titulo}</Text>
-        <Text style={estilosBase.secundario}>{estado}</Text>
-      </View>
-      <Icono nombre="chevron-right" color={semantico.textoSecundario} />
-    </Pressable>
-  );
-}
 
 export function InicioCaporal() {
   const { t } = useTranslation();
@@ -105,8 +69,8 @@ export function InicioCaporal() {
         ) : null}
       </View>
 
-      <View style={estilos.lista}>
-        <Opcion
+      <ListaAcciones>
+        <TarjetaAccion
           icono="users"
           titulo={t('caporal.asistencia')}
           estado={
@@ -116,7 +80,7 @@ export function InicioCaporal() {
           }
           onPress={() => router.push('/modulos/labores/asistencia')}
         />
-        <Opcion
+        <TarjetaAccion
           icono="clipboard-list"
           titulo={t('caporal.asignar')}
           estado={
@@ -126,13 +90,13 @@ export function InicioCaporal() {
           }
           onPress={() => router.push('/modulos/caporal/asignar')}
         />
-        <Opcion
+        <TarjetaAccion
           icono="list-checks"
           titulo={t('caporal.reportar')}
           estado={t('caporal.reportarDesc', { pendientes: porReportar, reportadas })}
           onPress={() => router.push('/modulos/caporal/reportar')}
         />
-        <Opcion
+        <TarjetaAccion
           icono="cloud-upload"
           titulo={t('caporal.enviar')}
           estado={
@@ -143,7 +107,7 @@ export function InicioCaporal() {
           destacada={pendientes > 0}
           onPress={() => router.push('/modulos/caporal/enviar')}
         />
-      </View>
+      </ListaAcciones>
 
       {tienePermiso(permisos, 'fusarium:crear') ? (
         <View style={{ marginTop: espaciado.xl }}>
@@ -176,32 +140,5 @@ const estilos = StyleSheet.create({
     fontSize: tipografia.tamanos.cuerpo,
     color: semantico.titulo,
     marginTop: 2,
-  },
-  lista: { gap: espaciado.md },
-  opcion: {
-    minHeight: campo.alturaTactil + 32,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: espaciado.md,
-    padding: espaciado.md,
-    borderWidth: 1,
-    borderColor: semantico.borde,
-    backgroundColor: semantico.fondo,
-  },
-  opcionDestacada: { borderWidth: 2, borderColor: semantico.bordeFuerte },
-  icono: {
-    width: 56,
-    height: 56,
-    backgroundColor: semantico.bordeFuerte,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  tituloOpcion: {
-    fontFamily: tipografia.familias.titulo,
-    fontSize: 18,
-    color: semantico.titulo,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-    marginBottom: 2,
   },
 });

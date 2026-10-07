@@ -2,11 +2,11 @@
 
 Tres formas de mostrar la app, de la más rápida a la más completa.
 
-| Forma | Qué necesita | Datos | GPS con pantalla apagada | Mapa |
-|---|---|---|---|---|
-| **1. Navegador del celular** | Solo el enlace | DEMO precargados (se guardan en el navegador) | No (solo con la app abierta) | Lotes y cobertura dibujados (sin mapa base) |
-| **2. Expo Go** | App Expo Go + computadora con el repositorio | DEMO precargados (en memoria: se pierden al cerrar) | No | Igual que 1 |
-| **3. Build de desarrollo / APK** | Android Studio o EAS Build | DEMO o servidor real | Sí | MapLibre con mapa sin conexión |
+| Forma                            | Qué necesita                                 | Datos                                               | GPS con pantalla apagada     | Mapa                                        |
+| -------------------------------- | -------------------------------------------- | --------------------------------------------------- | ---------------------------- | ------------------------------------------- |
+| **1. Navegador del celular**     | Solo el enlace                               | DEMO precargados (se guardan en el navegador)       | No (solo con la app abierta) | Lotes y cobertura dibujados (sin mapa base) |
+| **2. Expo Go**                   | App Expo Go + computadora con el repositorio | DEMO precargados (en memoria: se pierden al cerrar) | No                           | Igual que 1                                 |
+| **3. Build de desarrollo / APK** | Android Studio o EAS Build                   | DEMO o servidor real                                | Sí                           | MapLibre con mapa sin conexión              |
 
 Las formas 1 y 2 usan el **modo demo**: la app trae los datos ficticios (DEMO) y la
 sincronización se simula, así que no hace falta levantar la API. La forma 3 también usa datos mock por defecto; para conectarla al servidor real compile con
@@ -74,4 +74,14 @@ Ver README → «App móvil». Es la que tiene GPS en segundo plano, base SQLite
 > En modo demo la sincronización es simulada: los registros no viajan a un servidor. Para
 > mostrar que llegan al panel web, use la build de desarrollo conectada a la API (README).
 
-Usuarios: `tecnico` 4444 · `caporal` 5555 · `supervisor` 3333.
+Usuarios: `admin` 1111 · `gerente` 2222 · `supervisor` 3333 · `tecnico` 4444 · `caporal` 5555.
+
+Cada perfil tiene su propio inicio en la app:
+
+| Perfil             | Inicio                                                                                                                                   |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Gerente            | Indicadores de la semana (cosecha, cajas estimadas, recobro, enfunde, asistencia, alertas) y gráficas de producción, personal y sanidad. |
+| Supervisor         | Registros por validar, alertas de Fusarium abiertas, asistencia por cuadrilla, labores del día y acceso a indicadores, órdenes y mapa.   |
+| Técnico de sanidad | Muestreo, preaviso de sigatoka, trampas y alerta de Fusarium con el avance de la semana por lote, incidencia y capturas de picudo.       |
+| Caporal            | Asistencia, asignar labor, reportar labor y enviar datos.                                                                                |
+| Administrador      | Estado del teléfono, usuarios por rol, personal, lotes y cuadrillas, y acceso a indicadores, registro y sincronización.                  |

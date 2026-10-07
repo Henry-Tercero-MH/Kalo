@@ -14,14 +14,31 @@ import { Dato, Estado, FilaMenu, MuestraColor, Tarjeta } from '@/componentes/Vis
 import { espaciado } from '@/componentes/tema';
 import { useConsulta } from '@/db/hooks';
 import { useLoteActual } from '@/gps/lote-actual';
+import { InicioAdministrador } from '@/modulos/administracion/InicioAdministrador';
 import { InicioCaporal } from '@/modulos/caporal/InicioCaporal';
+import { InicioGerente } from '@/modulos/gerencia/InicioGerente';
+import { InicioTecnico } from '@/modulos/sanidad/InicioTecnico';
+import { InicioSupervisor } from '@/modulos/supervision/InicioSupervisor';
 import { useConfiguracion } from '@/permisos/contexto';
 import { useSesion } from '@/permisos/sesion';
 import { useSemanaActual } from '@/utils/semana';
 
 export default function Inicio() {
   const rol = useSesion((s) => s.usuario?.rolCodigo);
-  return rol === ROLES.caporal ? <InicioCaporal /> : <InicioGeneral />;
+  switch (rol) {
+    case ROLES.caporal:
+      return <InicioCaporal />;
+    case ROLES.gerente:
+      return <InicioGerente />;
+    case ROLES.supervisor:
+      return <InicioSupervisor />;
+    case ROLES.tecnico_sanidad:
+      return <InicioTecnico />;
+    case ROLES.administrador:
+      return <InicioAdministrador />;
+    default:
+      return <InicioGeneral />;
+  }
 }
 
 function InicioGeneral() {
