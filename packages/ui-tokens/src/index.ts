@@ -4,9 +4,6 @@
  * Fuente única: `tokens.json` (copiado de la Guía de marca para informes).
  * Se consumen desde la app móvil (StyleSheet) y desde el panel web
  * (tema de Tailwind generado en `theme.css` con `pnpm --filter @kalo/ui-tokens build`).
- *
- * Nota: el prompt original trae `verde600` como `#8bb31` (5 dígitos). Se completó como
- * `#8bb331` y queda PENDIENTE confirmarlo contra el PDF de la guía (ver docs/decisiones.md).
  */
 import tokensJson from './tokens.json';
 
