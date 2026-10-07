@@ -4,12 +4,12 @@
  */
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { semantico } from './tema';
+import { colores } from './tema';
 
 /** Alto de la franja debajo de la barra de estado. */
 const ALTO = 12;
 
 export function FranjaSuperior() {
   const { top } = useSafeAreaInsets();
-  return <View style={{ height: top + ALTO, backgroundColor: semantico.acento }} />;
+  return <View style={{ height: top + ALTO, backgroundColor: colores.marca.verde600 }} />;
 }

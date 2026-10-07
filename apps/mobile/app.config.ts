@@ -54,7 +54,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     shortName: 'Kalo',
     lang: 'es',
     description: 'App de campo de Inversiones Kalo',
-    themeColor: '#a0d33e',
+    themeColor: '#8bb331',
     backgroundColor: '#ffffff',
   },
   ios: {
