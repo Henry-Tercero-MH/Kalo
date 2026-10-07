@@ -106,6 +106,7 @@ Todas están en `.env.example` (la API y Docker Compose leen el `.env` de la ra�
 | `supervisor` | 3333 | Supervisor         | Panel y app (configura los celulares) |
 | `tecnico`    | 4444 | Técnico de sanidad | App                                   |
 | `caporal`    | 5555 | Caporal            | App                                   |
+| `caporal2`   | 7777 | Caporal            | App (otra cuadrilla)                  |
 
 Gafete QR de cada usuario (contenido del código): `KALO-GAFETE:DEMO-<usuario>`, por ejemplo
 `KALO-GAFETE:DEMO-tecnico`. QR imprimibles de las 10 trampas: `pnpm qr:trampas` (genera

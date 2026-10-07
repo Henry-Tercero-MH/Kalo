@@ -10,7 +10,7 @@
     "recobroReferencia": 0.98,
     "lotes": [
       {
-        "id": "9db0709c-f212-433f-a8b9-c9da33c0064a",
+        "id": "33e38490-a534-4814-b43d-453b7a0e773f",
         "codigo": "01",
         "nombre": "Lote 01 DEMO",
         "hectareas": 24.94,
@@ -24,7 +24,7 @@
         "cajasLoteAnio": 100685
       },
       {
-        "id": "1cbbf5d2-9fc0-4224-881a-eeb8a9ae5a55",
+        "id": "369c17f3-d7cd-438e-b093-f49dfdb400ac",
         "codigo": "02",
         "nombre": "Lote 02 DEMO",
         "hectareas": 25.88,
@@ -38,7 +38,7 @@
         "cajasLoteAnio": 105055
       },
       {
-        "id": "df9d5768-f571-41ff-9433-d951244efd7c",
+        "id": "e2a77cd9-5bcb-4a48-9c6b-c621e81dfe21",
         "codigo": "03",
         "nombre": "Lote 03 DEMO",
         "hectareas": 23.98,
@@ -52,7 +52,7 @@
         "cajasLoteAnio": 96651
       },
       {
-        "id": "5154440e-575f-4e67-83b2-ef0ae027deca",
+        "id": "baf68bed-bcfd-4649-b534-5590ef500a63",
         "codigo": "04",
         "nombre": "Lote 04 DEMO",
         "hectareas": 21.68,
@@ -66,7 +66,7 @@
         "cajasLoteAnio": 88068
       },
       {
-        "id": "60f1e630-97c2-498e-ad7d-6d18c4ee44b1",
+        "id": "f6bbbba5-cf60-4a61-acab-966887bef7f1",
         "codigo": "05",
         "nombre": "Lote 05 DEMO",
         "hectareas": 27.58,
@@ -80,7 +80,7 @@
         "cajasLoteAnio": 111036
       },
       {
-        "id": "2a8f5b92-cd09-4cec-9702-6ab27b832e3a",
+        "id": "cba2cab3-6575-4f48-bc97-704b0269221f",
         "codigo": "06",
         "nombre": "Lote 06 DEMO",
         "hectareas": 23.71,
@@ -118,15 +118,15 @@
           "cajas": 10422.2,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 113.8
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 4161.1
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 2711.8
             }
           ]
@@ -140,15 +140,15 @@
           "cajas": 14340.1,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 4161.1
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 2711.8
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 2794.7
             }
           ]
@@ -162,15 +162,15 @@
           "cajas": 12185.1,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 2711.8
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 2794.7
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 2754.5
             }
           ]
@@ -184,15 +184,15 @@
           "cajas": 12304.9,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 2794.7
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 2754.5
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 2840.3
             }
           ]
@@ -221,15 +221,15 @@
           "cajas": 10422.2,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 113.8
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 4161.1
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 2711.8
             }
           ]
@@ -243,15 +243,15 @@
           "cajas": 14340.1,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 4161.1
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 2711.8
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 2794.7
             }
           ]
@@ -265,15 +265,15 @@
           "cajas": 12185.1,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 2711.8
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 2794.7
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 2754.5
             }
           ]
@@ -287,15 +287,15 @@
           "cajas": 12304.9,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 2794.7
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 2754.5
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 2840.3
             }
           ]
@@ -309,15 +309,15 @@
           "cajas": 12251.9,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 2754.5
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 2840.3
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 2806.7
             }
           ]
@@ -331,15 +331,15 @@
           "cajas": 12201.6,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 2840.3
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 2806.7
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 2768
             }
           ]
@@ -353,15 +353,15 @@
           "cajas": 12043.9,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 2806.7
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 2768
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 2779.3
             }
           ]
@@ -375,15 +375,15 @@
           "cajas": 11690.3,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 2768
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 2779.3
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 2608.9
             }
           ]
@@ -412,15 +412,15 @@
           "cajas": 10422.2,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 113.8
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 4161.1
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 2711.8
             }
           ]
@@ -434,15 +434,15 @@
           "cajas": 14340.1,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 4161.1
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 2711.8
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 2794.7
             }
           ]
@@ -456,15 +456,15 @@
           "cajas": 12185.1,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 2711.8
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 2794.7
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 2754.5
             }
           ]
@@ -478,15 +478,15 @@
           "cajas": 12304.9,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 2794.7
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 2754.5
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 2840.3
             }
           ]
@@ -500,15 +500,15 @@
           "cajas": 12251.9,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 2754.5
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 2840.3
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 2806.7
             }
           ]
@@ -522,15 +522,15 @@
           "cajas": 12201.6,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 2840.3
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 2806.7
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 2768
             }
           ]
@@ -544,15 +544,15 @@
           "cajas": 12043.9,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 2806.7
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 2768
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 2779.3
             }
           ]
@@ -566,15 +566,15 @@
           "cajas": 11690.3,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 2768
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 2779.3
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 2608.9
             }
           ]
@@ -588,15 +588,15 @@
           "cajas": 11619.7,
           "porColor": [
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 2779.3
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 2608.9
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 2765.9
             }
           ]
@@ -610,15 +610,15 @@
           "cajas": 11472,
           "porColor": [
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 2608.9
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 2765.9
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 2722.8
             }
           ]
@@ -632,15 +632,15 @@
           "cajas": 11613,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 2765.9
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 2722.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 2757.4
             }
           ]
@@ -654,11 +654,11 @@
           "cajas": 7672.2,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 2722.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 2757.4
             }
           ]
@@ -687,15 +687,15 @@
           "cajas": 10422.2,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 113.8
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 4161.1
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 2711.8
             }
           ]
@@ -709,15 +709,15 @@
           "cajas": 14340.1,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 4161.1
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 2711.8
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 2794.7
             }
           ]
@@ -731,15 +731,15 @@
           "cajas": 12185.1,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 2711.8
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 2794.7
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 2754.5
             }
           ]
@@ -753,15 +753,15 @@
           "cajas": 12304.9,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 2794.7
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 2754.5
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 2840.3
             }
           ]
@@ -775,15 +775,15 @@
           "cajas": 12251.9,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 2754.5
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 2840.3
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 2806.7
             }
           ]
@@ -797,15 +797,15 @@
           "cajas": 12201.6,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 2840.3
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 2806.7
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 2768
             }
           ]
@@ -819,15 +819,15 @@
           "cajas": 12043.9,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 2806.7
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 2768
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 2779.3
             }
           ]
@@ -841,15 +841,15 @@
           "cajas": 11690.3,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 2768
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 2779.3
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 2608.9
             }
           ]
@@ -863,15 +863,15 @@
           "cajas": 11619.7,
           "porColor": [
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 2779.3
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 2608.9
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 2765.9
             }
           ]
@@ -885,15 +885,15 @@
           "cajas": 11472,
           "porColor": [
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 2608.9
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 2765.9
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 2722.8
             }
           ]
@@ -907,15 +907,15 @@
           "cajas": 11613,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 2765.9
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 2722.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 2757.4
             }
           ]
@@ -929,11 +929,11 @@
           "cajas": 7672.2,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 2722.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 2757.4
             }
           ]
@@ -947,7 +947,7 @@
           "cajas": 3860.3,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 2757.4
             }
           ]
@@ -981,7 +981,7 @@
         }
       ]
     },
-    "4:9db0709c-f212-433f-a8b9-c9da33c0064a": {
+    "4:33e38490-a534-4814-b43d-453b7a0e773f": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -1003,15 +1003,15 @@
           "cajas": 1766.8,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 3.7
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 731.9
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 448.7
             }
           ]
@@ -1025,15 +1025,15 @@
           "cajas": 2464.4,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 731.9
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 448.7
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 480.8
             }
           ]
@@ -1047,15 +1047,15 @@
           "cajas": 2005,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 448.7
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 480.8
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 429.8
             }
           ]
@@ -1069,22 +1069,22 @@
           "cajas": 2029.2,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 480.8
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 429.8
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 472.9
             }
           ]
         }
       ]
     },
-    "4:1cbbf5d2-9fc0-4224-881a-eeb8a9ae5a55": {
+    "4:369c17f3-d7cd-438e-b093-f49dfdb400ac": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -1106,15 +1106,15 @@
           "cajas": 1839.7,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 30.8
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 714.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 487.7
             }
           ]
@@ -1128,15 +1128,15 @@
           "cajas": 2533.3,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 714.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 487.7
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 505.4
             }
           ]
@@ -1150,15 +1150,15 @@
           "cajas": 2216.7,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 487.7
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 505.4
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 509.7
             }
           ]
@@ -1172,22 +1172,22 @@
           "cajas": 2234.6,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 505.4
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 509.7
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 508.4
             }
           ]
         }
       ]
     },
-    "4:df9d5768-f571-41ff-9433-d951244efd7c": {
+    "4:e2a77cd9-5bcb-4a48-9c6b-c621e81dfe21": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -1209,15 +1209,15 @@
           "cajas": 1663.2,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 15.3
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 638.2
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 461.4
             }
           ]
@@ -1231,15 +1231,15 @@
           "cajas": 2317.4,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 638.2
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 461.4
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 462.7
             }
           ]
@@ -1253,15 +1253,15 @@
           "cajas": 2017.1,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 461.4
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 462.7
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 443.4
             }
           ]
@@ -1275,22 +1275,22 @@
           "cajas": 1975.1,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 462.7
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 443.4
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 440.5
             }
           ]
         }
       ]
     },
-    "4:5154440e-575f-4e67-83b2-ef0ae027deca": {
+    "4:baf68bed-bcfd-4649-b534-5590ef500a63": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -1312,15 +1312,15 @@
           "cajas": 1526.8,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 15.2
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 627.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 380.8
             }
           ]
@@ -1334,15 +1334,15 @@
           "cajas": 2093.2,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 627.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 380.8
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 402.9
             }
           ]
@@ -1356,15 +1356,15 @@
           "cajas": 1747.7,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 380.8
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 402.9
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 401.2
             }
           ]
@@ -1378,22 +1378,22 @@
           "cajas": 1806.4,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 402.9
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 401.2
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 427.5
             }
           ]
         }
       ]
     },
-    "4:60f1e630-97c2-498e-ad7d-6d18c4ee44b1": {
+    "4:f6bbbba5-cf60-4a61-acab-966887bef7f1": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -1415,15 +1415,15 @@
           "cajas": 1975.3,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 12.3
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 800.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 511.1
             }
           ]
@@ -1437,15 +1437,15 @@
           "cajas": 2735.9,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 800.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 511.1
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 532.6
             }
           ]
@@ -1459,15 +1459,15 @@
           "cajas": 2332.1,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 511.1
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 532.6
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 537.5
             }
           ]
@@ -1481,22 +1481,22 @@
           "cajas": 2358.7,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 532.6
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 537.5
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 538.1
             }
           ]
         }
       ]
     },
-    "4:2a8f5b92-cd09-4cec-9702-6ab27b832e3a": {
+    "4:cba2cab3-6575-4f48-bc97-704b0269221f": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -1518,15 +1518,15 @@
           "cajas": 1650.3,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 36.4
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 647.9
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 422.1
             }
           ]
@@ -1540,15 +1540,15 @@
           "cajas": 2195.8,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 647.9
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 422.1
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 410.4
             }
           ]
@@ -1562,15 +1562,15 @@
           "cajas": 1866.4,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 422.1
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 410.4
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 432.9
             }
           ]
@@ -1584,22 +1584,22 @@
           "cajas": 1900.9,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 410.4
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 432.9
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 452.8
             }
           ]
         }
       ]
     },
-    "8:9db0709c-f212-433f-a8b9-c9da33c0064a": {
+    "8:33e38490-a534-4814-b43d-453b7a0e773f": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -1621,15 +1621,15 @@
           "cajas": 1766.8,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 3.7
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 731.9
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 448.7
             }
           ]
@@ -1643,15 +1643,15 @@
           "cajas": 2464.4,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 731.9
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 448.7
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 480.8
             }
           ]
@@ -1665,15 +1665,15 @@
           "cajas": 2005,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 448.7
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 480.8
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 429.8
             }
           ]
@@ -1687,15 +1687,15 @@
           "cajas": 2029.2,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 480.8
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 429.8
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 472.9
             }
           ]
@@ -1709,15 +1709,15 @@
           "cajas": 1998.9,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 429.8
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 472.9
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 468
             }
           ]
@@ -1731,15 +1731,15 @@
           "cajas": 2048.2,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 472.9
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 468
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 471.6
             }
           ]
@@ -1753,15 +1753,15 @@
           "cajas": 2016.2,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 468
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 471.6
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 458.9
             }
           ]
@@ -1775,22 +1775,22 @@
           "cajas": 1965.6,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 471.6
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 458.9
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 440.9
             }
           ]
         }
       ]
     },
-    "8:1cbbf5d2-9fc0-4224-881a-eeb8a9ae5a55": {
+    "8:369c17f3-d7cd-438e-b093-f49dfdb400ac": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -1812,15 +1812,15 @@
           "cajas": 1839.7,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 30.8
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 714.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 487.7
             }
           ]
@@ -1834,15 +1834,15 @@
           "cajas": 2533.3,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 714.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 487.7
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 505.4
             }
           ]
@@ -1856,15 +1856,15 @@
           "cajas": 2216.7,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 487.7
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 505.4
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 509.7
             }
           ]
@@ -1878,15 +1878,15 @@
           "cajas": 2234.6,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 505.4
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 509.7
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 508.4
             }
           ]
@@ -1900,15 +1900,15 @@
           "cajas": 2194.9,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 509.7
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 508.4
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 487
             }
           ]
@@ -1922,15 +1922,15 @@
           "cajas": 2145.3,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 508.4
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 487
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 484.1
             }
           ]
@@ -1944,15 +1944,15 @@
           "cajas": 2108.4,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 487
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 484.1
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 491.3
             }
           ]
@@ -1966,22 +1966,22 @@
           "cajas": 2047.6,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 484.1
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 491.3
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 453.2
             }
           ]
         }
       ]
     },
-    "8:df9d5768-f571-41ff-9433-d951244efd7c": {
+    "8:e2a77cd9-5bcb-4a48-9c6b-c621e81dfe21": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -2003,15 +2003,15 @@
           "cajas": 1663.2,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 15.3
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 638.2
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 461.4
             }
           ]
@@ -2025,15 +2025,15 @@
           "cajas": 2317.4,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 638.2
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 461.4
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 462.7
             }
           ]
@@ -2047,15 +2047,15 @@
           "cajas": 2017.1,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 461.4
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 462.7
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 443.4
             }
           ]
@@ -2069,15 +2069,15 @@
           "cajas": 1975.1,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 462.7
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 443.4
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 440.5
             }
           ]
@@ -2091,15 +2091,15 @@
           "cajas": 1969.5,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 443.4
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 440.5
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 466.6
             }
           ]
@@ -2113,15 +2113,15 @@
           "cajas": 1975.3,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 440.5
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 466.6
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 455.2
             }
           ]
@@ -2135,15 +2135,15 @@
           "cajas": 1977.7,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 466.6
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 455.2
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 450
             }
           ]
@@ -2157,22 +2157,22 @@
           "cajas": 1923.1,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 455.2
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 450
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 436.6
             }
           ]
         }
       ]
     },
-    "8:5154440e-575f-4e67-83b2-ef0ae027deca": {
+    "8:baf68bed-bcfd-4649-b534-5590ef500a63": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -2194,15 +2194,15 @@
           "cajas": 1526.8,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 15.2
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 627.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 380.8
             }
           ]
@@ -2216,15 +2216,15 @@
           "cajas": 2093.2,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 627.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 380.8
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 402.9
             }
           ]
@@ -2238,15 +2238,15 @@
           "cajas": 1747.7,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 380.8
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 402.9
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 401.2
             }
           ]
@@ -2260,15 +2260,15 @@
           "cajas": 1806.4,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 402.9
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 401.2
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 427.5
             }
           ]
@@ -2282,15 +2282,15 @@
           "cajas": 1803.2,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 401.2
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 427.5
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 407.8
             }
           ]
@@ -2304,15 +2304,15 @@
           "cajas": 1763.9,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 427.5
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 407.8
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 381.2
             }
           ]
@@ -2326,15 +2326,15 @@
           "cajas": 1729.6,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 407.8
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 381.2
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 410.8
             }
           ]
@@ -2348,22 +2348,22 @@
           "cajas": 1701.6,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 381.2
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 410.8
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 395.3
             }
           ]
         }
       ]
     },
-    "8:60f1e630-97c2-498e-ad7d-6d18c4ee44b1": {
+    "8:f6bbbba5-cf60-4a61-acab-966887bef7f1": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -2385,15 +2385,15 @@
           "cajas": 1975.3,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 12.3
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 800.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 511.1
             }
           ]
@@ -2407,15 +2407,15 @@
           "cajas": 2735.9,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 800.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 511.1
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 532.6
             }
           ]
@@ -2429,15 +2429,15 @@
           "cajas": 2332.1,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 511.1
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 532.6
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 537.5
             }
           ]
@@ -2451,15 +2451,15 @@
           "cajas": 2358.7,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 532.6
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 537.5
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 538.1
             }
           ]
@@ -2473,15 +2473,15 @@
           "cajas": 2342.8,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 537.5
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 538.1
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 530.9
             }
           ]
@@ -2495,15 +2495,15 @@
           "cajas": 2325.2,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 538.1
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 530.9
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 534.5
             }
           ]
@@ -2517,15 +2517,15 @@
           "cajas": 2297.3,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 530.9
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 534.5
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 528
             }
           ]
@@ -2539,22 +2539,22 @@
           "cajas": 2201.3,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 534.5
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 528
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 473.3
             }
           ]
         }
       ]
     },
-    "8:2a8f5b92-cd09-4cec-9702-6ab27b832e3a": {
+    "8:cba2cab3-6575-4f48-bc97-704b0269221f": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -2576,15 +2576,15 @@
           "cajas": 1650.3,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 36.4
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 647.9
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 422.1
             }
           ]
@@ -2598,15 +2598,15 @@
           "cajas": 2195.8,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 647.9
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 422.1
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 410.4
             }
           ]
@@ -2620,15 +2620,15 @@
           "cajas": 1866.4,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 422.1
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 410.4
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 432.9
             }
           ]
@@ -2642,15 +2642,15 @@
           "cajas": 1900.9,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 410.4
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 432.9
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 452.8
             }
           ]
@@ -2664,15 +2664,15 @@
           "cajas": 1942.4,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 432.9
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 452.8
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 446.3
             }
           ]
@@ -2686,15 +2686,15 @@
           "cajas": 1943.7,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 452.8
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 446.3
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 441.4
             }
           ]
@@ -2708,15 +2708,15 @@
           "cajas": 1914.7,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 446.3
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 441.4
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 440.4
             }
           ]
@@ -2730,22 +2730,22 @@
           "cajas": 1851.1,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 441.4
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 440.4
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 409.7
             }
           ]
         }
       ]
     },
-    "12:9db0709c-f212-433f-a8b9-c9da33c0064a": {
+    "12:33e38490-a534-4814-b43d-453b7a0e773f": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -2767,15 +2767,15 @@
           "cajas": 1766.8,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 3.7
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 731.9
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 448.7
             }
           ]
@@ -2789,15 +2789,15 @@
           "cajas": 2464.4,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 731.9
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 448.7
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 480.8
             }
           ]
@@ -2811,15 +2811,15 @@
           "cajas": 2005,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 448.7
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 480.8
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 429.8
             }
           ]
@@ -2833,15 +2833,15 @@
           "cajas": 2029.2,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 480.8
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 429.8
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 472.9
             }
           ]
@@ -2855,15 +2855,15 @@
           "cajas": 1998.9,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 429.8
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 472.9
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 468
             }
           ]
@@ -2877,15 +2877,15 @@
           "cajas": 2048.2,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 472.9
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 468
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 471.6
             }
           ]
@@ -2899,15 +2899,15 @@
           "cajas": 2016.2,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 468
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 471.6
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 458.9
             }
           ]
@@ -2921,15 +2921,15 @@
           "cajas": 1965.6,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 471.6
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 458.9
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 440.9
             }
           ]
@@ -2943,15 +2943,15 @@
           "cajas": 1904.9,
           "porColor": [
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 458.9
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 440.9
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 437
             }
           ]
@@ -2965,15 +2965,15 @@
           "cajas": 1920.2,
           "porColor": [
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 440.9
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 437
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 477.5
             }
           ]
@@ -2987,15 +2987,15 @@
           "cajas": 1906,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 437
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 477.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 438.9
             }
           ]
@@ -3009,18 +3009,18 @@
           "cajas": 1283,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 477.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 438.9
             }
           ]
         }
       ]
     },
-    "12:1cbbf5d2-9fc0-4224-881a-eeb8a9ae5a55": {
+    "12:369c17f3-d7cd-438e-b093-f49dfdb400ac": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -3042,15 +3042,15 @@
           "cajas": 1839.7,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 30.8
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 714.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 487.7
             }
           ]
@@ -3064,15 +3064,15 @@
           "cajas": 2533.3,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 714.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 487.7
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 505.4
             }
           ]
@@ -3086,15 +3086,15 @@
           "cajas": 2216.7,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 487.7
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 505.4
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 509.7
             }
           ]
@@ -3108,15 +3108,15 @@
           "cajas": 2234.6,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 505.4
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 509.7
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 508.4
             }
           ]
@@ -3130,15 +3130,15 @@
           "cajas": 2194.9,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 509.7
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 508.4
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 487
             }
           ]
@@ -3152,15 +3152,15 @@
           "cajas": 2145.3,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 508.4
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 487
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 484.1
             }
           ]
@@ -3174,15 +3174,15 @@
           "cajas": 2108.4,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 487
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 484.1
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 491.3
             }
           ]
@@ -3196,15 +3196,15 @@
           "cajas": 2047.6,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 484.1
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 491.3
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 453.2
             }
           ]
@@ -3218,15 +3218,15 @@
           "cajas": 2032,
           "porColor": [
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 491.3
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 453.2
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 481.4
             }
           ]
@@ -3240,15 +3240,15 @@
           "cajas": 1997.3,
           "porColor": [
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 453.2
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 481.4
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 475.2
             }
           ]
@@ -3262,15 +3262,15 @@
           "cajas": 2031.3,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 481.4
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 475.2
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 485.7
             }
           ]
@@ -3284,18 +3284,18 @@
           "cajas": 1345.3,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 475.2
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 485.7
             }
           ]
         }
       ]
     },
-    "12:df9d5768-f571-41ff-9433-d951244efd7c": {
+    "12:e2a77cd9-5bcb-4a48-9c6b-c621e81dfe21": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -3317,15 +3317,15 @@
           "cajas": 1663.2,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 15.3
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 638.2
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 461.4
             }
           ]
@@ -3339,15 +3339,15 @@
           "cajas": 2317.4,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 638.2
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 461.4
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 462.7
             }
           ]
@@ -3361,15 +3361,15 @@
           "cajas": 2017.1,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 461.4
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 462.7
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 443.4
             }
           ]
@@ -3383,15 +3383,15 @@
           "cajas": 1975.1,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 462.7
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 443.4
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 440.5
             }
           ]
@@ -3405,15 +3405,15 @@
           "cajas": 1969.5,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 443.4
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 440.5
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 466.6
             }
           ]
@@ -3427,15 +3427,15 @@
           "cajas": 1975.3,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 440.5
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 466.6
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 455.2
             }
           ]
@@ -3449,15 +3449,15 @@
           "cajas": 1977.7,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 466.6
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 455.2
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 450
             }
           ]
@@ -3471,15 +3471,15 @@
           "cajas": 1923.1,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 455.2
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 450
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 436.6
             }
           ]
@@ -3493,15 +3493,15 @@
           "cajas": 1928.7,
           "porColor": [
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 450
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 436.6
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 466.9
             }
           ]
@@ -3515,15 +3515,15 @@
           "cajas": 1902.7,
           "porColor": [
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 436.6
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 466.9
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 439.5
             }
           ]
@@ -3537,15 +3537,15 @@
           "cajas": 1926.8,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 466.9
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 439.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 461.7
             }
           ]
@@ -3559,18 +3559,18 @@
           "cajas": 1261.7,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 439.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 461.7
             }
           ]
         }
       ]
     },
-    "12:5154440e-575f-4e67-83b2-ef0ae027deca": {
+    "12:baf68bed-bcfd-4649-b534-5590ef500a63": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -3592,15 +3592,15 @@
           "cajas": 1526.8,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 15.2
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 627.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 380.8
             }
           ]
@@ -3614,15 +3614,15 @@
           "cajas": 2093.2,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 627.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 380.8
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 402.9
             }
           ]
@@ -3636,15 +3636,15 @@
           "cajas": 1747.7,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 380.8
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 402.9
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 401.2
             }
           ]
@@ -3658,15 +3658,15 @@
           "cajas": 1806.4,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 402.9
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 401.2
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 427.5
             }
           ]
@@ -3680,15 +3680,15 @@
           "cajas": 1803.2,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 401.2
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 427.5
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 407.8
             }
           ]
@@ -3702,15 +3702,15 @@
           "cajas": 1763.9,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 427.5
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 407.8
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 381.2
             }
           ]
@@ -3724,15 +3724,15 @@
           "cajas": 1729.6,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 407.8
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 381.2
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 410.8
             }
           ]
@@ -3746,15 +3746,15 @@
           "cajas": 1701.6,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 381.2
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 410.8
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 395.3
             }
           ]
@@ -3768,15 +3768,15 @@
           "cajas": 1745.7,
           "porColor": [
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 410.8
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 395.3
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 419
             }
           ]
@@ -3790,15 +3790,15 @@
           "cajas": 1732.2,
           "porColor": [
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 395.3
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 419
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 408.5
             }
           ]
@@ -3812,15 +3812,15 @@
           "cajas": 1741.4,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 419
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 408.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 409.1
             }
           ]
@@ -3834,18 +3834,18 @@
           "cajas": 1144.6,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 408.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 409.1
             }
           ]
         }
       ]
     },
-    "12:60f1e630-97c2-498e-ad7d-6d18c4ee44b1": {
+    "12:f6bbbba5-cf60-4a61-acab-966887bef7f1": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -3867,15 +3867,15 @@
           "cajas": 1975.3,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 12.3
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 800.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 511.1
             }
           ]
@@ -3889,15 +3889,15 @@
           "cajas": 2735.9,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 800.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 511.1
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 532.6
             }
           ]
@@ -3911,15 +3911,15 @@
           "cajas": 2332.1,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 511.1
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 532.6
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 537.5
             }
           ]
@@ -3933,15 +3933,15 @@
           "cajas": 2358.7,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 532.6
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 537.5
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 538.1
             }
           ]
@@ -3955,15 +3955,15 @@
           "cajas": 2342.8,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 537.5
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 538.1
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 530.9
             }
           ]
@@ -3977,15 +3977,15 @@
           "cajas": 2325.2,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 538.1
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 530.9
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 534.5
             }
           ]
@@ -3999,15 +3999,15 @@
           "cajas": 2297.3,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 530.9
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 534.5
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 528
             }
           ]
@@ -4021,15 +4021,15 @@
           "cajas": 2201.3,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 534.5
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 528
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 473.3
             }
           ]
@@ -4043,15 +4043,15 @@
           "cajas": 2141.1,
           "porColor": [
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 528
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 473.3
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 501.3
             }
           ]
@@ -4065,15 +4065,15 @@
           "cajas": 2091.3,
           "porColor": [
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 473.3
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 501.3
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 501.6
             }
           ]
@@ -4087,15 +4087,15 @@
           "cajas": 2168.4,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 501.3
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 501.6
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 536.8
             }
           ]
@@ -4109,18 +4109,18 @@
           "cajas": 1453.8,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 501.6
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 536.8
             }
           ]
         }
       ]
     },
-    "12:2a8f5b92-cd09-4cec-9702-6ab27b832e3a": {
+    "12:cba2cab3-6575-4f48-bc97-704b0269221f": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -4142,15 +4142,15 @@
           "cajas": 1650.3,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 36.4
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 647.9
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 422.1
             }
           ]
@@ -4164,15 +4164,15 @@
           "cajas": 2195.8,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 647.9
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 422.1
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 410.4
             }
           ]
@@ -4186,15 +4186,15 @@
           "cajas": 1866.4,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 422.1
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 410.4
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 432.9
             }
           ]
@@ -4208,15 +4208,15 @@
           "cajas": 1900.9,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 410.4
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 432.9
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 452.8
             }
           ]
@@ -4230,15 +4230,15 @@
           "cajas": 1942.4,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 432.9
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 452.8
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 446.3
             }
           ]
@@ -4252,15 +4252,15 @@
           "cajas": 1943.7,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 452.8
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 446.3
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 441.4
             }
           ]
@@ -4274,15 +4274,15 @@
           "cajas": 1914.7,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 446.3
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 441.4
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 440.4
             }
           ]
@@ -4296,15 +4296,15 @@
           "cajas": 1851.1,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 441.4
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 440.4
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 409.7
             }
           ]
@@ -4318,15 +4318,15 @@
           "cajas": 1867.4,
           "porColor": [
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 440.4
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 409.7
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 460.3
             }
           ]
@@ -4340,15 +4340,15 @@
           "cajas": 1828.3,
           "porColor": [
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 409.7
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 460.3
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 420.5
             }
           ]
@@ -4362,15 +4362,15 @@
           "cajas": 1839.1,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 460.3
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 420.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 425.1
             }
           ]
@@ -4384,18 +4384,18 @@
           "cajas": 1183.8,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 420.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 425.1
             }
           ]
         }
       ]
     },
-    "16:9db0709c-f212-433f-a8b9-c9da33c0064a": {
+    "16:33e38490-a534-4814-b43d-453b7a0e773f": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -4417,15 +4417,15 @@
           "cajas": 1766.8,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 3.7
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 731.9
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 448.7
             }
           ]
@@ -4439,15 +4439,15 @@
           "cajas": 2464.4,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 731.9
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 448.7
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 480.8
             }
           ]
@@ -4461,15 +4461,15 @@
           "cajas": 2005,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 448.7
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 480.8
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 429.8
             }
           ]
@@ -4483,15 +4483,15 @@
           "cajas": 2029.2,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 480.8
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 429.8
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 472.9
             }
           ]
@@ -4505,15 +4505,15 @@
           "cajas": 1998.9,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 429.8
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 472.9
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 468
             }
           ]
@@ -4527,15 +4527,15 @@
           "cajas": 2048.2,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 472.9
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 468
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 471.6
             }
           ]
@@ -4549,15 +4549,15 @@
           "cajas": 2016.2,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 468
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 471.6
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 458.9
             }
           ]
@@ -4571,15 +4571,15 @@
           "cajas": 1965.6,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 471.6
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 458.9
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 440.9
             }
           ]
@@ -4593,15 +4593,15 @@
           "cajas": 1904.9,
           "porColor": [
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 458.9
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 440.9
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 437
             }
           ]
@@ -4615,15 +4615,15 @@
           "cajas": 1920.2,
           "porColor": [
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 440.9
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 437
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 477.5
             }
           ]
@@ -4637,15 +4637,15 @@
           "cajas": 1906,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 437
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 477.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 438.9
             }
           ]
@@ -4659,11 +4659,11 @@
           "cajas": 1283,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 477.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 438.9
             }
           ]
@@ -4677,7 +4677,7 @@
           "cajas": 614.5,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 438.9
             }
           ]
@@ -4711,7 +4711,7 @@
         }
       ]
     },
-    "16:1cbbf5d2-9fc0-4224-881a-eeb8a9ae5a55": {
+    "16:369c17f3-d7cd-438e-b093-f49dfdb400ac": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -4733,15 +4733,15 @@
           "cajas": 1839.7,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 30.8
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 714.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 487.7
             }
           ]
@@ -4755,15 +4755,15 @@
           "cajas": 2533.3,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 714.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 487.7
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 505.4
             }
           ]
@@ -4777,15 +4777,15 @@
           "cajas": 2216.7,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 487.7
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 505.4
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 509.7
             }
           ]
@@ -4799,15 +4799,15 @@
           "cajas": 2234.6,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 505.4
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 509.7
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 508.4
             }
           ]
@@ -4821,15 +4821,15 @@
           "cajas": 2194.9,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 509.7
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 508.4
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 487
             }
           ]
@@ -4843,15 +4843,15 @@
           "cajas": 2145.3,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 508.4
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 487
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 484.1
             }
           ]
@@ -4865,15 +4865,15 @@
           "cajas": 2108.4,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 487
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 484.1
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 491.3
             }
           ]
@@ -4887,15 +4887,15 @@
           "cajas": 2047.6,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 484.1
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 491.3
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 453.2
             }
           ]
@@ -4909,15 +4909,15 @@
           "cajas": 2032,
           "porColor": [
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 491.3
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 453.2
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 481.4
             }
           ]
@@ -4931,15 +4931,15 @@
           "cajas": 1997.3,
           "porColor": [
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 453.2
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 481.4
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 475.2
             }
           ]
@@ -4953,15 +4953,15 @@
           "cajas": 2031.3,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 481.4
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 475.2
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 485.7
             }
           ]
@@ -4975,11 +4975,11 @@
           "cajas": 1345.3,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 475.2
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 485.7
             }
           ]
@@ -4993,7 +4993,7 @@
           "cajas": 680,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 485.7
             }
           ]
@@ -5027,7 +5027,7 @@
         }
       ]
     },
-    "16:df9d5768-f571-41ff-9433-d951244efd7c": {
+    "16:e2a77cd9-5bcb-4a48-9c6b-c621e81dfe21": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -5049,15 +5049,15 @@
           "cajas": 1663.2,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 15.3
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 638.2
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 461.4
             }
           ]
@@ -5071,15 +5071,15 @@
           "cajas": 2317.4,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 638.2
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 461.4
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 462.7
             }
           ]
@@ -5093,15 +5093,15 @@
           "cajas": 2017.1,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 461.4
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 462.7
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 443.4
             }
           ]
@@ -5115,15 +5115,15 @@
           "cajas": 1975.1,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 462.7
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 443.4
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 440.5
             }
           ]
@@ -5137,15 +5137,15 @@
           "cajas": 1969.5,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 443.4
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 440.5
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 466.6
             }
           ]
@@ -5159,15 +5159,15 @@
           "cajas": 1975.3,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 440.5
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 466.6
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 455.2
             }
           ]
@@ -5181,15 +5181,15 @@
           "cajas": 1977.7,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 466.6
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 455.2
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 450
             }
           ]
@@ -5203,15 +5203,15 @@
           "cajas": 1923.1,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 455.2
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 450
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 436.6
             }
           ]
@@ -5225,15 +5225,15 @@
           "cajas": 1928.7,
           "porColor": [
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 450
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 436.6
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 466.9
             }
           ]
@@ -5247,15 +5247,15 @@
           "cajas": 1902.7,
           "porColor": [
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 436.6
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 466.9
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 439.5
             }
           ]
@@ -5269,15 +5269,15 @@
           "cajas": 1926.8,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 466.9
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 439.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 461.7
             }
           ]
@@ -5291,11 +5291,11 @@
           "cajas": 1261.7,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 439.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 461.7
             }
           ]
@@ -5309,7 +5309,7 @@
           "cajas": 646.4,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 461.7
             }
           ]
@@ -5343,7 +5343,7 @@
         }
       ]
     },
-    "16:5154440e-575f-4e67-83b2-ef0ae027deca": {
+    "16:baf68bed-bcfd-4649-b534-5590ef500a63": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -5365,15 +5365,15 @@
           "cajas": 1526.8,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 15.2
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 627.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 380.8
             }
           ]
@@ -5387,15 +5387,15 @@
           "cajas": 2093.2,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 627.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 380.8
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 402.9
             }
           ]
@@ -5409,15 +5409,15 @@
           "cajas": 1747.7,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 380.8
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 402.9
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 401.2
             }
           ]
@@ -5431,15 +5431,15 @@
           "cajas": 1806.4,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 402.9
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 401.2
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 427.5
             }
           ]
@@ -5453,15 +5453,15 @@
           "cajas": 1803.2,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 401.2
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 427.5
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 407.8
             }
           ]
@@ -5475,15 +5475,15 @@
           "cajas": 1763.9,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 427.5
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 407.8
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 381.2
             }
           ]
@@ -5497,15 +5497,15 @@
           "cajas": 1729.6,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 407.8
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 381.2
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 410.8
             }
           ]
@@ -5519,15 +5519,15 @@
           "cajas": 1701.6,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 381.2
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 410.8
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 395.3
             }
           ]
@@ -5541,15 +5541,15 @@
           "cajas": 1745.7,
           "porColor": [
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 410.8
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 395.3
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 419
             }
           ]
@@ -5563,15 +5563,15 @@
           "cajas": 1732.2,
           "porColor": [
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 395.3
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 419
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 408.5
             }
           ]
@@ -5585,15 +5585,15 @@
           "cajas": 1741.4,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 419
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 408.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 409.1
             }
           ]
@@ -5607,11 +5607,11 @@
           "cajas": 1144.6,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 408.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 409.1
             }
           ]
@@ -5625,7 +5625,7 @@
           "cajas": 572.8,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 409.1
             }
           ]
@@ -5659,7 +5659,7 @@
         }
       ]
     },
-    "16:60f1e630-97c2-498e-ad7d-6d18c4ee44b1": {
+    "16:f6bbbba5-cf60-4a61-acab-966887bef7f1": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -5681,15 +5681,15 @@
           "cajas": 1975.3,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 12.3
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 800.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 511.1
             }
           ]
@@ -5703,15 +5703,15 @@
           "cajas": 2735.9,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 800.8
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 511.1
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 532.6
             }
           ]
@@ -5725,15 +5725,15 @@
           "cajas": 2332.1,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 511.1
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 532.6
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 537.5
             }
           ]
@@ -5747,15 +5747,15 @@
           "cajas": 2358.7,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 532.6
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 537.5
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 538.1
             }
           ]
@@ -5769,15 +5769,15 @@
           "cajas": 2342.8,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 537.5
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 538.1
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 530.9
             }
           ]
@@ -5791,15 +5791,15 @@
           "cajas": 2325.2,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 538.1
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 530.9
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 534.5
             }
           ]
@@ -5813,15 +5813,15 @@
           "cajas": 2297.3,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 530.9
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 534.5
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 528
             }
           ]
@@ -5835,15 +5835,15 @@
           "cajas": 2201.3,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 534.5
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 528
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 473.3
             }
           ]
@@ -5857,15 +5857,15 @@
           "cajas": 2141.1,
           "porColor": [
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 528
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 473.3
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 501.3
             }
           ]
@@ -5879,15 +5879,15 @@
           "cajas": 2091.3,
           "porColor": [
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 473.3
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 501.3
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 501.6
             }
           ]
@@ -5901,15 +5901,15 @@
           "cajas": 2168.4,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 501.3
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 501.6
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 536.8
             }
           ]
@@ -5923,11 +5923,11 @@
           "cajas": 1453.8,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 501.6
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 536.8
             }
           ]
@@ -5941,7 +5941,7 @@
           "cajas": 751.5,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 536.8
             }
           ]
@@ -5975,7 +5975,7 @@
         }
       ]
     },
-    "16:2a8f5b92-cd09-4cec-9702-6ab27b832e3a": {
+    "16:cba2cab3-6575-4f48-bc97-704b0269221f": {
       "semanaActual": {
         "anio": 2026,
         "numero": 41
@@ -5997,15 +5997,15 @@
           "cajas": 1650.3,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 36.4
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 647.9
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 422.1
             }
           ]
@@ -6019,15 +6019,15 @@
           "cajas": 2195.8,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 647.9
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 422.1
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 410.4
             }
           ]
@@ -6041,15 +6041,15 @@
           "cajas": 1866.4,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 422.1
             },
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 410.4
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 432.9
             }
           ]
@@ -6063,15 +6063,15 @@
           "cajas": 1900.9,
           "porColor": [
             {
-              "colorCintaId": "addb8f98-101f-47eb-ba01-ddc713233e19",
+              "colorCintaId": "c9d84bb6-de39-4a60-9369-10f3d65045b4",
               "racimos": 410.4
             },
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 432.9
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 452.8
             }
           ]
@@ -6085,15 +6085,15 @@
           "cajas": 1942.4,
           "porColor": [
             {
-              "colorCintaId": "d6b9a52c-04e4-4331-b940-a27a8176869f",
+              "colorCintaId": "7918b209-659d-465b-8016-4903eac219de",
               "racimos": 432.9
             },
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 452.8
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 446.3
             }
           ]
@@ -6107,15 +6107,15 @@
           "cajas": 1943.7,
           "porColor": [
             {
-              "colorCintaId": "91a6997e-fd99-4e92-b7ff-e74e5a6ff85a",
+              "colorCintaId": "f184e144-0a0d-4cb7-8d59-d108413bdb1e",
               "racimos": 452.8
             },
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 446.3
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 441.4
             }
           ]
@@ -6129,15 +6129,15 @@
           "cajas": 1914.7,
           "porColor": [
             {
-              "colorCintaId": "997d0ab2-911c-443f-a01a-4f77e5dcb7d0",
+              "colorCintaId": "3336be32-92d0-4071-b899-f24aa85687f4",
               "racimos": 446.3
             },
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 441.4
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 440.4
             }
           ]
@@ -6151,15 +6151,15 @@
           "cajas": 1851.1,
           "porColor": [
             {
-              "colorCintaId": "0fdd2976-20ea-4de1-b307-fbdea5bd1318",
+              "colorCintaId": "482d334f-9a6b-4504-993f-1c9f12a2c6c2",
               "racimos": 441.4
             },
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 440.4
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 409.7
             }
           ]
@@ -6173,15 +6173,15 @@
           "cajas": 1867.4,
           "porColor": [
             {
-              "colorCintaId": "2b1b38ab-a0e6-418a-bc7b-44e03f52b347",
+              "colorCintaId": "1a872a8d-d7b4-4ec0-92b3-48ebe8e689f8",
               "racimos": 440.4
             },
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 409.7
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 460.3
             }
           ]
@@ -6195,15 +6195,15 @@
           "cajas": 1828.3,
           "porColor": [
             {
-              "colorCintaId": "316a7ee7-ac9f-4830-885e-efba88252263",
+              "colorCintaId": "92bdfc40-a251-43f9-a233-22a24fce206f",
               "racimos": 409.7
             },
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 460.3
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 420.5
             }
           ]
@@ -6217,15 +6217,15 @@
           "cajas": 1839.1,
           "porColor": [
             {
-              "colorCintaId": "6b6641c4-8629-4baf-9664-24e34dc582b7",
+              "colorCintaId": "1e9da65a-63f0-47c6-a572-3471bf4ba25f",
               "racimos": 460.3
             },
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 420.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 425.1
             }
           ]
@@ -6239,11 +6239,11 @@
           "cajas": 1183.8,
           "porColor": [
             {
-              "colorCintaId": "3674cda9-8d60-4bc6-9a49-cf68b5375842",
+              "colorCintaId": "0e02dbe9-4419-4f97-a2a6-6a7da12c149d",
               "racimos": 420.5
             },
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 425.1
             }
           ]
@@ -6257,7 +6257,7 @@
           "cajas": 595.1,
           "porColor": [
             {
-              "colorCintaId": "ac574510-28b7-472e-acae-af82a2cda057",
+              "colorCintaId": "d918dd61-4f46-4cca-b5cf-be9f564ec369",
               "racimos": 425.1
             }
           ]

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Calendario, Lotes, Plagas, TiposLabor } from '@/componentes/admin/Catalogos';
+import { PersonalPorCaporal } from '@/componentes/admin/Personal';
 import { Bitacora, Formularios, Modulos, Parametros } from '@/componentes/admin/Plataforma';
 import { Roles } from '@/componentes/admin/Roles';
 import { Usuarios } from '@/componentes/admin/Usuarios';
@@ -9,6 +10,7 @@ import { Titulo } from '@/componentes/ui';
 
 const PESTANAS = {
   usuarios: { titulo: 'Usuarios', C: Usuarios },
+  personal: { titulo: 'Personal por caporal', C: PersonalPorCaporal },
   roles: { titulo: 'Roles y permisos', C: Roles },
   lotes: { titulo: 'Lotes', C: Lotes },
   plagas: { titulo: 'Plagas', C: Plagas },

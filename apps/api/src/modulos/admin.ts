@@ -549,6 +549,151 @@ export default async function rutasAdmin(fastify: FastifyInstance) {
     },
   );
 
+  // ─── Personal por caporal ────────────────────────────────────────────────
+  // Cada caporal tiene su personal a cargo (una cuadrilla propia). Al cambiar el caporal de
+  // un trabajador se mueve a la cuadrilla de ese caporal; si aún no tiene, se crea.
+  app.get(
+    '/personal',
+    {
+      preHandler: app.requiere('admin:usuarios'),
+      schema: { tags: ['admin'], summary: 'Caporales, cuadrillas y personal a cargo' },
+    },
+    async (req) => {
+      const fincaId = req.usuario!.fincaId;
+      const [caporales, cuadrillas, trabajadores] = await Promise.all([
+        app.db
+          .select({ id: e.usuarios.id, nombre: e.usuarios.nombre })
+          .from(e.usuarios)
+          .innerJoin(e.roles, eq(e.roles.id, e.usuarios.rol_id))
+          .where(
+            and(
+              eq(e.roles.codigo, 'caporal'),
+              eq(e.usuarios.activo, true),
+              isNull(e.usuarios.deleted_at),
+            ),
+          )
+          .orderBy(asc(e.usuarios.nombre)),
+        app.db
+          .select({
+            id: e.cuadrillas.id,
+            nombre: e.cuadrillas.nombre,
+            caporal_id: e.cuadrillas.caporal_id,
+          })
+          .from(e.cuadrillas)
+          .where(and(eq(e.cuadrillas.finca_id, fincaId), isNull(e.cuadrillas.deleted_at))),
+        app.db
+          .select({
+            id: e.trabajadores.id,
+            codigo: e.trabajadores.codigo,
+            nombre: e.trabajadores.nombre,
+            centro_costo: e.trabajadores.centro_costo,
+            cuadrilla_id: e.trabajadores.cuadrilla_id,
+            activo: e.trabajadores.activo,
+          })
+          .from(e.trabajadores)
+          .where(and(eq(e.trabajadores.finca_id, fincaId), isNull(e.trabajadores.deleted_at)))
+          .orderBy(asc(e.trabajadores.codigo)),
+      ]);
+      return { caporales, cuadrillas, trabajadores };
+    },
+  );
+
+  app.put(
+    '/trabajadores/:id/caporal',
+    {
+      preHandler: app.requiere('admin:usuarios'),
+      schema: {
+        tags: ['admin'],
+        summary: 'Asignar el trabajador al personal de un caporal (o dejarlo sin caporal)',
+        params: idParam,
+        body: z.object({ caporal_id: z.string().uuid().nullable() }),
+      },
+    },
+    async (req) => {
+      const u = req.usuario!;
+      const { caporal_id } = req.body;
+      return escrituraSincronizada(app.db, u.fincaId, async (tx, ahora) => {
+        const [trabajador] = await tx
+          .select({ id: e.trabajadores.id, nombre: e.trabajadores.nombre })
+          .from(e.trabajadores)
+          .where(and(eq(e.trabajadores.id, req.params.id), eq(e.trabajadores.finca_id, u.fincaId)));
+        if (!trabajador) throw noEncontrado('Trabajador no encontrado');
+
+        let cuadrillaId: string | null = null;
+        if (caporal_id) {
+          const [caporal] = await tx
+            .select({ id: e.usuarios.id, nombre: e.usuarios.nombre })
+            .from(e.usuarios)
+            .innerJoin(e.roles, eq(e.roles.id, e.usuarios.rol_id))
+            .where(and(eq(e.usuarios.id, caporal_id), eq(e.roles.codigo, 'caporal')));
+          if (!caporal) throw solicitudInvalida('El usuario elegido no es caporal');
+          const [existente] = await tx
+            .select({ id: e.cuadrillas.id })
+            .from(e.cuadrillas)
+            .where(
+              and(
+                eq(e.cuadrillas.finca_id, u.fincaId),
+                eq(e.cuadrillas.caporal_id, caporal_id),
+                isNull(e.cuadrillas.deleted_at),
+              ),
+            )
+            .orderBy(asc(e.cuadrillas.nombre))
+            .limit(1);
+          if (existente) cuadrillaId = existente.id;
+          else {
+            const [nueva] = await tx
+              .insert(e.cuadrillas)
+              .values({
+                nombre: `Cuadrilla de ${caporal.nombre}`,
+                caporal_id,
+                finca_id: u.fincaId,
+                created_at: ahora,
+                updated_at: ahora,
+                server_updated_at: ahora,
+                created_by: u.id,
+              })
+              .returning({ id: e.cuadrillas.id });
+            cuadrillaId = nueva!.id;
+          }
+        }
+
+        await tx
+          .update(e.trabajadores)
+          .set({ cuadrilla_id: cuadrillaId, updated_at: ahora, server_updated_at: ahora })
+          .where(eq(e.trabajadores.id, trabajador.id));
+        // Membresía: se da de baja la anterior (borrado lógico) y se agrega la nueva.
+        await tx
+          .update(e.cuadrilla_miembros)
+          .set({ deleted_at: ahora, updated_at: ahora, server_updated_at: ahora })
+          .where(
+            and(
+              eq(e.cuadrilla_miembros.trabajador_id, trabajador.id),
+              isNull(e.cuadrilla_miembros.deleted_at),
+            ),
+          );
+        if (cuadrillaId)
+          await tx.insert(e.cuadrilla_miembros).values({
+            cuadrilla_id: cuadrillaId,
+            trabajador_id: trabajador.id,
+            finca_id: u.fincaId,
+            created_at: ahora,
+            updated_at: ahora,
+            server_updated_at: ahora,
+            created_by: u.id,
+          });
+        await registrarBitacora(tx, {
+          fincaId: u.fincaId,
+          usuarioId: u.id,
+          accion: 'editar',
+          tabla: 'trabajadores',
+          registroId: trabajador.id,
+          datos: { caporal_id, cuadrilla_id: cuadrillaId },
+        });
+        return { ok: true, cuadrilla_id: cuadrillaId };
+      });
+    },
+  );
+
   // ─── Bitácora ────────────────────────────────────────────────────────────
   app.get(
     '/bitacora',

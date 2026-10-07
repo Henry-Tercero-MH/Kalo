@@ -19,6 +19,7 @@ export const USUARIOS_DEMO: { usuario: string; nombre: string; rol: CodigoRol; p
     pin: '4444',
   },
   { usuario: 'caporal', nombre: 'Carlos Caporal (DEMO)', rol: ROLES.caporal, pin: '5555' },
+  { usuario: 'caporal2', nombre: 'Camila Caporal (DEMO)', rol: ROLES.caporal, pin: '7777' },
 ];
 
 export const ROLES_DEMO: { codigo: CodigoRol; nombre: string; plataformas: string[] }[] = [

@@ -74,7 +74,7 @@ Ver README → «App móvil». Es la que tiene GPS en segundo plano, base SQLite
 > En modo demo la sincronización es simulada: los registros no viajan a un servidor. Para
 > mostrar que llegan al panel web, use la build de desarrollo conectada a la API (README).
 
-Usuarios: `admin` 1111 · `gerente` 2222 · `supervisor` 3333 · `tecnico` 4444 · `caporal` 5555.
+Usuarios: `admin` 1111 · `gerente` 2222 · `supervisor` 3333 · `tecnico` 4444 · `caporal` 5555 · `caporal2` 7777 (cada caporal ve solo su personal).
 
 Cada perfil tiene su propio inicio en la app:
 

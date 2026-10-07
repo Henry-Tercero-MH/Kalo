@@ -1,11 +1,11 @@
 {
   "admin": {
-    "id": "367e55c5-3afe-4a96-8779-f9965ac00936",
+    "id": "cbf0acba-3af7-401c-985b-2a297745c08a",
     "nombre": "Ana Administradora (DEMO)",
     "usuario": "admin",
     "rol": "administrador",
-    "fincaId": "8716d3d2-149a-4704-bffe-061a03bf55f8",
-    "empresaId": "ada54c0f-d6fc-4dda-a1cc-ed53aa440741",
+    "fincaId": "f937d496-e9fb-409e-aa0d-dad9cfba5685",
+    "empresaId": "652aa6cd-e9e7-42ab-be8d-87e813280619",
     "permisos": [
       "admin:catalogos",
       "admin:formularios",
@@ -74,12 +74,12 @@
     ]
   },
   "gerente": {
-    "id": "ec7e60b1-1286-4c1b-8dd9-3041946e6dd3",
+    "id": "6d7fdda3-a2e9-4f44-a951-ab0d9106fad0",
     "nombre": "Gerardo Gerente (DEMO)",
     "usuario": "gerente",
     "rol": "gerente",
-    "fincaId": "8716d3d2-149a-4704-bffe-061a03bf55f8",
-    "empresaId": "ada54c0f-d6fc-4dda-a1cc-ed53aa440741",
+    "fincaId": "f937d496-e9fb-409e-aa0d-dad9cfba5685",
+    "empresaId": "652aa6cd-e9e7-42ab-be8d-87e813280619",
     "permisos": [
       "cosecha:ver",
       "dispositivos:ver",
@@ -118,12 +118,12 @@
     ]
   },
   "supervisor": {
-    "id": "31f9897a-ee89-4a77-b4b6-cb53aa6c4871",
+    "id": "b3981559-8055-4479-bb73-f485e8826a9a",
     "nombre": "Sofía Supervisora (DEMO)",
     "usuario": "supervisor",
     "rol": "supervisor",
-    "fincaId": "8716d3d2-149a-4704-bffe-061a03bf55f8",
-    "empresaId": "ada54c0f-d6fc-4dda-a1cc-ed53aa440741",
+    "fincaId": "f937d496-e9fb-409e-aa0d-dad9cfba5685",
+    "empresaId": "652aa6cd-e9e7-42ab-be8d-87e813280619",
     "permisos": [
       "archivos:crear",
       "conflictos:resolver",

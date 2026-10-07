@@ -695,6 +695,73 @@ const RUTAS: Ruta[] = [
     },
   ],
 
+  // Administración: personal por caporal (mismo contrato que la API).
+  [
+    'GET',
+    /^\/admin\/personal$/,
+    'admin:usuarios',
+    ({ alm }) => {
+      const rolCaporal = alm.catalogos.roles.find((r) => r.codigo === 'caporal')?.id;
+      return {
+        caporales: alm.usuarios
+          .filter((x) => x.rol_id === rolCaporal && x.activo)
+          .map((x) => ({ id: x.id, nombre: x.nombre })),
+        cuadrillas: alm.catalogos.cuadrillas
+          .filter((c) => !c.deleted_at)
+          .map((c) => ({ id: c.id, nombre: c.nombre, caporal_id: c.caporal_id })),
+        trabajadores: [...alm.catalogos.trabajadores]
+          .filter((t) => !t.deleted_at)
+          .sort((a, b) => String(a.codigo).localeCompare(String(b.codigo)))
+          .map((t) => ({
+            id: t.id,
+            codigo: t.codigo,
+            nombre: t.nombre,
+            centro_costo: t.centro_costo ?? null,
+            cuadrilla_id: t.cuadrilla_id ?? null,
+            activo: t.activo,
+          })),
+      };
+    },
+  ],
+  [
+    'PUT',
+    /^\/admin\/trabajadores\/([^/]+)\/caporal$/,
+    'admin:usuarios',
+    ({ alm, p, cuerpo, u }) => {
+      const caporalId = (cuerpo as { caporal_id?: string | null } | undefined)?.caporal_id ?? null;
+      const trabajador = alm.catalogos.trabajadores.find((t) => t.id === p[0]);
+      if (!trabajador) throw noEncontrado('Trabajador no encontrado');
+      let cuadrillaId: string | null = null;
+      if (caporalId) {
+        const caporal = alm.usuarios.find((x) => x.id === caporalId);
+        if (!caporal) throw invalida('El usuario elegido no es caporal');
+        const propia = alm.catalogos.cuadrillas.find((c) => c.caporal_id === caporalId);
+        if (propia) cuadrillaId = String(propia.id);
+        else {
+          const t = ahora();
+          cuadrillaId = randomUUID();
+          alm.catalogos.cuadrillas.push({
+            id: cuadrillaId,
+            nombre: `Cuadrilla de ${caporal.nombre}`,
+            caporal_id: caporalId,
+            created_at: t,
+            updated_at: t,
+            deleted_at: null,
+          });
+        }
+      }
+      Object.assign(trabajador, { cuadrilla_id: cuadrillaId, updated_at: ahora() });
+      anotarBitacora(alm, {
+        usuarioId: u.id,
+        accion: 'editar',
+        tabla: 'trabajadores',
+        registroId: String(trabajador.id),
+        datos: { caporal_id: caporalId, cuadrilla_id: cuadrillaId },
+      });
+      return { ok: true, cuadrilla_id: cuadrillaId };
+    },
+  ],
+
   // Administración: roles y permisos
   ['GET', /^\/admin\/roles$/, 'admin:roles', ({ alm }) => alm.roles],
   [

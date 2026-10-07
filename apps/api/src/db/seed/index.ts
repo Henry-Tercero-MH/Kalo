@@ -198,10 +198,14 @@ export async function sembrar(db: BaseDatos) {
   const usuario = (codigo: string) => usuarios.find((u) => u.usuario === codigo)!;
   trabajadores[0]!.nombre = 'Teresa Trabajadora (DEMO)';
 
-  const cuadrillas = ['Cuadrilla A DEMO', 'Cuadrilla B DEMO'].map((nombre) => ({
+  // Cada caporal tiene su personal a cargo: una cuadrilla por caporal.
+  const cuadrillas = [
+    { nombre: 'Cuadrilla A DEMO', caporal: 'caporal' },
+    { nombre: 'Cuadrilla B DEMO', caporal: 'caporal2' },
+  ].map((c) => ({
     ...comunes(fincaId, null, ahora),
-    nombre,
-    caporal_id: usuario('caporal').id,
+    nombre: c.nombre,
+    caporal_id: usuario(c.caporal).id,
   }));
   trabajadores.forEach((t, i) => (t.cuadrilla_id = cuadrillas[i < 8 ? 0 : 1]!.id));
   await db.insert(e.trabajadores).values(trabajadores);
