@@ -11,5 +11,5 @@ const ALTO = 12;
 
 export function FranjaSuperior() {
   const { top } = useSafeAreaInsets();
-  return <View style={{ height: top + ALTO, backgroundColor: colores.marca.verde600 }} />;
+  return <View style={{ height: top + ALTO, backgroundColor: colores.marca.verde700 }} />;
 }
