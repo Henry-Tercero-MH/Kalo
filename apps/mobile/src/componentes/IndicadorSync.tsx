@@ -1,6 +1,6 @@
 /**
- * Botón de envío en el encabezado. Siempre dice ENVIAR; el estado se ve en el cuadro de color,
- * la nube y la cantidad en cola (fondo verde si hay datos guardados sin enviar). Al tocarlo
+ * Botón de envío en el encabezado: verde, con el ícono de enviar (avión de papel) y la cantidad
+ * de datos en cola; sin señal o con error lleva una marca de color en la esquina. Al tocarlo
  * pregunta «¿Seguro que quiere enviar los datos?», envía lo guardado en el teléfono (los
  * repetidos no se envían) y muestra el resultado.
  */
@@ -50,29 +50,33 @@ export function IndicadorSync() {
     setPaso('enviado');
   };
 
-  const conPendientes = cola > 0 && resumen !== 'sincronizando';
   return (
     <>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel={`${t(v.clave)}${cola ? `, ${cola} en cola` : ''}. ${t('sync.tocarParaEnviar')}`}
+        accessibilityLabel={`${t('sync.enviarBoton')}. ${t(v.clave)}${cola ? `, ${cola} en cola` : ''}`}
         onPress={() => void abrir()}
         hitSlop={6}
-        style={({ pressed }) => [
-          estilos.boton,
-          conPendientes && estilos.botonPendiente,
-          pressed && { opacity: 0.7 },
-        ]}
+        style={({ pressed }) => [estilos.boton, pressed && estilos.botonPresionado]}
       >
-        {!conPendientes ? (
-          <View style={{ width: 10, height: 10, backgroundColor: v.color }} />
-        ) : null}
-        <Icono nombre={v.icono} tamano={20} color={semantico.titulo} />
-        {/* Siempre dice ENVIAR; el estado lo dan el cuadro de color, la nube y el número. */}
+        {resumen === 'sincronizando' ? (
+          <ActivityIndicator size="small" color={semantico.titulo} />
+        ) : (
+          <Icono nombre="send" tamano={20} color={semantico.titulo} />
+        )}
         <Text style={estilos.texto}>
           {resumen === 'sincronizando' ? t('sync.enviandoCorto') : t('sync.enviarBoton')}
-          {cola ? ` · ${cola}` : ''}
         </Text>
+        {/* Cuántos datos esperan envío. */}
+        {cola > 0 && resumen !== 'sincronizando' ? (
+          <View style={estilos.cantidad}>
+            <Text style={estilos.cantidadTexto}>{cola > 99 ? '99+' : cola}</Text>
+          </View>
+        ) : null}
+        {/* Sin señal o con error: marca en la esquina con el color del estado. */}
+        {resumen === 'sinRed' || resumen === 'error' ? (
+          <View style={[estilos.marcaEstado, { backgroundColor: v.color }]} />
+        ) : null}
       </Pressable>
 
       <Modal
@@ -164,17 +168,40 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     gap: 6,
     minHeight: 44,
-    paddingHorizontal: espaciado.sm,
+    paddingHorizontal: espaciado.md,
+    backgroundColor: semantico.acento,
     borderWidth: 2,
     borderColor: semantico.bordeFuerte,
-    backgroundColor: semantico.fondo,
   },
-  botonPendiente: { backgroundColor: semantico.acento },
+  botonPresionado: { backgroundColor: colores.marca.verde600 },
   texto: {
     fontFamily: tipografia.familias.titulo,
-    fontSize: 12,
+    fontSize: 13,
     color: semantico.titulo,
-    letterSpacing: 0.8,
+    letterSpacing: 1,
+  },
+  cantidad: {
+    minWidth: 22,
+    height: 22,
+    paddingHorizontal: 4,
+    backgroundColor: semantico.bordeFuerte,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cantidadTexto: {
+    fontFamily: tipografia.familias.titulo,
+    fontSize: 12,
+    color: semantico.fondo,
+    fontVariant: ['tabular-nums'],
+  },
+  marcaEstado: {
+    position: 'absolute',
+    top: -5,
+    right: -5,
+    width: 12,
+    height: 12,
+    borderWidth: 2,
+    borderColor: semantico.fondo,
   },
   fondo: {
     flex: 1,
