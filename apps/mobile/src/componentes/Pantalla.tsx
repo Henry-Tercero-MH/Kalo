@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSesion } from '@/permisos/sesion';
+import { FranjaSuperior } from './FranjaSuperior';
 import { Icono } from './Icono';
 import { IndicadorSync } from './IndicadorSync';
 import { Logo } from './Visuales';
@@ -34,7 +35,8 @@ export function Pantalla({
   const router = useRouter();
   const tocar = useSesion((s) => s.tocar);
   return (
-    <SafeAreaView style={estilos.raiz} edges={['top', 'left', 'right']} onTouchStart={tocar}>
+    <SafeAreaView style={estilos.raiz} edges={['left', 'right']} onTouchStart={tocar}>
+      <FranjaSuperior />
       <View style={estilos.encabezado}>
         {volver ? (
           <Pressable

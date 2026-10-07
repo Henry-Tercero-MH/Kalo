@@ -19,6 +19,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Boton } from '@/componentes/Boton';
+import { FranjaSuperior } from '@/componentes/FranjaSuperior';
 import { Icono, type NombreIcono } from '@/componentes/Icono';
 import { Aviso } from '@/componentes/Visuales';
 import { LOGO } from '@/componentes/logo-fuente';
@@ -133,8 +134,8 @@ export default function Login() {
   };
 
   return (
-    <SafeAreaView style={estilos.raiz}>
-      <View style={estilos.franja} />
+    <SafeAreaView style={estilos.raiz} edges={['left', 'right', 'bottom']}>
+      <FranjaSuperior />
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -280,7 +281,6 @@ export default function Login() {
 
 const estilos = StyleSheet.create({
   raiz: { flex: 1, backgroundColor: semantico.fondo },
-  franja: { height: 6, backgroundColor: semantico.acento },
   contenido: {
     flexGrow: 1,
     paddingHorizontal: espaciado.xl,

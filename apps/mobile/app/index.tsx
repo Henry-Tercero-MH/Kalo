@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Animated, Easing, Image, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { FranjaSuperior } from '@/componentes/FranjaSuperior';
 import { LOGO } from '@/componentes/logo-fuente';
 import { espaciado, estilosBase, semantico, tipografia } from '@/componentes/tema';
 import { CONFIG, USA_API } from '@/config';
@@ -78,7 +79,8 @@ export default function Entrada() {
   }, [progreso, router]);
 
   return (
-    <SafeAreaView style={estilos.raiz}>
+    <SafeAreaView style={estilos.raiz} edges={['left', 'right', 'bottom']}>
+      <FranjaSuperior />
       <View style={estilos.centro}>
         {LOGO ? (
           <Image

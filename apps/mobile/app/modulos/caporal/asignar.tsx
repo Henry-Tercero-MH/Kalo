@@ -167,7 +167,9 @@ export default function AsignarLabor() {
         </View>
         <SelectorLote valor={loteId} onCambio={setLoteId} />
         <View style={{ marginTop: espaciado.md }}>
-          <Etiqueta>{t('caporal.meta', { u: tipo?.unidad ?? '' })}</Etiqueta>
+          <Etiqueta>
+            {tipo ? t('caporal.meta', { u: tipo.unidad }) : t('caporal.metaSinUnidad')}
+          </Etiqueta>
           <View style={{ marginTop: espaciado.sm }}>
             <Contador
               valor={meta}

@@ -31,6 +31,14 @@
         flex: 1;
         background: #ffffff;
       }
+      /* En el celular el fondo de la página es el verde de la marca: el navegador
+         (Safari, Chrome) tiñe su barra superior con ese color, igual que la franja. */
+      @media (max-width: 499px) {
+        html,
+        body {
+          background: #a0d33e;
+        }
+      }
       /* En pantallas anchas (computadora) la app se muestra con ancho de celular. */
       @media (min-width: 500px) {
         #root {

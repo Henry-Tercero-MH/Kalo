@@ -299,7 +299,8 @@
     "reparto": "Reparto del personal",
     "sinReparto": "Todavía no hay labores asignadas hoy.",
     "reportada": "Reportada",
-    "quitarDe": "Quitar a {{nombre}} de esta labor"
+    "quitarDe": "Quitar a {{nombre}} de esta labor",
+    "metaSinUnidad": "Meta por trabajador, opcional"
   },
   "asistencia": {
     "presentes": "Presentes",
