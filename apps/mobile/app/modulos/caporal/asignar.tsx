@@ -6,7 +6,7 @@
  */
 import { fechaIso, type Fila } from '@kalo/shared';
 import { Q } from '@nozbe/watermelondb';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Boton } from '@/componentes/Boton';
@@ -20,8 +20,8 @@ import { campo, espaciado, estilosBase, semantico, tipografia } from '@/componen
 import { useConsulta } from '@/db/hooks';
 import { useRequierePermiso } from '@/modulos/comun';
 import { asignarLabor, quitarAsignacion } from '@/modulos/labores/servicio';
+import { usePersonalACargo } from '@/modulos/caporal/personal';
 import { useContextoEscritura } from '@/permisos/contexto';
-import { useSesion } from '@/permisos/sesion';
 import { refrescarContadores } from '@/sync/motor';
 
 type Asignacion = Fila<'asignaciones_labor'>;
@@ -30,23 +30,10 @@ export default function AsignarLabor() {
   const { t } = useTranslation();
   useRequierePermiso('labores:crear');
   const ctx = useContextoEscritura();
-  const usuario = useSesion((s) => s.usuario);
   const hoy = fechaIso();
 
   const tipos = useConsulta('tipos_labor', [Q.where('activo', true)]);
   const lotes = useConsulta('lotes');
-  const todas = useConsulta('cuadrillas');
-  // El caporal ve primero sus cuadrillas.
-  const cuadrillas = useMemo(
-    () =>
-      [...todas].sort(
-        (a, b) =>
-          Number(b.caporal_id === usuario?.id) - Number(a.caporal_id === usuario?.id) ||
-          a.nombre.localeCompare(b.nombre),
-      ),
-    [todas, usuario?.id],
-  );
-  const [cuadrillaId, setCuadrillaId] = useState<string | null>(null);
   const [tipoId, setTipoId] = useState<string | null>(null);
   const [loteId, setLoteId] = useState<string | null>(null);
   const [meta, setMeta] = useState<number | null>(null);
@@ -54,12 +41,8 @@ export default function AsignarLabor() {
   const [guardando, setGuardando] = useState(false);
   const [mensaje, setMensaje] = useState<string | null>(null);
 
-  const miembros = useConsulta(
-    'cuadrilla_miembros',
-    [Q.where('cuadrilla_id', cuadrillaId ?? '')],
-    [cuadrillaId],
-  );
-  const trabajadores = useConsulta('trabajadores', [Q.where('activo', true)]);
+  const { lista: personal, cuadrillaDe } = usePersonalACargo();
+  const trabajadores = useConsulta('trabajadores');
   const asistencia = useConsulta('asistencia', [Q.where('fecha', hoy)], [hoy]);
   const asignaciones = useConsulta(
     'asignaciones_labor',
@@ -67,13 +50,6 @@ export default function AsignarLabor() {
     [hoy],
   );
 
-  const deLaCuadrilla = useMemo(
-    () =>
-      trabajadores
-        .filter((tr) => miembros.some((m) => m.trabajador_id === tr.id))
-        .sort((a, b) => a.codigo.localeCompare(b.codigo)),
-    [trabajadores, miembros],
-  );
   const ausentes = useMemo(
     () => new Set(asistencia.filter((a) => !a.presente).map((a) => a.trabajador_id)),
     [asistencia],
@@ -83,12 +59,12 @@ export default function AsignarLabor() {
     [asignaciones],
   );
   // Sin tarea: presentes (o sin asistencia tomada) que aún no tienen labor asignada hoy.
-  const sinTarea = deLaCuadrilla.filter((tr) => !ausentes.has(tr.id) && !conTarea.has(tr.id));
-  const ausentesCuadrilla = deLaCuadrilla.filter((tr) => ausentes.has(tr.id)).length;
+  const sinTarea = personal.filter((tr) => !ausentes.has(tr.id) && !conTarea.has(tr.id));
+  const ausentesPersonal = personal.filter((tr) => ausentes.has(tr.id)).length;
 
-  // Grupos por labor y lote, con los trabajadores de esta cuadrilla.
+  // Grupos por labor y lote, con el personal a cargo.
   const grupos = useMemo(() => {
-    const ids = new Set(deLaCuadrilla.map((tr) => tr.id));
+    const ids = new Set(personal.map((tr) => tr.id));
     const mapa = new Map<string, Asignacion[]>();
     for (const a of asignaciones) {
       if (!ids.has(a.trabajador_id)) continue;
@@ -96,7 +72,7 @@ export default function AsignarLabor() {
       mapa.set(k, [...(mapa.get(k) ?? []), a]);
     }
     return [...mapa.values()].sort((x, y) => y.length - x.length);
-  }, [asignaciones, deLaCuadrilla]);
+  }, [asignaciones, personal]);
 
   const nombre = useMemo(
     () => ({
@@ -108,11 +84,6 @@ export default function AsignarLabor() {
   );
   const tipo = tipoId ? nombre.tipo.get(tipoId) : undefined;
 
-  useEffect(() => {
-    if (!cuadrillaId && cuadrillas[0]) setCuadrillaId(cuadrillas[0].id);
-  }, [cuadrillas, cuadrillaId]);
-  useEffect(() => setSeleccion([]), [cuadrillaId]);
-
   const alternar = (id: string) =>
     setSeleccion((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
   const todosSeleccionados = sinTarea.length > 0 && seleccion.length === sinTarea.length;
@@ -122,7 +93,7 @@ export default function AsignarLabor() {
     setGuardando(true);
     try {
       const r = await asignarLabor(
-        { tipoLaborId: tipoId, loteId, cuadrillaId, trabajadorIds: seleccion, meta, notas: '' },
+        { tipoLaborId: tipoId, loteId, cuadrillaDe, trabajadorIds: seleccion, meta, notas: '' },
         ctx,
       );
       setSeleccion([]);
@@ -143,15 +114,7 @@ export default function AsignarLabor() {
     <Pantalla volver>
       <Titulo>{t('caporal.asignar')}</Titulo>
 
-      <Etiqueta>{t('caporal.cuadrilla')}</Etiqueta>
-      <View style={{ marginVertical: espaciado.sm }}>
-        <Opciones
-          columnas={2}
-          opciones={cuadrillas.map((c) => ({ valor: c.id, etiqueta: c.nombre }))}
-          valor={cuadrillaId}
-          onCambio={(v) => setCuadrillaId(v as string)}
-        />
-      </View>
+      <Text style={estilosBase.etiqueta}>{t('asistencia.personal', { n: personal.length })}</Text>
 
       {/* 1. Qué labor y dónde */}
       <View style={estilos.paso}>
@@ -200,9 +163,9 @@ export default function AsignarLabor() {
             </Pressable>
           ) : null}
         </View>
-        {ausentesCuadrilla > 0 ? (
+        {ausentesPersonal > 0 ? (
           <Text style={estilosBase.secundario}>
-            {t('caporal.ausentesNoListados', { n: ausentesCuadrilla })}
+            {t('caporal.ausentesNoListados', { n: ausentesPersonal })}
           </Text>
         ) : null}
         {sinTarea.length === 0 ? (

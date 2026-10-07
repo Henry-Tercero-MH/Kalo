@@ -1,19 +1,18 @@
 /**
- * Toma de asistencia por cuadrilla: por cada trabajador se ve su código, nombre y centro de
+ * Toma de asistencia del personal a cargo del caporal: por cada trabajador se ve su código, nombre y centro de
  * costo, y una casilla de PRESENTE. Si no llegó, se justifica con un motivo (Suspendido por
  * IGSS, Permiso, Vacaciones…); «Otro» pide una nota. No se guarda con ausencias sin justificar.
  */
 import { fechaIso, MOTIVOS_AUSENCIA, type MotivoAusencia } from '@kalo/shared';
 import { Q } from '@nozbe/watermelondb';
 import { useRouter } from 'expo-router';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Boton } from '@/componentes/Boton';
-import { Opciones } from '@/componentes/Controles';
 import { Icono } from '@/componentes/Icono';
 import { Pantalla } from '@/componentes/Pantalla';
-import { Etiqueta, Titulo } from '@/componentes/Texto';
+import { Titulo } from '@/componentes/Texto';
 import { Aviso } from '@/componentes/Visuales';
 import { campo, espaciado, estilosBase, semantico, tipografia } from '@/componentes/tema';
 import { useConsulta } from '@/db/hooks';
@@ -24,8 +23,8 @@ import {
   guardarAsistencia,
   type MarcaAsistencia,
 } from '@/modulos/labores/servicio';
+import { usePersonalACargo } from '@/modulos/caporal/personal';
 import { useContextoEscritura } from '@/permisos/contexto';
-import { useSesion } from '@/permisos/sesion';
 
 const MOTIVOS = Object.entries(MOTIVOS_AUSENCIA) as [MotivoAusencia, string][];
 
@@ -34,32 +33,7 @@ export default function Asistencia() {
   const router = useRouter();
   useRequierePermiso('labores:crear');
   const ctx = useContextoEscritura();
-  const usuario = useSesion((s) => s.usuario);
-  const todas = useConsulta('cuadrillas');
-  // El caporal ve primero sus cuadrillas.
-  const cuadrillas = useMemo(
-    () =>
-      [...todas].sort(
-        (a, b) =>
-          Number(b.caporal_id === usuario?.id) - Number(a.caporal_id === usuario?.id) ||
-          a.nombre.localeCompare(b.nombre),
-      ),
-    [todas, usuario?.id],
-  );
-  const [cuadrillaId, setCuadrillaId] = useState<string | null>(null);
-  const miembros = useConsulta(
-    'cuadrilla_miembros',
-    [Q.where('cuadrilla_id', cuadrillaId ?? '')],
-    [cuadrillaId],
-  );
-  const trabajadores = useConsulta('trabajadores', [Q.where('activo', true)]);
-  const lista = useMemo(
-    () =>
-      trabajadores
-        .filter((tr) => miembros.some((m) => m.trabajador_id === tr.id))
-        .sort((a, b) => a.codigo.localeCompare(b.codigo)),
-    [trabajadores, miembros],
-  );
+  const { lista, cuadrillaDe } = usePersonalACargo();
   const [marcas, setMarcas] = useState<Record<string, MarcaAsistencia>>({});
   const [guardando, setGuardando] = useState(false);
 
@@ -68,9 +42,6 @@ export default function Asistencia() {
   const tomadaHoy = useConsulta('asistencia', [Q.where('fecha', hoy)], [hoy]);
   const yaTomada = lista.some((tr) => tomadaHoy.some((a) => a.trabajador_id === tr.id));
 
-  useEffect(() => {
-    if (!cuadrillaId && cuadrillas[0]) setCuadrillaId(cuadrillas[0].id);
-  }, [cuadrillas, cuadrillaId]);
   useEffect(() => {
     const previa = new Map(tomadaHoy.map((a) => [a.trabajador_id, a]));
     setMarcas(
@@ -90,7 +61,7 @@ export default function Asistencia() {
       ),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cuadrillaId, lista.length, tomadaHoy.length]);
+  }, [lista.length, tomadaHoy.length]);
 
   const cambiar = (id: string, parcial: Partial<MarcaAsistencia>) =>
     setMarcas((m) => ({ ...m, [id]: { ...m[id]!, ...parcial } }));
@@ -105,15 +76,7 @@ export default function Asistencia() {
       <Titulo>{t('caporal.asistencia')}</Titulo>
       {yaTomada ? <Aviso texto={t('labores.asistenciaYaTomada')} /> : null}
 
-      <Etiqueta>{t('labores.cuadrilla')}</Etiqueta>
-      <View style={{ marginVertical: espaciado.sm }}>
-        <Opciones
-          columnas={2}
-          opciones={cuadrillas.map((c) => ({ valor: c.id, etiqueta: c.nombre }))}
-          valor={cuadrillaId}
-          onCambio={(v) => setCuadrillaId(v as string)}
-        />
-      </View>
+      <Text style={estilosBase.etiqueta}>{t('asistencia.personal', { n: lista.length })}</Text>
 
       <View style={estilos.resumen}>
         <Resumen etiqueta={t('asistencia.presentes')} valor={presentes} />
@@ -216,13 +179,13 @@ export default function Asistencia() {
           titulo={t('labores.guardarAsistencia')}
           icono="check"
           cargando={guardando}
-          deshabilitado={!cuadrillaId || lista.length === 0 || sinJustificar > 0}
+          deshabilitado={lista.length === 0 || sinJustificar > 0}
           onPress={async () => {
-            if (!ctx || !cuadrillaId) return;
+            if (!ctx) return;
             setGuardando(true);
             try {
               await guardarAsistencia(
-                { cuadrillaId, marcas, ubicacion: await obtenerUbicacion(6000) },
+                { cuadrillaDe, marcas, ubicacion: await obtenerUbicacion(6000) },
                 ctx,
               );
               despuesDeGuardar(() => router.back());

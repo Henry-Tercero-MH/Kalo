@@ -238,7 +238,6 @@
   },
   "caporal": {
     "resumenDia": "Su día",
-    "cuadrillas": "Cuadrillas",
     "asistencia": "Toma de asistencia",
     "asistenciaPendiente": "Pendiente de tomar hoy",
     "asistenciaTomada": "Tomada: {{presentes}} de {{total}} presentes",
@@ -253,7 +252,6 @@
     "otrasOpciones": "Otras opciones",
     "labor": "Labor",
     "lote": "Lote",
-    "cuadrilla": "Cuadrilla",
     "trabajadores": "Trabajadores",
     "meta": "Meta por trabajador ({{u}}), opcional",
     "guardadoSinEnviar": "Quedó guardado en el teléfono. Envíelo con «Enviar datos».",
@@ -305,7 +303,8 @@
     "sinCentroCosto": "Sin centro de costo",
     "porQue": "¿Por qué no llegó?",
     "notaOtro": "Escriba el motivo",
-    "faltaJustificar": "Ausencias sin justificar: {{n}}. Elija el motivo de cada una para guardar."
+    "faltaJustificar": "Ausencias sin justificar: {{n}}. Elija el motivo de cada una para guardar.",
+    "personal": "Personal a su cargo: {{n}} trabajadores"
   },
   "gerencia": {
     "titulo": "Indicadores de la finca",

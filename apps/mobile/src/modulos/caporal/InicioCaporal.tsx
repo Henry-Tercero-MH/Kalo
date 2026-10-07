@@ -15,6 +15,7 @@ import { Titulo } from '@/componentes/Texto';
 import { MuestraColor } from '@/componentes/Visuales';
 import { espaciado, estilosBase, semantico, tipografia } from '@/componentes/tema';
 import { useConsulta } from '@/db/hooks';
+import { usePersonalACargo } from '@/modulos/caporal/personal';
 import { useSesion } from '@/permisos/sesion';
 import { useEstadoSync } from '@/sync/estado';
 import { refrescarContadores } from '@/sync/motor';
@@ -28,16 +29,21 @@ export function InicioCaporal() {
   const { numero, color } = useSemanaActual();
   const hoy = fechaIso();
 
-  const todas = useConsulta('cuadrillas');
-  const misCuadrillas = useMemo(
-    () => todas.filter((c) => c.caporal_id === usuario?.id),
-    [todas, usuario?.id],
-  );
-  const asistencia = useConsulta('asistencia', [Q.where('fecha', hoy)], [hoy]);
-  const asignaciones = useConsulta(
+  const { lista: personal, cuadrillaDe } = usePersonalACargo();
+  const asistenciaHoy = useConsulta('asistencia', [Q.where('fecha', hoy)], [hoy]);
+  const asignacionesHoy = useConsulta(
     'asignaciones_labor',
     [Q.where('fecha', hoy), Q.where('estado', Q.notEq('cancelada'))],
     [hoy],
+  );
+  // Solo el personal a cargo de este caporal.
+  const asistencia = useMemo(
+    () => asistenciaHoy.filter((a) => a.trabajador_id in cuadrillaDe),
+    [asistenciaHoy, cuadrillaDe],
+  );
+  const asignaciones = useMemo(
+    () => asignacionesHoy.filter((a) => a.trabajador_id in cuadrillaDe),
+    [asignacionesHoy, cuadrillaDe],
   );
 
   useEffect(() => {
@@ -56,9 +62,7 @@ export function InicioCaporal() {
         <View style={{ flex: 1 }}>
           <Text style={estilosBase.etiqueta}>{formatearFecha(hoy)}</Text>
           <Text style={estilos.cuadrillas} numberOfLines={2}>
-            {misCuadrillas.length > 0
-              ? misCuadrillas.map((c) => c.nombre).join(' · ')
-              : t('caporal.cuadrillas')}
+            {t('asistencia.personal', { n: personal.length })}
           </Text>
         </View>
         {color ? (

@@ -26,12 +26,13 @@ export function faltaJustificar(m: MarcaAsistencia) {
 }
 
 /**
- * Asistencia del día por cuadrilla. Si ya se tomó hoy, actualiza los registros existentes
+ * Asistencia del día del personal a cargo. Si ya se tomó hoy, actualiza los registros existentes
  * en lugar de crear otros (volver a tomarla corrige, no duplica).
  */
 export async function guardarAsistencia(
   d: {
-    cuadrillaId: string;
+    /** Cuadrilla de cada trabajador. */
+    cuadrillaDe: Record<string, string>;
     marcas: Record<string, MarcaAsistencia>;
     ubicacion: Ubicacion | null;
   },
@@ -50,7 +51,7 @@ export async function guardarAsistencia(
     motivo_ausencia: m.presente ? null : m.motivo,
     nota_ausencia: m.presente ? null : m.nota.trim() || null,
   });
-  // Una sola transacción para toda la cuadrilla.
+  // Una sola transacción para todo el personal.
   await database.write(async () => {
     for (const [trabajadorId, marca] of Object.entries(d.marcas)) {
       const previo = porTrabajador.get(trabajadorId);
@@ -70,7 +71,7 @@ export async function guardarAsistencia(
       await database.get('asistencia').create((r) => {
         const valores = {
           trabajador_id: trabajadorId,
-          cuadrilla_id: d.cuadrillaId,
+          cuadrilla_id: d.cuadrillaDe[trabajadorId] ?? null,
           fecha: hoy,
           ...valoresDe(marca, null),
           ...columnasGps(d.ubicacion),
@@ -128,7 +129,8 @@ export async function asignarLabor(
   d: {
     tipoLaborId: string;
     loteId: string;
-    cuadrillaId: string | null;
+    /** Cuadrilla de cada trabajador. */
+    cuadrillaDe: Record<string, string>;
     trabajadorIds: string[];
     meta: number | null;
     notas: string;
@@ -153,7 +155,7 @@ export async function asignarLabor(
         tipo_labor_id: d.tipoLaborId,
         lote_id: d.loteId,
         trabajador_id: trabajadorId,
-        cuadrilla_id: d.cuadrillaId,
+        cuadrilla_id: d.cuadrillaDe[trabajadorId] ?? null,
         fecha: hoy,
         meta: d.meta,
         estado: 'asignada',
