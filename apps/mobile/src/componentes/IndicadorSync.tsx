@@ -1,7 +1,8 @@
 /**
- * Botón de envío en el encabezado: muestra el estado (color + palabra + registros/fotos en
- * cola) y al tocarlo pregunta «¿Seguro que quiere enviar los datos?». Al confirmar envía lo
- * guardado en el teléfono (los repetidos no se envían) y muestra el resultado.
+ * Botón de envío en el encabezado. Siempre dice ENVIAR; el estado se ve en el cuadro de color,
+ * la nube y la cantidad en cola (fondo verde si hay datos guardados sin enviar). Al tocarlo
+ * pregunta «¿Seguro que quiere enviar los datos?», envía lo guardado en el teléfono (los
+ * repetidos no se envían) y muestra el resultado.
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -67,9 +68,10 @@ export function IndicadorSync() {
           <View style={{ width: 10, height: 10, backgroundColor: v.color }} />
         ) : null}
         <Icono nombre={v.icono} tamano={20} color={semantico.titulo} />
+        {/* Siempre dice ENVIAR; el estado lo dan el cuadro de color, la nube y el número. */}
         <Text style={estilos.texto}>
-          {t(v.clave)}
-          {cola ? ` · ${estado.pendientes}/${estado.archivosPendientes}` : ''}
+          {resumen === 'sincronizando' ? t('sync.enviandoCorto') : t('sync.enviarBoton')}
+          {cola ? ` · ${cola}` : ''}
         </Text>
       </Pressable>
 

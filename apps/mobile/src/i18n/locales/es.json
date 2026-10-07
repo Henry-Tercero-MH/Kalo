@@ -135,7 +135,8 @@
     "enviadoTitulo": "Datos enviados",
     "enviadoTexto": "Se enviaron {{n}} registros.",
     "sinSenalTitulo": "Sin señal",
-    "errorTitulo": "No se pudo enviar"
+    "errorTitulo": "No se pudo enviar",
+    "enviandoCorto": "ENVIANDO…"
   },
   "perfil": {
     "titulo": "Perfil",
