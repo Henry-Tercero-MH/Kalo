@@ -8,7 +8,7 @@ import { Cargando, Estado, Etiqueta, Tarjeta, Titulo, type TipoEstado } from '@/
 import { api } from '@/lib/api';
 import { useCatalogos } from '@/lib/catalogos';
 
-const MapaFinca = dynamic(() => import('@/componentes/MapaFinca').then((m) => m.MapaFinca), {
+const MapaFinca = dynamic(() => import('./_componentes/MapaFinca').then((m) => m.MapaFinca), {
   ssr: false,
   loading: () => <Cargando />,
 });

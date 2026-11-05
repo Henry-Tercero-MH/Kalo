@@ -8,7 +8,7 @@ import { formatearNumero } from '@kalo/shared';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import type { PuntoGrafico } from '@/componentes/GraficoPronostico';
+import type { PuntoGrafico } from './_componentes/GraficoPronostico';
 import { Tabla, type Columna } from '@/componentes/Tabla';
 import {
   Aviso,
@@ -26,7 +26,7 @@ import { api, query } from '@/lib/api';
 import { useNombres } from '@/lib/catalogos';
 
 const GraficoPronostico = dynamic(
-  () => import('@/componentes/GraficoPronostico').then((m) => m.GraficoPronostico),
+  () => import('./_componentes/GraficoPronostico').then((m) => m.GraficoPronostico),
   { ssr: false },
 );
 

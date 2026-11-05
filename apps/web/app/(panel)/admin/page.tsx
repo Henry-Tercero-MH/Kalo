@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, type KeyboardEvent } from 'react';
-import { Calendario, Lotes, Plagas, TiposLabor } from '@/componentes/admin/Catalogos';
-import { PersonalPorCaporal } from '@/componentes/admin/Personal';
-import { Bitacora, Formularios, Modulos, Parametros } from '@/componentes/admin/Plataforma';
-import { Roles } from '@/componentes/admin/Roles';
-import { Usuarios } from '@/componentes/admin/Usuarios';
+import { Calendario, Lotes, Plagas, TiposLabor } from './_componentes/Catalogos';
+import { PersonalPorCaporal } from './_componentes/Personal';
+import { Bitacora, Formularios, Modulos, Parametros } from './_componentes/Plataforma';
+import { Roles } from './_componentes/Roles';
+import { Usuarios } from './_componentes/Usuarios';
 import { Titulo } from '@/componentes/ui';
 
 const PESTANAS = {

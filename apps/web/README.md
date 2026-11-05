@@ -2,6 +2,35 @@
 
 Panel de oficina de Kalo Campo: Next.js 16 (App Router), TypeScript y React Query.
 
+## Organización: una carpeta por módulo
+
+Todo lo de un módulo vive en su carpeta de `app/(panel)/<módulo>/`: las rutas (`page.tsx`,
+`layout.tsx`, subcarpetas) y, en carpetas privadas que Next.js no convierte en rutas, lo que
+solo ese módulo usa.
+
+```
+app/(panel)/bodega/
+├── page.tsx, layout.tsx          # rutas
+├── calculadora/page.tsx
+├── _componentes/                 # componentes que solo usa bodega
+└── _lib/bodega.ts                # lógica y datos de bodega
+```
+
+`src/` guarda solo lo compartido: los componentes base que se configuran con props
+(`src/componentes/ui.tsx`: `Boton`, `Campo`, `Tarjeta`, `Estado`…; `Tabla`, `Navegacion`,
+`MenuModulo`, `VolverMenu`, `EnPreparacion`, `Congelado`, `Archivos`, `Icono`), los accesos a la
+API (`src/lib/`) y el modo demo (`src/mock/`).
+
+La regla:
+
+- Lo usa **un solo módulo** → `app/(panel)/<módulo>/_componentes/` o `_lib/`, importado con
+  ruta relativa (`./_componentes/MapaFinca`).
+- Lo usan **dos o más módulos** → `src/componentes/` o `src/lib/`, importado con `@/`.
+- Si un componente de un módulo empieza a usarse en otro, se sube a `src/` (y si cambia
+  según el módulo, se le agregan props en vez de copiarlo).
+
+Diseño (colores, tipografía, componentes): [DESIGN_SYSTEM.md](../../DESIGN_SYSTEM.md).
+
 ## Fuente de datos: demo o API
 
 | `KALO_DATOS`             | Modo     | Qué hace                                                                                           |
