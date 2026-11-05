@@ -4,19 +4,18 @@
  * el caporal ve cómo repartió a su gente. Una asignación sin reportar se puede quitar.
  * Todo queda en el teléfono hasta «Enviar datos».
  */
-import { fechaIso, type Fila } from '@kalo/shared';
+import { decimalesUnidad, etiquetaUnidad, fechaIso, type Fila } from '@kalo/shared';
 import { Q } from '@nozbe/watermelondb';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Boton } from '@/componentes/Boton';
+import { Boton, BotonIcono } from '@/componentes/Boton';
 import { SelectorLote } from '@/componentes/Campo';
-import { Contador, Opciones } from '@/componentes/Controles';
-import { Icono } from '@/componentes/Icono';
+import { Contador, FilaCasilla, Opciones } from '@/componentes/Controles';
 import { Pantalla } from '@/componentes/Pantalla';
-import { Etiqueta, Texto, Titulo } from '@/componentes/Texto';
-import { Aviso, Estado } from '@/componentes/Visuales';
-import { campo, espaciado, estilosBase, semantico, tipografia } from '@/componentes/tema';
+import { Etiqueta, Subtitulo, TextoNombre, Titulo } from '@/componentes/Texto';
+import { Aviso, Estado, EstadoVacio } from '@/componentes/Visuales';
+import { bordes, campo, espaciado, estilosBase, semantico, tipografia } from '@/componentes/tema';
 import { useConsulta } from '@/db/hooks';
 import { useRequierePermiso } from '@/modulos/comun';
 import { asignarLabor, quitarAsignacion } from '@/modulos/labores/servicio';
@@ -119,28 +118,32 @@ export default function AsignarLabor() {
       {/* 1. Qué labor y dónde */}
       <View style={estilos.paso}>
         <Text style={estilos.pasoTitulo}>{t('caporal.paso1')}</Text>
-        <Etiqueta>{t('caporal.labor')}</Etiqueta>
+        <Etiqueta requerido>{t('caporal.labor')}</Etiqueta>
         <View style={{ marginVertical: espaciado.sm }}>
           <Opciones
             columnas={2}
+            etiqueta={t('caporal.labor')}
             opciones={tipos.map((x) => ({ valor: x.id, etiqueta: x.nombre }))}
             valor={tipoId}
             onCambio={(v) => setTipoId(v as string)}
           />
         </View>
-        <SelectorLote valor={loteId} onCambio={setLoteId} />
+        <SelectorLote valor={loteId} onCambio={setLoteId} requerido />
         <View style={{ marginTop: espaciado.md }}>
           <Etiqueta>
-            {tipo ? t('caporal.meta', { u: tipo.unidad }) : t('caporal.metaSinUnidad')}
+            {tipo
+              ? t('caporal.meta', { u: etiquetaUnidad(tipo.unidad) })
+              : t('caporal.metaSinUnidad')}
           </Etiqueta>
           <View style={{ marginTop: espaciado.sm }}>
             <Contador
+              etiqueta={t('caporal.metaSinUnidad')}
               valor={meta}
               onCambio={setMeta}
               min={0}
               max={10000}
-              decimales={tipo?.unidad === 'hectareas' ? 1 : 0}
-              unidad={tipo?.unidad}
+              decimales={decimalesUnidad(tipo?.unidad)}
+              unidad={etiquetaUnidad(tipo?.unidad)}
             />
           </View>
         </View>
@@ -155,7 +158,7 @@ export default function AsignarLabor() {
             <Pressable
               onPress={() => setSeleccion(todosSeleccionados ? [] : sinTarea.map((x) => x.id))}
               accessibilityRole="button"
-              hitSlop={8}
+              style={({ pressed }) => [estilos.botonEnlace, pressed && estilosBase.presionado]}
             >
               <Text style={estilos.enlace}>
                 {todosSeleccionados ? t('caporal.ninguno') : t('caporal.todos')}
@@ -175,23 +178,18 @@ export default function AsignarLabor() {
             {sinTarea.map((tr) => {
               const marcado = seleccion.includes(tr.id);
               return (
-                <Pressable
+                <FilaCasilla
                   key={tr.id}
-                  onPress={() => alternar(tr.id)}
-                  accessibilityRole="checkbox"
-                  accessibilityState={{ checked: marcado }}
-                  style={[estilos.trabajador, marcado && estilos.trabajadorMarcado]}
+                  marcada={marcado}
+                  onCambio={() => alternar(tr.id)}
+                  resaltarMarcada
+                  style={estilos.trabajador}
                 >
-                  <View style={[estilos.casilla, marcado && estilos.casillaMarcada]}>
-                    {marcado ? <Icono nombre="check" tamano={20} color={semantico.titulo} /> : null}
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <Text style={estilos.nombre}>{`${tr.codigo} · ${tr.nombre}`}</Text>
-                    {tr.centro_costo ? (
-                      <Text style={estilosBase.secundario}>{tr.centro_costo}</Text>
-                    ) : null}
-                  </View>
-                </Pressable>
+                  <TextoNombre>{`${tr.codigo} · ${tr.nombre}`}</TextoNombre>
+                  {tr.centro_costo ? (
+                    <Text style={estilosBase.secundario}>{tr.centro_costo}</Text>
+                  ) : null}
+                </FilaCasilla>
               );
             })}
           </View>
@@ -204,17 +202,26 @@ export default function AsignarLabor() {
                 ? t('caporal.asignarBoton', { labor: tipo.nombre, n: seleccion.length })
                 : t('caporal.eligeLaborLote')
             }
-            icono="check"
+            icono="guardar"
             cargando={guardando}
             deshabilitado={!tipoId || !loteId || seleccion.length === 0}
+            motivoDeshabilitado={
+              tipoId && loteId && sinTarea.length > 0 ? t('caporal.eligeTrabajadores') : undefined
+            }
             onPress={() => void asignar()}
           />
         </View>
       </View>
 
       {/* Cómo quedó repartida la gente */}
-      <Text style={estilos.reparto}>{t('caporal.reparto')}</Text>
-      {grupos.length === 0 ? <Texto>{t('caporal.sinReparto')}</Texto> : null}
+      <Subtitulo>{t('caporal.reparto')}</Subtitulo>
+      {grupos.length === 0 ? (
+        <EstadoVacio
+          icono="trabajadores"
+          titulo={t('caporal.vacioReparto')}
+          descripcion={t('caporal.sinReparto')}
+        />
+      ) : null}
       {grupos.map((grupo) => {
         const primero = grupo[0]!;
         const tipoGrupo = nombre.tipo.get(primero.tipo_labor_id);
@@ -227,7 +234,10 @@ export default function AsignarLabor() {
                 </Text>
                 {primero.meta !== null ? (
                   <Text style={estilos.grupoMeta}>
-                    {t('caporal.metaValor', { n: primero.meta, u: tipoGrupo?.unidad ?? '' })}
+                    {t('caporal.metaValor', {
+                      n: primero.meta,
+                      u: etiquetaUnidad(tipoGrupo?.unidad),
+                    })}
                   </Text>
                 ) : null}
               </View>
@@ -245,21 +255,16 @@ export default function AsignarLabor() {
                   {a.estado === 'reportada' ? (
                     <Estado tipo="exito" texto={t('caporal.reportada')} />
                   ) : (
-                    <Pressable
+                    <BotonIcono
+                      icono="quitar"
+                      variante="contorno"
+                      etiqueta={t('caporal.quitarDe', { nombre: tr?.nombre ?? '' })}
                       onPress={async () => {
                         await quitarAsignacion(a.id);
                         await refrescarContadores();
                         setMensaje(null);
                       }}
-                      accessibilityRole="button"
-                      accessibilityLabel={t('caporal.quitarDe', {
-                        nombre: tr?.nombre ?? '',
-                      })}
-                      hitSlop={8}
-                      style={estilos.quitar}
-                    >
-                      <Icono nombre="x" tamano={20} color={semantico.titulo} />
-                    </Pressable>
+                    />
                   )}
                 </View>
               );
@@ -275,13 +280,13 @@ const estilos = StyleSheet.create({
   paso: {
     marginTop: espaciado.lg,
     padding: espaciado.md,
-    borderWidth: 1,
+    borderWidth: bordes.lineaDivision,
     borderColor: semantico.borde,
   },
   pasoTitulo: {
     fontFamily: tipografia.familias.titulo,
-    fontSize: 14,
-    letterSpacing: 1,
+    fontSize: tipografia.tamanos.pequeno,
+    letterSpacing: tipografia.espaciadoEtiquetas,
     textTransform: 'uppercase',
     color: semantico.titulo,
     marginBottom: espaciado.sm,
@@ -291,86 +296,73 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  seccion: { fontFamily: tipografia.familias.titulo, fontSize: 16, color: semantico.titulo },
+  seccion: {
+    fontFamily: tipografia.familias.titulo,
+    fontSize: tipografia.tamanos.cuerpo,
+    color: semantico.titulo,
+  },
+  botonEnlace: {
+    minHeight: campo.alturaTactil,
+    justifyContent: 'center',
+    paddingHorizontal: espaciado.sm,
+  },
   enlace: {
     fontFamily: tipografia.familias.cuerpoMedio,
-    fontSize: tipografia.tamanos.pequeno,
+    fontSize: tipografia.tamanos.cuerpo,
     color: semantico.titulo,
     textDecorationLine: 'underline',
   },
   trabajador: {
-    minHeight: campo.alturaTactil,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: espaciado.md,
     paddingVertical: espaciado.sm,
     paddingHorizontal: espaciado.sm,
-    borderBottomWidth: 1,
+    borderBottomWidth: bordes.lineaDivision,
     borderBottomColor: semantico.borde,
   },
-  trabajadorMarcado: { backgroundColor: semantico.fondoSuave },
-  casilla: {
-    width: 32,
-    height: 32,
-    borderWidth: 2,
-    borderColor: semantico.bordeFuerte,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: semantico.fondo,
-  },
-  casillaMarcada: { backgroundColor: semantico.acento },
-  nombre: { fontFamily: tipografia.familias.cuerpoMedio, fontSize: 16, color: semantico.titulo },
-  reparto: {
-    fontFamily: tipografia.familias.titulo,
-    fontSize: tipografia.tamanos.subtitulo,
-    textTransform: 'uppercase',
-    color: semantico.titulo,
-    marginTop: espaciado.xl,
-    paddingBottom: espaciado.xs,
+  grupo: {
+    borderWidth: bordes.lineaDivision,
+    borderColor: semantico.borde,
     marginBottom: espaciado.md,
-    borderBottomWidth: 2,
-    borderBottomColor: semantico.bordeFuerte,
   },
-  grupo: { borderWidth: 1, borderColor: semantico.borde, marginBottom: espaciado.md },
   grupoEncabezado: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: espaciado.md,
     padding: espaciado.md,
-    backgroundColor: semantico.bordeFuerte,
+    backgroundColor: semantico.superficieInvertida,
   },
   grupoTitulo: {
     fontFamily: tipografia.familias.titulo,
-    fontSize: 16,
+    fontSize: tipografia.tamanos.cuerpo,
     textTransform: 'uppercase',
-    letterSpacing: 0.5,
-    color: semantico.fondo,
+    letterSpacing: tipografia.espaciadoLetras.titulo,
+    color: semantico.textoSobreOscuro,
   },
-  grupoMeta: { fontFamily: tipografia.familias.cuerpo, fontSize: 13, color: semantico.fondo },
+  grupoMeta: {
+    fontFamily: tipografia.familias.cuerpo,
+    fontSize: tipografia.tamanos.pequeno,
+    color: semantico.textoSobreOscuro,
+  },
   contador: {
-    minWidth: 36,
-    height: 36,
-    paddingHorizontal: 6,
+    minWidth: espaciado.xxl + espaciado.xs,
+    height: espaciado.xxl + espaciado.xs,
+    paddingHorizontal: espaciado.sm,
     backgroundColor: semantico.acento,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  contadorTexto: { fontFamily: tipografia.familias.titulo, fontSize: 18, color: semantico.titulo },
+  contadorTexto: {
+    fontFamily: tipografia.familias.titulo,
+    fontSize: tipografia.tamanos.subtitulo,
+    color: semantico.titulo,
+    fontVariant: ['tabular-nums'],
+  },
   filaGrupo: {
-    minHeight: 48,
+    minHeight: campo.alturaTactil,
     flexDirection: 'row',
     alignItems: 'center',
     gap: espaciado.sm,
     paddingHorizontal: espaciado.md,
-    borderTopWidth: 1,
+    borderTopWidth: bordes.lineaDivision,
     borderTopColor: semantico.borde,
-  },
-  quitar: {
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: semantico.borde,
   },
 });

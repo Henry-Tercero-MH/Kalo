@@ -2,16 +2,21 @@
  * Pantalla de sincronización: registros pendientes, archivos en cola, último envío,
  * botón «Sincronizar ahora», opción «Subir archivos solo con WiFi» y respaldo cifrado.
  */
-import { formatearFechaHora, REGISTRO_TABLAS, type NombreTabla } from '@kalo/shared';
+import {
+  formatearFechaHora,
+  formatearNumero,
+  REGISTRO_TABLAS,
+  type NombreTabla,
+} from '@kalo/shared';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Switch, View } from 'react-native';
 import { avisar } from '@/componentes/alerta';
 import { Boton } from '@/componentes/Boton';
 import { Pantalla } from '@/componentes/Pantalla';
-import { Etiqueta, Subtitulo, Texto, TextoSecundario, Titulo } from '@/componentes/Texto';
-import { Aviso, Dato, Estado, Tarjeta } from '@/componentes/Visuales';
-import { espaciado, semantico } from '@/componentes/tema';
+import { Subtitulo, Texto, Titulo } from '@/componentes/Texto';
+import { Aviso, Dato, Estado, EstadoCarga, Tarjeta } from '@/componentes/Visuales';
+import { campo, control, espaciado, estilosBase, semantico } from '@/componentes/tema';
 import { esWeb } from '@/demo/entorno';
 import { EtiquetaDemo } from '@/demo/EtiquetaDemo';
 import { esModoDemo } from '@/demo/modo';
@@ -54,10 +59,14 @@ export default function Sincronizar() {
           etiqueta={t('sync.ultimoEnvio')}
           valor={estado.ultimoEnvio ? formatearFechaHora(estado.ultimoEnvio) : t('sync.nunca')}
         />
-        {estado.progresoArchivos ? (
-          <TextoSecundario>{`${estado.progresoArchivos.actual} / ${estado.progresoArchivos.total}`}</TextoSecundario>
-        ) : null}
       </Tarjeta>
+      {estado.fase === 'sincronizando' ? (
+        <EstadoCarga
+          titulo={estado.progresoArchivos ? t('sync.subiendoArchivos') : t('sync.enviando')}
+          actual={estado.progresoArchivos?.actual}
+          total={estado.progresoArchivos?.total}
+        />
+      ) : null}
       {estado.ultimoError ? <Aviso tipo="peligro" texto={estado.ultimoError} /> : null}
       {estado.rechazados > 0 ? (
         <Aviso tipo="alerta" texto={t('sync.rechazados', { n: estado.rechazados })} />
@@ -68,7 +77,7 @@ export default function Sincronizar() {
 
       <Boton
         titulo={t('sync.ahora')}
-        icono="refresh-cw"
+        icono="sincronizar"
         cargando={estado.fase === 'sincronizando'}
         onPress={() => void sincronizar('manual')}
       />
@@ -78,14 +87,14 @@ export default function Sincronizar() {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-          minHeight: 56,
+          minHeight: campo.alturaTactil,
           marginTop: espaciado.md,
         }}
       >
         <Texto style={{ flex: 1 }}>{t('sync.soloWifi')}</Texto>
         <Switch
           value={soloWifi}
-          trackColor={{ true: semantico.acentoOscuro, false: semantico.borde }}
+          trackColor={{ true: semantico.acentoOscuro, false: control.borde }}
           onValueChange={async (v) => {
             setSoloWifi(v);
             await almacen.guardarPreferencias({
@@ -103,10 +112,14 @@ export default function Sincronizar() {
           {Object.entries(estado.pendientesPorTabla).map(([tabla, n]) => (
             <View
               key={tabla}
-              style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 6 }}
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                paddingVertical: espaciado.sm,
+              }}
             >
               <Texto>{REGISTRO_TABLAS[tabla as NombreTabla]?.meta.etiqueta ?? tabla}</Texto>
-              <Etiqueta>{String(n)}</Etiqueta>
+              <Texto style={estilosBase.numero}>{formatearNumero(n)}</Texto>
             </View>
           ))}
         </>
@@ -116,7 +129,7 @@ export default function Sincronizar() {
       <Texto style={{ marginBottom: espaciado.sm }}>{t('sync.respaldoAyuda')}</Texto>
       <Boton
         titulo={t('sync.respaldo')}
-        icono="download"
+        icono="descargar"
         variante="secundario"
         onPress={async () => {
           try {

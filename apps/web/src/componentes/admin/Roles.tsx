@@ -3,7 +3,7 @@
 /** Matriz de permisos por rol (se guardan en la base; nunca fijos en el código). */
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { Boton, Subtitulo } from '@/componentes/ui';
+import { Boton, claseEncabezadoTabla, Subtitulo } from '@/componentes/ui';
 import { api } from '@/lib/api';
 
 interface RespuestaRoles {
@@ -40,14 +40,11 @@ export function Roles() {
         <table className="text-sm">
           <thead>
             <tr className="border-b-2 border-marca-negro">
-              <th className="px-2 py-2 text-left text-[11px] font-semibold uppercase tracking-[0.14em] text-neutros-n500">
+              <th scope="col" className={claseEncabezadoTabla}>
                 Permiso
               </th>
               {data.roles.map((r) => (
-                <th
-                  key={r.id}
-                  className="px-2 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-neutros-n500"
-                >
+                <th key={r.id} scope="col" className={`${claseEncabezadoTabla} text-center`}>
                   {r.nombre}
                 </th>
               ))}
@@ -56,15 +53,15 @@ export function Roles() {
           <tbody>
             {data.permisos.map((p) => (
               <tr key={p.id} className="border-b border-neutros-n200">
-                <td className="px-2 py-1">
+                <td className="px-3 py-2">
                   <code className="font-semibold">{p.codigo}</code>{' '}
                   <span className="text-neutros-n500">{p.descripcion}</span>
                 </td>
                 {data.roles.map((r) => (
-                  <td key={r.id} className="px-2 py-1 text-center">
+                  <td key={r.id} className="px-3 py-1 text-center">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 accent-black"
+                      className="h-5 w-5 cursor-pointer accent-marca-negro align-middle"
                       aria-label={`${r.nombre}: ${p.codigo}`}
                       checked={matriz[r.id]?.has(p.codigo) ?? false}
                       onChange={(e) =>
@@ -83,8 +80,12 @@ export function Roles() {
             <tr>
               <td />
               {data.roles.map((r) => (
-                <td key={r.id} className="px-2 py-2">
-                  <Boton variante="secundario" onClick={() => guardar.mutate(r.id)}>
+                <td key={r.id} className="px-3 py-2 text-center">
+                  <Boton
+                    variante="secundario"
+                    aria-label={`Guardar permisos de ${r.nombre}`}
+                    onClick={() => guardar.mutate(r.id)}
+                  >
                     Guardar
                   </Boton>
                 </td>

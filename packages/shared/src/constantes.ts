@@ -53,7 +53,36 @@ export type EstadoDispositivo = (typeof ESTADOS_DISPOSITIVO)[number];
 export const UNIDADES_AREA = ['ha', 'mz'] as const;
 export type UnidadArea = (typeof UNIDADES_AREA)[number];
 
-export const UNIDADES_LABOR = ['racimos', 'plantas', 'metros', 'hectareas', 'jornal'] as const;
+export const UNIDADES_LABOR = [
+  'racimos',
+  'plantas',
+  'arboles',
+  'kilogramos',
+  'metros',
+  'hectareas',
+  'jornal',
+] as const;
+export type UnidadLabor = (typeof UNIDADES_LABOR)[number];
+
+const ETIQUETAS_UNIDAD_LABOR: Record<UnidadLabor, string> = {
+  racimos: 'racimos',
+  plantas: 'plantas',
+  arboles: 'árboles',
+  kilogramos: 'kg',
+  metros: 'metros',
+  hectareas: 'hectáreas',
+  jornal: 'jornal',
+};
+
+/** Nombre de la unidad para mostrar («árboles», «kg»…). */
+export function etiquetaUnidad(unidad: string | null | undefined): string {
+  return unidad ? (ETIQUETAS_UNIDAD_LABOR[unidad as UnidadLabor] ?? unidad) : '';
+}
+
+/** Decimales al capturar una cantidad en esa unidad. */
+export function decimalesUnidad(unidad: string | null | undefined): number {
+  return unidad === 'hectareas' || unidad === 'kilogramos' ? 1 : 0;
+}
 
 export const TIPOS_PLAGA = ['plaga', 'enfermedad'] as const;
 
@@ -92,6 +121,7 @@ export const ROLES = {
   supervisor: 'supervisor',
   tecnico_sanidad: 'tecnico_sanidad',
   caporal: 'caporal',
+  bodega_materiales: 'bodega_materiales',
 } as const;
 export type CodigoRol = (typeof ROLES)[keyof typeof ROLES];
 

@@ -20,6 +20,12 @@ export const USUARIOS_DEMO: { usuario: string; nombre: string; rol: CodigoRol; p
   },
   { usuario: 'caporal', nombre: 'Carlos Caporal (DEMO)', rol: ROLES.caporal, pin: '5555' },
   { usuario: 'caporal2', nombre: 'Camila Caporal (DEMO)', rol: ROLES.caporal, pin: '7777' },
+  {
+    usuario: 'bodega',
+    nombre: 'Berta Bodeguera (DEMO)',
+    rol: ROLES.bodega_materiales,
+    pin: '6666',
+  },
 ];
 
 export const ROLES_DEMO: { codigo: CodigoRol; nombre: string; plataformas: string[] }[] = [
@@ -28,6 +34,11 @@ export const ROLES_DEMO: { codigo: CodigoRol; nombre: string; plataformas: strin
   { codigo: ROLES.supervisor, nombre: 'Supervisor', plataformas: ['web', 'movil'] },
   { codigo: ROLES.tecnico_sanidad, nombre: 'Técnico de sanidad', plataformas: ['movil'] },
   { codigo: ROLES.caporal, nombre: 'Caporal', plataformas: ['movil'] },
+  {
+    codigo: ROLES.bodega_materiales,
+    nombre: 'Bodega de materiales',
+    plataformas: ['web', 'movil'],
+  },
 ];
 
 const VER_TODO = [
@@ -110,6 +121,7 @@ export const PERMISOS_POR_ROL: Record<CodigoRol, string[] | '*'> = {
     'sincronizacion:usar',
     'archivos:crear',
   ],
+  bodega_materiales: ['bodega:ver', 'bodega:gestionar', 'perfil:usar', 'sincronizacion:usar'],
 };
 
 /** Colores de cinta de EJEMPLO. Los reales están pendientes de confirmar por la finca. */
@@ -172,13 +184,13 @@ export const PLAGAS_DEMO = [
   },
 ] as const;
 
-/** Catálogo de labores. Tarifas pendientes de definir (null). */
+/** Catálogo de labores de hule (Finca Las Rosas, EJEMPLO por confirmar). Tarifas pendientes (null). */
 export const LABORES_DEMO = [
-  { codigo: 'enfunde', nombre: 'Enfunde', unidad: 'racimos' },
-  { codigo: 'deshoje', nombre: 'Deshoje', unidad: 'plantas' },
-  { codigo: 'deshije', nombre: 'Deshije', unidad: 'plantas' },
-  { codigo: 'cosecha', nombre: 'Cosecha', unidad: 'racimos' },
-  { codigo: 'apuntalamiento', nombre: 'Apuntalamiento', unidad: 'plantas' },
+  { codigo: 'pica', nombre: 'Pica (sangría)', unidad: 'arboles' },
+  { codigo: 'estimulacion', nombre: 'Estimulación', unidad: 'arboles' },
+  { codigo: 'recoleccion_latex', nombre: 'Recolección de látex', unidad: 'kilogramos' },
+  { codigo: 'recoleccion_chipa', nombre: 'Recolección de chipa (coágulo)', unidad: 'kilogramos' },
+  { codigo: 'chapeo', nombre: 'Chapeo / limpia', unidad: 'hectareas' },
   { codigo: 'fertilizacion', nombre: 'Fertilización', unidad: 'hectareas' },
 ] as const;
 

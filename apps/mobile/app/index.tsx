@@ -124,7 +124,7 @@ const estilos = StyleSheet.create({
   centro: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   logoTexto: {
     fontFamily: tipografia.familias.portada,
-    fontSize: 64,
+    fontSize: tipografia.tamanos.portadaGrande,
     color: semantico.titulo,
   },
   barra: {

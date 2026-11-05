@@ -6,6 +6,7 @@ import {
   formatearFechaHora,
   MODULOS,
   REGISTRO_TABLAS,
+  TABLAS_CONGELADAS,
   tienePermiso,
   type FiltrosRegistros,
   type NombreTabla,
@@ -28,7 +29,11 @@ export const TABLAS_REGISTROS: Partial<Record<NombreTabla, string>> = Object.fro
     m.tablas
       .filter((t) => REGISTRO_TABLAS[t].meta.direccion === 'ambas')
       .map((t) => [t, m.permisos.find((p) => p.codigo.endsWith(':ver'))?.codigo ?? m.permisoVer]),
-  ).filter(([t]) => !['puntos_ruta', 'archivos', 'consentimientos'].includes(t as string)),
+  ).filter(
+    ([t]) =>
+      !['puntos_ruta', 'archivos', 'consentimientos'].includes(t as string) &&
+      !TABLAS_CONGELADAS.has(t as NombreTabla),
+  ),
 );
 
 function columna(tabla: NombreTabla, nombre: string): PgColumn | undefined {

@@ -101,9 +101,11 @@ export default function Ordenes() {
     <>
       <Titulo>Órdenes de trabajo</Titulo>
       <Subtitulo>Asignar orden</Subtitulo>
-      <div className="mb-4 grid grid-cols-1 items-end gap-3 md:grid-cols-3">
+      <div className="mb-4 grid grid-cols-1 items-start gap-3 md:grid-cols-3">
         <Campo
           etiqueta="Título"
+          placeholder="Ej.: Raspado lote 4"
+          ayuda="Mínimo 3 letras."
           value={form.titulo}
           onChange={(e) => setForm({ ...form, titulo: e.target.value })}
         />
@@ -123,6 +125,7 @@ export default function Ordenes() {
         </Selector>
         <Selector
           etiqueta="Lote"
+          opcional
           value={form.lote_id}
           onChange={(e) => setForm({ ...form, lote_id: e.target.value })}
         >
@@ -152,6 +155,7 @@ export default function Ordenes() {
           onChange={(e) => setForm({ ...form, fecha: e.target.value })}
         />
         <Boton
+          className="md:mt-5"
           disabled={form.titulo.length < 3 || !form.asignado_a || crear.isPending}
           onClick={() => crear.mutate()}
         >

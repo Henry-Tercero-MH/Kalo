@@ -5,11 +5,12 @@ import { formatearFecha, MODULOS, tienePermiso, type ManifiestoModulo } from '@k
 import { Q } from '@nozbe/watermelondb';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Boton } from '@/componentes/Boton';
 import { Pantalla } from '@/componentes/Pantalla';
 import { Texto, TextoSecundario, Titulo } from '@/componentes/Texto';
 import { Estado, Tarjeta } from '@/componentes/Visuales';
+import { espaciado, tipografia } from '@/componentes/tema';
 import { useConsulta } from '@/db/hooks';
 import { useRequierePermiso } from '@/modulos/comun';
 import { cambiarEstadoOrden } from '@/modulos/ordenes/servicio';
@@ -48,7 +49,7 @@ export default function Ordenes() {
               }
               texto={t(`estados.${o.estado}`)}
             />
-            <Texto style={{ marginTop: 8, fontWeight: '700' }}>{o.titulo}</Texto>
+            <Texto style={estilos.tituloOrden}>{o.titulo}</Texto>
             <TextoSecundario>
               {formatearFecha(o.fecha)} · {lotes.find((l) => l.id === o.lote_id)?.nombre ?? '—'}
             </TextoSecundario>
@@ -98,3 +99,8 @@ export default function Ordenes() {
     </Pantalla>
   );
 }
+
+const estilos = StyleSheet.create({
+  // fontWeight no aplica con fuentes propias en Android: el peso va en la familia.
+  tituloOrden: { marginTop: espaciado.sm, fontFamily: tipografia.familias.titulo },
+});

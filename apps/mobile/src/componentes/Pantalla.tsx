@@ -4,21 +4,15 @@
  */
 import { useRouter } from 'expo-router';
 import type { ReactNode } from 'react';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSesion } from '@/permisos/sesion';
+import { BotonIcono } from './Boton';
 import { FranjaSuperior } from './FranjaSuperior';
-import { Icono } from './Icono';
 import { IndicadorSync } from './IndicadorSync';
 import { Logo } from './Visuales';
-import { espaciado, estilosBase, semantico } from './tema';
+import { bordes, campo, espaciado, estilosBase, semantico, tamanoIcono } from './tema';
 
 export function Pantalla({
   children,
@@ -32,6 +26,7 @@ export function Pantalla({
   /** Botones fijos al pie (p. ej. Anterior / Siguiente). */
   pie?: ReactNode;
 }) {
+  const { t } = useTranslation();
   const router = useRouter();
   const tocar = useSesion((s) => s.tocar);
   return (
@@ -39,15 +34,12 @@ export function Pantalla({
       <FranjaSuperior />
       <View style={estilos.encabezado}>
         {volver ? (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Volver"
+          <BotonIcono
+            icono="atras"
+            tamano={tamanoIcono.grande}
+            etiqueta={t('comun.volver')}
             onPress={() => router.back()}
-            style={estilos.volver}
-            hitSlop={12}
-          >
-            <Icono nombre="chevron-left" tamano={28} color={semantico.titulo} />
-          </Pressable>
+          />
         ) : null}
         <View style={{ flex: 1, minWidth: 0, marginRight: espaciado.sm }}>
           <Logo />
@@ -80,13 +72,12 @@ const estilos = StyleSheet.create({
     paddingHorizontal: espaciado.lg,
     paddingVertical: espaciado.md,
     gap: espaciado.md,
-    minHeight: 60,
+    minHeight: campo.alturaTactil + espaciado.xs,
   },
-  volver: { minWidth: 44, minHeight: 44, justifyContent: 'center' },
   contenido: { padding: espaciado.lg, paddingBottom: espaciado.xxl * 2, flexGrow: 1 },
   pie: {
     padding: espaciado.lg,
-    borderTopWidth: 1,
+    borderTopWidth: bordes.lineaDivision,
     borderTopColor: semantico.borde,
     backgroundColor: semantico.fondo,
     gap: espaciado.sm,

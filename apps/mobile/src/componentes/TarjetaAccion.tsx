@@ -4,7 +4,16 @@
  */
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Icono, type NombreIcono } from './Icono';
-import { campo, espaciado, estilosBase, semantico, tipografia } from './tema';
+import {
+  bordes,
+  campo,
+  control,
+  espaciado,
+  estilosBase,
+  semantico,
+  tamanoIcono,
+  tipografia,
+} from './tema';
 
 export function TarjetaAccion({
   icono,
@@ -37,17 +46,17 @@ export function TarjetaAccion({
       style={({ pressed }) => [
         estilos.tarjeta,
         (destacada || peligro) && estilos.destacada,
-        pressed && { backgroundColor: semantico.fondoSuave },
+        pressed && estilosBase.presionado,
       ]}
     >
       <View style={[estilos.icono, { backgroundColor: fondoIcono }]}>
-        <Icono nombre={icono} tamano={28} color={colorIcono} />
+        <Icono nombre={icono} tamano={tamanoIcono.grande} color={colorIcono} />
       </View>
       <View style={{ flex: 1 }}>
         <Text style={estilos.titulo}>{titulo}</Text>
         <Text style={estilosBase.secundario}>{estado}</Text>
       </View>
-      <Icono nombre="chevron-right" color={semantico.textoSecundario} />
+      <Icono nombre="siguiente" color={semantico.textoSecundario} />
     </Pressable>
   );
 }
@@ -59,23 +68,34 @@ export function ListaAcciones({ children }: { children: React.ReactNode }) {
 
 const estilos = StyleSheet.create({
   tarjeta: {
-    minHeight: campo.alturaTactil + 32,
+    minHeight: campo.alturaTactil + espaciado.xxl,
     flexDirection: 'row',
     alignItems: 'center',
     gap: espaciado.md,
     padding: espaciado.md,
-    borderWidth: 1,
-    borderColor: semantico.borde,
+    borderWidth: control.grosor,
+    // Se toca: borde de control (5,3:1), no el gris de división (1,3:1), que al sol no se ve.
+    borderColor: control.bordeTocable,
     backgroundColor: semantico.fondo,
   },
-  destacada: { borderWidth: 2, borderColor: semantico.bordeFuerte },
-  icono: { width: 56, height: 56, alignItems: 'center', justifyContent: 'center' },
+  destacada: {
+    borderWidth: bordes.lineaTitulo,
+    borderColor: semantico.bordeFuerte,
+    // El borde crece 1 pt: se descuenta para que el contenido no se mueva.
+    padding: espaciado.md - (bordes.lineaTitulo - bordes.lineaDivision),
+  },
+  icono: {
+    width: campo.alturaTactil,
+    height: campo.alturaTactil,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   titulo: {
     fontFamily: tipografia.familias.titulo,
-    fontSize: 18,
+    fontSize: tipografia.tamanos.subtitulo,
     color: semantico.titulo,
     textTransform: 'uppercase',
-    letterSpacing: 0.5,
-    marginBottom: 2,
+    letterSpacing: tipografia.espaciadoLetras.titulo,
+    marginBottom: espaciado.xs,
   },
 });

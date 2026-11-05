@@ -9,6 +9,7 @@ import {
   formatearFechaHora,
   formatearNumero,
   REGISTRO_TABLAS,
+  TABLAS_CONGELADAS,
   type NombreTabla,
 } from '@kalo/shared';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -17,7 +18,9 @@ import { ArchivosRegistro } from '@/componentes/Archivos';
 import {
   Aviso,
   Boton,
+  Campo,
   Cargando,
+  claseEncabezadoTabla,
   Estado,
   MuestraColor,
   Subtitulo,
@@ -90,6 +93,10 @@ export default function Validacion() {
     queryFn: () => api<Conflicto[]>('/validacion/conflictos'),
     refetchInterval: 30_000,
   });
+  // Solo tablas de módulos activos en la etapa actual.
+  const visible = (tabla: string) => !TABLAS_CONGELADAS.has(tabla as NombreTabla);
+  const listaConflictos = (conflictos.data ?? []).filter((c) => visible(c.tabla));
+  const listaPendientes = Object.entries(pendientes.data ?? {}).filter(([t]) => visible(t));
   const [motivos, setMotivos] = useState<Record<string, string>>({});
   const [elecciones, setElecciones] = useState<Record<string, Record<string, unknown>>>({});
 
@@ -120,21 +127,21 @@ export default function Validacion() {
       <Titulo>Validación</Titulo>
       {validar.error ? <Aviso tipo="peligro">{(validar.error as Error).message}</Aviso> : null}
 
-      <Subtitulo>Conflictos de sincronización ({conflictos.data?.length ?? 0})</Subtitulo>
+      <Subtitulo>Conflictos de sincronización ({listaConflictos.length})</Subtitulo>
       <p className="mb-3 text-sm">
         Dos dispositivos editaron el mismo registro sin conexión. Se aplicó el cambio más reciente
         campo por campo; confirme o corrija el valor final.
       </p>
       {conflictos.isLoading ? <Cargando /> : null}
-      {conflictos.data?.length === 0 ? (
+      {conflictos.data && listaConflictos.length === 0 ? (
         <p className="text-sm text-neutros-n500">Sin conflictos pendientes.</p>
       ) : null}
       <div className="flex flex-col gap-3">
-        {conflictos.data?.map((c) => {
+        {listaConflictos.map((c) => {
           const elegidos = elecciones[c.id] ?? {};
           return (
             <Tarjeta key={c.id}>
-              <div className="mb-2 flex items-center justify-between">
+              <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
                 <p className="font-extrabold uppercase text-neutros-n900">
                   {REGISTRO_TABLAS[c.tabla as NombreTabla]?.meta.etiqueta ?? c.tabla} ·{' '}
                   {n.lotes.get(String(c.datos.resultado.lote_id)) ?? ''}
@@ -147,11 +154,19 @@ export default function Validacion() {
               </p>
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b-2 border-marca-negro text-[11px] font-semibold uppercase tracking-[0.14em] text-neutros-n500">
-                    <th className="py-1 text-left">Campo</th>
-                    <th className="py-1 text-right">Servidor</th>
-                    <th className="py-1 text-right">Celular</th>
-                    <th className="py-1 text-right">Valor final</th>
+                  <tr className="border-b-2 border-marca-negro">
+                    <th scope="col" className={claseEncabezadoTabla}>
+                      Campo
+                    </th>
+                    <th scope="col" className={`${claseEncabezadoTabla} text-right`}>
+                      Servidor
+                    </th>
+                    <th scope="col" className={`${claseEncabezadoTabla} text-right`}>
+                      Celular
+                    </th>
+                    <th scope="col" className={`${claseEncabezadoTabla} text-right`}>
+                      Valor final
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -164,21 +179,28 @@ export default function Validacion() {
                           : k.valorServidor;
                     const opcion = (v: unknown, etiqueta: string) => (
                       <button
-                        className={`tabular border px-2 py-1 ${final === v ? 'border-2 border-marca-negro font-extrabold' : 'border-neutros-n200'}`}
+                        type="button"
+                        aria-pressed={final === v}
+                        className={`tabular inline-flex min-h-10 items-center gap-1 border-2 px-3 ${final === v ? 'border-marca-negro bg-marca-verde100 font-extrabold text-neutros-n900' : 'border-neutros-n500 hover:border-marca-negro'}`}
                         onClick={() =>
                           setElecciones((e) => ({ ...e, [c.id]: { ...elegidos, [k.campo]: v } }))
                         }
-                        aria-label={`Usar valor del ${etiqueta}`}
+                        aria-label={`Usar valor del ${etiqueta}: ${String(v ?? '—')}`}
                       >
+                        {final === v ? <span aria-hidden>✓</span> : null}
                         {String(v ?? '—')}
                       </button>
                     );
                     return (
                       <tr key={k.campo} className="border-b border-neutros-n200">
-                        <td className="py-2">{k.campo.replace(/_/g, ' ')}</td>
-                        <td className="py-2 text-right">{opcion(k.valorServidor, 'servidor')}</td>
-                        <td className="py-2 text-right">{opcion(k.valorCliente, 'celular')}</td>
-                        <td className="tabular py-2 text-right font-extrabold text-neutros-n900">
+                        <td className="px-3 py-2">{k.campo.replace(/_/g, ' ')}</td>
+                        <td className="px-3 py-2 text-right">
+                          {opcion(k.valorServidor, 'servidor')}
+                        </td>
+                        <td className="px-3 py-2 text-right">
+                          {opcion(k.valorCliente, 'celular')}
+                        </td>
+                        <td className="tabular px-3 py-2 text-right font-extrabold text-neutros-n900">
                           {String(final ?? '—')}
                         </td>
                       </tr>
@@ -211,7 +233,7 @@ export default function Validacion() {
         })}
       </div>
 
-      {Object.entries(pendientes.data ?? {}).map(([tabla, filas]) => (
+      {listaPendientes.map(([tabla, filas]) => (
         <div key={tabla}>
           <Subtitulo>
             {REGISTRO_TABLAS[tabla as NombreTabla]?.meta.etiqueta ?? tabla} pendientes (
@@ -219,6 +241,7 @@ export default function Validacion() {
           </Subtitulo>
           {filas.length > 1 ? (
             <Boton
+              className="mb-2"
               variante="secundario"
               disabled={validar.isPending}
               onClick={async () => {
@@ -241,11 +264,10 @@ export default function Validacion() {
                   <Resumen tabla={tabla} f={f} />
                   <ArchivosRegistro tabla={tabla} id={f.id} />
                 </div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <input
-                    aria-label="Motivo del rechazo"
-                    placeholder="Motivo (si rechaza)"
-                    className="min-h-10 border border-neutros-n300 px-2 text-sm"
+                <div className="flex flex-wrap items-end gap-2">
+                  <Campo
+                    etiqueta="Motivo (obligatorio para rechazar)"
+                    placeholder="Ej.: cantidad no coincide"
                     value={motivos[f.id] ?? ''}
                     onChange={(e) => setMotivos((m) => ({ ...m, [f.id]: e.target.value }))}
                   />

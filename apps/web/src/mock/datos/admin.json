@@ -59,6 +59,16 @@
       "activo": true,
       "trabajador_id": null,
       "tiene_gafete": true
+    },
+    {
+      "id": "5b0d6a1e-7c3f-4e2a-9d81-b0de9a000002",
+      "usuario": "bodega",
+      "nombre": "Berta Bodeguera (DEMO)",
+      "rol_id": "5b0d6a1e-7c3f-4e2a-9d81-b0de9a000001",
+      "finca_id": "f937d496-e9fb-409e-aa0d-dad9cfba5685",
+      "activo": true,
+      "trabajador_id": null,
+      "tiene_gafete": true
     }
   ],
   "roles": {
@@ -664,6 +674,34 @@
         "modulo": "validacion",
         "accion": "ver",
         "descripcion": "Ver la bandeja de validación"
+      },
+      {
+        "id": "5b0d6a1e-7c3f-4e2a-9d81-b0de9a000003",
+        "created_at": 1791335203425,
+        "updated_at": 1791335203425,
+        "server_updated_at": 1791335203442,
+        "deleted_at": null,
+        "device_id": "seed-DEMO",
+        "created_by": null,
+        "finca_id": null,
+        "codigo": "bodega:ver",
+        "modulo": "bodega",
+        "accion": "ver",
+        "descripcion": "Ver la bodega de materiales y usar la calculadora de pedido"
+      },
+      {
+        "id": "5b0d6a1e-7c3f-4e2a-9d81-b0de9a000004",
+        "created_at": 1791335203425,
+        "updated_at": 1791335203425,
+        "server_updated_at": 1791335203442,
+        "deleted_at": null,
+        "device_id": "seed-DEMO",
+        "created_by": null,
+        "finca_id": null,
+        "codigo": "bodega:gestionar",
+        "modulo": "bodega",
+        "accion": "gestionar",
+        "descripcion": "Registrar entradas y salidas de materiales"
       }
     ],
     "roles": [
@@ -722,7 +760,9 @@
           "admin:formularios",
           "dispositivos:ver",
           "dispositivos:gestionar",
-          "sincronizacion:usar"
+          "sincronizacion:usar",
+          "bodega:ver",
+          "bodega:gestionar"
         ]
       },
       {
@@ -856,6 +896,20 @@
           "archivos:crear",
           "sincronizacion:usar"
         ]
+      },
+      {
+        "id": "5b0d6a1e-7c3f-4e2a-9d81-b0de9a000001",
+        "created_at": 1791335203425,
+        "updated_at": 1791335203425,
+        "server_updated_at": 1791335203442,
+        "deleted_at": null,
+        "device_id": "seed-DEMO",
+        "created_by": null,
+        "finca_id": null,
+        "codigo": "bodega_materiales",
+        "nombre": "Bodega de materiales",
+        "plataformas": ["web", "movil"],
+        "permisos": ["bodega:ver", "bodega:gestionar", "perfil:usar", "sincronizacion:usar"]
       }
     ]
   },

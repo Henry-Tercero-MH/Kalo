@@ -9,8 +9,8 @@
     "created_by": null,
     "finca_id": null,
     "empresa_id": "652aa6cd-e9e7-42ab-be8d-87e813280619",
-    "nombre": "Finca Demo",
-    "codigo": "FINCA-DEMO",
+    "nombre": "Finca Las Rosas",
+    "codigo": "FINCA-LAS-ROSAS",
     "unidad_area": "ha",
     "centro_lat": 15.472,
     "centro_lng": -88.812,
@@ -2976,6 +2976,14 @@
       "rol_id": "81489b2a-d738-49cb-af21-fb4abdd979c4",
       "activo": true,
       "trabajador_id": null
+    },
+    {
+      "id": "5b0d6a1e-7c3f-4e2a-9d81-b0de9a000002",
+      "usuario": "bodega",
+      "nombre": "Berta Bodeguera (DEMO)",
+      "rol_id": "5b0d6a1e-7c3f-4e2a-9d81-b0de9a000001",
+      "activo": true,
+      "trabajador_id": null
     }
   ],
   "roles": [
@@ -3043,6 +3051,19 @@
       "codigo": "caporal",
       "nombre": "Caporal",
       "plataformas": ["movil"]
+    },
+    {
+      "id": "5b0d6a1e-7c3f-4e2a-9d81-b0de9a000001",
+      "created_at": 1791335203425,
+      "updated_at": 1791335203425,
+      "server_updated_at": 1791335203442,
+      "deleted_at": null,
+      "device_id": "seed-DEMO",
+      "created_by": null,
+      "finca_id": null,
+      "codigo": "bodega_materiales",
+      "nombre": "Bodega de materiales",
+      "plataformas": ["web", "movil"]
     }
   ],
   "trabajadores": [
@@ -3339,9 +3360,9 @@
       "device_id": "seed-DEMO",
       "created_by": null,
       "finca_id": "f937d496-e9fb-409e-aa0d-dad9cfba5685",
-      "codigo": "enfunde",
-      "nombre": "Enfunde",
-      "unidad": "racimos",
+      "codigo": "pica",
+      "nombre": "Pica (sangría)",
+      "unidad": "arboles",
       "tarifa": null,
       "activo": true
     },
@@ -3354,9 +3375,9 @@
       "device_id": "seed-DEMO",
       "created_by": null,
       "finca_id": "f937d496-e9fb-409e-aa0d-dad9cfba5685",
-      "codigo": "deshoje",
-      "nombre": "Deshoje",
-      "unidad": "plantas",
+      "codigo": "estimulacion",
+      "nombre": "Estimulación",
+      "unidad": "arboles",
       "tarifa": null,
       "activo": true
     },
@@ -3369,9 +3390,9 @@
       "device_id": "seed-DEMO",
       "created_by": null,
       "finca_id": "f937d496-e9fb-409e-aa0d-dad9cfba5685",
-      "codigo": "deshije",
-      "nombre": "Deshije",
-      "unidad": "plantas",
+      "codigo": "recoleccion_latex",
+      "nombre": "Recolección de látex",
+      "unidad": "kilogramos",
       "tarifa": null,
       "activo": true
     },
@@ -3384,9 +3405,9 @@
       "device_id": "seed-DEMO",
       "created_by": null,
       "finca_id": "f937d496-e9fb-409e-aa0d-dad9cfba5685",
-      "codigo": "cosecha",
-      "nombre": "Cosecha",
-      "unidad": "racimos",
+      "codigo": "recoleccion_chipa",
+      "nombre": "Recolección de chipa (coágulo)",
+      "unidad": "kilogramos",
       "tarifa": null,
       "activo": true
     },
@@ -3399,9 +3420,9 @@
       "device_id": "seed-DEMO",
       "created_by": null,
       "finca_id": "f937d496-e9fb-409e-aa0d-dad9cfba5685",
-      "codigo": "apuntalamiento",
-      "nombre": "Apuntalamiento",
-      "unidad": "plantas",
+      "codigo": "chapeo",
+      "nombre": "Chapeo / limpia",
+      "unidad": "hectareas",
       "tarifa": null,
       "activo": true
     },
@@ -4390,6 +4411,28 @@
       "rutaWeb": "/dispositivos",
       "estado": "activo",
       "orden": 7
+    },
+    {
+      "codigo": "bodega",
+      "nombre": "Bodega de materiales",
+      "descripcion": "Existencias, movimientos y calculadora de pedido por contenedor",
+      "icono": "warehouse",
+      "plataformas": ["web"],
+      "permisoVer": "bodega:ver",
+      "permisos": [
+        {
+          "codigo": "bodega:ver",
+          "descripcion": "Ver la bodega de materiales y usar la calculadora de pedido"
+        },
+        {
+          "codigo": "bodega:gestionar",
+          "descripcion": "Registrar entradas y salidas de materiales"
+        }
+      ],
+      "tablas": [],
+      "rutaWeb": "/bodega",
+      "estado": "activo",
+      "orden": 5
     },
     {
       "codigo": "sincronizacion",

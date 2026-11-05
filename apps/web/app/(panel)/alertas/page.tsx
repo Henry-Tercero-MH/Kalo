@@ -9,7 +9,15 @@ import {
 } from '@kalo/shared';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ArchivosRegistro } from '@/componentes/Archivos';
-import { Aviso, Cargando, Estado, Tarjeta, Titulo, type TipoEstado } from '@/componentes/ui';
+import {
+  Aviso,
+  Cargando,
+  claseFocoCampo,
+  Estado,
+  Tarjeta,
+  Titulo,
+  type TipoEstado,
+} from '@/componentes/ui';
 import { api } from '@/lib/api';
 import { useNombres } from '@/lib/catalogos';
 
@@ -97,7 +105,7 @@ export default function Alertas() {
                 Cambiar estado
               </span>
               <select
-                className="min-h-10 border border-marca-negro px-2"
+                className={`min-h-10 rounded-campo border border-marca-negro px-2 ${claseFocoCampo}`}
                 value={a.estado}
                 onChange={(e) => cambiar.mutate({ id: a.id, estado: e.target.value })}
               >

@@ -8,13 +8,14 @@ import { Q } from '@nozbe/watermelondb';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Boton } from '@/componentes/Boton';
+import { CampoTexto, FilaCasilla, Opciones } from '@/componentes/Controles';
 import { Icono } from '@/componentes/Icono';
 import { Pantalla } from '@/componentes/Pantalla';
-import { Titulo } from '@/componentes/Texto';
-import { Aviso } from '@/componentes/Visuales';
-import { campo, espaciado, estilosBase, semantico, tipografia } from '@/componentes/tema';
+import { Etiqueta, TextoNombre, Titulo } from '@/componentes/Texto';
+import { Aviso, Estado } from '@/componentes/Visuales';
+import { campo, control, espaciado, estilosBase, semantico, tipografia } from '@/componentes/tema';
 import { useConsulta } from '@/db/hooks';
 import { obtenerUbicacion } from '@/gps/ubicacion';
 import { despuesDeGuardar, useRequierePermiso } from '@/modulos/comun';
@@ -94,9 +95,9 @@ export default function Asistencia() {
           )
         }
         accessibilityRole="button"
-        style={estilos.todos}
+        style={({ pressed }) => [estilos.todos, pressed && estilosBase.presionado]}
       >
-        <Icono nombre="check" tamano={18} color={semantico.titulo} />
+        <Icono nombre="confirmar" color={semantico.titulo} />
         <Text style={estilos.todosTexto}>{t('asistencia.todosPresentes')}</Text>
       </Pressable>
 
@@ -113,57 +114,64 @@ export default function Asistencia() {
               pendiente && estilos.tarjetaPendiente,
             ]}
           >
-            <Pressable
-              onPress={() => cambiar(tr.id, { presente: !m.presente })}
-              accessibilityRole="checkbox"
-              accessibilityState={{ checked: m.presente }}
+            {/* Casilla con la palabra debajo: el estado no depende solo de la marca. */}
+            <FilaCasilla
+              marcada={m.presente}
+              onCambio={() => cambiar(tr.id, { presente: !m.presente })}
               accessibilityLabel={`${tr.codigo} ${tr.nombre}`}
+              lado="fin"
               style={estilos.fila}
-            >
-              <View style={estilos.codigo}>
-                <Text style={estilos.codigoTexto}>{tr.codigo}</Text>
-              </View>
-              <View style={{ flex: 1 }}>
-                <Text style={estilos.nombre}>{tr.nombre}</Text>
-                <Text style={estilosBase.secundario}>
-                  {tr.centro_costo ?? t('asistencia.sinCentroCosto')}
+              bajoCasilla={
+                <Text style={[estilosBase.etiqueta, !m.presente && { color: semantico.titulo }]}>
+                  {m.presente ? t('labores.presente') : t('labores.ausente')}
                 </Text>
+              }
+            >
+              <View style={estilos.datosTrabajador}>
+                <View style={estilos.codigo}>
+                  <Text style={estilos.codigoTexto}>{tr.codigo}</Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <TextoNombre>{tr.nombre}</TextoNombre>
+                  <Text style={estilosBase.secundario}>
+                    {tr.centro_costo ?? t('asistencia.sinCentroCosto')}
+                  </Text>
+                </View>
               </View>
-              <View style={[estilos.casilla, m.presente && estilos.casillaMarcada]}>
-                {m.presente ? <Icono nombre="check" tamano={26} color={semantico.titulo} /> : null}
-              </View>
-            </Pressable>
+            </FilaCasilla>
 
             {!m.presente ? (
               <View style={estilos.justificacion}>
-                <Text style={estilosBase.etiqueta}>{t('asistencia.porQue')}</Text>
-                <View style={estilos.motivos}>
-                  {MOTIVOS.map(([codigo, nombre]) => {
-                    const activo = m.motivo === codigo;
-                    return (
-                      <Pressable
-                        key={codigo}
-                        onPress={() => cambiar(tr.id, { motivo: codigo })}
-                        accessibilityRole="radio"
-                        accessibilityState={{ checked: activo }}
-                        style={[estilos.motivo, activo && estilos.motivoActivo]}
-                      >
-                        <Text style={[estilos.motivoTexto, activo && estilos.motivoTextoActivo]}>
-                          {nombre}
-                        </Text>
-                      </Pressable>
-                    );
-                  })}
+                {pendiente ? (
+                  <View style={{ marginBottom: espaciado.sm }}>
+                    <Estado tipo="alerta" texto={t('asistencia.porJustificar')} />
+                  </View>
+                ) : null}
+                <Etiqueta requerido>{t('asistencia.porQue')}</Etiqueta>
+                {/* Mismo control de selección que el resto de la app (verde claro + borde + check). */}
+                <View style={{ marginTop: espaciado.sm }}>
+                  <Opciones<MotivoAusencia>
+                    columnas={2}
+                    etiqueta={t('asistencia.porQue')}
+                    opciones={MOTIVOS.map(([codigo, nombre]) => ({
+                      valor: codigo,
+                      etiqueta: nombre,
+                    }))}
+                    valor={m.motivo}
+                    onCambio={(v) => cambiar(tr.id, { motivo: v as MotivoAusencia })}
+                  />
                 </View>
                 {m.motivo === 'otro' ? (
-                  <TextInput
-                    value={m.nota}
-                    onChangeText={(v) => cambiar(tr.id, { nota: v })}
-                    placeholder={t('asistencia.notaOtro')}
-                    placeholderTextColor={semantico.textoSecundario}
-                    accessibilityLabel={t('asistencia.notaOtro')}
-                    style={estilos.nota}
-                  />
+                  <View style={{ marginTop: espaciado.md }}>
+                    <CampoTexto
+                      etiqueta={t('asistencia.notaOtro')}
+                      valor={m.nota}
+                      onCambio={(v) => cambiar(tr.id, { nota: v })}
+                      placeholder={t('asistencia.notaOtroAyuda')}
+                      autoCapitalize="sentences"
+                      requerido
+                    />
+                  </View>
                 ) : null}
               </View>
             ) : null}
@@ -177,7 +185,7 @@ export default function Asistencia() {
         ) : null}
         <Boton
           titulo={t('labores.guardarAsistencia')}
-          icono="check"
+          icono="guardar"
           cargando={guardando}
           deshabilitado={lista.length === 0 || sinJustificar > 0}
           onPress={async () => {
@@ -209,9 +217,7 @@ function Resumen({
   alerta?: boolean;
 }) {
   return (
-    <View
-      style={[estilos.resumenCaja, alerta && { borderColor: semantico.alerta, borderWidth: 2 }]}
-    >
+    <View style={[estilos.resumenCaja, alerta && estilos.resumenCajaAlerta]}>
       <Text style={estilos.resumenValor}>{valor}</Text>
       <Text style={estilosBase.etiqueta} numberOfLines={1}>
         {etiqueta}
@@ -226,12 +232,17 @@ const estilos = StyleSheet.create({
     flex: 1,
     paddingVertical: espaciado.sm,
     alignItems: 'center',
-    borderWidth: 1,
+    borderWidth: control.grosor,
     borderColor: semantico.borde,
+  },
+  resumenCajaAlerta: {
+    borderColor: semantico.alerta,
+    borderWidth: control.grosorFoco,
+    paddingVertical: espaciado.sm - control.ajusteFoco,
   },
   resumenValor: {
     fontFamily: tipografia.familias.titulo,
-    fontSize: 24,
+    fontSize: tipografia.tamanos.tituloGrande,
     color: semantico.titulo,
     fontVariant: ['tabular-nums'],
   },
@@ -239,79 +250,47 @@ const estilos = StyleSheet.create({
     alignSelf: 'flex-start',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: espaciado.xs,
-    minHeight: 44,
-    marginVertical: espaciado.sm,
+    gap: espaciado.sm,
+    minHeight: campo.alturaTactil,
+    paddingHorizontal: espaciado.sm,
+    marginVertical: espaciado.xs,
   },
   todosTexto: {
     fontFamily: tipografia.familias.cuerpoMedio,
-    fontSize: tipografia.tamanos.pequeno,
+    fontSize: tipografia.tamanos.cuerpo,
     color: semantico.titulo,
     textDecorationLine: 'underline',
   },
-  tarjeta: { borderWidth: 1, borderColor: semantico.borde, marginBottom: espaciado.sm },
+  // El borde pasa de 1 a 2 pt cuando falta el motivo: el padding de 1 pt se descuenta para que
+  // el contenido no salte.
+  tarjeta: {
+    borderWidth: control.grosor,
+    borderColor: semantico.borde,
+    padding: control.ajusteFoco,
+    marginBottom: espaciado.sm,
+  },
   tarjetaAusente: { backgroundColor: semantico.fondoSuave },
-  tarjetaPendiente: { borderColor: semantico.alerta, borderWidth: 2 },
+  tarjetaPendiente: { borderColor: semantico.alerta, borderWidth: control.grosorFoco, padding: 0 },
   fila: {
-    minHeight: campo.alturaTactil + 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: espaciado.md,
+    minHeight: campo.alturaTactil + espaciado.lg,
     padding: espaciado.md,
   },
+  datosTrabajador: { flexDirection: 'row', alignItems: 'center', gap: espaciado.md },
   codigo: {
-    minWidth: 52,
-    paddingVertical: 6,
-    paddingHorizontal: 6,
-    backgroundColor: semantico.bordeFuerte,
+    minWidth: campo.alturaTactil - espaciado.xs,
+    paddingVertical: espaciado.xs,
+    paddingHorizontal: espaciado.xs,
+    backgroundColor: semantico.superficieInvertida,
     alignItems: 'center',
   },
   codigoTexto: {
     fontFamily: tipografia.familias.titulo,
-    fontSize: 14,
-    color: semantico.fondo,
-    letterSpacing: 0.5,
+    fontSize: tipografia.tamanos.pequeno,
+    color: semantico.textoSobreOscuro,
+    letterSpacing: tipografia.espaciadoLetras.titulo,
   },
-  nombre: { fontFamily: tipografia.familias.titulo, fontSize: 16, color: semantico.titulo },
-  casilla: {
-    width: 44,
-    height: 44,
-    borderWidth: 2,
-    borderColor: semantico.bordeFuerte,
-    backgroundColor: semantico.fondo,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  casillaMarcada: { backgroundColor: semantico.acento },
   justificacion: {
     paddingHorizontal: espaciado.md,
     paddingBottom: espaciado.md,
-  },
-  motivos: { flexDirection: 'row', flexWrap: 'wrap', gap: espaciado.sm, marginTop: espaciado.sm },
-  motivo: {
-    minHeight: 44,
-    paddingHorizontal: espaciado.md,
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: semantico.bordeFuerte,
-    backgroundColor: semantico.fondo,
-  },
-  motivoActivo: { backgroundColor: semantico.bordeFuerte },
-  motivoTexto: {
-    fontFamily: tipografia.familias.cuerpoMedio,
-    fontSize: 14,
-    color: semantico.titulo,
-  },
-  motivoTextoActivo: { color: semantico.fondo },
-  nota: {
-    marginTop: espaciado.sm,
-    minHeight: campo.alturaTactil,
-    borderWidth: 2,
-    borderColor: semantico.borde,
-    paddingHorizontal: espaciado.md,
-    fontFamily: tipografia.familias.cuerpo,
-    fontSize: 16,
-    color: semantico.titulo,
-    backgroundColor: semantico.fondo,
   },
 });

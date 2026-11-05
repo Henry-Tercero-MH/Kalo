@@ -10,7 +10,7 @@ import { Boton } from '@/componentes/Boton';
 import { CampoTexto } from '@/componentes/Controles';
 import { Pantalla } from '@/componentes/Pantalla';
 import { Subtitulo, Texto, Titulo } from '@/componentes/Texto';
-import { Aviso, Tarjeta } from '@/componentes/Visuales';
+import { Aviso, EstadoCarga, Tarjeta } from '@/componentes/Visuales';
 import { espaciado } from '@/componentes/tema';
 import { CONFIG, USA_API } from '@/config';
 import { configurarDemo, ErrorPendientesSinEnviar } from '@/demo/activacion';
@@ -33,6 +33,8 @@ function ConfigurarServidor() {
   const [estado, setEstado] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [cargando, setCargando] = useState(false);
+  /** Avance real de la descarga del mapa (0–100); null mientras se bajan los datos. */
+  const [progresoMapa, setProgresoMapa] = useState<number | null>(null);
   const [cargandoDemo, setCargandoDemo] = useState(false);
   const [errorDemo, setErrorDemo] = useState<string | null>(null);
 
@@ -56,11 +58,13 @@ function ConfigurarServidor() {
   const configurar = async () => {
     setCargando(true);
     setError(null);
+    setProgresoMapa(null);
     setEstado(t('configurar.descargando'));
     try {
-      await configurarDispositivo({ apiUrl, usuario, pin, nombre }, (p) =>
-        setEstado(t('configurar.mapa', { p })),
-      );
+      await configurarDispositivo({ apiUrl, usuario, pin, nombre }, (p) => {
+        setEstado(t('configurar.mapa'));
+        setProgresoMapa(p);
+      });
       await cargarConfiguracion();
       router.replace('/(auth)/login');
     } catch (e) {
@@ -89,18 +93,26 @@ function ConfigurarServidor() {
       </Tarjeta>
 
       <Subtitulo>{t('configurar.servidorTitulo')}</Subtitulo>
-      <Texto style={{ marginBottom: 16 }}>{t('configurar.descripcion')}</Texto>
+      <Texto style={{ marginBottom: espaciado.lg }}>{t('configurar.descripcion')}</Texto>
       <CampoTexto
         etiqueta={t('configurar.servidor')}
         valor={apiUrl}
         onCambio={setApiUrl}
         teclado="url"
+        requerido
       />
-      <CampoTexto etiqueta={t('configurar.usuario')} valor={usuario} onCambio={setUsuario} />
+      <CampoTexto
+        etiqueta={t('configurar.usuario')}
+        valor={usuario}
+        onCambio={setUsuario}
+        requerido
+      />
       <CampoTexto
         etiqueta={t('configurar.pin')}
         valor={pin}
         onCambio={setPin}
+        requerido
+        ayuda={t('configurar.pinAyuda')}
         secreto
         teclado="number-pad"
         maxLength={4}
@@ -110,8 +122,9 @@ function ConfigurarServidor() {
         valor={nombre}
         onCambio={setNombre}
         autoCapitalize="sentences"
+        opcional
       />
-      {estado ? <Aviso texto={estado} /> : null}
+      {cargando && estado ? <EstadoCarga titulo={estado} progreso={progresoMapa} /> : null}
       {error ? <Aviso tipo="peligro" texto={error} /> : null}
       <Boton
         titulo={t('configurar.boton')}
@@ -120,6 +133,7 @@ function ConfigurarServidor() {
         onPress={configurar}
         cargando={cargando}
         deshabilitado={!usuario || pin.length !== 4 || cargandoDemo}
+        motivoDeshabilitado={cargandoDemo ? undefined : t('configurar.faltanDatos')}
       />
     </Pantalla>
   );

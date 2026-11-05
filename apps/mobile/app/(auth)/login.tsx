@@ -4,9 +4,10 @@
  * En modo demo se listan los usuarios de demostración: tocar uno llena el formulario.
  */
 import { useRouter } from 'expo-router';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  AccessibilityInfo,
   Image,
   KeyboardAvoidingView,
   Platform,
@@ -19,11 +20,24 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Boton } from '@/componentes/Boton';
+import { MensajeCampo } from '@/componentes/Controles';
 import { FranjaSuperior } from '@/componentes/FranjaSuperior';
 import { Icono, type NombreIcono } from '@/componentes/Icono';
+import { Titulo } from '@/componentes/Texto';
 import { Aviso } from '@/componentes/Visuales';
 import { LOGO } from '@/componentes/logo-fuente';
-import { campo, colores, espaciado, estilosBase, semantico, tipografia } from '@/componentes/tema';
+import {
+  bordes,
+  campo,
+  colores,
+  control,
+  espaciado,
+  estilosBase,
+  estilosCampo,
+  semantico,
+  tamanoIcono,
+  tipografia,
+} from '@/componentes/tema';
 import { CONFIG } from '@/config';
 import { useConsulta } from '@/db/hooks';
 import { esModoDemo, PINES_DEMO } from '@/demo/modo';
@@ -33,11 +47,16 @@ import { iniciarConPin } from '@/permisos/sesion';
 const PROPORCION_LOGO = 960 / 200;
 const ANCHO_LOGO = 200;
 
-/** Campo de texto con ícono, borde que se marca al enfocar y acción opcional a la derecha. */
+/**
+ * Campo de texto con ícono, borde que se marca al enfocar y acción opcional a la derecha.
+ * `error` solo pinta el borde rojo; `mensajeError` además lo escribe debajo y lo lee el lector
+ * de pantalla al enfocar el campo.
+ */
 function CampoLogin({
   etiqueta,
   icono,
   error,
+  mensajeError,
   accion,
   entradaRef,
   ...props
@@ -45,23 +64,40 @@ function CampoLogin({
   etiqueta: string;
   icono: NombreIcono;
   error?: boolean;
+  mensajeError?: string;
   accion?: { icono: NombreIcono; etiqueta: string; onPress: () => void };
   entradaRef?: React.Ref<TextInput>;
 }) {
   const [enfocado, setEnfocado] = useState(false);
+  const conError = error || Boolean(mensajeError);
+  const editable = props.editable !== false;
   return (
     <View style={{ marginBottom: espaciado.lg }}>
       <Text style={estilosBase.etiqueta}>{etiqueta}</Text>
-      <View style={[estilos.campo, enfocado && estilos.campoEnfocado, error && estilos.campoError]}>
+      <View
+        style={[
+          estilosCampo.marco,
+          estilos.campo,
+          enfocado && estilosCampo.marcoFoco,
+          conError && estilosCampo.marcoError,
+          !editable && estilosCampo.marcoSoloLectura,
+          (enfocado || conError) && {
+            paddingLeft: espaciado.md - control.ajusteFoco,
+            paddingRight: 0,
+          },
+        ]}
+      >
         <Icono
           nombre={icono}
-          tamano={20}
+          tamano={tamanoIcono.normal}
           color={enfocado ? semantico.titulo : semantico.textoSecundario}
         />
         <TextInput
           ref={entradaRef}
           {...props}
           accessibilityLabel={etiqueta}
+          accessibilityHint={mensajeError}
+          accessibilityState={{ disabled: !editable }}
           placeholderTextColor={semantico.textoSecundario}
           autoCorrect={false}
           onFocus={(e) => {
@@ -72,20 +108,23 @@ function CampoLogin({
             setEnfocado(false);
             props.onBlur?.(e);
           }}
-          style={estilos.entrada}
+          style={[estilosCampo.texto, estilos.entrada]}
         />
         {accion ? (
           <Pressable
             onPress={accion.onPress}
             accessibilityRole="button"
             accessibilityLabel={accion.etiqueta}
-            hitSlop={10}
-            style={estilos.accionCampo}
+            style={({ pressed }) => [
+              estilos.accionCampo,
+              pressed && { backgroundColor: semantico.fondoSuave },
+            ]}
           >
-            <Icono nombre={accion.icono} tamano={22} color={semantico.textoSecundario} />
+            <Icono nombre={accion.icono} tamano={tamanoIcono.normal} color={semantico.titulo} />
           </Pressable>
         ) : null}
       </View>
+      <MensajeCampo error={mensajeError} />
     </View>
   );
 }
@@ -99,8 +138,15 @@ export default function Login() {
   const [contrasena, setContrasena] = useState('');
   const [verContrasena, setVerContrasena] = useState(false);
   const [ayudaOlvido, setAyudaOlvido] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  // «credenciales» se muestra bajo el campo de contraseña; «bloqueado» como aviso aparte (no es
+  // un dato mal escrito, así que no se marca ningún campo).
+  const [error, setError] = useState<{
+    tipo: 'credenciales' | 'bloqueado';
+    texto: string;
+  } | null>(null);
   const [cargando, setCargando] = useState(false);
+  // Evita un segundo envío si se toca dos veces antes de que se pinte el estado de carga.
+  const enviando = useRef(false);
   const campoContrasena = useRef<TextInput>(null);
   const demo = esModoDemo();
 
@@ -117,20 +163,33 @@ export default function Login() {
 
   const listo = usuario.trim().length > 0 && contrasena.length > 0 && !cargando;
 
+  // Tras un error de credenciales, el cursor vuelve a la contraseña (ya vacía) cuando los campos
+  // dejan de estar bloqueados por la verificación.
+  const errorCredenciales = error?.tipo === 'credenciales';
+  useEffect(() => {
+    if (errorCredenciales && !cargando) campoContrasena.current?.focus();
+  }, [errorCredenciales, cargando]);
+
   const entrar = async () => {
-    if (!listo) return;
+    if (!listo || enviando.current) return;
+    enviando.current = true;
     setError(null);
     setCargando(true);
-    // Deja pintar el indicador antes del cálculo del hash.
-    await new Promise((r) => setTimeout(r, 30));
-    const r = await iniciarConPin(usuario, contrasena);
-    setCargando(false);
-    if (r.ok) return router.replace('/(tabs)');
-    setContrasena('');
-    setError(
-      r.motivo === 'bloqueado' ? t('login.bloqueado', { min: r.minutos }) : t('login.incorrecto'),
-    );
-    campoContrasena.current?.focus();
+    try {
+      // Deja pintar el indicador antes del cálculo del hash.
+      await new Promise((r) => setTimeout(r, 30));
+      const r = await iniciarConPin(usuario, contrasena);
+      if (r.ok) return router.replace('/(tabs)');
+      setContrasena('');
+      const bloqueado = r.motivo === 'bloqueado';
+      const texto = bloqueado ? t('login.bloqueado', { min: r.minutos }) : t('login.incorrecto');
+      setError({ tipo: bloqueado ? 'bloqueado' : 'credenciales', texto });
+      // iOS no lee las regiones «live»; se anuncia el error explícitamente.
+      AccessibilityInfo.announceForAccessibility(texto);
+    } finally {
+      enviando.current = false;
+      setCargando(false);
+    }
   };
 
   return (
@@ -140,13 +199,20 @@ export default function Login() {
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-        <ScrollView contentContainerStyle={estilos.contenido} keyboardShouldPersistTaps="handled">
+        <ScrollView
+          contentContainerStyle={estilos.contenido}
+          keyboardShouldPersistTaps="handled"
+          // iOS: desplaza lo necesario para que el campo enfocado y el botón no queden bajo el
+          // teclado en pantallas chicas.
+          automaticallyAdjustKeyboardInsets
+        >
           <View style={estilos.marca}>
             {LOGO ? (
               <Image
                 source={LOGO}
                 style={{ width: ANCHO_LOGO, height: ANCHO_LOGO / PROPORCION_LOGO }}
                 resizeMode="contain"
+                accessibilityRole="image"
                 accessibilityLabel="Inversiones Kalo"
               />
             ) : null}
@@ -155,9 +221,12 @@ export default function Login() {
             </Text>
           </View>
 
-          <Text style={estilos.titulo}>{t('login.titulo')}</Text>
-          <View style={[estilosBase.lineaTitulo, { marginVertical: espaciado.sm }]} />
+          <Titulo>{t('login.titulo')}</Titulo>
           <Text style={[estilosBase.cuerpo, estilos.ayuda]}>{t('login.ayuda')}</Text>
+          <View style={estilos.sinSenal}>
+            <Icono nombre="cloud-off" tamano={tamanoIcono.normal} color={semantico.titulo} />
+            <Text style={[estilosBase.cuerpo, { flex: 1 }]}>{t('login.sinSenal')}</Text>
+          </View>
 
           <CampoLogin
             etiqueta={t('login.usuario')}
@@ -171,9 +240,13 @@ export default function Login() {
             autoCapitalize="none"
             autoComplete="username"
             textContentType="username"
+            importantForAutofill="yes"
             returnKeyType="next"
+            // Mantiene el teclado abierto al pasar a la contraseña.
+            submitBehavior="submit"
             onSubmitEditing={() => campoContrasena.current?.focus()}
-            error={Boolean(error)}
+            editable={!cargando}
+            error={errorCredenciales}
           />
           <CampoLogin
             entradaRef={campoContrasena}
@@ -189,9 +262,11 @@ export default function Login() {
             autoCapitalize="none"
             autoComplete="current-password"
             textContentType="password"
+            importantForAutofill="yes"
             returnKeyType="go"
             onSubmitEditing={() => void entrar()}
-            error={Boolean(error)}
+            editable={!cargando}
+            mensajeError={errorCredenciales ? error?.texto : undefined}
             accion={{
               icono: verContrasena ? 'eye-off' : 'eye',
               etiqueta: verContrasena ? t('login.ocultarContrasena') : t('login.mostrarContrasena'),
@@ -201,14 +276,14 @@ export default function Login() {
           <Pressable
             onPress={() => setAyudaOlvido((v) => !v)}
             accessibilityRole="button"
-            hitSlop={8}
+            accessibilityState={{ expanded: ayudaOlvido }}
             style={estilos.olvido}
           >
             <Text style={estilos.olvidoTexto}>{t('login.olvido')}</Text>
           </Pressable>
           {ayudaOlvido ? <Aviso texto={t('login.olvidoAyuda')} /> : null}
 
-          {error ? <Aviso tipo="peligro" texto={error} /> : null}
+          {error?.tipo === 'bloqueado' ? <Aviso tipo="alerta" texto={error.texto} /> : null}
 
           <View style={{ marginTop: espaciado.sm }}>
             <Boton
@@ -216,10 +291,11 @@ export default function Login() {
               onPress={() => void entrar()}
               deshabilitado={!listo}
               cargando={cargando}
+              motivoDeshabilitado={t('login.faltanDatos')}
             />
           </View>
 
-          <View style={estilos.separador}>
+          <View style={estilos.separador} importantForAccessibility="no-hide-descendants">
             <View style={estilos.linea} />
             <Text style={estilosBase.etiqueta}>{t('login.o')}</Text>
             <View style={estilos.linea} />
@@ -228,6 +304,8 @@ export default function Login() {
             titulo={t('login.gafete')}
             icono="scan-qr-code"
             variante="secundario"
+            accessibilityHint={t('login.gafeteHint')}
+            deshabilitado={cargando}
             onPress={() => router.push('/(auth)/gafete')}
           />
 
@@ -235,7 +313,7 @@ export default function Login() {
             <View style={estilos.demo}>
               <View style={estilos.demoEncabezado}>
                 <View style={estilos.marcaDemo}>
-                  <Text style={estilos.marcaDemoTexto}>DEMO</Text>
+                  <Text style={estilos.marcaDemoTexto}>{t('comun.demo')}</Text>
                 </View>
                 <Text style={estilosBase.etiqueta}>{t('login.usuariosDemo')}</Text>
               </View>
@@ -246,7 +324,12 @@ export default function Login() {
                 <Pressable
                   key={u.id}
                   accessibilityRole="button"
-                  accessibilityLabel={t('login.usarUsuario', { usuario: u.usuario })}
+                  accessibilityLabel={t('login.usarUsuario', {
+                    usuario: u.usuario,
+                    rol: nombreRol.get(u.rol_id) ?? '',
+                  })}
+                  accessibilityState={{ selected: usuario === u.usuario, disabled: cargando }}
+                  disabled={cargando}
                   onPress={() => {
                     setUsuario(u.usuario);
                     setContrasena(PINES_DEMO[u.usuario]!);
@@ -264,6 +347,10 @@ export default function Login() {
                       {nombreRol.get(u.rol_id) ?? ''}
                     </Text>
                   </View>
+                  {/* Elegido: marca visible además del fondo (no solo color). */}
+                  {usuario === u.usuario ? (
+                    <Icono nombre="check" tamano={tamanoIcono.normal} color={semantico.titulo} />
+                  ) : null}
                   <Text style={estilos.pinDemo}>{PINES_DEMO[u.usuario]}</Text>
                 </Pressable>
               ))}
@@ -271,7 +358,7 @@ export default function Login() {
           ) : null}
 
           <Text style={[estilosBase.secundario, estilos.pie]}>
-            {t('login.sinSenal')} · v{CONFIG.versionApp}
+            {t('login.version', { v: CONFIG.versionApp })}
           </Text>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -288,40 +375,32 @@ const estilos = StyleSheet.create({
     paddingBottom: espaciado.lg,
   },
   marca: { alignItems: 'center', marginBottom: espaciado.xxl },
-  titulo: {
-    fontFamily: tipografia.familias.titulo,
-    fontSize: tipografia.tamanos.titulo,
-    color: semantico.titulo,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
+  ayuda: { color: semantico.textoSecundario, marginBottom: espaciado.sm },
+  // «Sin internet» visible antes de los campos: quien no tiene señal sabe que puede seguir.
+  sinSenal: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: espaciado.sm,
+    marginBottom: espaciado.xl,
   },
-  ayuda: { color: semantico.textoSecundario, marginBottom: espaciado.lg },
+  // Borde y estados (normal, foco, error) de estilosCampo; aquí solo la fila con ícono.
   campo: {
-    minHeight: campo.alturaTactil,
     marginTop: espaciado.xs,
     flexDirection: 'row',
     alignItems: 'center',
     gap: espaciado.sm,
     paddingLeft: espaciado.md,
-    borderWidth: 2,
-    borderColor: semantico.borde,
-    backgroundColor: semantico.fondo,
+    paddingRight: 0,
   },
-  campoEnfocado: { borderColor: semantico.bordeFuerte },
-  campoError: { borderColor: semantico.peligro },
   entrada: {
     flex: 1,
-    minHeight: campo.alturaTactil - 4,
+    minHeight: campo.alturaTactil - control.grosorFoco * 2,
     paddingRight: espaciado.md,
-    fontFamily: tipografia.familias.cuerpo,
-    fontSize: 18,
-    color: semantico.titulo,
-    // En web el navegador dibuja su propio contorno al enfocar; ya lo marca el borde.
-    ...(Platform.OS === 'web' ? ({ outlineStyle: 'none' } as object) : null),
   },
   accionCampo: {
-    minHeight: campo.alturaTactil - 4,
-    paddingHorizontal: espaciado.md,
+    minWidth: campo.alturaTactil - control.grosorFoco * 2,
+    minHeight: campo.alturaTactil - control.grosorFoco * 2,
+    alignItems: 'center',
     justifyContent: 'center',
   },
   separador: {
@@ -335,7 +414,7 @@ const estilos = StyleSheet.create({
     marginTop: espaciado.xl,
     padding: espaciado.md,
     backgroundColor: semantico.fondoSuave,
-    borderLeftWidth: 4,
+    borderLeftWidth: espaciado.xs,
     borderLeftColor: colores.estados.alerta,
   },
   demoEncabezado: {
@@ -344,39 +423,52 @@ const estilos = StyleSheet.create({
     gap: espaciado.sm,
     marginBottom: espaciado.xs,
   },
-  marcaDemo: { backgroundColor: colores.estados.alerta, paddingHorizontal: 5, paddingVertical: 1 },
+  marcaDemo: {
+    backgroundColor: colores.estados.alerta,
+    paddingHorizontal: espaciado.xs,
+    paddingVertical: control.grosor,
+  },
   marcaDemoTexto: {
     fontFamily: tipografia.familias.titulo,
-    fontSize: 10,
-    letterSpacing: 1,
+    fontSize: tipografia.tamanos.etiqueta,
+    letterSpacing: tipografia.espaciadoLetras.enfasis,
     color: semantico.titulo,
   },
   filaDemo: {
-    minHeight: 52,
+    minHeight: campo.alturaTactil,
     flexDirection: 'row',
     alignItems: 'center',
+    gap: espaciado.sm,
     paddingHorizontal: espaciado.sm,
     paddingVertical: espaciado.xs,
-    borderTopWidth: 1,
+    borderTopWidth: bordes.lineaDivision,
     borderTopColor: semantico.borde,
   },
   filaDemoActiva: { backgroundColor: semantico.fondo },
   usuarioDemo: {
     fontFamily: tipografia.familias.cuerpoMedio,
-    fontSize: 16,
+    fontSize: tipografia.tamanos.cuerpo,
     color: semantico.titulo,
   },
   pinDemo: {
     fontFamily: tipografia.familias.titulo,
-    fontSize: 16,
-    letterSpacing: 2,
+    fontSize: tipografia.tamanos.cuerpo,
+    letterSpacing: tipografia.espaciadoLetras.codigo,
     color: semantico.titulo,
     fontVariant: ['tabular-nums'],
   },
-  olvido: { alignSelf: 'flex-end', marginTop: -espaciado.sm, marginBottom: espaciado.md },
+  // Enlace con área táctil de 56 pt; el margen negativo lo acerca al campo de arriba.
+  olvido: {
+    alignSelf: 'flex-end',
+    minHeight: campo.alturaTactil,
+    justifyContent: 'center',
+    paddingHorizontal: espaciado.xs,
+    marginTop: -espaciado.lg,
+    marginBottom: espaciado.xs,
+  },
   olvidoTexto: {
     fontFamily: tipografia.familias.cuerpoMedio,
-    fontSize: tipografia.tamanos.pequeno,
+    fontSize: tipografia.tamanos.cuerpo,
     color: semantico.titulo,
     textDecorationLine: 'underline',
   },

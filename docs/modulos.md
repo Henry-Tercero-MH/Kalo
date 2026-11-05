@@ -10,7 +10,7 @@ registro de módulos y lo filtran por los permisos del usuario y los feature fla
   codigo: 'riego',
   nombre: 'Riego',
   descripcion: 'Turnos y lecturas de riego',
-  icono: 'droplets',                 // nombre Lucide (agréguelo al mapa de Icono.tsx)
+  icono: 'riego',                    // nombre por concepto del mapa de Icono.tsx (ver docs/CREAR_MODULO.md)
   plataformas: ['movil', 'web'],
   permisoVer: 'riego:ver',
   permisos: [

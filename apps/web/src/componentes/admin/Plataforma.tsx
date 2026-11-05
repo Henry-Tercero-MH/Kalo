@@ -10,12 +10,21 @@ import {
 } from '@kalo/shared';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
-import { Aviso, Boton, Campo, Estado, Selector, Subtitulo } from '@/componentes/ui';
+import {
+  Aviso,
+  Boton,
+  BotonEstado,
+  Campo,
+  claseControlCompacto,
+  claseEncabezadoTabla,
+  Estado,
+  Selector,
+  Subtitulo,
+} from '@/componentes/ui';
 import { api } from '@/lib/api';
 import { useCatalogos, useNombres } from '@/lib/catalogos';
 
-const th =
-  'px-2 py-2 text-left text-[11px] font-semibold uppercase tracking-[0.14em] text-neutros-n500';
+const th = claseEncabezadoTabla;
 
 export function Parametros() {
   const { data } = useCatalogos();
@@ -37,9 +46,15 @@ export function Parametros() {
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b-2 border-marca-negro">
-            <th className={th}>Parámetro</th>
-            <th className={th}>Valor</th>
-            <th className={th}>Estado</th>
+            <th scope="col" className={th}>
+              Parámetro
+            </th>
+            <th scope="col" className={th}>
+              Valor
+            </th>
+            <th scope="col" className={th}>
+              Estado
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -48,13 +63,13 @@ export function Parametros() {
             .sort((a, b) => a.clave.localeCompare(b.clave))
             .map((p) => (
               <tr key={p.id} className="border-b border-neutros-n200 align-top">
-                <td className="px-2 py-2">
+                <td className="px-3 py-2">
                   <code className="font-semibold">{p.clave}</code>
                   <p className="text-neutros-n500">{p.descripcion}</p>
                 </td>
-                <td className="px-2 py-2">
+                <td className="px-3 py-2">
                   <textarea
-                    className="w-full min-w-64 border border-neutros-n300 px-2 py-1 font-mono text-xs"
+                    className={`w-full min-w-64 py-2 font-mono ${claseControlCompacto}`}
                     rows={typeof p.valor === 'object' ? 3 : 1}
                     defaultValue={JSON.stringify(p.valor)}
                     aria-label={`Valor de ${p.clave}`}
@@ -70,7 +85,7 @@ export function Parametros() {
                     }}
                   />
                 </td>
-                <td className="px-2 py-2">
+                <td className="px-3 py-2">
                   {p.pendiente ? (
                     <Estado tipo="alerta" texto="Pendiente" />
                   ) : (
@@ -108,7 +123,7 @@ export function Modulos() {
           return (
             <div
               key={m.codigo}
-              className="flex items-center justify-between border border-neutros-n200 px-3 py-2"
+              className="flex items-center justify-between gap-3 border border-neutros-n200 px-3 py-2"
             >
               <div>
                 <p className="font-semibold text-neutros-n900">{m.nombre}</p>
@@ -116,12 +131,12 @@ export function Modulos() {
                   {m.plataformas.join(' · ')} {m.estado === 'proximamente' ? '· Próximamente' : ''}
                 </p>
               </div>
-              <button
+              <BotonEstado
+                tipo={activo ? 'exito' : 'neutro'}
+                texto={activo ? 'Activo' : 'Apagado'}
+                aria-label={`${m.nombre}: ${activo ? 'activo' : 'apagado'}. Pulse para ${activo ? 'apagar' : 'activar'}`}
                 onClick={() => cambiar.mutate({ codigo: m.codigo, activo: !activo })}
-                aria-pressed={activo}
-              >
-                <Estado tipo={activo ? 'exito' : 'neutro'} texto={activo ? 'Activo' : 'Apagado'} />
-              </button>
+              />
             </div>
           );
         })}
@@ -232,10 +247,10 @@ export function Formularios() {
               onChange={(e) => setCampo({ ...campo, max: e.target.value })}
               className="w-20"
             />
-            <label className="flex items-center gap-2 text-sm">
+            <label className="flex min-h-10 cursor-pointer items-center gap-2 text-sm font-semibold">
               <input
                 type="checkbox"
-                className="h-4 w-4 accent-black"
+                className="h-5 w-5 accent-marca-negro"
                 checked={campo.requerido}
                 onChange={(e) => setCampo({ ...campo, requerido: e.target.checked })}
               />{' '}
@@ -265,11 +280,11 @@ export function Formularios() {
         </>
       ) : null}
       <details className="mt-4">
-        <summary className="cursor-pointer text-sm font-semibold uppercase">
+        <summary className="cursor-pointer py-2 text-sm font-semibold uppercase hover:text-neutros-n900">
           Editar definición completa (JSON)
         </summary>
         <textarea
-          className="mt-2 h-64 w-full border border-neutros-n300 p-2 font-mono text-xs"
+          className={`mb-3 mt-2 h-64 w-full p-2 font-mono ${claseControlCompacto}`}
           value={texto || JSON.stringify(activo?.definicion ?? {}, null, 2)}
           onChange={(e) => setTexto(e.target.value)}
           aria-label="Definición del formulario en JSON"
@@ -322,21 +337,31 @@ export function Bitacora() {
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b-2 border-marca-negro">
-            <th className={th}>Hora</th>
-            <th className={th}>Acción</th>
-            <th className={th}>Tabla</th>
-            <th className={th}>Usuario</th>
-            <th className={th}>Dispositivo</th>
+            <th scope="col" className={th}>
+              Hora
+            </th>
+            <th scope="col" className={th}>
+              Acción
+            </th>
+            <th scope="col" className={th}>
+              Tabla
+            </th>
+            <th scope="col" className={th}>
+              Usuario
+            </th>
+            <th scope="col" className={th}>
+              Dispositivo
+            </th>
           </tr>
         </thead>
         <tbody>
           {data?.map((b) => (
             <tr key={b.id} className="border-b border-neutros-n200">
-              <td className="px-2 py-1 tabular">{formatearFechaHora(b.created_at)}</td>
-              <td className="px-2 py-1 font-semibold uppercase">{b.accion.replace(/_/g, ' ')}</td>
-              <td className="px-2 py-1">{b.tabla ?? '—'}</td>
-              <td className="px-2 py-1">{n.usuarios.get(String(b.usuario_id)) ?? '—'}</td>
-              <td className="px-2 py-1 font-mono text-xs">
+              <td className="px-3 py-1 tabular">{formatearFechaHora(b.created_at)}</td>
+              <td className="px-3 py-1 font-semibold uppercase">{b.accion.replace(/_/g, ' ')}</td>
+              <td className="px-3 py-1">{b.tabla ?? '—'}</td>
+              <td className="px-3 py-1">{n.usuarios.get(String(b.usuario_id)) ?? '—'}</td>
+              <td className="px-3 py-1 font-mono text-xs">
                 {b.dispositivo_id?.slice(0, 8) ?? '—'}
               </td>
             </tr>

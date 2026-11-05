@@ -21,15 +21,18 @@ import { Boton } from './Boton';
 import { Opciones } from './Controles';
 import { Etiqueta, Texto, TextoSecundario } from './Texto';
 import { Aviso, Estado } from './Visuales';
-import { espaciado, semantico } from './tema';
+import { bordes, espaciado, semantico } from './tema';
 
 /** Selector de lote: propone el lote detectado por GPS; el usuario puede cambiarlo. */
 export function SelectorLote({
   valor,
   onCambio,
+  requerido,
 }: {
   valor: string | null;
   onCambio: (id: string) => void;
+  /** Agrega «(obligatorio)» a la etiqueta. */
+  requerido?: boolean;
 }) {
   const { t } = useTranslation();
   const lotes = useLotes();
@@ -39,7 +42,7 @@ export function SelectorLote({
   }, [actual, valor, onCambio]);
   return (
     <View>
-      <Etiqueta>{t('comun.elegirLote')}</Etiqueta>
+      <Etiqueta requerido={requerido}>{t('comun.elegirLote')}</Etiqueta>
       {actual ? (
         <View style={{ marginVertical: espaciado.sm }}>
           <Estado tipo="exito" texto={`GPS: ${actual.nombre}`} />
@@ -51,6 +54,7 @@ export function SelectorLote({
       )}
       <Opciones
         columnas={2}
+        etiqueta={t('comun.elegirLote')}
         opciones={lotes.map((l) => ({
           valor: l.id,
           etiqueta: `${l.codigo} · ${formatearNumero(l.hectareas, 1)} ha`,
@@ -89,7 +93,7 @@ export function CapturaFotos({
                 width: 96,
                 height: 96,
                 marginRight: espaciado.sm,
-                borderWidth: 1,
+                borderWidth: bordes.lineaDivision,
                 borderColor: semantico.borde,
               }}
             />
@@ -98,7 +102,7 @@ export function CapturaFotos({
       )}
       <Boton
         titulo={t('comun.tomarFoto')}
-        icono="camera"
+        icono="foto"
         variante="secundario"
         cargando={cargando}
         onPress={async () => {
@@ -187,7 +191,7 @@ function GrabadoraVoz({
       {estado.isRecording ? (
         <Boton
           titulo={`${t('comun.detener')} · ${Math.round(estado.durationMillis / 1000)} s`}
-          icono="square"
+          icono="detener"
           variante="peligro"
           onPress={async () => {
             try {
@@ -202,7 +206,7 @@ function GrabadoraVoz({
       ) : (
         <Boton
           titulo={t('comun.grabar')}
-          icono="mic"
+          icono="notaVoz"
           variante="secundario"
           onPress={async () => {
             setError(null);

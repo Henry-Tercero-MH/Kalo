@@ -4,6 +4,7 @@
 export * from './constantes';
 export * from './tablas';
 export * from './modulos';
+export * from './etapa';
 export * from './permisos';
 export * from './calculos';
 export * from './formatos';

@@ -13,7 +13,9 @@ import {
   type ColumnDef,
   type SortingState,
 } from '@tanstack/react-table';
+import { formatearNumero } from '@kalo/shared';
 import { useState } from 'react';
+import { Boton } from './ui';
 
 export type Columna<T> = ColumnDef<T, unknown> & { meta?: { numero?: boolean } };
 
@@ -49,16 +51,38 @@ export function Tabla<T>({
                 const numero = (h.column.columnDef.meta as { numero?: boolean } | undefined)
                   ?.numero;
                 const dir = h.column.getIsSorted();
+                const ordenable = h.column.getCanSort();
+                const contenido = flexRender(h.column.columnDef.header, h.getContext());
                 return (
                   <th
                     key={h.id}
                     scope="col"
-                    onClick={h.column.getCanSort() ? h.column.getToggleSortingHandler() : undefined}
-                    className={`cursor-pointer select-none whitespace-nowrap px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-neutros-n500 ${numero ? 'text-right' : 'text-left'}`}
-                    aria-sort={dir === 'asc' ? 'ascending' : dir === 'desc' ? 'descending' : 'none'}
+                    className={`whitespace-nowrap px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-neutros-n500 ${numero ? 'text-right' : 'text-left'}`}
+                    aria-sort={
+                      ordenable
+                        ? dir === 'asc'
+                          ? 'ascending'
+                          : dir === 'desc'
+                            ? 'descending'
+                            : 'none'
+                        : undefined
+                    }
                   >
-                    {flexRender(h.column.columnDef.header, h.getContext())}
-                    {dir === 'asc' ? ' ↑' : dir === 'desc' ? ' ↓' : ''}
+                    {ordenable ? (
+                      // Botón dentro del encabezado: ordenable también con teclado (Tab + Enter).
+                      <button
+                        type="button"
+                        onClick={h.column.getToggleSortingHandler()}
+                        className={`inline-flex min-h-10 select-none items-center gap-1 uppercase tracking-[0.14em] hover:text-neutros-n900 ${numero ? 'flex-row-reverse' : ''} ${dir ? 'text-neutros-n900' : ''}`}
+                      >
+                        {contenido}
+                        <span aria-hidden className="inline-block w-3 text-center">
+                          {dir === 'asc' ? '↑' : dir === 'desc' ? '↓' : ''}
+                        </span>
+                      </button>
+                    ) : (
+                      contenido
+                    )}
                   </th>
                 );
               })}
@@ -93,26 +117,28 @@ export function Tabla<T>({
         </tbody>
       </table>
       {tabla.getPageCount() > 1 ? (
-        <div className="mt-3 flex items-center gap-3 text-sm">
-          <button
-            className="border border-marca-negro px-3 py-1 disabled:opacity-40"
+        <nav aria-label="Páginas de la tabla" className="mt-3 flex items-center gap-3 text-sm">
+          <Boton
+            variante="secundario"
+            type="button"
             disabled={!tabla.getCanPreviousPage()}
             onClick={() => tabla.previousPage()}
           >
             Anterior
-          </button>
-          <span className="tabular">
+          </Boton>
+          <span className="tabular" aria-live="polite">
             Página {tabla.getState().pagination.pageIndex + 1} de {tabla.getPageCount()} ·{' '}
-            {datos.length} registros
+            {formatearNumero(datos.length)} registros
           </span>
-          <button
-            className="border border-marca-negro px-3 py-1 disabled:opacity-40"
+          <Boton
+            variante="secundario"
+            type="button"
             disabled={!tabla.getCanNextPage()}
             onClick={() => tabla.nextPage()}
           >
             Siguiente
-          </button>
-        </div>
+          </Boton>
+        </nav>
       ) : null}
     </div>
   );

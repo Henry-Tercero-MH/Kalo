@@ -13,12 +13,12 @@ export default function Labores() {
     <Pantalla volver>
       <Titulo>{t('labores.titulo')}</Titulo>
       <FilaMenu
-        icono="users"
+        icono="asistencia"
         titulo={t('labores.asistencia')}
         onPress={() => router.push('/modulos/labores/asistencia')}
       />
       <FilaMenu
-        icono="clipboard-list"
+        icono="labores"
         titulo={t('labores.labor')}
         onPress={() => router.push('/modulos/labores/labor')}
       />

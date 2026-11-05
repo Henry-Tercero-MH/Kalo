@@ -2,13 +2,14 @@
  * Pestañas principales. Controla la sesión: sin usuario vuelve al login y tras un tiempo
  * sin uso pide el PIN otra vez. Arranca los disparadores de sincronización.
  */
-import { leerParametro } from '@kalo/shared';
+import { leerParametro, moduloCongelado } from '@kalo/shared';
 import { Redirect, Tabs } from 'expo-router';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AppState } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Icono } from '@/componentes/Icono';
-import { semantico, tipografia } from '@/componentes/tema';
+import { bordes, campo, espaciado, semantico, tamanoIcono, tipografia } from '@/componentes/tema';
 import { consultar } from '@/db/repositorio';
 import { useObservarPosicion } from '@/gps/lote-actual';
 import { useSesion } from '@/permisos/sesion';
@@ -21,6 +22,8 @@ export default function TabsLayout() {
   const { t } = useTranslation();
   const usuario = useSesion((s) => s.usuario);
   const ultimoEnvio = useEstadoSync((s) => s.ultimoEnvio);
+  // La barra crece con el área de gestos / botones del sistema para que nada quede tapado.
+  const { bottom } = useSafeAreaInsets();
   useObservarPosicion();
 
   useEffect(() => {
@@ -51,7 +54,7 @@ export default function TabsLayout() {
 
   const icono = (nombre: string) =>
     function IconoTab({ color }: { color: unknown }) {
-      return <Icono nombre={nombre} color={String(color)} tamano={26} />;
+      return <Icono nombre={nombre} color={String(color)} tamano={tamanoIcono.grande} />;
     };
 
   return (
@@ -61,14 +64,15 @@ export default function TabsLayout() {
         tabBarActiveTintColor: semantico.titulo,
         tabBarInactiveTintColor: semantico.textoSecundario,
         tabBarStyle: {
-          height: 72,
-          paddingTop: 6,
-          borderTopWidth: 2,
+          height: campo.alturaTactil + espaciado.lg + bottom,
+          paddingTop: espaciado.sm,
+          borderTopWidth: bordes.lineaTitulo,
           borderTopColor: semantico.bordeFuerte,
+          backgroundColor: semantico.fondo,
         },
         tabBarLabelStyle: {
           fontFamily: tipografia.familias.cuerpoMedio,
-          fontSize: 12,
+          fontSize: tipografia.tamanos.etiqueta,
           textTransform: 'uppercase',
         },
       }}
@@ -78,10 +82,18 @@ export default function TabsLayout() {
         name="registrar"
         options={{ title: t('tabs.registrar'), tabBarIcon: icono('square-plus') }}
       />
-      <Tabs.Screen name="mapa" options={{ title: t('tabs.mapa'), tabBarIcon: icono('map') }} />
+      <Tabs.Screen
+        name="mapa"
+        options={{
+          title: t('tabs.mapa'),
+          tabBarIcon: icono('map'),
+          // Oculta mientras el mapa esté congelado en la etapa actual.
+          href: moduloCongelado('mapa') ? null : undefined,
+        }}
+      />
       <Tabs.Screen
         name="sincronizar"
-        options={{ title: t('tabs.sincronizar'), tabBarIcon: icono('refresh-cw') }}
+        options={{ title: t('tabs.sincronizar'), tabBarIcon: icono('sincronizar') }}
       />
       <Tabs.Screen
         name="perfil"

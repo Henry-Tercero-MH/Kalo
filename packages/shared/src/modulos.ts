@@ -6,6 +6,7 @@
  * Agregar un módulo = agregar su manifiesto aquí + su carpeta en la app/panel.
  * Ver docs/modulos.md.
  */
+import { moduloCongelado } from './etapa';
 import type { NombreTabla } from './tablas/registro';
 
 export type Plataforma = 'movil' | 'web';
@@ -375,6 +376,22 @@ export const MODULOS = [
     orden: 7,
   },
   {
+    codigo: 'bodega',
+    nombre: 'Bodega de materiales',
+    descripcion: 'Existencias, movimientos y calculadora de pedido por contenedor',
+    icono: 'warehouse',
+    plataformas: ['web'],
+    permisoVer: 'bodega:ver',
+    permisos: [
+      p('bodega:ver', 'Ver la bodega de materiales y usar la calculadora de pedido'),
+      p('bodega:gestionar', 'Registrar entradas y salidas de materiales'),
+    ],
+    tablas: [],
+    rutaWeb: '/bodega',
+    estado: 'activo',
+    orden: 5,
+  },
+  {
     codigo: 'sincronizacion',
     nombre: 'Sincronización',
     descripcion: 'Registros pendientes y envío al servidor',
@@ -420,7 +437,7 @@ export function modulosPara(
 ): ManifiestoModulo[] {
   return (MODULOS as readonly ManifiestoModulo[])
     .filter((m) => m.plataformas.includes(plataforma))
-    .filter((m) => !flagsInactivos.has(m.codigo))
+    .filter((m) => !flagsInactivos.has(m.codigo) && !moduloCongelado(m.codigo))
     .filter((m) => m.permisoVer === null || permisos.has(m.permisoVer))
     .sort((a, b) => a.orden - b.orden);
 }

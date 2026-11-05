@@ -4,7 +4,17 @@
 import { formatearFecha, formatearNumero } from '@kalo/shared';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import { Aviso, Boton, Campo, Estado, MuestraColor, Selector, Subtitulo } from '@/componentes/ui';
+import {
+  Aviso,
+  Boton,
+  BotonEstado,
+  Campo,
+  claseControlCompacto,
+  claseEncabezadoTabla,
+  MuestraColor,
+  Selector,
+  Subtitulo,
+} from '@/componentes/ui';
 import { api } from '@/lib/api';
 import { useCatalogos } from '@/lib/catalogos';
 
@@ -17,9 +27,8 @@ function useGuardar() {
   });
 }
 
-const celdaNum = 'w-24 border border-neutros-n300 px-2 py-1 text-right tabular';
-const th =
-  'px-2 py-2 text-left text-[11px] font-semibold uppercase tracking-[0.14em] text-neutros-n500';
+const celdaNum = `w-28 text-right tabular ${claseControlCompacto}`;
+const th = claseEncabezadoTabla;
 
 export function Lotes() {
   const { data } = useCatalogos();
@@ -30,18 +39,24 @@ export function Lotes() {
       <table className="text-sm">
         <thead>
           <tr className="border-b-2 border-marca-negro">
-            <th className={th}>Lote</th>
-            <th className={th}>Hectáreas</th>
-            <th className={th}>Población (pl/ha)</th>
+            <th scope="col" className={th}>
+              Lote
+            </th>
+            <th scope="col" className={th}>
+              Hectáreas
+            </th>
+            <th scope="col" className={th}>
+              Población (pl/ha)
+            </th>
           </tr>
         </thead>
         <tbody>
           {data?.lotes.map((l) => (
             <tr key={l.id} className="border-b border-neutros-n200">
-              <td className="px-2 py-1 font-semibold">
+              <td className="px-3 py-1 font-semibold">
                 {l.codigo} · {l.nombre}
               </td>
-              <td className="px-2 py-1">
+              <td className="px-3 py-1">
                 <input
                   className={celdaNum}
                   type="number"
@@ -56,7 +71,7 @@ export function Lotes() {
                   aria-label={`Hectáreas de ${l.nombre}`}
                 />
               </td>
-              <td className="px-2 py-1">
+              <td className="px-3 py-1">
                 <input
                   className={celdaNum}
                   type="number"
@@ -92,21 +107,29 @@ export function Plagas() {
       <table className="text-sm">
         <thead>
           <tr className="border-b-2 border-marca-negro">
-            <th className={th}>Plaga</th>
-            <th className={th}>Tipo</th>
-            <th className={th}>Umbral de alerta (%)</th>
-            <th className={th}>Estado</th>
+            <th scope="col" className={th}>
+              Plaga
+            </th>
+            <th scope="col" className={th}>
+              Tipo
+            </th>
+            <th scope="col" className={th}>
+              Umbral de alerta (%)
+            </th>
+            <th scope="col" className={th}>
+              Estado
+            </th>
           </tr>
         </thead>
         <tbody>
           {data?.plagas.map((p) => (
             <tr key={p.id} className="border-b border-neutros-n200">
-              <td className="px-2 py-1">
+              <td className="px-3 py-1">
                 <span className="font-semibold">{p.nombre}</span>{' '}
                 <i className="text-neutros-n500">{p.nombre_cientifico}</i>
               </td>
-              <td className="px-2 py-1">{p.tipo}</td>
-              <td className="px-2 py-1">
+              <td className="px-3 py-1">{p.tipo}</td>
+              <td className="px-3 py-1">
                 <input
                   className={celdaNum}
                   type="number"
@@ -121,17 +144,15 @@ export function Plagas() {
                   aria-label={`Umbral de ${p.nombre}`}
                 />
               </td>
-              <td className="px-2 py-1">
-                <button
+              <td className="px-3 py-1">
+                <BotonEstado
+                  tipo={p.activo ? 'exito' : 'neutro'}
+                  texto={p.activo ? 'Activa' : 'Inactiva'}
+                  aria-label={`${p.nombre}: ${p.activo ? 'activa' : 'inactiva'}. Pulse para ${p.activo ? 'desactivar' : 'activar'}`}
                   onClick={() =>
                     guardar.mutate({ ruta: `/admin/plagas/${p.id}`, body: { activo: !p.activo } })
                   }
-                >
-                  <Estado
-                    tipo={p.activo ? 'exito' : 'neutro'}
-                    texto={p.activo ? 'Activa' : 'Inactiva'}
-                  />
-                </button>
+                />
               </td>
             </tr>
           ))}
@@ -160,6 +181,8 @@ export function Plagas() {
         <Campo
           etiqueta="Umbral (%)"
           type="number"
+          inputMode="decimal"
+          className="w-28 text-right tabular"
           value={nueva.umbral_alerta}
           onChange={(e) => setNueva({ ...nueva, umbral_alerta: e.target.value })}
         />
@@ -189,17 +212,23 @@ export function TiposLabor() {
       <table className="text-sm">
         <thead>
           <tr className="border-b-2 border-marca-negro">
-            <th className={th}>Labor</th>
-            <th className={th}>Unidad</th>
-            <th className={th}>Tarifa por unidad (Q)</th>
+            <th scope="col" className={th}>
+              Labor
+            </th>
+            <th scope="col" className={th}>
+              Unidad
+            </th>
+            <th scope="col" className={th}>
+              Tarifa por unidad (Q)
+            </th>
           </tr>
         </thead>
         <tbody>
           {data?.tiposLabor.map((t) => (
             <tr key={t.id} className="border-b border-neutros-n200">
-              <td className="px-2 py-1 font-semibold">{t.nombre}</td>
-              <td className="px-2 py-1">{t.unidad}</td>
-              <td className="px-2 py-1">
+              <td className="px-3 py-1 font-semibold">{t.nombre}</td>
+              <td className="px-3 py-1">{t.unidad}</td>
+              <td className="px-3 py-1">
                 <input
                   className={celdaNum}
                   type="number"
@@ -239,7 +268,7 @@ export function Calendario() {
         Los colores de cinta son de EJEMPLO: los reales están pendientes de confirmar por la finca.
         El factor se interpoló desde los puntos conocidos y es editable.
       </Aviso>
-      <div className="mb-3 flex flex-wrap items-center gap-4">
+      <div className="mb-3 flex flex-wrap items-end gap-4">
         <Selector
           etiqueta="Año"
           value={verAnio}
@@ -261,12 +290,12 @@ export function Calendario() {
         {semanas.map((s) => (
           <div
             key={s.id}
-            className="flex items-center gap-2 border-b border-neutros-n200 py-1 text-sm"
+            className="flex items-center gap-2 border-b border-neutros-n200 py-2 text-sm"
           >
             <span className="w-10 font-extrabold tabular">S{s.numero}</span>
             <span className="w-24 text-xs text-neutros-n500">{formatearFecha(s.fecha_inicio)}</span>
             <select
-              className="border border-neutros-n300 px-1 py-0.5"
+              className={claseControlCompacto}
               value={s.color_cinta_id}
               onChange={(e) =>
                 guardar.mutate({
@@ -288,7 +317,7 @@ export function Calendario() {
               style={{ background: data?.colores.find((c) => c.id === s.color_cinta_id)?.hex }}
             />
             <input
-              className="w-16 border border-neutros-n300 px-1 py-0.5 text-right tabular"
+              className={`w-20 text-right tabular ${claseControlCompacto}`}
               type="number"
               step="0.01"
               defaultValue={s.factor}

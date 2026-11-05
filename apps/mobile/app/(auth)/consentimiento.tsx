@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Boton } from '@/componentes/Boton';
 import { Pantalla } from '@/componentes/Pantalla';
 import { Texto, Titulo } from '@/componentes/Texto';
+import { espaciado } from '@/componentes/tema';
 import { guardarConsentimiento } from '@/permisos/consentimiento';
 import { useContextoEscritura } from '@/permisos/contexto';
 
@@ -17,7 +18,7 @@ export default function Consentimiento() {
   return (
     <Pantalla volver>
       <Titulo>{t('consentimiento.titulo')}</Titulo>
-      <Texto style={{ marginBottom: 24 }}>{t('consentimiento.texto')}</Texto>
+      <Texto style={{ marginBottom: espaciado.xl }}>{t('consentimiento.texto')}</Texto>
       <Boton
         titulo={t('consentimiento.aceptar')}
         icono="check"

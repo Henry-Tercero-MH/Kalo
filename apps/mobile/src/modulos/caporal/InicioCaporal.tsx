@@ -2,7 +2,7 @@
  * Inicio del caporal: cuatro tareas grandes del día —tomar asistencia, asignar labor,
  * reportar labor y enviar datos— con el estado de cada una a la vista.
  */
-import { fechaIso, formatearFecha, tienePermiso } from '@kalo/shared';
+import { fechaIso, formatearFecha, moduloCongelado, tienePermiso, usaCinta } from '@kalo/shared';
 import { Q } from '@nozbe/watermelondb';
 import { useRouter } from 'expo-router';
 import { useEffect, useMemo } from 'react';
@@ -65,8 +65,8 @@ export function InicioCaporal() {
             {t('asistencia.personal', { n: personal.length })}
           </Text>
         </View>
-        {color ? (
-          <View style={{ alignItems: 'flex-end', gap: 2 }}>
+        {color && usaCinta() ? (
+          <View style={{ alignItems: 'flex-end', gap: espaciado.xs }}>
             <Text style={estilosBase.etiqueta}>{t('inicio.semana', { n: numero })}</Text>
             <MuestraColor hex={color.hex} nombre={color.nombre} />
           </View>
@@ -75,7 +75,7 @@ export function InicioCaporal() {
 
       <ListaAcciones>
         <TarjetaAccion
-          icono="users"
+          icono="asistencia"
           titulo={t('caporal.asistencia')}
           estado={
             asistencia.length > 0
@@ -85,7 +85,7 @@ export function InicioCaporal() {
           onPress={() => router.push('/modulos/labores/asistencia')}
         />
         <TarjetaAccion
-          icono="clipboard-list"
+          icono="asignar"
           titulo={t('caporal.asignar')}
           estado={
             asignaciones.length > 0
@@ -95,13 +95,13 @@ export function InicioCaporal() {
           onPress={() => router.push('/modulos/caporal/asignar')}
         />
         <TarjetaAccion
-          icono="list-checks"
+          icono="reportar"
           titulo={t('caporal.reportar')}
           estado={t('caporal.reportarDesc', { pendientes: porReportar, reportadas })}
           onPress={() => router.push('/modulos/caporal/reportar')}
         />
         <TarjetaAccion
-          icono="cloud-upload"
+          icono="sincronizar"
           titulo={t('caporal.enviar')}
           estado={
             pendientes > 0
@@ -113,14 +113,14 @@ export function InicioCaporal() {
         />
       </ListaAcciones>
 
-      {tienePermiso(permisos, 'fusarium:crear') ? (
+      {tienePermiso(permisos, 'fusarium:crear') && !moduloCongelado('fusarium') ? (
         <View style={{ marginTop: espaciado.xl }}>
           <Text style={[estilosBase.etiqueta, { marginBottom: espaciado.sm }]}>
             {t('caporal.otrasOpciones')}
           </Text>
           <Boton
             titulo={t('inicio.alertaFusarium')}
-            icono="triangle-alert"
+            icono="alerta"
             variante="peligro"
             onPress={() => router.push('/modulos/fusarium')}
             accessibilityHint={t('inicio.alertaFusariumAyuda')}
@@ -143,6 +143,6 @@ const estilos = StyleSheet.create({
     fontFamily: tipografia.familias.titulo,
     fontSize: tipografia.tamanos.cuerpo,
     color: semantico.titulo,
-    marginTop: 2,
+    marginTop: espaciado.xs,
   },
 });

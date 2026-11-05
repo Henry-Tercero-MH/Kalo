@@ -1,8 +1,10 @@
-import { MODULOS } from '@kalo/shared';
+import { moduloCongelado, MODULOS } from '@kalo/shared';
+import { redirect } from 'next/navigation';
 import { Aviso, Titulo } from '@/componentes/ui';
 
 export default async function Proximamente({ params }: { params: Promise<{ codigo: string }> }) {
   const { codigo } = await params;
+  if (moduloCongelado(codigo)) redirect('/');
   const m = MODULOS.find((x) => x.codigo === codigo);
   return (
     <>

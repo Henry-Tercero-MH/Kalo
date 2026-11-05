@@ -2,7 +2,14 @@
  * Inicio del día: finca, lote actual detectado por GPS, semana y cinta, tareas asignadas,
  * estado de sincronización y botón visible de Alerta de Fusarium.
  */
-import { formatearFecha, ROLES, tienePermiso } from '@kalo/shared';
+import {
+  ETAPA,
+  formatearFecha,
+  moduloCongelado,
+  ROLES,
+  tienePermiso,
+  usaCinta,
+} from '@kalo/shared';
 import { Q } from '@nozbe/watermelondb';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +24,7 @@ import { useLoteActual } from '@/gps/lote-actual';
 import { InicioAdministrador } from '@/modulos/administracion/InicioAdministrador';
 import { InicioCaporal } from '@/modulos/caporal/InicioCaporal';
 import { InicioGerente } from '@/modulos/gerencia/InicioGerente';
+import { InicioLabores } from '@/modulos/labores/InicioLabores';
 import { InicioTecnico } from '@/modulos/sanidad/InicioTecnico';
 import { InicioSupervisor } from '@/modulos/supervision/InicioSupervisor';
 import { useConfiguracion } from '@/permisos/contexto';
@@ -25,6 +33,9 @@ import { useSemanaActual } from '@/utils/semana';
 
 export default function Inicio() {
   const rol = useSesion((s) => s.usuario?.rolCodigo);
+  // Etapa 1: tableros congelados; el caporal conserva su inicio de labores.
+  if (ETAPA.tablerosCongelados)
+    return rol === ROLES.caporal ? <InicioCaporal /> : <InicioLabores />;
   switch (rol) {
     case ROLES.caporal:
       return <InicioCaporal />;
@@ -62,11 +73,11 @@ function InicioGeneral() {
     <Pantalla>
       <Titulo>{t('inicio.hola', { nombre: primerNombre })}</Titulo>
 
-      {tienePermiso(permisos, 'fusarium:crear') ? (
+      {tienePermiso(permisos, 'fusarium:crear') && !moduloCongelado('fusarium') ? (
         <View style={{ marginBottom: espaciado.lg }}>
           <Boton
             titulo={t('inicio.alertaFusarium')}
-            icono="triangle-alert"
+            icono="alerta"
             variante="peligro"
             onPress={() => router.push('/modulos/fusarium')}
             accessibilityHint={t('inicio.alertaFusariumAyuda')}
@@ -81,7 +92,9 @@ function InicioGeneral() {
           style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
         >
           <Dato etiqueta={t('inicio.cinta')} valor={t('inicio.semana', { n: numero })} />
-          {color ? <MuestraColor hex={color.hex} nombre={color.nombre} grande /> : null}
+          {color && usaCinta() ? (
+            <MuestraColor hex={color.hex} nombre={color.nombre} grande />
+          ) : null}
         </View>
       </Tarjeta>
 
@@ -90,7 +103,7 @@ function InicioGeneral() {
       {tareas.map((o) => (
         <FilaMenu
           key={o.id}
-          icono="clipboard-list"
+          icono="orden"
           titulo={o.titulo}
           descripcion={formatearFecha(o.fecha)}
           onPress={() => router.push('/modulos/ordenes')}

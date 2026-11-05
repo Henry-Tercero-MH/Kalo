@@ -9,8 +9,10 @@ import {
   Camera,
   ChartColumn,
   Check,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
+  ChevronUp,
   CircleAlert,
   CircleCheck,
   ClipboardList,
@@ -72,8 +74,10 @@ const ICONOS: Record<string, LucideIcon> = {
   camera: Camera,
   'chart-column': ChartColumn,
   check: Check,
+  'chevron-down': ChevronDown,
   'chevron-left': ChevronLeft,
   'chevron-right': ChevronRight,
+  'chevron-up': ChevronUp,
   'circle-alert': CircleAlert,
   'circle-check': CircleCheck,
   'clipboard-list': ClipboardList,
@@ -124,6 +128,49 @@ const ICONOS: Record<string, LucideIcon> = {
   users: Users,
   wifi: Wifi,
   x: X,
+  // Nombres semánticos: un concepto, un ícono en toda la app. Las pantallas nuevas usan estos.
+  // Navegación y acciones
+  inicio: House,
+  atras: ChevronLeft,
+  siguiente: ChevronRight,
+  cerrar: X,
+  /** Agregar un elemento nuevo (labor, registro). */
+  agregar: Plus,
+  /** Sacar un elemento de una lista (p. ej. un trabajador de una labor). */
+  quitar: X,
+  /** Contador: sumar y restar una unidad. */
+  sumar: Plus,
+  restar: Minus,
+  guardar: Check,
+  /** Marca de opción o casilla elegida. */
+  confirmar: Check,
+  descargar: Download,
+  ajustes: Settings,
+  salir: LogOut,
+  // Etapa 1: labores y asistencia
+  asistencia: Users,
+  trabajadores: Users,
+  usuario: UserRound,
+  labores: ClipboardList,
+  asignar: ClipboardList,
+  reportar: ListChecks,
+  orden: ClipboardList,
+  // Captura en campo
+  ubicacion: MapPin,
+  foto: Camera,
+  notaVoz: Mic,
+  detener: Square,
+  // Sincronización
+  /** Enviar o sincronizar los datos guardados en el teléfono. */
+  sincronizar: CloudUpload,
+  sincronizando: RefreshCw,
+  sincronizado: CloudCheck,
+  errorEnvio: CloudAlert,
+  sinConexion: CloudOff,
+  // Estados
+  exito: CircleCheck,
+  alerta: TriangleAlert,
+  error: CircleAlert,
 };
 
 export type NombreIcono = keyof typeof ICONOS | (string & {});
@@ -137,6 +184,11 @@ export function Icono({
   color?: string;
   tamano?: number;
 }) {
-  const Componente = ICONOS[nombre] ?? Square;
+  const Componente = ICONOS[nombre];
+  if (!Componente) {
+    // Un nombre fuera del mapa se dibuja como cuadro vacío; en desarrollo se avisa para agregarlo.
+    if (__DEV__) console.warn(`Icono: "${nombre}" no está en el mapa de Icono.tsx`);
+    return <Square color={color} size={tamano} strokeWidth={2} />;
+  }
   return <Componente color={color} size={tamano} strokeWidth={2} />;
 }

@@ -168,10 +168,18 @@ export default function TablaRegistros() {
       <Titulo
         accion={
           <div className="flex gap-2">
-            <Boton variante="secundario" onClick={() => exportar('xlsx')}>
+            <Boton
+              variante="secundario"
+              aria-label="Exportar a Excel"
+              onClick={() => exportar('xlsx')}
+            >
               <Download size={16} aria-hidden /> Excel
             </Boton>
-            <Boton variante="secundario" onClick={() => exportar('csv')}>
+            <Boton
+              variante="secundario"
+              aria-label="Exportar a CSV"
+              onClick={() => exportar('csv')}
+            >
               <Download size={16} aria-hidden /> CSV
             </Boton>
           </div>

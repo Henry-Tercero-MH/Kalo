@@ -5,6 +5,7 @@
 import {
   formatearFecha,
   formatearFechaHora,
+  formatearNumero,
   REGISTRO_TABLAS,
   type NombreTabla,
 } from '@kalo/shared';
@@ -13,9 +14,9 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { Boton } from '@/componentes/Boton';
 import { Pantalla } from '@/componentes/Pantalla';
-import { Subtitulo, Texto, Titulo } from '@/componentes/Texto';
-import { Aviso, Dato, Estado, Tarjeta } from '@/componentes/Visuales';
-import { espaciado, estilosBase, semantico, tipografia } from '@/componentes/tema';
+import { Subtitulo, Titulo } from '@/componentes/Texto';
+import { Aviso, Dato, Estado, EstadoVacio, Tarjeta } from '@/componentes/Visuales';
+import { bordes, campo, espaciado, estilosBase, semantico, tipografia } from '@/componentes/tema';
 import { useConsulta } from '@/db/hooks';
 import { buscarDuplicados, type Duplicado } from '@/sync/duplicados';
 import { useEstadoSync } from '@/sync/estado';
@@ -87,7 +88,11 @@ export default function EnviarDatos() {
 
       <Subtitulo>{t('caporal.porEnviar')}</Subtitulo>
       {porTabla.length === 0 ? (
-        <Texto>{t('caporal.nadaPorEnviar')}</Texto>
+        <EstadoVacio
+          icono="sincronizado"
+          titulo={t('caporal.enviarAlDia')}
+          descripcion={t('caporal.nadaPorEnviar')}
+        />
       ) : (
         <View style={estilos.tabla}>
           {porTabla.map(([tabla, n]) => (
@@ -95,13 +100,13 @@ export default function EnviarDatos() {
               <Text style={[estilosBase.cuerpo, { flex: 1 }]}>
                 {REGISTRO_TABLAS[tabla]?.meta.etiqueta ?? tabla}
               </Text>
-              <Text style={estilos.numero}>{n}</Text>
+              <Text style={estilos.numero}>{formatearNumero(n)}</Text>
             </View>
           ))}
           {estado.archivosPendientes > 0 ? (
             <View style={estilos.filaTabla}>
               <Text style={[estilosBase.cuerpo, { flex: 1 }]}>{t('sync.fotosEnCola')}</Text>
-              <Text style={estilos.numero}>{estado.archivosPendientes}</Text>
+              <Text style={estilos.numero}>{formatearNumero(estado.archivosPendientes)}</Text>
             </View>
           ) : null}
         </View>
@@ -124,7 +129,7 @@ export default function EnviarDatos() {
                     {`${REGISTRO_TABLAS[d.tabla]?.meta.etiqueta ?? d.tabla} · ${formatearFecha(String(d.fila.fecha))}`}
                   </Text>
                 </View>
-                <Estado tipo="neutro" texto="No se envía" />
+                <Estado tipo="neutro" texto={t('caporal.noSeEnvia')} />
               </View>
             ))}
           </View>
@@ -158,7 +163,7 @@ export default function EnviarDatos() {
                 ? t('caporal.nadaQueEnviar')
                 : t('caporal.enviarAhora', { n: aEnviar })
           }
-          icono="cloud-upload"
+          icono="sincronizar"
           cargando={enviando}
           deshabilitado={estado.pendientes === 0}
           onPress={() => void enviar()}
@@ -170,22 +175,22 @@ export default function EnviarDatos() {
 
 const estilos = StyleSheet.create({
   tabla: {
-    borderTopWidth: 1,
+    borderTopWidth: bordes.lineaDivision,
     borderTopColor: semantico.borde,
     marginBottom: espaciado.md,
   },
   filaTabla: {
-    minHeight: 52,
+    minHeight: campo.alturaTactil,
     flexDirection: 'row',
     alignItems: 'center',
     gap: espaciado.md,
     paddingVertical: espaciado.sm,
-    borderBottomWidth: 1,
+    borderBottomWidth: bordes.lineaDivision,
     borderBottomColor: semantico.borde,
   },
   numero: {
     fontFamily: tipografia.familias.titulo,
-    fontSize: 20,
+    fontSize: tipografia.tamanos.titulo,
     color: semantico.titulo,
     fontVariant: ['tabular-nums'],
   },

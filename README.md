@@ -99,14 +99,15 @@ Todas están en `.env.example` (la API y Docker Compose leen el `.env` de la ra�
 
 ## Usuarios del demo
 
-| Usuario      | PIN  | Rol                | Usa                                   |
-| ------------ | ---- | ------------------ | ------------------------------------- |
-| `admin`      | 1111 | Administrador      | Panel y app                           |
-| `gerente`    | 2222 | Gerente            | Panel y app (indicadores y gráficas)  |
-| `supervisor` | 3333 | Supervisor         | Panel y app (configura los celulares) |
-| `tecnico`    | 4444 | Técnico de sanidad | App                                   |
-| `caporal`    | 5555 | Caporal            | App                                   |
-| `caporal2`   | 7777 | Caporal            | App (otra cuadrilla)                  |
+| Usuario      | PIN  | Rol                  | Usa                                   |
+| ------------ | ---- | -------------------- | ------------------------------------- |
+| `admin`      | 1111 | Administrador        | Panel y app                           |
+| `gerente`    | 2222 | Gerente              | Panel y app (indicadores y gráficas)  |
+| `supervisor` | 3333 | Supervisor           | Panel y app (configura los celulares) |
+| `tecnico`    | 4444 | Técnico de sanidad   | App                                   |
+| `caporal`    | 5555 | Caporal              | App                                   |
+| `caporal2`   | 7777 | Caporal              | App (otra cuadrilla)                  |
+| `bodega`     | 6666 | Bodega de materiales | Panel (calculadora de pedido)         |
 
 Gafete QR de cada usuario (contenido del código): `KALO-GAFETE:DEMO-<usuario>`, por ejemplo
 `KALO-GAFETE:DEMO-tecnico`. QR imprimibles de las 10 trampas: `pnpm qr:trampas` (genera
@@ -181,7 +182,9 @@ Tokens en `packages/ui-tokens` (fuente `tokens.json`), usados como StyleSheet en
 tema de Tailwind en el panel (`theme.css`, generado con `pnpm --filter @kalo/ui-tokens build`).
 Fondo blanco; títulos `#141311` en Archivo 800 MAYÚSCULAS con línea negra de 2 pt; texto
 `#3a3733`; verde solo como acento y en el botón principal (texto `#111111`); esquinas rectas,
-sin sombras; íconos Lucide; estados siempre con color **y** palabra; números con punto de miles
+sin sombras (los campos del panel llevan un radio de 6 px y foco verde suave); íconos Lucide;
+estados siempre con color **y** palabra, con una paleta apta para daltonismo (éxito verde azulado,
+alerta ámbar, peligro rojo, info morado; la prueba `daltonismo.test.ts` lo vigila); números con punto de miles
 y coma decimal. Adaptaciones de campo: áreas táctiles de 56 px, cuerpo de 16 px, opciones
 grandes en lugar de teclado, colores de cinta como muestras con su nombre.
 

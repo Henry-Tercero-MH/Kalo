@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { MODULOS, PERMISOS_DECLARADOS, modulosPara, permisosDeRol, tienePermiso } from '../src';
+import {
+  ETAPA,
+  MODULOS,
+  PERMISOS_DECLARADOS,
+  modulosPara,
+  permisosDeRol,
+  tienePermiso,
+} from '../src';
 
 describe('permisos', () => {
   it('evalúa permisos exactos y comodines', () => {
@@ -38,18 +45,29 @@ describe('permisos', () => {
       'ordenes:ver',
     ]);
     const codigos = modulosPara('movil', caporal).map((m) => m.codigo);
-    expect(codigos).toContain('cosecha');
     expect(codigos).toContain('labores');
-    expect(codigos).toContain('fusarium');
     expect(codigos).not.toContain('plagas');
     expect(codigos).not.toContain('trampas');
     expect(codigos).not.toContain('mapa');
   });
 
+  it('la etapa actual congela módulos aunque el rol tenga permiso', () => {
+    const p = new Set([
+      'cosecha:ver',
+      'enfunde:ver',
+      'fusarium:crear',
+      'plagas:ver',
+      'labores:ver',
+    ]);
+    const codigos = modulosPara('movil', p).map((m) => m.codigo);
+    for (const c of ETAPA.modulosCongelados) expect(codigos).not.toContain(c);
+    expect(codigos).toContain('labores');
+  });
+
   it('los feature flags apagan módulos', () => {
-    const p = new Set(['cosecha:ver']);
-    expect(modulosPara('movil', p, new Set(['cosecha'])).map((m) => m.codigo)).not.toContain(
-      'cosecha',
+    const p = new Set(['labores:ver']);
+    expect(modulosPara('movil', p, new Set(['labores'])).map((m) => m.codigo)).not.toContain(
+      'labores',
     );
   });
 

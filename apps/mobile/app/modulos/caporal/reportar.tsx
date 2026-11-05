@@ -2,7 +2,13 @@
  * Reportar labor: lista de labores asignadas hoy; el caporal toca una, escribe la cantidad
  * hecha y guarda. También puede reportar una labor que no estaba asignada.
  */
-import { fechaIso, type Fila } from '@kalo/shared';
+import {
+  decimalesUnidad,
+  etiquetaUnidad,
+  fechaIso,
+  formatearNumero,
+  type Fila,
+} from '@kalo/shared';
 import { Q } from '@nozbe/watermelondb';
 import { useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
@@ -13,9 +19,9 @@ import { Boton } from '@/componentes/Boton';
 import { Contador } from '@/componentes/Controles';
 import { Icono } from '@/componentes/Icono';
 import { Pantalla } from '@/componentes/Pantalla';
-import { Subtitulo, Texto, Titulo } from '@/componentes/Texto';
-import { Estado } from '@/componentes/Visuales';
-import { espaciado, estilosBase, semantico, tipografia } from '@/componentes/tema';
+import { Etiqueta, Subtitulo, TextoNombre, Titulo } from '@/componentes/Texto';
+import { Estado, EstadoVacio } from '@/componentes/Visuales';
+import { bordes, campo, control, espaciado, estilosBase, semantico } from '@/componentes/tema';
 import { useConsulta } from '@/db/hooks';
 import { obtenerUbicacion } from '@/gps/ubicacion';
 import { useRequierePermiso } from '@/modulos/comun';
@@ -66,49 +72,60 @@ export default function ReportarLabor() {
       <Titulo>{t('caporal.reportar')}</Titulo>
 
       <Subtitulo>{`${t('caporal.porReportar')} (${porReportar.length})`}</Subtitulo>
-      {porReportar.length === 0 ? <Texto>{t('caporal.sinPorReportar')}</Texto> : null}
+      {porReportar.length === 0 ? (
+        <EstadoVacio
+          icono="reportar"
+          titulo={t('caporal.vacioPorReportar')}
+          descripcion={t('caporal.sinPorReportar')}
+        />
+      ) : null}
       {porReportar.map((a) => {
         const tipo = nombre.tipo.get(a.tipo_labor_id);
         const abierta = abiertaId === a.id;
         return (
-          <View key={a.id} style={[estilos.item, abierta && estilos.itemAbierto]}>
+          <View
+            key={a.id}
+            style={[estilos.item, estilos.itemTocable, abierta && estilos.itemAbierto]}
+          >
             <Pressable
               onPress={() => abrir(a)}
               accessibilityRole="button"
               accessibilityState={{ expanded: abierta }}
-              style={estilos.fila}
+              style={({ pressed }) => [estilos.fila, pressed && estilosBase.presionado]}
             >
               <View style={{ flex: 1 }}>
-                <Text style={estilos.trabajador}>
-                  {nombre.trabajador.get(a.trabajador_id) ?? '—'}
-                </Text>
+                <TextoNombre>{nombre.trabajador.get(a.trabajador_id) ?? '—'}</TextoNombre>
                 <Text style={estilosBase.secundario}>{descripcion(a)}</Text>
                 {a.meta !== null ? (
                   <Text style={estilosBase.secundario}>
-                    {t('caporal.metaValor', { n: a.meta, u: tipo?.unidad ?? '' })}
+                    {t('caporal.metaValor', {
+                      n: formatearNumero(a.meta, decimalesUnidad(tipo?.unidad)),
+                      u: etiquetaUnidad(tipo?.unidad),
+                    })}
                   </Text>
                 ) : null}
               </View>
-              <Icono nombre={abierta ? 'x' : 'chevron-right'} color={semantico.textoSecundario} />
+              <Icono nombre={abierta ? 'chevron-up' : 'chevron-down'} color={semantico.titulo} />
             </Pressable>
             {abierta ? (
               <View style={estilos.formulario}>
-                <Text style={estilosBase.etiqueta}>
-                  {t('caporal.cantidadHecha', { u: tipo?.unidad ?? '' })}
-                </Text>
+                <Etiqueta requerido>
+                  {t('caporal.cantidadHecha', { u: etiquetaUnidad(tipo?.unidad) })}
+                </Etiqueta>
                 <View style={{ marginVertical: espaciado.sm }}>
                   <Contador
+                    etiqueta={t('caporal.cantidadHecha', { u: etiquetaUnidad(tipo?.unidad) })}
                     valor={cantidad}
                     onCambio={setCantidad}
                     min={0}
                     max={10000}
-                    decimales={tipo?.unidad === 'hectareas' ? 1 : 0}
-                    unidad={tipo?.unidad}
+                    decimales={decimalesUnidad(tipo?.unidad)}
+                    unidad={etiquetaUnidad(tipo?.unidad)}
                   />
                 </View>
                 <Boton
                   titulo={t('caporal.guardarReporte')}
-                  icono="check"
+                  icono="guardar"
                   cargando={guardando}
                   deshabilitado={cantidad === null}
                   onPress={async () => {
@@ -137,7 +154,7 @@ export default function ReportarLabor() {
       <View style={{ marginTop: espaciado.lg }}>
         <Boton
           titulo={t('caporal.laborSinAsignar')}
-          icono="plus"
+          icono="agregar"
           variante="secundario"
           onPress={() => router.push('/modulos/labores/labor')}
         />
@@ -150,16 +167,18 @@ export default function ReportarLabor() {
             const tipo = nombre.tipo.get(a.tipo_labor_id);
             const hecho = a.labor_id ? nombre.cantidad.get(a.labor_id) : undefined;
             return (
-              <View key={a.id} style={[estilos.item, estilos.fila]}>
+              <View key={a.id} style={[estilos.item, estilos.itemSoloLectura, estilos.fila]}>
                 <View style={{ flex: 1 }}>
-                  <Text style={estilos.trabajador}>
-                    {nombre.trabajador.get(a.trabajador_id) ?? '—'}
-                  </Text>
+                  <TextoNombre>{nombre.trabajador.get(a.trabajador_id) ?? '—'}</TextoNombre>
                   <Text style={estilosBase.secundario}>{descripcion(a)}</Text>
                 </View>
                 <Estado
                   tipo="exito"
-                  texto={hecho !== undefined ? `${hecho} ${tipo?.unidad ?? ''}` : t('comun.listo')}
+                  texto={
+                    hecho !== undefined
+                      ? `${formatearNumero(hecho, decimalesUnidad(tipo?.unidad))} ${etiquetaUnidad(tipo?.unidad)}`
+                      : t('comun.listo')
+                  }
                 />
               </View>
             );
@@ -172,26 +191,26 @@ export default function ReportarLabor() {
 
 const estilos = StyleSheet.create({
   item: {
-    borderWidth: 1,
+    borderWidth: control.grosor,
     borderColor: semantico.borde,
     marginBottom: espaciado.sm,
   },
-  itemAbierto: { borderWidth: 2, borderColor: semantico.bordeFuerte },
+  // Se toca para abrir: borde de control. Al abrirse pasa a 2 pt negro; el padding de 1 pt se
+  // descuenta para que el contenido no salte.
+  itemTocable: { borderColor: control.bordeTocable, padding: control.ajusteFoco },
+  itemAbierto: { borderWidth: control.grosorFoco, borderColor: control.bordeFoco, padding: 0 },
+  itemSoloLectura: { borderColor: semantico.borde },
   fila: {
+    minHeight: campo.alturaTactil,
     flexDirection: 'row',
     alignItems: 'center',
     gap: espaciado.md,
     padding: espaciado.md,
   },
-  trabajador: {
-    fontFamily: tipografia.familias.titulo,
-    fontSize: 16,
-    color: semantico.titulo,
-  },
   formulario: {
     paddingHorizontal: espaciado.md,
     paddingBottom: espaciado.md,
-    borderTopWidth: 1,
+    borderTopWidth: bordes.lineaDivision,
     borderTopColor: semantico.borde,
     paddingTop: espaciado.md,
   },

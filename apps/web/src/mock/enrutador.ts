@@ -25,6 +25,7 @@ import {
   esquemaValidarRegistro,
   MODULOS,
   REGISTRO_TABLAS,
+  TABLAS_CONGELADAS,
   TABLAS_CRITICAS,
   tienePermiso,
   type FiltrosRegistros,
@@ -101,7 +102,11 @@ const TABLAS_REGISTROS: Partial<Record<NombreTabla, string>> = Object.fromEntrie
     m.tablas
       .filter((t) => REGISTRO_TABLAS[t].meta.direccion === 'ambas')
       .map((t) => [t, m.permisos.find((p) => p.codigo.endsWith(':ver'))?.codigo ?? m.permisoVer]),
-  ).filter(([t]) => !['puntos_ruta', 'archivos', 'consentimientos'].includes(t as string)),
+  ).filter(
+    ([t]) =>
+      !['puntos_ruta', 'archivos', 'consentimientos'].includes(t as string) &&
+      !TABLAS_CONGELADAS.has(t as NombreTabla),
+  ),
 );
 
 const PERMISO_VALIDAR: Partial<Record<NombreTabla, string>> = {

@@ -18,11 +18,12 @@ En modo demo el panel muestra la etiqueta **«DATOS DEMO (SIN API)»** junto al 
 
 ### Usuarios del modo demo
 
-| Usuario                            | PIN                    | Rol                                                    |
-| ---------------------------------- | ---------------------- | ------------------------------------------------------ |
-| `admin`                            | `1111`                 | Administrador                                          |
-| `gerente`                          | `2222`                 | Gerente                                                |
-| `supervisor`                       | `3333`                 | Supervisor                                             |
+| Usuario              | PIN            | Rol                                                    |
+| -------------------- | -------------- | ------------------------------------------------------ |
+| `admin`              | `1111`         | Administrador                                          |
+| `gerente`            | `2222`         | Gerente                                                |
+| `supervisor`         | `3333`         | Supervisor                                             |
+| `bodega`             | `6666`         | Bodega de materiales (solo el módulo Bodega)           |
 | `tecnico`, `caporal` | `4444`, `5555` | Roles de campo: usan la app móvil y no entran al panel |
 
 ## Cómo funciona el modo demo

@@ -3,7 +3,15 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Tabla, type Columna } from '@/componentes/Tabla';
-import { Aviso, Boton, Campo, Estado, Selector, Subtitulo } from '@/componentes/ui';
+import {
+  Aviso,
+  Boton,
+  Campo,
+  claseControlCompacto,
+  Estado,
+  Selector,
+  Subtitulo,
+} from '@/componentes/ui';
 import { api } from '@/lib/api';
 import { useCatalogos } from '@/lib/catalogos';
 
@@ -61,7 +69,7 @@ export function Usuarios() {
       accessorKey: 'rol_id',
       cell: ({ row }) => (
         <select
-          className="border border-neutros-n300 px-2 py-1"
+          className={claseControlCompacto}
           value={row.original.rol_id}
           onChange={(e) =>
             editar.mutate({ id: row.original.id, cambios: { rol_id: e.target.value } })
@@ -124,9 +132,10 @@ export function Usuarios() {
       ) : null}
       <Tabla datos={data ?? []} columnas={columnas} />
       <Subtitulo>Nuevo usuario</Subtitulo>
-      <div className="grid grid-cols-1 items-end gap-3 md:grid-cols-5">
+      <div className="grid grid-cols-1 items-start gap-3 md:grid-cols-5">
         <Campo
           etiqueta="Usuario"
+          ayuda="En minúsculas, sin espacios."
           value={nuevo.usuario}
           onChange={(e) => setNuevo({ ...nuevo, usuario: e.target.value.toLowerCase() })}
         />
@@ -148,13 +157,14 @@ export function Usuarios() {
           ))}
         </Selector>
         <Campo
-          etiqueta="PIN"
+          etiqueta="PIN (4 dígitos)"
           inputMode="numeric"
           maxLength={4}
           value={nuevo.pin}
           onChange={(e) => setNuevo({ ...nuevo, pin: e.target.value })}
         />
         <Boton
+          className="md:mt-5"
           disabled={!nuevo.usuario || !nuevo.nombre || !nuevo.rol_id || !/^\d{4}$/.test(nuevo.pin)}
           onClick={() => crear.mutate()}
         >

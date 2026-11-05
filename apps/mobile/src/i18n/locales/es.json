@@ -2,6 +2,8 @@
   "comun": {
     "guardar": "Guardar",
     "cancelar": "Cancelar",
+    "reintentar": "Reintentar",
+    "cerrar": "Cerrar",
     "siguiente": "Siguiente",
     "anterior": "Anterior",
     "aceptar": "Aceptar",
@@ -18,6 +20,7 @@
     "proximamente": "Próximamente",
     "demo": "DEMO",
     "paso": "{{actual}} DE {{total}}",
+    "avance": "{{actual}} de {{total}}",
     "ubicacion": "Ubicación",
     "precision": "±{{m}} m",
     "sinUbicacion": "Sin ubicación GPS",
@@ -27,7 +30,9 @@
     "grabar": "Grabar",
     "detener": "Detener",
     "notas": "Notas (opcional)",
-    "modoDemo": "Modo demo: datos ficticios, sin servidor."
+    "modoDemo": "Modo demo: datos ficticios, sin servidor.",
+    "obligatorio": "(obligatorio)",
+    "opcional": "(opcional)"
   },
   "configurar": {
     "titulo": "Configurar dispositivo",
@@ -38,7 +43,7 @@
     "nombre": "Nombre del dispositivo",
     "boton": "Configurar",
     "descargando": "Descargando datos de la finca…",
-    "mapa": "Descargando mapa sin conexión… {{p}} %",
+    "mapa": "Descargando mapa sin conexión",
     "error": "No se pudo configurar: {{e}}",
     "demoTitulo": "¿Solo quiere conocer la app?",
     "demoBoton": "PROBAR DEMO SIN SERVIDOR",
@@ -46,35 +51,50 @@
     "demoCargando": "Cargando datos DEMO…",
     "demoError": "No se pudo cargar el demo: {{e}}",
     "demoPendientes": "Este dispositivo tiene {{n}} registros sin enviar al servidor. Sincronice antes de probar el demo.",
-    "servidorTitulo": "Conectar a un servidor"
+    "servidorTitulo": "Conectar a un servidor",
+    "pinAyuda": "4 números",
+    "faltanDatos": "Escriba el usuario y el PIN de 4 números."
   },
   "login": {
     "titulo": "Iniciar sesión",
     "usuario": "Usuario",
     "pin": "PIN",
     "entrar": "Entrar",
-    "gafete": "Escanear gafete",
-    "incorrecto": "Usuario o contraseña incorrectos",
-    "bloqueado": "Demasiados intentos. Espere {{min}} minutos.",
+    "gafete": "Entrar con gafete",
+    "incorrecto": "El usuario o la contraseña no coinciden. Revíselos y vuelva a intentar.",
+    "bloqueado": "Por seguridad, espere {{min}} minutos y vuelva a intentar.",
     "sinUsuarios": "No hay usuarios en este dispositivo. Sincronice primero.",
     "elegirUsuario": "Elija su usuario",
-    "gafeteNoReconocido": "Gafete no reconocido",
-    "gafeteAyuda": "Apunte la cámara al código QR de su gafete.",
+    "gafeteNoReconocido": "No reconocimos este gafete. Acérquelo un poco y vuelva a intentar, o entre con su usuario y contraseña.",
+    "gafeteAyuda": "Apunte la cámara al código QR de su gafete y manténgalo quieto dentro del cuadro.",
     "o": "o",
     "verificando": "Verificando…",
     "app": "App de campo",
-    "ayuda": "Ingrese su usuario y contraseña.",
+    "ayuda": "Use el usuario y la contraseña que le dio la oficina.",
     "usuarioEjemplo": "Ej.: tecnico",
     "usuariosDemo": "Usuarios de demostración",
     "usuariosDemoAyuda": "Toque uno para llenar usuario y contraseña.",
-    "usarUsuario": "Usar el usuario {{usuario}}",
-    "sinSenal": "Funciona sin señal",
+    "usarUsuario": "Usar el usuario {{usuario}}, {{rol}}",
+    "sinSenal": "No necesita internet para entrar.",
     "contrasena": "Contraseña",
     "contrasenaEjemplo": "Su contraseña",
     "mostrarContrasena": "Mostrar contraseña",
     "ocultarContrasena": "Ocultar contraseña",
     "olvido": "¿Olvidó su contraseña?",
-    "olvidoAyuda": "Pida a su supervisor o al administrador que la restablezca desde el panel de oficina."
+    "olvidoAyuda": "Pida a su supervisor o al administrador que la restablezca desde el panel de oficina.",
+    "activarCamara": "Activar la cámara",
+    "faltanDatos": "Escriba su usuario y su contraseña.",
+    "gafeteHint": "Abre la cámara para leer el código QR de su gafete.",
+    "version": "Versión {{v}}",
+    "gafetePermiso": "Para leer su gafete, la app necesita usar la cámara. Solo la usa mientras está en esta pantalla.",
+    "camaraNegada": "La app no tiene permiso para usar la cámara. Toque «Activar la cámara» y elija «Permitir».",
+    "camaraBloqueada": "La cámara está bloqueada para esta app. Ábrala en Ajustes del teléfono, entre a Permisos y active la cámara. Mientras tanto, puede entrar con su usuario y contraseña.",
+    "abrirAjustes": "Abrir ajustes del teléfono",
+    "camaraNoDisponible": "La cámara no está disponible en este teléfono. Entre con su usuario y contraseña.",
+    "camaraVisor": "Visor de la cámara",
+    "verificandoGafete": "Verificando gafete…",
+    "gafeteAlternativa": "¿No tiene el gafete a mano?",
+    "volverFormulario": "Entrar con usuario y contraseña"
   },
   "consentimiento": {
     "titulo": "Aviso de rastreo GPS",
@@ -132,6 +152,7 @@
     "confirmarNota": "Los registros repetidos no se envían.",
     "siEnviar": "Sí, enviar",
     "enviando": "Enviando…",
+    "subiendoArchivos": "Subiendo fotos y archivos",
     "enviadoTitulo": "Datos enviados",
     "enviadoTexto": "Se enviaron {{n}} registros.",
     "sinSenalTitulo": "Sin señal",
@@ -206,6 +227,11 @@
     "motivo": "Motivo de la pérdida",
     "sugerido": "SUGERIDO"
   },
+  "etapa": {
+    "hoy": "Hoy",
+    "laboresHoy": "Registradas hoy: {{n}}",
+    "sinModulos": "En esta etapa la app se usa solo para labores y asistencia. Su rol no tiene módulos activos todavía."
+  },
   "labores": {
     "titulo": "Labores y asistencia",
     "asistencia": "Asistencia",
@@ -217,7 +243,8 @@
     "trabajador": "Trabajador",
     "cantidad": "Cantidad ({{u}})",
     "guardarAsistencia": "Guardar asistencia",
-    "asistenciaYaTomada": "La asistencia de hoy ya se tomó. Si cambia algo y guarda, se corrige (no se duplica)."
+    "asistenciaYaTomada": "La asistencia de hoy ya se tomó. Si cambia algo y guarda, se corrige (no se duplica).",
+    "faltanDatos": "Para guardar, elija el tipo de labor, el lote, el trabajador y la cantidad."
   },
   "rutas": {
     "titulo": "Rutas GPS",
@@ -306,7 +333,9 @@
     "sinReparto": "Todavía no hay labores asignadas hoy.",
     "reportada": "Reportada",
     "quitarDe": "Quitar a {{nombre}} de esta labor",
-    "metaSinUnidad": "Meta por trabajador, opcional"
+    "metaSinUnidad": "Meta por trabajador, opcional",
+    "noSeEnvia": "No se envía",
+    "eligeTrabajadores": "Toque a los trabajadores que harán esta labor."
   },
   "asistencia": {
     "presentes": "Presentes",
@@ -317,7 +346,8 @@
     "porQue": "¿Por qué no llegó?",
     "notaOtro": "Escriba el motivo",
     "faltaJustificar": "Ausencias sin justificar: {{n}}. Elija el motivo de cada una para guardar.",
-    "personal": "Personal a su cargo: {{n}} trabajadores"
+    "personal": "Personal a su cargo: {{n}} trabajadores",
+    "notaOtroAyuda": "Ej.: cita médica"
   },
   "gerencia": {
     "titulo": "Indicadores de la finca",
@@ -414,5 +444,10 @@
     "en_revision": "En revisión",
     "descartada": "Descartada",
     "confirmada": "Confirmada"
+  },
+  "controles": {
+    "cantidad": "Cantidad",
+    "restar": "Restar {{paso}}",
+    "sumar": "Sumar {{paso}}"
   }
 }

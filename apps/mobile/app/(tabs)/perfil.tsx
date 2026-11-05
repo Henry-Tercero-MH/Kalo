@@ -6,8 +6,8 @@ import { avisar, confirmar } from '@/componentes/alerta';
 import { Boton } from '@/componentes/Boton';
 import { Pantalla } from '@/componentes/Pantalla';
 import { Texto, Titulo } from '@/componentes/Texto';
-import { Dato, Tarjeta } from '@/componentes/Visuales';
-import { espaciado, semantico } from '@/componentes/tema';
+import { Dato, EstadoCarga, Tarjeta } from '@/componentes/Visuales';
+import { campo, control, espaciado, semantico } from '@/componentes/tema';
 import { CONFIG, USA_API } from '@/config';
 import { salirDelDemo } from '@/demo/activacion';
 import { tieneMapLibre } from '@/demo/entorno';
@@ -41,7 +41,8 @@ export default function Perfil() {
     }
   };
 
-  const confirmarSalida = () => confirmar(
+  const confirmarSalida = () =>
+    confirmar(
       t(USA_API ? 'perfil.salirDemoTitulo' : 'perfil.reiniciarDemoTitulo'),
       t(USA_API ? 'perfil.salirDemoTexto' : 'perfil.reiniciarDemoTexto'),
       () => void salir(),
@@ -65,14 +66,15 @@ export default function Perfil() {
         style={{
           flexDirection: 'row',
           alignItems: 'center',
-          minHeight: 56,
+          minHeight: campo.alturaTactil,
           marginBottom: espaciado.md,
         }}
       >
         <Texto style={{ flex: 1 }}>{t('perfil.ahorro')}</Texto>
         <Switch
           value={ahorro}
-          trackColor={{ true: semantico.acentoOscuro, false: semantico.borde }}
+          accessibilityLabel={t('perfil.ahorro')}
+          trackColor={{ true: semantico.acentoOscuro, false: control.borde }}
           onValueChange={async (v) => {
             setAhorro(v);
             await almacen.guardarPreferencias({
@@ -84,7 +86,7 @@ export default function Perfil() {
       </View>
       <Boton
         titulo={t('perfil.cambiarUsuario')}
-        icono="log-out"
+        icono="salir"
         onPress={() => {
           cerrar();
           router.replace('/(auth)/login');
@@ -92,8 +94,8 @@ export default function Perfil() {
       />
       {tieneMapLibre ? (
         <Boton
-          titulo={progreso !== null ? `${progreso} %` : t('perfil.mapaOffline')}
-          icono="download"
+          titulo={t('perfil.mapaOffline')}
+          icono="descargar"
           variante="secundario"
           cargando={progreso !== null && progreso < 100}
           onPress={async () => {
@@ -109,11 +111,14 @@ export default function Perfil() {
           }}
         />
       ) : null}
+      {progreso !== null ? (
+        <EstadoCarga titulo={t('configurar.mapa')} progreso={progreso} />
+      ) : null}
       {demo ? (
         <Boton
           titulo={t(USA_API ? 'perfil.salirDemo' : 'perfil.reiniciarDemo')}
           variante="peligro"
-          icono="log-out"
+          icono="salir"
           cargando={saliendo}
           onPress={confirmarSalida}
         />
@@ -121,7 +126,7 @@ export default function Perfil() {
         <Boton
           titulo={t('perfil.reconfigurar')}
           variante="secundario"
-          icono="settings"
+          icono="ajustes"
           onPress={() => router.push('/(auth)/configurar')}
         />
       )}
