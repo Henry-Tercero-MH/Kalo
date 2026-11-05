@@ -1,7 +1,6 @@
 'use client';
 
 import { MODULOS, type ManifiestoModulo } from '@kalo/shared';
-import { ChevronDown, LogOut, Menu, Search } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState, type ReactNode } from 'react';
@@ -157,7 +156,7 @@ export function Navegacion({ modulos, logo }: { modulos: string[]; logo: ReactNo
             aria-expanded={!compacto}
             className="inline-flex h-10 w-10 items-center justify-center text-neutros-n900 hover:bg-neutros-n50"
           >
-            <Menu size={20} aria-hidden />
+            <Icono nombre="menu" tamano={20} />
           </button>
         </div>
         {compacto ? null : logo}
@@ -169,7 +168,7 @@ export function Navegacion({ modulos, logo }: { modulos: string[]; logo: ReactNo
             Buscar módulo
           </label>
           <div className="flex items-center gap-2 rounded-campo border border-neutros-n500 bg-neutros-n0 px-3 focus-within:border-marca-verde700 focus-within:outline-3 focus-within:outline-offset-0 focus-within:outline-marca-verde100">
-            <Search size={16} className="shrink-0 text-neutros-n500" aria-hidden />
+            <Icono nombre="search" tamano={16} className="shrink-0 text-neutros-n500" />
             <input
               id="buscar-modulo"
               type="search"
@@ -204,9 +203,9 @@ export function Navegacion({ modulos, logo }: { modulos: string[]; logo: ReactNo
                       <Icono nombre={g.icono} tamano={15} />
                     </span>
                     <span className="flex-1">{g.nombre}</span>
-                    <ChevronDown
-                      size={16}
-                      aria-hidden
+                    <Icono
+                      nombre="chevron-down"
+                      tamano={16}
                       className={abierto(claveG) ? 'rotate-180' : undefined}
                     />
                   </button>
@@ -223,9 +222,9 @@ export function Navegacion({ modulos, logo }: { modulos: string[]; logo: ReactNo
                           >
                             <Icono nombre={s.icono} tamano={15} />
                             <span className="flex-1">{s.nombre}</span>
-                            <ChevronDown
-                              size={16}
-                              aria-hidden
+                            <Icono
+                              nombre="chevron-down"
+                              tamano={16}
                               className={abierto(claveS) ? 'rotate-180' : undefined}
                             />
                           </button>
@@ -257,7 +256,7 @@ export function Navegacion({ modulos, logo }: { modulos: string[]; logo: ReactNo
             router.replace('/login');
           }}
         >
-          <LogOut size={16} aria-hidden />
+          <Icono nombre="log-out" tamano={16} />
           {compacto ? <span className="sr-only">Cerrar sesión</span> : 'Cerrar sesión'}
         </button>
       </div>

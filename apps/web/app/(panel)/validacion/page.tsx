@@ -4,85 +4,17 @@
  * Bandeja del supervisor: registros críticos pendientes (cosecha, labores, alertas)
  * y conflictos de sincronización entre celulares.
  */
-import {
-  formatearFecha,
-  formatearFechaHora,
-  formatearNumero,
-  REGISTRO_TABLAS,
-  TABLAS_CONGELADAS,
-  type NombreTabla,
-} from '@kalo/shared';
+import { TABLAS_CONGELADAS, type NombreTabla } from '@kalo/shared';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import { ArchivosRegistro } from '@/componentes/Archivos';
-import {
-  Aviso,
-  Boton,
-  Campo,
-  Cargando,
-  claseEncabezadoTabla,
-  Estado,
-  MuestraColor,
-  Subtitulo,
-  Tarjeta,
-  Titulo,
-} from '@/componentes/ui';
+import { Aviso, Cargando, Subtitulo, Titulo } from '@/componentes/ui';
 import { api } from '@/lib/api';
-import { useNombres } from '@/lib/catalogos';
-
-type Fila = Record<string, unknown> & { id: string };
-
-interface Conflicto {
-  id: string;
-  tabla: string;
-  registro_id: string;
-  usuario_id: string | null;
-  dispositivo_id: string | null;
-  created_at: number;
-  datos: {
-    campos: {
-      campo: string;
-      valorServidor: unknown;
-      valorCliente: unknown;
-      ganador: 'servidor' | 'cliente';
-    }[];
-    resultado: Record<string, unknown>;
-  };
-}
-
-function Resumen({ tabla, f }: { tabla: string; f: Fila }) {
-  const n = useNombres();
-  const color = n.colores.get(String(f.color_cinta_id));
-  return (
-    <div className="text-sm">
-      <p className="font-extrabold uppercase text-neutros-n900">
-        {n.lotes.get(String(f.lote_id)) ?? 'Sin lote'} · {formatearFecha(String(f.fecha))}
-      </p>
-      {tabla === 'cosecha' ? (
-        <p className="tabular flex items-center gap-3">
-          <MuestraColor hex={color?.hex} nombre={color?.nombre} />{' '}
-          {formatearNumero(Number(f.racimos_cosechados))} cosechados ·{' '}
-          {formatearNumero(Number(f.racimos_perdidos))} perdidos
-        </p>
-      ) : null}
-      {tabla === 'labores' ? (
-        <p className="tabular">
-          {n.tipos.get(String(f.tipo_labor_id))} ·{' '}
-          {n.trabajadores.get(String(f.trabajador_id)) ?? '—'} ·{' '}
-          {formatearNumero(Number(f.cantidad), 1)}
-        </p>
-      ) : null}
-      {tabla === 'alertas_fusarium' ? <p>Fusarium: {String(f.estado).toUpperCase()}</p> : null}
-      <p className="text-neutros-n500">
-        {n.usuarios.get(String(f.created_by)) ?? '—'} · {formatearFechaHora(Number(f.created_at))}
-      </p>
-    </div>
-  );
-}
+import { GrupoPendientes } from './_componentes/GrupoPendientes';
+import { TarjetaConflicto } from './_componentes/TarjetaConflicto';
+import type { Conflicto, Decision, Fila } from './_componentes/tipos';
 
 export default function Validacion() {
   const cliente = useQueryClient();
-  const n = useNombres();
   const pendientes = useQuery({
     queryKey: ['pendientes'],
     queryFn: () => api<Record<string, Fila[]>>('/validacion/pendientes'),
@@ -97,16 +29,10 @@ export default function Validacion() {
   const visible = (tabla: string) => !TABLAS_CONGELADAS.has(tabla as NombreTabla);
   const listaConflictos = (conflictos.data ?? []).filter((c) => visible(c.tabla));
   const listaPendientes = Object.entries(pendientes.data ?? {}).filter(([t]) => visible(t));
-  const [motivos, setMotivos] = useState<Record<string, string>>({});
   const [elecciones, setElecciones] = useState<Record<string, Record<string, unknown>>>({});
 
   const validar = useMutation({
-    mutationFn: (v: {
-      tabla: string;
-      id: string;
-      decision: 'validado' | 'rechazado';
-      motivo?: string;
-    }) =>
+    mutationFn: (v: Decision) =>
       api(`/validacion/${v.tabla}/${v.id}`, {
         method: 'POST',
         body: { decision: v.decision, motivo: v.motivo },
@@ -137,162 +63,29 @@ export default function Validacion() {
         <p className="text-sm text-neutros-n500">Sin conflictos pendientes.</p>
       ) : null}
       <div className="flex flex-col gap-3">
-        {listaConflictos.map((c) => {
-          const elegidos = elecciones[c.id] ?? {};
-          return (
-            <Tarjeta key={c.id}>
-              <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-                <p className="font-extrabold uppercase text-neutros-n900">
-                  {REGISTRO_TABLAS[c.tabla as NombreTabla]?.meta.etiqueta ?? c.tabla} ·{' '}
-                  {n.lotes.get(String(c.datos.resultado.lote_id)) ?? ''}
-                </p>
-                <Estado tipo="alerta" texto="Conflicto" />
-              </div>
-              <p className="mb-2 text-xs text-neutros-n500">
-                {formatearFechaHora(c.created_at)} · {n.usuarios.get(String(c.usuario_id)) ?? '—'} ·
-                dispositivo {String(c.dispositivo_id).slice(0, 8)}
-              </p>
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b-2 border-marca-negro">
-                    <th scope="col" className={claseEncabezadoTabla}>
-                      Campo
-                    </th>
-                    <th scope="col" className={`${claseEncabezadoTabla} text-right`}>
-                      Servidor
-                    </th>
-                    <th scope="col" className={`${claseEncabezadoTabla} text-right`}>
-                      Celular
-                    </th>
-                    <th scope="col" className={`${claseEncabezadoTabla} text-right`}>
-                      Valor final
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {c.datos.campos.map((k) => {
-                    const final =
-                      k.campo in elegidos
-                        ? elegidos[k.campo]
-                        : k.ganador === 'cliente'
-                          ? k.valorCliente
-                          : k.valorServidor;
-                    const opcion = (v: unknown, etiqueta: string) => (
-                      <button
-                        type="button"
-                        aria-pressed={final === v}
-                        className={`tabular inline-flex min-h-10 items-center gap-1 border-2 px-3 ${final === v ? 'border-marca-negro bg-marca-verde100 font-extrabold text-neutros-n900' : 'border-neutros-n500 hover:border-marca-negro'}`}
-                        onClick={() =>
-                          setElecciones((e) => ({ ...e, [c.id]: { ...elegidos, [k.campo]: v } }))
-                        }
-                        aria-label={`Usar valor del ${etiqueta}: ${String(v ?? '—')}`}
-                      >
-                        {final === v ? <span aria-hidden>✓</span> : null}
-                        {String(v ?? '—')}
-                      </button>
-                    );
-                    return (
-                      <tr key={k.campo} className="border-b border-neutros-n200">
-                        <td className="px-3 py-2">{k.campo.replace(/_/g, ' ')}</td>
-                        <td className="px-3 py-2 text-right">
-                          {opcion(k.valorServidor, 'servidor')}
-                        </td>
-                        <td className="px-3 py-2 text-right">
-                          {opcion(k.valorCliente, 'celular')}
-                        </td>
-                        <td className="tabular px-3 py-2 text-right font-extrabold text-neutros-n900">
-                          {String(final ?? '—')}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-              <div className="mt-3">
-                <Boton
-                  disabled={resolver.isPending}
-                  onClick={() => {
-                    const valores = Object.fromEntries(
-                      c.datos.campos.map((k) => [
-                        k.campo,
-                        k.campo in elegidos
-                          ? elegidos[k.campo]
-                          : k.ganador === 'cliente'
-                            ? k.valorCliente
-                            : k.valorServidor,
-                      ]),
-                    );
-                    resolver.mutate({ id: c.id, valores });
-                  }}
-                >
-                  Confirmar valor final
-                </Boton>
-              </div>
-            </Tarjeta>
-          );
-        })}
+        {listaConflictos.map((c) => (
+          <TarjetaConflicto
+            key={c.id}
+            conflicto={c}
+            elegidos={elecciones[c.id] ?? {}}
+            onElegir={(campo, valor) =>
+              setElecciones((e) => ({ ...e, [c.id]: { ...e[c.id], [campo]: valor } }))
+            }
+            onConfirmar={(valores) => resolver.mutate({ id: c.id, valores })}
+            enviando={resolver.isPending}
+          />
+        ))}
       </div>
 
       {listaPendientes.map(([tabla, filas]) => (
-        <div key={tabla}>
-          <Subtitulo>
-            {REGISTRO_TABLAS[tabla as NombreTabla]?.meta.etiqueta ?? tabla} pendientes (
-            {filas.length})
-          </Subtitulo>
-          {filas.length > 1 ? (
-            <Boton
-              className="mb-2"
-              variante="secundario"
-              disabled={validar.isPending}
-              onClick={async () => {
-                if (!window.confirm(`¿Validar los ${filas.length} registros pendientes?`)) return;
-                for (const f of filas)
-                  await validar.mutateAsync({ tabla, id: f.id, decision: 'validado' });
-              }}
-            >
-              Validar todos
-            </Boton>
-          ) : null}
-          {filas.length === 0 ? <p className="text-sm text-neutros-n500">Nada pendiente.</p> : null}
-          <div className="flex flex-col">
-            {filas.map((f) => (
-              <div
-                key={f.id}
-                className="grid grid-cols-1 items-start gap-3 border-b border-neutros-n200 py-3 lg:grid-cols-[1fr_auto]"
-              >
-                <div>
-                  <Resumen tabla={tabla} f={f} />
-                  <ArchivosRegistro tabla={tabla} id={f.id} />
-                </div>
-                <div className="flex flex-wrap items-end gap-2">
-                  <Campo
-                    etiqueta="Motivo (obligatorio para rechazar)"
-                    placeholder="Ej.: cantidad no coincide"
-                    value={motivos[f.id] ?? ''}
-                    onChange={(e) => setMotivos((m) => ({ ...m, [f.id]: e.target.value }))}
-                  />
-                  <Boton onClick={() => validar.mutate({ tabla, id: f.id, decision: 'validado' })}>
-                    Validar
-                  </Boton>
-                  <Boton
-                    variante="peligro"
-                    disabled={!motivos[f.id]}
-                    onClick={() =>
-                      validar.mutate({
-                        tabla,
-                        id: f.id,
-                        decision: 'rechazado',
-                        motivo: motivos[f.id],
-                      })
-                    }
-                  >
-                    Rechazar
-                  </Boton>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <GrupoPendientes
+          key={tabla}
+          tabla={tabla}
+          filas={filas}
+          onDecidir={(d) => validar.mutate(d)}
+          onDecidirEsperando={(d) => validar.mutateAsync(d)}
+          enviando={validar.isPending}
+        />
       ))}
     </>
   );

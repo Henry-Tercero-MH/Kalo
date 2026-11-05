@@ -1,10 +1,16 @@
 'use client';
 
 import { useState, type KeyboardEvent } from 'react';
-import { Calendario, Lotes, Plagas, TiposLabor } from './_componentes/Catalogos';
+import { Bitacora } from './_componentes/Bitacora';
+import { Calendario } from './_componentes/Calendario';
+import { Formularios } from './_componentes/Formularios';
+import { Lotes } from './_componentes/Lotes';
+import { Modulos } from './_componentes/Modulos';
+import { Parametros } from './_componentes/Parametros';
 import { PersonalPorCaporal } from './_componentes/Personal';
-import { Bitacora, Formularios, Modulos, Parametros } from './_componentes/Plataforma';
+import { Plagas } from './_componentes/Plagas';
 import { Roles } from './_componentes/Roles';
+import { TiposLabor } from './_componentes/TiposLabor';
 import { Usuarios } from './_componentes/Usuarios';
 import { Titulo } from '@/componentes/ui';
 

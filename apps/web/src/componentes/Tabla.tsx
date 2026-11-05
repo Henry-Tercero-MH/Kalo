@@ -15,6 +15,7 @@ import {
 } from '@tanstack/react-table';
 import { formatearNumero } from '@kalo/shared';
 import { useState } from 'react';
+import { Icono } from './Icono';
 import { Boton } from './ui';
 
 export type Columna<T> = ColumnDef<T, unknown> & { meta?: { numero?: boolean } };
@@ -76,8 +77,9 @@ export function Tabla<T>({
                         className={`inline-flex min-h-10 select-none items-center gap-1 uppercase tracking-[0.14em] hover:text-neutros-n900 ${numero ? 'flex-row-reverse' : ''} ${dir ? 'text-neutros-n900' : ''}`}
                       >
                         {contenido}
-                        <span aria-hidden className="inline-block w-3 text-center">
-                          {dir === 'asc' ? '↑' : dir === 'desc' ? '↓' : ''}
+                        <span aria-hidden className="inline-flex w-3 justify-center">
+                          {dir === 'asc' ? <Icono nombre="chevron-up" tamano={14} /> : null}
+                          {dir === 'desc' ? <Icono nombre="chevron-down" tamano={14} /> : null}
                         </span>
                       </button>
                     ) : (

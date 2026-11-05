@@ -1,10 +1,10 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { House, UserRound } from 'lucide-react';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import type { ReactNode } from 'react';
+import { Icono } from '@/componentes/Icono';
 import { Navegacion } from '@/componentes/Navegacion';
 import { IndicadorDemo, Logo } from '@/componentes/ui';
 import { perfilActual } from '@/lib/servidor';
@@ -45,7 +45,7 @@ export default async function PanelLayout({ children }: { children: ReactNode })
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="flex min-h-16 items-center justify-end gap-5 border-b border-neutros-n200 bg-neutros-n50 px-8">
           <p className="flex items-center gap-2 text-sm text-neutros-n700">
-            <UserRound size={18} className="text-neutros-n900" aria-hidden />
+            <Icono nombre="user-round" tamano={18} className="text-neutros-n900" />
             <span>
               Usuario: <strong className="text-neutros-n900">{perfil.usuario.toUpperCase()}</strong>
               <span className="ml-2 text-neutros-n500">· {ROLES[perfil.rol] ?? perfil.rol}</span>
@@ -57,7 +57,7 @@ export default async function PanelLayout({ children }: { children: ReactNode })
             title="Inicio"
             className="inline-flex h-10 w-10 items-center justify-center border border-transparent text-neutros-n900 hover:border-marca-negro hover:bg-neutros-n0"
           >
-            <House size={22} aria-hidden />
+            <Icono nombre="house" tamano={22} />
           </Link>
         </header>
         <main id="contenido" tabIndex={-1} className="min-w-0 flex-1 px-8 py-6 focus:outline-none">

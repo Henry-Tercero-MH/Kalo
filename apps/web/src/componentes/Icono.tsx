@@ -4,25 +4,37 @@ import {
   Boxes,
   Bug,
   Calculator,
+  Check,
+  ChevronLeft,
   ChartColumn,
+  ChevronDown,
+  ChevronUp,
   ClipboardList,
   Clock,
+  Download,
   Factory,
+  House,
   FileChartColumn,
   ListChecks,
+  LogOut,
   Map,
+  Menu,
   Package,
+  Plus,
   Route,
   Satellite,
   ScanQrCode,
+  Search,
   Settings,
   Smartphone,
   Square,
   Table,
   Tractor,
+  Trash2,
   TriangleAlert,
   Truck,
   UserCog,
+  UserRound,
   Users,
   Wallet,
   Warehouse,
@@ -38,6 +50,18 @@ const ICONOS: Record<string, LucideIcon> = {
   bug: Bug,
   calculator: Calculator,
   'chart-column': ChartColumn,
+  check: Check,
+  'chevron-left': ChevronLeft,
+  download: Download,
+  house: House,
+  'log-out': LogOut,
+  menu: Menu,
+  plus: Plus,
+  search: Search,
+  'trash-2': Trash2,
+  'user-round': UserRound,
+  'chevron-down': ChevronDown,
+  'chevron-up': ChevronUp,
   'clipboard-list': ClipboardList,
   clock: Clock,
   factory: Factory,
@@ -65,11 +89,14 @@ export function Icono({
   nombre,
   tamano = 18,
   grosor = 2,
+  className,
 }: {
   nombre: string;
   tamano?: number;
   grosor?: number;
+  /** Clases de Tailwind para color o rotación (p. ej. `rotate-180`). */
+  className?: string;
 }) {
   const C = ICONOS[nombre] ?? Square;
-  return <C size={tamano} strokeWidth={grosor} aria-hidden />;
+  return <C size={tamano} strokeWidth={grosor} className={className} aria-hidden />;
 }

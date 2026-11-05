@@ -29,6 +29,26 @@ La regla:
 - Si un componente de un módulo empieza a usarse en otro, se sube a `src/` (y si cambia
   según el módulo, se le agregan props en vez de copiarlo).
 
+### Tamaño máximo de archivo
+
+`pnpm lint` falla si un archivo pasa de estos límites (líneas de código, sin contar líneas en
+blanco ni comentarios; regla `max-lines` en `eslint.config.mjs`):
+
+| Archivo                                 | Máximo     |
+| --------------------------------------- | ---------- |
+| `page.tsx`, `layout.tsx`                | 150 líneas |
+| Componentes y lógica (`.tsx`, `.ts`)    | 250 líneas |
+| `src/mock/` (simulador de la API, demo) | sin límite |
+
+Cuando una página crece, se parte por secciones en `_componentes/` (ver `validacion/`,
+`pronostico/`, `registros/[tabla]/`): la página guarda los datos y arma la vista; cada sección,
+formulario o tabla grande va en su archivo. Los componentes base de `src/componentes/ui/` están
+divididos por tema (`texto`, `acciones`, `campos`, `estado`, `marca`) y se importan juntos
+desde `@/componentes/ui`.
+
+Los íconos se usan solo con `Icono` (`@/componentes/Icono`); importar `lucide-react` en otro
+archivo también hace fallar el lint.
+
 Diseño (colores, tipografía, componentes): [DESIGN_SYSTEM.md](../../DESIGN_SYSTEM.md).
 
 ## Fuente de datos: demo o API
